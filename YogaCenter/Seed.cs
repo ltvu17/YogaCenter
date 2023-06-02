@@ -914,13 +914,14 @@ namespace YogaCenter
                         Status = 1,
                         Role = roles[4]
                     };
+                    _context.Add(manager);
                     var admin = new User()
                     {
                         Id = Guid.NewGuid(),
                         UserName = "admin@gmail.com",
                         UserPasswork = "12345",
                         Status = 1,
-                        Role = roles[4]
+                        Role = roles[0]
                     };
                     _context.Add(admin);
                     _context.SaveChanges();
