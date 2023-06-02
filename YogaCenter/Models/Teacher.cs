@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace YogaCenter_SWP_.Models
+namespace YogaCenter.Models
 {
     public class Teacher
     {

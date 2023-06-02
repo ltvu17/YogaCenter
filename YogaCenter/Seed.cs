@@ -1,8 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using YogaCenter_SWP_.Datacontext;
-using YogaCenter_SWP_.Models;
+using YogaCenter.Models;
 
-namespace YogaCenter_SWP_
+namespace YogaCenter
 {
     public class Seed
     {
@@ -58,9 +57,10 @@ namespace YogaCenter_SWP_
             Guid UserCus18 = Guid.NewGuid();
             Guid UserCus19 = Guid.NewGuid();
             Guid UserCus20 = Guid.NewGuid();
+            Guid Class1 = Guid.NewGuid();
+            Guid Course1 = Guid.NewGuid();
 
-            
-            if( _context.ClassCustomers.Any())
+            if (!_context.ClassCustomers.Any())
             {
                 if (!_context.Roles.Any())
                 {
@@ -88,7 +88,20 @@ namespace YogaCenter_SWP_
                     }
                 };
                     _context.AddRange(roles);
-
+                    _context.SaveChanges();
+                    var course = new Course()
+                    {
+                        Id = Course1,
+                        CourseCreateDate = DateTime.Now,
+                        CourseDescription = "nothing",
+                        CourseDetail = "notyet",
+                        CourseLectureNumber = 30,
+                        CourseLength = 30,
+                        Pre_Requisite = "no",
+                        CoursePrice = 30,
+                    };
+                    _context.Add(course);
+                    _context.SaveChanges();
                     var ClassCustomers = new List<ClassCustomer>()
                 {
                     new ClassCustomer()
@@ -105,10 +118,19 @@ namespace YogaCenter_SWP_
                                Id= UserCus1,
                                Role = roles.Where(r => r.RoleName == "Customer").First()
                             }
+                        },
+                        Class = new Class()
+                        {
+                            Id = Class1,
+                            ClassStartDate = DateTime.Now,
+                            ClassEndDate = DateTime.MaxValue,
+                            Course = course
                         }
+
                     }
                 };
                     _context.AddRange(ClassCustomers);
+                    _context.SaveChanges();
                 }
 
             }

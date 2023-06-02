@@ -1,6 +1,6 @@
 using Microsoft.EntityFrameworkCore;
-using YogaCenter_SWP_;
-using YogaCenter_SWP_.Datacontext;
+using YogaCenter;
+using YogaCenter.Models;
 
 namespace YogaCenter
 {

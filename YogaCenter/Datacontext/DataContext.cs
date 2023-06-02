@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using YogaCenter_SWP_.Models;
+using YogaCenter.Models;
 
-namespace YogaCenter_SWP_.Datacontext
+namespace YogaCenter.Models
 {
     public class DataContext : DbContext
     {
