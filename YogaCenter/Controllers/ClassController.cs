@@ -9,14 +9,14 @@ namespace YogaCenter.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ClassRepository : Controller
+    public class ClassController : Controller
     {
         private readonly IClassRepository _classesRepository;
         private readonly IMapper _mapper;
         private readonly ITeacherRepository _teacherRepository;
         private readonly ICourseRepository _courseRepository;
 
-        public ClassRepository(IClassRepository classRepository, IMapper mapper, ITeacherRepository teacherRepository, ICourseRepository courseRepository)
+        public ClassController(IClassRepository classRepository, IMapper mapper, ITeacherRepository teacherRepository, ICourseRepository courseRepository)
         {
             _classesRepository = classRepository;
             _mapper = mapper;
@@ -39,7 +39,7 @@ namespace YogaCenter.Controllers
             if (classDto == null) { return BadRequest(); }
             if (await _classesRepository.ClassExists(classDto.Id))
             {
-                ModelState.AddModelError("", "Shift Id already existed");
+                ModelState.AddModelError("", "Class Id already existed");
                 return BadRequest(ModelState);
             }
             if(courseId.Equals(Guid.Empty)) { return BadRequest(ModelState); }
@@ -70,7 +70,7 @@ namespace YogaCenter.Controllers
             if (classDto == null) { return BadRequest(); }
             if (await _classesRepository.ClassExists(classDto.Id))
             {
-                ModelState.AddModelError("", "Shift Id already existed");
+                ModelState.AddModelError("", "Class Id already existed");
                 return BadRequest(ModelState);
             }
             if (courseId.Equals(Guid.Empty)) { return BadRequest(ModelState); }
@@ -80,7 +80,7 @@ namespace YogaCenter.Controllers
             if (!teacherId.Equals(Guid.Empty))
             {
                 if (!await _teacherRepository.TeacherExists(teacherId))
-                    return BadRequest();
+                    return BadRequest("Teacher is not exists");
                 teacher  = await _teacherRepository.GetTeacherById(teacherId);
             }
             var classs = await _classesRepository.GetClassById(classId);
