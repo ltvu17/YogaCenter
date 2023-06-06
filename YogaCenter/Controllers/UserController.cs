@@ -46,11 +46,23 @@ namespace YogaCenter.Controllers
             }
             return Ok(userLogined);
         }
+        [HttpGet("{userId}")]
+        public async Task<IActionResult> GetUserById(Guid userId)
+        {
+            if (userId.Equals(null)) return NotFound();
+            if(!await _userRepository.UserExistsById(userId)) return NotFound("User Id not exists");
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            var user = await _userRepository.GetUserById(userId);
+            return Ok(user);
+        }
         [HttpPost("{roleName}")]
         public async Task<IActionResult> CreateUser(string roleName, [FromBody] UserDto userDto)
         {
             if(roleName == null || userDto == null) { return BadRequest(); }
-            if (await _userRepository.UserExists(userDto.UserName))
+            if (await _userRepository.UserExists(userDto.UserName) || await _userRepository.UserExistsById(userDto.Id))
             {
                 ModelState.AddModelError("", "User already Exists");
                 return BadRequest(ModelState);
@@ -63,8 +75,7 @@ namespace YogaCenter.Controllers
             }
             if (!ModelState.IsValid) { return BadRequest(ModelState); }
             var user = _mapper.Map<User>(userDto);
-            user.Role = role;
-            user.Id = Guid.NewGuid();
+            user.Role = role;           
             if (await _userRepository.CreateUser(user))
             {
                 return Ok("Created");

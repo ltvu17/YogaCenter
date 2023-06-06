@@ -60,7 +60,7 @@ namespace YogaCenter.Repository
 
         public async Task<User> GetUserById(Guid id)
         {
-            return await _context.Users.Where(p => p.Id == id).FirstOrDefaultAsync();
+            return await _context.Users.Where(p => p.Id == id).Include(p => p.Role).FirstOrDefaultAsync();
         }
 
         public async Task<bool> DeleteUser(User userDelete)
