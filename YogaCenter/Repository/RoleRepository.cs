@@ -32,7 +32,7 @@ namespace YogaCenter.Repository
 
         public async Task<bool> RoleExists(Role role)
         {
-            return _context.Roles.Any(p => p == role);
+            return await _context.Roles.AnyAsync(p => p == role);
         }
 
         public bool Save()

@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Cors.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 using System.Text.Json.Serialization;
 using YogaCenter;
@@ -12,14 +13,32 @@ namespace YogaCenter
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
-
+            builder.Services.AddCors(options =>
+            {
+                options.AddPolicy("CORSPolicy", builder =>
+                {
+                    builder.WithOrigins("http://localhost:3000")
+                    .AllowAnyOrigin()
+                    .AllowAnyMethod().AllowAnyHeader()
+                    ;                     
+                });
+            } 
+            );
             // Add services to the container.
             builder.Services.AddTransient<Seed>();
             builder.Services.AddTransient<IRoleRepository, RoleRepository>();
             builder.Services.AddTransient<IUserRepository, UserRepository>();
+            builder.Services.AddTransient<ITeacherRepository, TeacherRepository>();
+            builder.Services.AddTransient<ICustomerRepository, CustomerRepository>();
+            builder.Services.AddTransient<ICertificateRepository, CertificateRepository>();
+            builder.Services.AddTransient<IShiftRepository, ShiftRepository>();
+            builder.Services.AddScoped<IRoleRepository, RoleRepository>();
+            builder.Services.AddScoped<IRoomRepository, RoomRepository>();
+            builder.Services.AddScoped<ICourseRepository, CourseRepository>();
+            builder.Services.AddScoped<IClassRepository, ClassRepository>();
             builder.Services.AddControllers();
             builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
-            builder.Services.AddScoped<IRoleRepository, RoleRepository>();
+            
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
@@ -56,7 +75,10 @@ namespace YogaCenter
 
             app.UseHttpsRedirection();
 
+
+
             app.UseAuthorization();
+            app.UseCors("CORSPolicy");
 
 
             app.MapControllers();
