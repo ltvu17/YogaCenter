@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace YogaCenter.Migrations
 {
     /// <inheritdoc />
-    public partial class FirstCreate : Migration
+    public partial class AlphaDataBase : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -209,6 +209,7 @@ namespace YogaCenter.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    ClassName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     ClassStartDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     ClassEndDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     TeacherId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
@@ -261,9 +262,9 @@ namespace YogaCenter.Migrations
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     LessonDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Status = table.Column<int>(type: "int", nullable: false),
-                    RoomId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    ShiftId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    ClassId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
+                    RoomId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
+                    ShiftId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
+                    ClassId = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -272,20 +273,17 @@ namespace YogaCenter.Migrations
                         name: "FK_Lessons_Classes_ClassId",
                         column: x => x.ClassId,
                         principalTable: "Classes",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_Lessons_Rooms_RoomId",
                         column: x => x.RoomId,
                         principalTable: "Rooms",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_Lessons_Shifts_ShiftId",
                         column: x => x.ShiftId,
                         principalTable: "Shifts",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(

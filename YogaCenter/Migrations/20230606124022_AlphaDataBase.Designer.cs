@@ -12,8 +12,8 @@ using YogaCenter.Models;
 namespace YogaCenter.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20230602103115_FirstCreate")]
-    partial class FirstCreate
+    [Migration("20230606124022_AlphaDataBase")]
+    partial class AlphaDataBase
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -57,6 +57,10 @@ namespace YogaCenter.Migrations
 
                     b.Property<DateTime>("ClassEndDate")
                         .HasColumnType("datetime2");
+
+                    b.Property<string>("ClassName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("ClassStartDate")
                         .HasColumnType("datetime2");
@@ -250,16 +254,16 @@ namespace YogaCenter.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid>("ClassId")
+                    b.Property<Guid?>("ClassId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime>("LessonDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<Guid>("RoomId")
+                    b.Property<Guid?>("RoomId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid>("ShiftId")
+                    b.Property<Guid?>("ShiftId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<int>("Status")
@@ -496,21 +500,15 @@ namespace YogaCenter.Migrations
                 {
                     b.HasOne("YogaCenter.Models.Class", "Class")
                         .WithMany("ClassLessons")
-                        .HasForeignKey("ClassId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("ClassId");
 
                     b.HasOne("YogaCenter.Models.Room", "Room")
                         .WithMany("ClassLessons")
-                        .HasForeignKey("RoomId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("RoomId");
 
                     b.HasOne("YogaCenter.Models.Shift", "Shift")
                         .WithMany("ClassLessons")
-                        .HasForeignKey("ShiftId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("ShiftId");
 
                     b.Navigation("Class");
 

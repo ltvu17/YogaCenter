@@ -7,6 +7,7 @@ namespace YogaCenter.ModelsDto
     {
         [Key]
         public Guid Id { get; set; }
+        public string ClassName { get; set; }
         [Required]
         public DateTime ClassStartDate { get; set; }
         [Required]

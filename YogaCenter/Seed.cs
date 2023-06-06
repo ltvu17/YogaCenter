@@ -466,6 +466,7 @@ namespace YogaCenter
                         Course = course,
                         ClassStartDate = DateTime.Now,
                         ClassEndDate = DateTime.Now.AddMonths(3),
+                        ClassName = "Class1"
                     };
                     _context.Add(classes);
                     var classCustomers = new List<ClassCustomer>()
@@ -894,8 +895,7 @@ namespace YogaCenter
                             Note = "Paid",
                             TotalPay= 3000000
                         });
-                    }             
-                   
+                    }                              
                     _context.AddRange(invoice);
                     var staff = new User()
                     {
