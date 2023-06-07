@@ -1,0 +1,174 @@
+
+
+.banner{
+    background-color: #d2c7c9;
+    height: 100vh;
+    width: 100%;
+}
+.banner img{
+    position: relative;
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    width: 1200px;
+    top: -20px;;
+}
+.banner-content{
+    position: absolute;
+   
+    top: 247px;
+    right: 340px;
+
+
+    text-align: right;
+}
+.banner-content h4{
+    font-size: 41px;
+    color: #d2608d;
+    padding-bottom: 5px;
+}
+.banner-content h1{
+    padding-bottom: 10px;
+    font-size: 52px;
+}
+.banner-content h3{
+    color: #222727c4;
+    padding-bottom: 20px;
+    font-size: 25px;
+}
+.myCoach{
+    width: 100%;
+    height: 100vh;
+    background-color: #ece8e9;
+    padding: 60px;
+   
+}
+.myCoach-list{
+  display: flex;
+}
+ .title{
+    text-align: center;
+    position: relative;
+    letter-spacing: 4px;
+}
+.myCoach .title::after {
+    content: "";
+    position: absolute;
+    bottom: -27px;
+    left: 613px;
+    width: 100px;
+    height: 2px;
+    background-color: #594953;
+  }
+.myCoach-detail{
+    display: flex;
+    width: 33.333333%;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 100px;
+}
+.myCoach-detail:nth-child(even) img{
+    width: 250px;
+    height: 300px;
+    border-radius: 10px;
+    background-color: #beb5b9;
+}
+.myCoach-detail:nth-child(odd) img{
+    width: 250px;
+    height: 350px;
+    border-radius: 10px;
+    background-color: #beb5b9;
+}
+.myCoach-name{
+    margin-top: 20px;
+    letter-spacing: 2px;
+}
+.myCoach-major{
+    margin-top: 10px;
+    font-size: 15px;
+    color: #222727c4;
+}
+.bookingClass{
+    width: 100%;
+    height: 100vh;
+    position: relative;
+}
+.booking-content{
+    display: grid;
+    height: 60%;
+    grid-template-columns: 1fr 1fr;
+}
+.booking-detail-left,
+.booking-detail-right{
+    width: 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+   
+ 
+    
+}
+.booking-detail-left,
+.booking-detail-right {
+    position: relative; 
+  }
+  
+  .booking-detail-left::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #a6789970;
+    z-index: 1; 
+  }
+  .booking-detail-right::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #867ee669;
+    z-index: 1; 
+  }
+  .content-detail{
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    z-index: 1;
+  }
+  .content-detail p,
+  .content-detail h1{
+    color: white;
+    margin: 12px;
+    letter-spacing: 2px;
+  }
+
+
+  .booking-title{
+    background-color: #d4c7cf;
+    height: 40%;
+    position: relative;
+  }
+  .booking-title-context{
+    position: absolute;
+    text-align: right;
+    top: 50%;
+    right: 50%;
+    transform: translate(50%, -50%);
+  }
+  .booking-title-context p{
+    color: white;
+    font-size: 40px;
+    letter-spacing: 2px;
+  }
+  .booking-title-context h1{
+    font-size: 40px;
+    letter-spacing: 3px;
+    color: #d2608d;
+  }
+ 
