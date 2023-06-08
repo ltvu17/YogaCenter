@@ -1,5 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
-
+using System.Text.Json.Serialization;
 
 namespace YogaCenter.Models
 {
@@ -22,5 +22,7 @@ namespace YogaCenter.Models
         [Required]
         public DateTime CourseCreateDate { get; set; }
         public Event? Event { get; set; }
+        [JsonIgnore]
+        public virtual ICollection<Invoice> Invoices { get; } = new List<Invoice>();    
     }
 }
