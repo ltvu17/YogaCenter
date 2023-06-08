@@ -22,7 +22,7 @@ namespace YogaCenter.Controllers
             _userRepository = userRepository;
         }
         [HttpGet]
-        public async Task<IActionResult> GetAllTeachers()
+        public async Task<IActionResult> GetAllCustomers()
         {
             var customers = await _customerRepository.GetAllCustomers();
             if (!ModelState.IsValid)
