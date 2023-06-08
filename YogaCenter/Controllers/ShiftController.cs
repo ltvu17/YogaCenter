@@ -49,7 +49,7 @@ namespace YogaCenter.Controllers
             return NotFound();
         }
         [HttpPut("{shiftId}")]
-        public async Task<IActionResult> UpdateCustomer(Guid shiftId,[FromBody] ShiftDto shiftDto)
+        public async Task<IActionResult> UpdateShift(Guid shiftId,[FromBody] ShiftDto shiftDto)
         {
             if (shiftId.Equals(null)) { return BadRequest(); }
             if (shiftDto == null) { return BadRequest(); }
@@ -66,7 +66,7 @@ namespace YogaCenter.Controllers
             return NotFound();
         }
         [HttpDelete("{shiftId}")]
-        public async Task<IActionResult> DeleteCustomer(Guid shiftId)
+        public async Task<IActionResult> DeleteShift(Guid shiftId)
         {
             if (shiftId.Equals(null)) { return NotFound(); }
             if (!await _shiftRepository.ShiftExists(shiftId))
