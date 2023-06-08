@@ -12,8 +12,8 @@ using YogaCenter.Models;
 namespace YogaCenter.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20230608102736_TestDb2")]
-    partial class TestDb2
+    [Migration("20230608115245_Test")]
+    partial class Test
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -499,7 +499,7 @@ namespace YogaCenter.Migrations
             modelBuilder.Entity("YogaCenter.Models.Lesson", b =>
                 {
                     b.HasOne("YogaCenter.Models.Class", "Class")
-                        .WithMany("ClassLessons")
+                        .WithMany("Lessons")
                         .HasForeignKey("ClassId");
 
                     b.HasOne("YogaCenter.Models.Room", "Room")
@@ -543,7 +543,7 @@ namespace YogaCenter.Migrations
                 {
                     b.Navigation("ClassCustomers");
 
-                    b.Navigation("ClassLessons");
+                    b.Navigation("Lessons");
                 });
 
             modelBuilder.Entity("YogaCenter.Models.Course", b =>

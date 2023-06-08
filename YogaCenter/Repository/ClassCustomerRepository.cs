@@ -41,12 +41,12 @@ namespace YogaCenter.Repository
 
         public async Task<ICollection<ClassCustomer>> GetClasseCustomers(Guid classId)
         {
-            return await _context.ClassCustomers.Where(p => p.ClassId == classId).ToListAsync();
+            return await _context.ClassCustomers.Where(p => p.ClassId == classId).Include(p => p.Customer).ToListAsync();
         }
 
         public async Task<ICollection<ClassCustomer>> GetCustomerClasses(Guid customerId)
         {
-            return await _context.ClassCustomers.Where(p => p.CustomerId == customerId).ToListAsync();
+            return await _context.ClassCustomers.Where(p => p.CustomerId == customerId).Include(p =>p.Class).ToListAsync();
         }
 
         public async Task<bool> Save()

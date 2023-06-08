@@ -16,10 +16,10 @@ namespace YogaCenter.Models
         public Teacher? Teacher { get; set; }
         public Course Course { get; set; }
         [JsonIgnore]
-        public virtual ICollection<Customer> Customers { get; } = new List<Customer>();
+        public ICollection<Customer> Customers { get; } = new List<Customer>();
         [JsonIgnore]
-        public virtual ICollection<ClassCustomer> ClassCustomers { get; } = new List<ClassCustomer>();
+        public ICollection<ClassCustomer> ClassCustomers { get; } = new List<ClassCustomer>();
         [JsonIgnore]
-        public virtual ICollection<Lesson> ClassLessons { get; } = new List<Lesson>();   
+        public virtual ICollection<Lesson> Lessons { get; } = new List<Lesson>();   
     }
 }
