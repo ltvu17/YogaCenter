@@ -15,8 +15,8 @@ namespace YogaCenter.Models
         public Shift? Shift { get; set; }
         public Class? Class { get; set; }
         [JsonIgnore]
-        public virtual ICollection<Customer> Customers { get; } = new List<Customer>();
+        public  ICollection<Customer> Customers { get; } = new List<Customer>();
         [JsonIgnore]
-        public virtual ICollection<CustomerLesson> CustomerLessons { get; } = new List<CustomerLesson>();
+        public  ICollection<CustomerLesson> CustomerLessons { get; } = new List<CustomerLesson>();
     }
 }
