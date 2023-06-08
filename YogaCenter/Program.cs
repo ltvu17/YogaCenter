@@ -32,11 +32,13 @@ namespace YogaCenter
             builder.Services.AddTransient<ICustomerRepository, CustomerRepository>();
             builder.Services.AddTransient<ICertificateRepository, CertificateRepository>();
             builder.Services.AddTransient<IShiftRepository, ShiftRepository>();
+            //builder.Services.AddTransient<ILessonRepository, LessonRepository>();
             builder.Services.AddScoped<IRoleRepository, RoleRepository>();
             builder.Services.AddScoped<IRoomRepository, RoomRepository>();
             builder.Services.AddScoped<ICourseRepository, CourseRepository>();
             builder.Services.AddScoped<IClassRepository, ClassRepository>();
             builder.Services.AddScoped<IClassCustomerRepository, ClassCustomerRepository>();
+            builder.Services.AddScoped<ILessonRepository, LessonRepository>();
             builder.Services.AddControllers();
             builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
             
@@ -51,7 +53,6 @@ namespace YogaCenter
            );
             builder.Services.AddControllers().AddJsonOptions(x =>
                 x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
-
             var app = builder.Build();
             if (args.Length == 1 && args[0].ToLower() == "seeddata")
                 SeedData(app);

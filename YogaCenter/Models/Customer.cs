@@ -1,5 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
-
+using System.Text.Json.Serialization;
 
 namespace YogaCenter.Models
 {
@@ -17,9 +17,15 @@ namespace YogaCenter.Models
         [Required]
         public int CustomerPhone { get; set; }
         public User User { get; set; }
-        public ICollection<Class> Classes { get; } = new List<Class>();
-        public ICollection<ClassCustomer> ClassCustomers { get; } = new List<ClassCustomer>();
-        public ICollection<Lesson> Lessons { get; } = new List<Lesson>();
-        public ICollection<CustomerLesson> CustomerLessons { get; } = new List<CustomerLesson>();
+        [JsonIgnore]
+        public virtual ICollection<Class> Classes { get; } = new List<Class>();
+        [JsonIgnore]
+        public virtual ICollection<ClassCustomer> ClassCustomers { get; } = new List<ClassCustomer>();
+        [JsonIgnore]
+        public virtual ICollection<Lesson> Lessons { get; } = new List<Lesson>();
+        [JsonIgnore]
+        public virtual ICollection<CustomerLesson> CustomerLessons { get; } = new List<CustomerLesson>();
+        [JsonIgnore]
+        public virtual ICollection<Invoice> Invoices { get; } = new List<Invoice>();
     }
 }

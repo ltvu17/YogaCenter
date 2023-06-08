@@ -12,8 +12,8 @@ using YogaCenter.Models;
 namespace YogaCenter.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20230606124022_AlphaDataBase")]
-    partial class AlphaDataBase
+    [Migration("20230608102736_TestDb2")]
+    partial class TestDb2
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -480,13 +480,13 @@ namespace YogaCenter.Migrations
             modelBuilder.Entity("YogaCenter.Models.Invoice", b =>
                 {
                     b.HasOne("YogaCenter.Models.Course", "Course")
-                        .WithMany()
+                        .WithMany("Invoices")
                         .HasForeignKey("CourseId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("YogaCenter.Models.Customer", "Customer")
-                        .WithMany()
+                        .WithMany("Invoices")
                         .HasForeignKey("CustomerId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -546,11 +546,18 @@ namespace YogaCenter.Migrations
                     b.Navigation("ClassLessons");
                 });
 
+            modelBuilder.Entity("YogaCenter.Models.Course", b =>
+                {
+                    b.Navigation("Invoices");
+                });
+
             modelBuilder.Entity("YogaCenter.Models.Customer", b =>
                 {
                     b.Navigation("ClassCustomers");
 
                     b.Navigation("CustomerLessons");
+
+                    b.Navigation("Invoices");
                 });
 
             modelBuilder.Entity("YogaCenter.Models.Event", b =>
