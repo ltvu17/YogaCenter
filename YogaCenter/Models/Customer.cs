@@ -18,13 +18,13 @@ namespace YogaCenter.Models
         public int CustomerPhone { get; set; }
         public User User { get; set; }
         [JsonIgnore]
-        public virtual ICollection<Class> Classes { get; } = new List<Class>();
+        public  ICollection<Class> Classes { get; } = new List<Class>();
         [JsonIgnore]
-        public virtual ICollection<ClassCustomer> ClassCustomers { get; } = new List<ClassCustomer>();
+        public  ICollection<ClassCustomer> ClassCustomers { get; } = new List<ClassCustomer>();
         [JsonIgnore]
-        public virtual ICollection<Lesson> Lessons { get; } = new List<Lesson>();
+        public  ICollection<Lesson> Lessons { get; } = new List<Lesson>();
         [JsonIgnore]
-        public virtual ICollection<CustomerLesson> CustomerLessons { get; } = new List<CustomerLesson>();
+        public  ICollection<CustomerLesson> CustomerLessons { get; } = new List<CustomerLesson>();
         [JsonIgnore]
         public virtual ICollection<Invoice> Invoices { get; } = new List<Invoice>();
     }

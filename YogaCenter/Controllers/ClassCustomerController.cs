@@ -33,7 +33,7 @@ namespace YogaCenter.Controllers
             {
                 return BadRequest(ModelState);
             }
-            return Ok(_mapper.Map<ICollection<ClassCustomerDto>>(customers));
+            return Ok(customers);
         }
         [HttpGet("getCustomer/{customerId}")]
         public async Task<IActionResult> GetCustomerClasses(Guid customerId)
@@ -44,7 +44,7 @@ namespace YogaCenter.Controllers
             {
                 return BadRequest(ModelState);
             }
-            return Ok(_mapper.Map<ICollection<ClassCustomerDto>>(classes));
+            return Ok(classes);
         }
         [HttpPost("{classId}")]
         public async Task<IActionResult> CreateClass(Guid classId, [FromHeader] Guid customerId)
