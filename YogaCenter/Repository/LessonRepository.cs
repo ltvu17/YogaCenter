@@ -35,7 +35,8 @@ namespace YogaCenter.Repository
 
         public async Task<ICollection<Lesson>> GetLessonByClassId(Guid classId)
         {
-            return await _context.Lessons.Where(p => p.Class.Id == classId).Include(p => p.Class).Include(p => p.Shift).Include(p => p.Room).ToListAsync();
+            //.Include(p => p.Class).Include(p => p.Shift).Include(p => p.Room)
+            return await _context.Lessons.Where(p => p.Class.Id == classId).ToListAsync();
         }
 
         public async Task<Lesson> GetLessonById(Guid id)
