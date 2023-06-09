@@ -31,7 +31,11 @@ namespace YogaCenter.Mapper
             CreateMap<ClassCustomerDto, ClassCustomer>();
             CreateMap<Lesson, LessonDTO>();
             CreateMap<LessonDTO, Lesson>();
-
+            CreateMap<EventDto, Event>();
+            CreateMap<Event, EventDto>();
+            CreateMap<InvoiceDto, Invoice>();
+            CreateMap<Invoice, InvoiceDto>();
+            
         }
     }
 }
