@@ -18,12 +18,13 @@ namespace YogaCenter
                 options.AddPolicy("CORSPolicy", builder =>
                 {
                     builder.WithOrigins("http://localhost:3000")
-                    .AllowAnyOrigin()
                     .AllowAnyMethod().AllowAnyHeader()
+                    .AllowCredentials()
                     ;                     
                 });
             } 
             );
+            builder.Services.AddCors();
             // Add services to the container.
             builder.Services.AddTransient<Seed>();
             builder.Services.AddTransient<IRoleRepository, RoleRepository>();

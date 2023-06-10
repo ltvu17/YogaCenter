@@ -30,7 +30,7 @@ namespace YogaCenter.Controllers
             }
             return Ok(_mapper.Map<ICollection<UserDto>>(users));
         }
-        [HttpGet("Login")]
+        [HttpPost("Login")]
         public async Task<IActionResult> Login([FromHeader] string userName, [FromHeader] string userPasswork)
         {
             if(userName == null || userPasswork == null) { return NotFound(); }
@@ -44,7 +44,24 @@ namespace YogaCenter.Controllers
             {
                 return BadRequest(ModelState);
             }
-            return Ok(userLogined);
+            Response.Cookies.Append("userId", userLogined.Id.ToString(), new CookieOptions
+            {
+                HttpOnly = false,
+                SameSite = SameSiteMode.None,Secure = true,
+            });
+            Response.Cookies.Append("Role", userLogined.Role.RoleName, new CookieOptions
+            {
+                HttpOnly = false,
+                SameSite = SameSiteMode.None,
+                Secure = true,
+            });
+            return Ok(new { mesage = "Success" });
+        }
+        [HttpPost("Logout")]
+        public IActionResult Logout()
+        {
+            Response.Cookies.Delete("userId");
+            return Ok(new { mesage = "Cookie Deleted" });
         }
         [HttpGet("{userId}")]
         public async Task<IActionResult> GetUserById(Guid userId)
