@@ -44,7 +44,7 @@ namespace YogaCenter.Controllers
             shift.Id = Guid.NewGuid();
             if (await _shiftRepository.CreateShift(shift))
             {
-                return Ok("Created");
+                return Ok(new { message = "Created" });
             }
             return NotFound();
         }
@@ -61,7 +61,7 @@ namespace YogaCenter.Controllers
 
             if (await _shiftRepository.UpdateShift(shift))
             {
-                return Ok("Updated");
+                return Ok(new { message = "Updated" });
             }
             return NotFound();
         }
@@ -82,7 +82,7 @@ namespace YogaCenter.Controllers
             if (shift == null) { return BadRequest(); }
             if (await _shiftRepository.DeleteShift(shift))
             {
-                return Ok("Deleted");
+                return Ok(new {message =  "Deleted" });
             }
             return NotFound();
         }
