@@ -5,12 +5,13 @@ namespace YogaCenter.IRepository
     public interface ICustomerLessonRepository
     {
         public Task<ICollection<CustomerLesson>> GetAllCustomersLeson();
-        public Task<CustomerLesson> GetCustomerLessonById(Guid id);
-        public Task<CustomerLesson> GetCustomerByUserId(Guid userId);
-        public Task<bool> CreateCustomer(CustomerLesson customer);
-        public Task<bool> UpdateCustomer(CustomerLesson customerUpdate);
-        public Task<bool> DeleteCustomer(CustomerLesson customerDelete);
-        public Task<bool> CustomerExists(Guid id);
+        public Task<CustomerLesson> GetCustomerAndLessonById(Guid cusid, Guid lesId);
+        public Task<ICollection<CustomerLesson>> GetCustomerLessonByCustomerId(Guid customerId);
+        public Task<ICollection<CustomerLesson>> GetCustomerLessonByLessonId(Guid lessonId);
+        public Task<bool> CreateCustomerLesson(CustomerLesson customerLesson);
+        public Task<bool> DeleteCustomerLesson(CustomerLesson customerLessonDelete);
+        public Task<bool> LessonExists(Guid id);
+        public Task<bool> CustomerExists(Guid customerId);
         public Task<bool> Save();
     }
 }

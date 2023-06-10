@@ -4,10 +4,14 @@ namespace YogaCenter.IRepository
 {
     public interface IInvoiceRepository
     {
-        public Task<ICollection<Invoice>> GetInvoices();
+        public Task<ICollection<Invoice>> GetAllInvoice();
+        public Task<Invoice> GetInvoiceById(Guid id);
         public Task<ICollection<Invoice>> GetInvoiceByCustomerId(Guid customerId);
+        public Task<ICollection<Invoice>> GetInvoiceByCourseId(Guid courseId);
         public Task<bool> CreateInvoice(Invoice invoice);
         public Task<bool> UpdateInvoice(Invoice invoice);
-        public Task<bool> DeleteInvoice(Invoice invoice);
+        public Task<bool> DeleteInvoice(Invoice invoiceDelete);
+        public Task<bool> InvoiceExists(Guid id);
+        public Task<bool> Save();
     }
 }
