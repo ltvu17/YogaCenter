@@ -14,7 +14,7 @@ export default function Navigation(){
     <ul className='nav'>
       <li><Link to='/home'>Home</Link></li>
       <li><Link to='#'>Blog</Link></li>
-      <li><Link to='#'>Schedule</Link></li>
+      <li><Link to='/schedule'>Schedule</Link></li>
       <li><Link to='/login'>Login</Link></li>
     </ul>
     </nav>
