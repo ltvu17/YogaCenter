@@ -2,7 +2,7 @@
 
 .banner{
     background-color: #d2c7c9;
-    height: 100vh;
+    
     width: 100%;
 }
 .banner img{
@@ -15,11 +15,8 @@
 }
 .banner-content{
     position: absolute;
-   
-    top: 247px;
+    top: 177px;
     right: 340px;
-
-
     text-align: right;
 }
 .banner-content h4{
@@ -36,11 +33,36 @@
     padding-bottom: 20px;
     font-size: 25px;
 }
+.inf-center{
+  width: 100%;
+  
+  background-color: #ece8e9;
+  padding: 30px;
+}
+.introduction h1{
+  margin-top: 12px;
+  margin-bottom: 30px;
+    letter-spacing: 1px;
+    font-size: 32px;
+    font-weight: 800;
+    font-family: initial;
+    line-height: 1.5;
+
+}
+.introduction p{
+  font-family: fangsong;
+   
+    color: #222727c4;
+    font-weight: 700;
+    line-height: 1.5;
+}
+
 .myCoach{
     width: 100%;
-    height: 100vh;
+   
     background-color: #ece8e9;
     padding: 60px;
+
    
 }
 .myCoach-list{
@@ -52,13 +74,13 @@
     letter-spacing: 4px;
 }
 .myCoach .title::after {
-    content: "";
-    position: absolute;
-    bottom: -27px;
-    left: 613px;
-    width: 100px;
-    height: 2px;
-    background-color: #594953;
+  content: "";
+  position: absolute;
+  bottom: -27px;
+  left: 575px;
+  width: 100px;
+  height: 2px;
+  background-color: #594953;
   }
 .myCoach-detail{
     display: flex;
@@ -154,6 +176,7 @@
     height: 40%;
     position: relative;
   }
+
   .booking-title-context{
     position: absolute;
     text-align: right;
@@ -171,4 +194,66 @@
     letter-spacing: 3px;
     color: #d2608d;
   }
- 
+.customer-care{
+  height: 100vh;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+.customer-care-content{
+      width: 100%;
+    padding: 0px 80px;
+    text-align: left;
+    margin: 80px 0;
+}
+.customer-care-content h1{
+  font-size: 50px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin-bottom: 40px;
+}
+.customer-care-content p{
+  padding: 20px 85px 0px 0px;
+  text-align: left;
+  font-weight: 400;
+  color: #131212ad;
+}
+.customer-formRegister{
+  padding: 0px 80px;
+  margin: 140px 0;
+  
+}
+.customer-formRegister li{
+  list-style-type: none;
+  margin: 40px 0;
+}
+.customer-formRegister li:last-child{
+  text-align: right;
+}
+.customer-input{
+  width: 100%;
+}
+.customer-input::after{
+  border-bottom: 2px solid #951a3b;
+}
+.customer-formRegister Button{
+  background-color: #d49aa5;
+  border-radius:10px ;
+  width: 150px;
+  font-size: 16px;
+  font-weight: 700;
+  height: 50px;
+}
+.customer-formRegister Button:hover{
+  background-color: #734660;
+}
+.line{
+  overflow: hidden;
+  height: 150px;
+  max-width: none;
+}
+.line img{
+  width: 2500px;
+  height: 150px;
+  max-width: none;
+}
