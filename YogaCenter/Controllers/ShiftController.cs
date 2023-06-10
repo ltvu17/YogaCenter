@@ -44,12 +44,12 @@ namespace YogaCenter.Controllers
             shift.Id = Guid.NewGuid();
             if (await _shiftRepository.CreateShift(shift))
             {
-                return Ok("Created");
+                return Ok(new { message = "Created" });
             }
             return NotFound();
         }
         [HttpPut("{shiftId}")]
-        public async Task<IActionResult> UpdateCustomer(Guid shiftId,[FromBody] ShiftDto shiftDto)
+        public async Task<IActionResult> UpdateShift(Guid shiftId,[FromBody] ShiftDto shiftDto)
         {
             if (shiftId.Equals(null)) { return BadRequest(); }
             if (shiftDto == null) { return BadRequest(); }
@@ -61,12 +61,12 @@ namespace YogaCenter.Controllers
 
             if (await _shiftRepository.UpdateShift(shift))
             {
-                return Ok("Updated");
+                return Ok(new { message = "Updated" });
             }
             return NotFound();
         }
         [HttpDelete("{shiftId}")]
-        public async Task<IActionResult> DeleteCustomer(Guid shiftId)
+        public async Task<IActionResult> DeleteShift(Guid shiftId)
         {
             if (shiftId.Equals(null)) { return NotFound(); }
             if (!await _shiftRepository.ShiftExists(shiftId))
@@ -82,7 +82,7 @@ namespace YogaCenter.Controllers
             if (shift == null) { return BadRequest(); }
             if (await _shiftRepository.DeleteShift(shift))
             {
-                return Ok("Deleted");
+                return Ok(new {message =  "Deleted" });
             }
             return NotFound();
         }

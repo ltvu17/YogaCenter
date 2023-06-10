@@ -477,13 +477,13 @@ namespace YogaCenter.Migrations
             modelBuilder.Entity("YogaCenter.Models.Invoice", b =>
                 {
                     b.HasOne("YogaCenter.Models.Course", "Course")
-                        .WithMany()
+                        .WithMany("Invoices")
                         .HasForeignKey("CourseId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("YogaCenter.Models.Customer", "Customer")
-                        .WithMany()
+                        .WithMany("Invoices")
                         .HasForeignKey("CustomerId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -496,7 +496,7 @@ namespace YogaCenter.Migrations
             modelBuilder.Entity("YogaCenter.Models.Lesson", b =>
                 {
                     b.HasOne("YogaCenter.Models.Class", "Class")
-                        .WithMany("ClassLessons")
+                        .WithMany("Lessons")
                         .HasForeignKey("ClassId");
 
                     b.HasOne("YogaCenter.Models.Room", "Room")
@@ -540,7 +540,12 @@ namespace YogaCenter.Migrations
                 {
                     b.Navigation("ClassCustomers");
 
-                    b.Navigation("ClassLessons");
+                    b.Navigation("Lessons");
+                });
+
+            modelBuilder.Entity("YogaCenter.Models.Course", b =>
+                {
+                    b.Navigation("Invoices");
                 });
 
             modelBuilder.Entity("YogaCenter.Models.Customer", b =>
@@ -548,6 +553,8 @@ namespace YogaCenter.Migrations
                     b.Navigation("ClassCustomers");
 
                     b.Navigation("CustomerLessons");
+
+                    b.Navigation("Invoices");
                 });
 
             modelBuilder.Entity("YogaCenter.Models.Event", b =>

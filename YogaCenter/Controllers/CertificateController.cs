@@ -22,7 +22,7 @@ namespace YogaCenter.Controllers
             _teacherRepository = teacherRepository;
         }
         [HttpGet("{teacherId}")]
-        public async Task<IActionResult> GetAllTeachers(Guid teacherId)
+        public async Task<IActionResult> GetCertificates(Guid teacherId)
         {
             if (teacherId.Equals(null)) { return BadRequest(); }
             var certificates = await _certificateRepository.GetCertificatesByTeacherId(teacherId);
@@ -33,7 +33,7 @@ namespace YogaCenter.Controllers
             return Ok(_mapper.Map<ICollection<CertificateDto>>(certificates));
         }
         [HttpPost("{teacherId}")]
-        public async Task<IActionResult> CreateCustomer(Guid teacherId, [FromBody] CertificateDto certificateDto)
+        public async Task<IActionResult> CreateCertificate(Guid teacherId, [FromBody] CertificateDto certificateDto)
         {
             if (teacherId.Equals(null)) { return BadRequest(); }
             if (certificateDto == null) { return BadRequest(); }
@@ -54,7 +54,7 @@ namespace YogaCenter.Controllers
             return NotFound();
         }
         [HttpPut("{certificateId}")]
-        public async Task<IActionResult> UpdateCustomer(Guid certificateId, CertificateDto certificateDto)
+        public async Task<IActionResult> UpdateCertificate(Guid certificateId, CertificateDto certificateDto)
         {
             if (certificateId.Equals(null)) { return BadRequest(); }           
             if(certificateDto == null) { return BadRequest() ; }
@@ -76,7 +76,7 @@ namespace YogaCenter.Controllers
             return NotFound();
         }
         [HttpDelete("{certificateId}")]
-        public async Task<IActionResult> DeleteCustomer(Guid certificateId)
+        public async Task<IActionResult> DeleteCertificate(Guid certificateId)
         {
             if (certificateId.Equals(null)) { return NotFound(); }
             if (!await _certificateRepository.CertificateExists(certificateId))

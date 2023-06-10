@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 
 namespace YogaCenter.Models
 {
@@ -17,6 +18,7 @@ namespace YogaCenter.Models
         public DateTime TeacherStartDate { get; set; }
         public DateTime TeacherEndDate { get; set; } = DateTime.MaxValue;
         public User User { get; set; }
-        public ICollection<Certificate> Certificates { get; } = new List<Certificate>();
+        [JsonIgnore]
+        public virtual ICollection<Certificate> Certificates { get; } = new List<Certificate>();
     }
 }

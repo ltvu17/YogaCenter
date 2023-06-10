@@ -48,7 +48,7 @@ namespace YogaCenter.Controllers
             return NotFound();
         }
         [HttpPut("{courseId}")]
-        public async Task<IActionResult> UpdateRoom(Guid courseId, [FromBody] CourseDto courseDto)
+        public async Task<IActionResult> UpdateCourse(Guid courseId, [FromBody] CourseDto courseDto)
         {
             if (courseId.Equals(null)) { return BadRequest(); }
             if (courseDto == null) { return BadRequest(); }
@@ -69,7 +69,7 @@ namespace YogaCenter.Controllers
             return NotFound();
         }
         [HttpDelete("{courseId}")]
-        public async Task<IActionResult> DeleteRoom(Guid courseId)
+        public async Task<IActionResult> DeleteCourse(Guid courseId)
         {
             if (courseId.Equals(null)) { return NotFound(); }
             if (!await _courseRepository.CourseExists(courseId))

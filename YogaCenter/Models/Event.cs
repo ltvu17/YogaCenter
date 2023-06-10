@@ -1,5 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
-
+using System.Text.Json.Serialization;
 
 namespace YogaCenter.Models
 {
@@ -17,6 +17,7 @@ namespace YogaCenter.Models
         public DateTime EventEndDate { get; set; }
         [Required]
         public float EventDiscount { get; set; }
-        public ICollection<Course> Courses { get; } = new List<Course>();
+        [JsonIgnore]
+        public virtual ICollection<Course> Courses { get; } = new List<Course>();
     }
 }

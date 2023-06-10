@@ -20,7 +20,7 @@ namespace YogaCenter.Repository
 
         public async Task<bool> CreateCertificate(Certificate certificate)
         {
-            _context.AddAsync(certificate);
+            await _context.AddAsync(certificate);
             return await Save();
         }
         public async Task<bool> DeleteCertificate(Certificate certificate)

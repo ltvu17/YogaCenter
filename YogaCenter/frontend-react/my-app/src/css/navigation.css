@@ -1,0 +1,86 @@
+
+.Navigation{
+    width: 100%;
+    height: 70px;
+    display: grid;
+    grid-template-columns: 3fr 4fr;
+    background-color: #272323;
+    align-items: center;
+  }
+  .logo{
+    margin: 0px 100px;
+    text-decoration: none;
+  }
+  
+  .logo h1{
+    color: #d2608d;
+    font-size: 25px;
+    letter-spacing: 4px;
+    font-weight: 500;
+  }
+  .logo p{
+    color: #F9B5D0;
+    font-size: 15px;
+    font-weight: 300;
+    margin: 0 70px;
+    letter-spacing: 5px;
+  }
+  .Navigation ul{
+    display: flex;
+  }
+  .Navigation li{
+    list-style-type: none;
+    margin: 0 auto;
+    
+  }
+
+  .nav li a {
+    font-size: 20px;
+    text-decoration: none;
+    color: white;
+    font-weight: 900;
+    position: relative;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+  }
+  
+  .nav li a::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -2px;
+    width: 0;
+    height: 2px;
+  
+    background-color: white;
+    transition: width 0.3s ease;
+  }
+  
+  .nav li a:hover::after {
+    width: 100%;
+  
+  }
+  
+  .nav li:hover .subnav{
+    display: block;
+  }
+  .nav .subnav{
+    display: none;
+    list-style-type: none;
+    min-width: 160px;
+    
+    position: absolute; 
+    background-color:  #EEEEEE;
+  }
+  
+  .subnav a{
+    color:  rgb(0, 0, 0);
+    padding: 0 24px;
+    line-height: 50px;
+    font-size: 16px;
+  }
+  .subnav li:hover,
+  .subnav > li:hover > a{
+    
+    width: 100%;
+    color: rgb(0, 0, 0);
+  }

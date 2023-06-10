@@ -1,5 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
-
+using System.Text.Json.Serialization;
 
 namespace YogaCenter.Models
 {
@@ -14,7 +14,9 @@ namespace YogaCenter.Models
         public Room? Room { get; set; }
         public Shift? Shift { get; set; }
         public Class? Class { get; set; }
-        public ICollection<Customer> Customers { get; } = new List<Customer>();
-        public ICollection<CustomerLesson> CustomerLessons { get; } = new List<CustomerLesson>();
+        [JsonIgnore]
+        public  ICollection<Customer> Customers { get; } = new List<Customer>();
+        [JsonIgnore]
+        public  ICollection<CustomerLesson> CustomerLessons { get; } = new List<CustomerLesson>();
     }
 }

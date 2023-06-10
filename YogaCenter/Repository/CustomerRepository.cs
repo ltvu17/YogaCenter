@@ -23,10 +23,10 @@ namespace YogaCenter.Repository
             return await _context.Customers.AnyAsync(p => p.Id == id);
         }
 
-        public Task<bool> DeleteCustomer(Customer customerDelete)
+        public async Task<bool> DeleteCustomer(Customer customerDelete)
         {
             _context.Remove(customerDelete);
-            return Save();
+            return await Save();
         }
 
         public async Task<ICollection<Customer>> GetAllCustomers()

@@ -1,5 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
-
+using System.Text.Json.Serialization;
 
 namespace YogaCenter.Models
 {
@@ -11,6 +11,7 @@ namespace YogaCenter.Models
         public DateTime TimeStart { get; set; }
         [Required]
         public DateTime TimeEnd { get; set; }
-        public ICollection<Lesson> ClassLessons { get; }
+        [JsonIgnore]
+        public virtual ICollection<Lesson> ClassLessons { get; } = new List<Lesson>();
     }
 }
