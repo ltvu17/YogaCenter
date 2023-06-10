@@ -36,10 +36,11 @@ const Mail = styled(EmailRoundedIcon)`
                 <Facebook></Facebook>
                 <Mail></Mail>
             </div>
-            </div>
+        </div>
             <div className="end-footer">
             <p>© Yoga FPTU center 2023</p>
             </div>
+           
         </div>
     )
 }
