@@ -11,12 +11,8 @@ import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import TextField from '@mui/material/TextField';
 import Button from "@mui/material/Button";
 import {styled}    from '@mui/material/styles';
-import axios from 'axios';
 import '../css/login.css'
-import Alert, { AlertProps } from '@mui/material/Alert';
-
-import { Cookies, useCookies } from 'react-cookie';
-
+import { useCookies } from 'react-cookie';
 const UsernameTextField = styled(TextField)`
 & label.Mui-focused {
     color: #866077;
@@ -40,62 +36,46 @@ const PasswordInputUnderline = styled(Input)`
   border-bottom-color: #951a3b;
 }
 `;
-var status = null;
-export default function Login(){
+export default function Redirect() {
     const [showPassword, setShowPassword] = React.useState(false);
-    const navigate = useNavigate();
-    const [cookie,setCookie,remove] = useCookies();
     const handleClickShowPassword = () => setShowPassword((show) => !show);
-    axios.defaults.withCredentials = true;
-    const [user,setState] = useState({
-      userName : "",
-      userPasswork: ""
-    });
-  
-    try{
-      var mesage = JSON.stringify(cookie.mesage);
-      if(mesage.localeCompare('"invalid"', undefined, { sensitivity: 'base' }) === 0){    
-        console.log("1");
-        status = 'Invalid Account';
-        remove("mesage");
-    }}catch(er){}
-    
-      const ChangeHandler = (e) =>{
-        setState(p => {
-          return {...user, [e.target.name] : e.target.value }
-        })    
-      };
-      const  handleSubmit = () => {
-        
-        axios.post("https://localhost:7096/api/User/Login", "", {
-          headers:{
-            'userName': user.userName,
-            'userPasswork': user.userPasswork
-          },
-        })
-        .then(r => console.log(r)).catch(er => setTimeout(() => {
-          navigate("/Redirecting");
-         },1));       
-        ;
-        setCookie('flag',1,{ path: '/' });
-        navigate("/Redirecting");
-      };
-  
-    return(
-      <form onSubmit={handleSubmit}>
+    const [userCookie, setCookie, removeCookie] = useCookies("");
+    const navigate = useNavigate();
+    let haveCookie = JSON.stringify(userCookie);   
+    var count = 0;   
+    useEffect(() =>{
+          if(userCookie.flag == 1)
+          {
+          
+          removeCookie("flag");
+          navigate(0);
+          }         
+          if(haveCookie.localeCompare('{}', undefined, { sensitivity: 'base' }) === 0){
+            setCookie("mesage","invalid",{ path : '/'});
+            navigate("/login");
+          }
+          try{
+            var role = JSON.stringify(userCookie.Role);   
+            console.log(role);     
+            if(role.toUpperCase().trim().localeCompare('"CUSTOMER"', undefined, { sensitivity: 'base' }) === 0){        
+              navigate('/NavUsers');
+            }
+            else 
+              if(role.toUpperCase().trim().localeCompare('"STAFF"', undefined, { sensitivity: 'base' }) === 0){               
+              navigate('/StaffManager');
+            }}catch(err){
+            }        
+    },[count])
+  return (
+    <form>
         <div className="login" style={{ backgroundImage: "url('/assets/images/backgroundLogin.png')" }}>
          <div className='box'>
          <div className='formLogin'>
          <h1>  Sign in </h1>
-         {status != null?
-          (<Alert severity="error" variant="filled"  sx={{ width: '80%', marginTop: '10px', color: '#550A35', backgroundColor:'#F67280', marginLeft: '10%' }}>
-          {status}
-          </Alert>) :''
-          }
-         <UsernameTextField onChange={ChangeHandler} name='userName' className="login-username"  sx={{  width: '300px' }} label="Username" variant="standard"/>
+         <UsernameTextField  name='userName' className="login-username"  sx={{  width: '300px' }} label="Username" variant="standard"/>
          <FormControl  className="login-password" sx={{  width: '300px' }} variant="standard">
           <PasswordInputLabel htmlFor="standard-adornment-password" label="Password">Password</PasswordInputLabel>
-          <PasswordInputUnderline onChange={ChangeHandler}
+          <PasswordInputUnderline 
             name='userPasswork'
             id="standard-adornment-password"
             type={showPassword ? 'text' : 'password'}
@@ -118,6 +98,5 @@ export default function Login(){
           </div>
         </div>
         </form>
-        
-    )
+  )
 }
