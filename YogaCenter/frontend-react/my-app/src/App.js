@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Route, Routes,BrowserRouter, useNavigate } from 'react-router-dom';
+import { Route, Routes, useNavigate } from 'react-router-dom';
 import Navigation from './components/Navigation';
 
 import './css/App.css';
@@ -9,12 +9,12 @@ import Home from './components/Home';
 import Schedule from './components/Schedule';
 import Footer from './components/Footer';
 import RegisterClass from './components/RegisterClass';
-import NavUsers from './pages/common/components/NavUsers';
+import NavUsers from './pages/common/components/NavUsers'
+import HomeCustomer from './pages/customer/components/homeCustomer';
+import Profile from './pages/common/components/Profile';
 import StaffManager from './pages/staff/components/StaffManager';
 import Redirect from './pages/Redirect';
 import { useCookies } from 'react-cookie';
-
-
 
 function App() {
   const[roleCookie,setCookie]= useCookies(['']);

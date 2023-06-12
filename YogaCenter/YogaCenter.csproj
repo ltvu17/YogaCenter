@@ -11,6 +11,7 @@
     <Content Remove="bin\**" />
     <EmbeddedResource Remove="bin\**" />
     <None Remove="bin\**" />
+    <None Remove="frontend-react\my-app\src\pages\instructor\" />
   </ItemGroup>
 
   <ItemGroup>
@@ -25,4 +26,7 @@
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="frontend-react\my-app\src\pages\instructor\" />
+  </ItemGroup>
 </Project>
