@@ -37,7 +37,7 @@ namespace YogaCenter.Controllers
             var userLogined = await _userRepository.Login(userName, userPasswork);
             if(userLogined == null)
             {
-                ModelState.AddModelError("Login error", "Can not loggin");
+                ModelState.AddModelError("", "Invalid Account");
                 return BadRequest(ModelState);
             }
             if(!ModelState.IsValid) 
@@ -47,20 +47,33 @@ namespace YogaCenter.Controllers
             Response.Cookies.Append("userId", userLogined.Id.ToString(), new CookieOptions
             {
                 HttpOnly = false,
-                SameSite = SameSiteMode.None,Secure = true,
+                SameSite = SameSiteMode.None,
+                Secure = true,
             });
             Response.Cookies.Append("Role", userLogined.Role.RoleName, new CookieOptions
             {
                 HttpOnly = false,
                 SameSite = SameSiteMode.None,
                 Secure = true,
+               
             });
             return Ok(new { mesage = "Success" });
         }
         [HttpPost("Logout")]
         public IActionResult Logout()
         {
-            Response.Cookies.Delete("userId");
+            Response.Cookies.Delete("userId",new CookieOptions
+            {
+                HttpOnly = false,
+                SameSite = SameSiteMode.None,
+                Secure = true,
+            });
+            Response.Cookies.Delete("Role", new CookieOptions
+            {
+                HttpOnly = false,
+                SameSite = SameSiteMode.None,
+                Secure = true,
+            });
             return Ok(new { mesage = "Cookie Deleted" });
         }
         [HttpGet("{userId}")]

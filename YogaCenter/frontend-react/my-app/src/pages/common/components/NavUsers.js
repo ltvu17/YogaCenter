@@ -18,7 +18,6 @@ export default function NavUsers(){
       <li><Link to='/login'>Login</Link></li>
     </ul>
     </nav>
- 
   )
 }
 
