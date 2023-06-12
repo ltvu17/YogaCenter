@@ -61,7 +61,7 @@ export default function Login(){
           },
         })
         .then(r => console.log(r)).catch(er => console.log(er))
-  
+        console.log(user)
       };
     return(
         
@@ -69,10 +69,11 @@ export default function Login(){
          <div className='box'>
          <div className='formLogin'>
          <h1>  Sign in </h1>
-         <UsernameTextField onChange={ ChangeHandler} className="login-username"  sx={{  width: '300px' }} label="Username" variant="standard"/>
+         <UsernameTextField onChange={ChangeHandler} name='userName' className="login-username"  sx={{  width: '300px' }} label="Username" variant="standard"/>
          <FormControl  className="login-password" sx={{  width: '300px' }} variant="standard">
           <PasswordInputLabel htmlFor="standard-adornment-password" label="Password">Password</PasswordInputLabel>
           <PasswordInputUnderline onChange={ ChangeHandler}
+            name='userPasswork'
             id="standard-adornment-password"
             type={showPassword ? 'text' : 'password'}
             endAdornment={

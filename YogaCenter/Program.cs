@@ -87,6 +87,11 @@ namespace YogaCenter
 
             app.UseAuthorization();
             app.UseCors("CORSPolicy");
+          //  app.Use(async (context, next) =>
+          //  {
+          //          context.Response.Headers.AccessControlAllowOrigin = "http://localhost:3000";
+          //          await next.Invoke();
+          //});
 
 
             app.MapControllers();
