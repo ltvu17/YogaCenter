@@ -16,8 +16,8 @@ function App() {
 
   return (
     <div className="App">
-      <NavUsers/>
-    {/* <Navigation/>
+      {/* <NavUsers/> */}
+    <Navigation/>
       <Routes>
         <Route path='/' element={<Home />} />
         <Route path='/home' element={<Home />} />
@@ -26,7 +26,7 @@ function App() {
         <Route path='/registerClass' element={<RegisterClass/>}/>
         <Route path='/schedule' element={<Schedule/>}/>
       </Routes>
-     <Footer/> */}
+     <Footer/>
     </div>
   
   );
