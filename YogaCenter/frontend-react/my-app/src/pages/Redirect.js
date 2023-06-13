@@ -43,13 +43,7 @@ export default function Redirect() {
     const navigate = useNavigate();
     let haveCookie = JSON.stringify(userCookie);   
     var count = 0;   
-    useEffect(() =>{
-          if(userCookie.flag == 1)
-          {
-          
-          removeCookie("flag");
-          navigate(0);
-          }         
+    useEffect(() =>{           
           if(haveCookie.localeCompare('{}', undefined, { sensitivity: 'base' }) === 0){
             setCookie("mesage","invalid",{ path : '/'});
             navigate("/login");
@@ -58,7 +52,7 @@ export default function Redirect() {
             var role = JSON.stringify(userCookie.Role);   
             console.log(role);     
             if(role.toUpperCase().trim().localeCompare('"CUSTOMER"', undefined, { sensitivity: 'base' }) === 0){        
-              navigate('/NavUsers');
+              navigate('/Home');
             }
             else 
               if(role.toUpperCase().trim().localeCompare('"STAFF"', undefined, { sensitivity: 'base' }) === 0){               

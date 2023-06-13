@@ -40,6 +40,7 @@ const PasswordInputUnderline = styled(Input)`
 `;
 var status = null;
 export default function Login(){
+    axios.defaults.withCredentials = true;
     const [showPassword, setShowPassword] = React.useState(false);
 
     const handleClickShowPassword = () => setShowPassword((show) => !show);
@@ -54,7 +55,6 @@ export default function Login(){
     try{
       var mesage = JSON.stringify(cookie.mesage);
       if(mesage.localeCompare('"invalid"', undefined, { sensitivity: 'base' }) === 0){    
-        console.log("1");
         status = 'Invalid Account';
         remove("mesage");
     }}catch(er){}
@@ -64,24 +64,19 @@ export default function Login(){
           return {...user, [e.target.name] : e.target.value }
         })    
       };
-      const  handleSubmit = () => {
-        
+      const  handleSubmit= () => {    
         axios.post("https://localhost:7096/api/User/Login", "", {
           headers:{
             'userName': user.userName,
-            'userPasswork': user.userPasswork
+            'userPasswork': user.userPassword,
           },
         })
-        .then(r => console.log(r)).catch(er => setTimeout(() => {
-          navigate("/Redirecting");
-         },1));       
-        ;
-        setCookie('flag',1,{ path: '/' });
+        .then().catch(er => console.log(er));       
         navigate("/Redirecting");
       };
 
     return(
-        
+        <form onSubmit={e => handleSubmit(e)}>
         <div className="login" style={{ backgroundImage: "url('/assets/images/backgroundLogin.png')" }}>
          <div className='box'>
          <div className='formLogin'>
@@ -111,9 +106,10 @@ export default function Login(){
           />
         </FormControl>
         <div className='button-forgot'><Link  to='/#'>Forgot your password?</Link></div>
-        <Button onClick={handleSubmit} variant='contained' className='button-login'>Login</Button>
+        <Button type='submit'variant='contained' className='button-login'>Login</Button>
           </div>
           </div>
         </div>
+        </form>
     )
 }

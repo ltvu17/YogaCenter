@@ -22,7 +22,7 @@ function App() {
 
   return (
     <div className="App">
-      {/* <NavUsers/> */}
+       {/* <NavUsers/>  */}
     <Navigation role={roleApp}/>
       <Routes>
         <Route path='/' element={<Home />} />
@@ -34,6 +34,8 @@ function App() {
         <Route path='/NavUsers' element={<NavUsers/>}/>
         <Route path='/Redirecting' element={<Redirect/>} />
         <Route path='/StaffManager' element={<StaffManager/>} />
+        <Route path='/HomeCustomer' element={<HomeCustomer/>} />
+        <Route path='/Profile' element={<Profile/>} />
       </Routes>
      <Footer/>
     </div>
