@@ -60,11 +60,11 @@ import { useCookies } from "react-cookie";
       }
     `;
     var navigate = useNavigate();
-    useEffect(() => {
+    useEffect(() => { 
       if(flag.flag == 1){
         remove("flag");
         navigate(0);
-      }
+      }   
     })
     return (
       <div className="home">

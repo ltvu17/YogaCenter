@@ -1,6 +1,7 @@
 import React from 'react'
+import MouseEvent from 'react'
 import { useState, useEffect } from 'react';
-import {Link, json,useNavigate } from 'react-router-dom'
+import {Form, Link, json,useNavigate } from 'react-router-dom'
 import IconButton from '@mui/material/IconButton';
 import { Input } from '@mui/material';
 import InputLabel from '@mui/material/InputLabel';
@@ -15,6 +16,7 @@ import axios from 'axios';
 import Alert, { AlertProps } from '@mui/material/Alert';
 import { Cookies, useCookies } from 'react-cookie';
 import '../css/login.css'
+import { type } from '@testing-library/user-event/dist/type';
 const UsernameTextField = styled(TextField)`
 & label.Mui-focused {
     color: #866077;
@@ -39,6 +41,7 @@ const PasswordInputUnderline = styled(Input)`
 }
 `;
 var status = null;
+var redirect = 0;
 export default function Login(){
     axios.defaults.withCredentials = true;
     const [showPassword, setShowPassword] = React.useState(false);
@@ -64,20 +67,20 @@ export default function Login(){
           return {...user, [e.target.name] : e.target.value }
         })    
       };
-      const  handleSubmit= () => {    
+      const handleSubmit= (e) => {   
         axios.post("https://localhost:7096/api/User/Login", "", {
           headers:{
             'userName': user.userName,
             'userPasswork': user.userPassword,
           },
-        })
-        .then().catch(er => console.log(er));       
-        navigate("/Redirecting");
+        }).then().catch(er => console.log(er));    
+        setCookie('flag', 1,{ path:'/'});
+        navigate('/Redirecting');
       };
-
+      
     return(
-        <form onSubmit={e => handleSubmit(e)}>
-        <div className="login" style={{ backgroundImage: "url('/assets/images/backgroundLogin.png')" }}>
+
+         <div className="login" style={{ backgroundImage: "url('/assets/images/backgroundLogin.png')" }}>
          <div className='box'>
          <div className='formLogin'>
          <h1>  Sign in </h1>
@@ -86,6 +89,7 @@ export default function Login(){
           {status}
           </Alert>) :''
           }
+          
          <UsernameTextField onChange={ ChangeHandler} name='userName' className="login-username"  sx={{  width: '300px' }} label="Username" variant="standard"/>
          <FormControl  className="login-password" sx={{  width: '300px' }} variant="standard">
           <PasswordInputLabel htmlFor="standard-adornment-password" label="Password">Password</PasswordInputLabel>
@@ -101,15 +105,16 @@ export default function Login(){
                   {showPassword ? <VisibilityOff /> : <Visibility />}
                 </IconButton>
               </InputAdornment>
-            }
-            
+            }          
           />
         </FormControl>
-        <div className='button-forgot'><Link  to='/#'>Forgot your password?</Link></div>
-        <Button type='submit'variant='contained' className='button-login'>Login</Button>
+          <div className='button-forgot'><Link  to='/#'>Forgot your password?</Link></div>
+          <form onSubmit ={handleSubmit}>
+          <Button  type='submit' variant='contained' className='button-login'>Login</Button>
+          </form>
           </div>
           </div>
         </div>
-        </form>
+        
     )
 }

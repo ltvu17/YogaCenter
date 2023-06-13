@@ -90,6 +90,7 @@ export default function Navigation({role}){
     else
     if(role.toUpperCase().trim().localeCompare('"STAFF"', undefined, { sensitivity: 'base' }) === 0){
       return(
+       
       <nav className='Navigation'>
       <Link to='/' className='logo'>
         <h1>Yoga FPTU Center</h1>
@@ -98,7 +99,7 @@ export default function Navigation({role}){
       <ul className='nav'>
       <li><Link to='/home'>Home</Link></li>
        <li className='menu'><Link to='#'>Manage Class</Link>
-          <ul class='drop-menu'>
+          <ul className='drop-menu'>
             <li><Link to='#'>hihi</Link></li>
             <li><Link>haha</Link></li>
             <li><Link>haha</Link></li>
@@ -106,7 +107,7 @@ export default function Navigation({role}){
           </ul>  
       </li>
       <li className='menu'><Link  to='#'>Manage Blog</Link>
-      <ul class='drop-menu'>
+      <ul className='drop-menu'>
             <li><Link to='#'>hihi</Link></li>
             <li><Link>haha</Link></li>
             <li><Link>haha</Link></li>
@@ -114,7 +115,7 @@ export default function Navigation({role}){
           </ul> 
       </li>
       <li className='menu'><Link  to='#'>Manage User</Link>
-        <ul class='drop-menu'>
+        <ul className='drop-menu'>
             <li><Link to='#'></Link></li>
             <li><Link>haha</Link></li>
             <li><Link>haha</Link></li>
@@ -124,6 +125,7 @@ export default function Navigation({role}){
       <li><Link onClick={logout} to='/home'>Logout</Link></li>
     </ul>
     </nav> 
+ 
     );
     }
   }catch(err){

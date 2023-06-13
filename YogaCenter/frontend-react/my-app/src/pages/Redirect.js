@@ -43,14 +43,18 @@ export default function Redirect() {
     const navigate = useNavigate();
     let haveCookie = JSON.stringify(userCookie);   
     var count = 0;   
-    useEffect(() =>{           
+    useEffect(() =>{     
+     
+          if(userCookie.flag == 1){
+          removeCookie("flag");
+          navigate(0);}
+  
           if(haveCookie.localeCompare('{}', undefined, { sensitivity: 'base' }) === 0){
             setCookie("mesage","invalid",{ path : '/'});
             navigate("/login");
           }
           try{
-            var role = JSON.stringify(userCookie.Role);   
-            console.log(role);     
+            var role = JSON.stringify(userCookie.Role);       
             if(role.toUpperCase().trim().localeCompare('"CUSTOMER"', undefined, { sensitivity: 'base' }) === 0){        
               navigate('/Home');
             }
@@ -59,9 +63,9 @@ export default function Redirect() {
               navigate('/StaffManager');
             }}catch(err){
             }        
-    },[count])
+    },[count]);
+
   return (
-    <form>
         <div className="login" style={{ backgroundImage: "url('/assets/images/backgroundLogin.png')" }}>
          <div className='box'>
          <div className='formLogin'>
@@ -87,10 +91,10 @@ export default function Redirect() {
           />
         </FormControl>
         <div className='button-forgot'><Link  to='/#'>Forgot your password?</Link></div>
-        <Button type='submit' variant='contained' className='button-login'>Login</Button>
+        <Button variant='contained' className='button-login'>Login</Button>
           </div>
           </div>
         </div>
-        </form>
+        
   )
 }

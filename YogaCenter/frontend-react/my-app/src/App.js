@@ -31,7 +31,7 @@ function App() {
         <Route path='/login' element={<Login/>}/>
         <Route path='/registerClass' element={<RegisterClass/>}/>
         <Route path='/schedule' element={<Schedule/>}/>
-        <Route path='/NavUsers' element={<NavUsers/>}/>
+        {/* <Route path='/NavUsers' element={<NavUsers/>}/> */}
         <Route path='/Redirecting' element={<Redirect/>} />
         <Route path='/StaffManager' element={<StaffManager/>} />
         <Route path='/HomeCustomer' element={<HomeCustomer/>} />
