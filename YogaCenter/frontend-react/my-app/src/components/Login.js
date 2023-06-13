@@ -12,11 +12,9 @@ import TextField from '@mui/material/TextField';
 import Button from "@mui/material/Button";
 import {styled}    from '@mui/material/styles';
 import axios from 'axios';
-import '../css/login.css'
 import Alert, { AlertProps } from '@mui/material/Alert';
-
 import { Cookies, useCookies } from 'react-cookie';
-
+import '../css/login.css'
 const UsernameTextField = styled(TextField)`
 & label.Mui-focused {
     color: #866077;
@@ -43,15 +41,16 @@ const PasswordInputUnderline = styled(Input)`
 var status = null;
 export default function Login(){
     const [showPassword, setShowPassword] = React.useState(false);
-    const navigate = useNavigate();
-    const [cookie,setCookie,remove] = useCookies();
+
     const handleClickShowPassword = () => setShowPassword((show) => !show);
-    axios.defaults.withCredentials = true;
+
+    
     const [user,setState] = useState({
       userName : "",
-      userPasswork: ""
+      userPassword: ""
     });
-  
+    const navigate = useNavigate();
+    const [cookie,setCookie,remove] = useCookies();
     try{
       var mesage = JSON.stringify(cookie.mesage);
       if(mesage.localeCompare('"invalid"', undefined, { sensitivity: 'base' }) === 0){    
@@ -80,9 +79,9 @@ export default function Login(){
         setCookie('flag',1,{ path: '/' });
         navigate("/Redirecting");
       };
-  
+
     return(
-      <form onSubmit={handleSubmit}>
+        
         <div className="login" style={{ backgroundImage: "url('/assets/images/backgroundLogin.png')" }}>
          <div className='box'>
          <div className='formLogin'>
@@ -92,11 +91,10 @@ export default function Login(){
           {status}
           </Alert>) :''
           }
-         <UsernameTextField onChange={ChangeHandler} name='userName' className="login-username"  sx={{  width: '300px' }} label="Username" variant="standard"/>
+         <UsernameTextField onChange={ ChangeHandler} name='userName' className="login-username"  sx={{  width: '300px' }} label="Username" variant="standard"/>
          <FormControl  className="login-password" sx={{  width: '300px' }} variant="standard">
           <PasswordInputLabel htmlFor="standard-adornment-password" label="Password">Password</PasswordInputLabel>
-          <PasswordInputUnderline onChange={ChangeHandler}
-            name='userPasswork'
+          <PasswordInputUnderline onChange={ ChangeHandler} name='userPassword'
             id="standard-adornment-password"
             type={showPassword ? 'text' : 'password'}
             endAdornment={
@@ -113,11 +111,9 @@ export default function Login(){
           />
         </FormControl>
         <div className='button-forgot'><Link  to='/#'>Forgot your password?</Link></div>
-        <Button type='submit' variant='contained' className='button-login'>Login</Button>
+        <Button onClick={handleSubmit} variant='contained' className='button-login'>Login</Button>
           </div>
           </div>
         </div>
-        </form>
-        
     )
 }

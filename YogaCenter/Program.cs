@@ -17,11 +17,12 @@ namespace YogaCenter
             {
                 options.AddPolicy("CORSPolicy", builder =>
                 {
-                    builder.WithOrigins("http://localhost:3000")
+                    builder.WithOrigins("http://localhost:3000;http://localhost:3001;http://localhost:3002;http://localhost:3003")
                     .AllowAnyMethod().AllowAnyHeader()
                     .AllowCredentials()
                     ;                     
                 });
+
             } 
             );
             builder.Services.AddCors();
@@ -89,10 +90,12 @@ namespace YogaCenter
             app.UseCors("CORSPolicy");
             
 
-
+            app.UseCors("AllowOrigin");
             app.MapControllers();
 
             app.Run();
+            app.UseCors("CORSPolicy");
+           
         }
     }
 }
