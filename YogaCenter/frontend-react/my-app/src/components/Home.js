@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+  import React, { useEffect } from "react";
 
   import "../css/home.css";
 
@@ -9,10 +9,10 @@ import React, { useEffect } from "react";
   import { Input } from '@mui/material';
   import Box from '@mui/material/Box';
   import { Link, useNavigate } from "react-router-dom";
-  import { useCookies } from "react-cookie";
+  import {useCookies } from 'react-cookie'
   const ariaLabel = { 'aria-label': 'description' };
+  
   export default function Home() {
-    const[flag,setCookie,remove] = useCookies();
     const InputCus = styled(Input)`
      &:after{
       border-bottom: 2px solid #951a3b;
@@ -58,12 +58,18 @@ import React, { useEffect } from "react";
       &:hover {
         background-color: #734660;
       }
-    `; var navigate = useNavigate();
+    `;
+    const[flag,setCookie,remove] = useCookies();
+    var navigate = useNavigate();
     useEffect(() => {
-      if(flag.flag ==1){
+      try{
+      if(flag.flag == 1){
         remove("flag");
         navigate(0);
       }
+    } catch(err){
+
+    }
     })
     return (
       <div className="home">
