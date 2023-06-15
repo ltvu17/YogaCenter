@@ -9,10 +9,12 @@
   import { Input } from '@mui/material';
   import Box from '@mui/material/Box';
   import { Link, useNavigate } from "react-router-dom";
-import { useCookies } from "react-cookie";
+  import { useCookies } from "react-cookie";
+
+
   const ariaLabel = { 'aria-label': 'description' };
+  
   export default function Home() {
-    const[flag,setCookie,remove] = useCookies();
     const InputCus = styled(Input)`
      &:after{
       border-bottom: 2px solid #951a3b;
@@ -59,13 +61,15 @@ import { useCookies } from "react-cookie";
         background-color: #734660;
       }
     `;
+    const[flag,setCookie,remove] = useCookies();
     var navigate = useNavigate();
     useEffect(() => { 
       if(flag.flag == 1){
         remove("flag");
         navigate(0);
       }   
-    })
+
+    
     return (
       <div className="home">
         <div className="banner">

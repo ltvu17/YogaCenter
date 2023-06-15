@@ -38,6 +38,7 @@
 //   const isCustomer = true;
 //   return (
 //     <nav className='navUsers'>
+
 //     <Link to='/' className='logoUsers'>
 //       <h1>Yoga FPTU Center</h1>
 //       <p>EVERY DAY</p>
@@ -68,6 +69,7 @@
 //           </Box></li>
 //   </ul>
 //   </nav>
+
 //   );
 // }
 // export default NavUsers;

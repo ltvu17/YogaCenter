@@ -14,6 +14,7 @@ import {styled}    from '@mui/material/styles';
 import axios from 'axios';
 import Alert, { AlertProps } from '@mui/material/Alert';
 import { Cookies, useCookies } from 'react-cookie';
+import { type } from '@testing-library/user-event/dist/type';
 import '../css/login.css'
 
 const UsernameTextField = styled(TextField)`
@@ -78,7 +79,6 @@ export default function Login(){
       };
       
     return(
-
          <div className="login" style={{ backgroundImage: "url('/assets/images/backgroundLogin.png')" }}>
          <div className='box'>
          <div className='formLogin'>
@@ -114,6 +114,5 @@ export default function Login(){
           </div>
           </div>
         </div>
-        
     )
 }

@@ -1,6 +1,8 @@
+
 .introduction-customer{
     background-color: #d2c7c9;
     width: 100%;
+    height: 100vh;
    
  
 }
@@ -10,35 +12,38 @@
     background-size: cover;
     background-repeat: no-repeat;
     width: 70%;
-    right: 0;
+  
     left: 400px;
+    top: 70px;
 }
 .introduction-customer h2{
-    position: absolute;
+  
     font-size: 60px;
     width: 45%;
     color: #d2608d;
     font-weight: 600;
-    letter-spacing: 7px;
+  
     line-height: 1.2;
-    text-align: center;
-    top: 150px;
-    left: 100px;
+   
+  
 }
 .introduction-customer h3{
     font-size: 60px;
    
     color: #d2608d;
     font-weight: 600;
-    letter-spacing: 7px;
+    
     line-height: 1.2;
-    text-align: center;
+
    
 }
+
 .content-customer{
-    width: 100%;
-   
-    background-color: #ece8e9;
+    width: 70%;
+ 
+      top: 180px;
+    left: 120px;
+      position: absolute;
 }
 .content-customer a{
     text-decoration: none;
@@ -47,5 +52,39 @@
 }
 .content-customer p{
     color: #8a1523;
-    font-size: 28px;
+    font-size: 10px;
 }
+.grid-container {
+    display: flex;
+
+    transition: justify-content 0.3s;
+  
+}
+
+.grid-item {
+  transition: transform 0.3s;
+
+  position: relative;
+}
+.grid-item:hover {
+    transform: translateY(-10px) scale(1.1);
+
+  
+}
+.grid-item:hover p{
+   display: block;
+   color: black;
+    font-size: 16px;
+     width: 150px;
+ position: absolute;
+top: 110px;
+}
+.grid-item p{
+    
+    display: none;
+    width: 150px;
+   
+    text-align: center;
+}
+
+

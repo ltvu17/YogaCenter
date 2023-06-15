@@ -43,8 +43,7 @@ export default function Redirect() {
     const navigate = useNavigate();
     let haveCookie = JSON.stringify(userCookie);   
     var count = 0;   
-    useEffect(() =>{     
-     
+    useEffect(() =>{          
           if(userCookie.flag == 1){
           removeCookie("flag");
           navigate(0);}
@@ -96,5 +95,6 @@ export default function Redirect() {
           </div>
         </div>
         
+
   )
 }

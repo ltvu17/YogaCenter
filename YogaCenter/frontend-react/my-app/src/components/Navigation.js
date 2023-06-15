@@ -1,4 +1,5 @@
 import '../css/navigation.css'
+import '.././pages/common/css/navUsers.css'
 import axios from 'axios'
 import { useCookies } from 'react-cookie'
 import { Button } from '@mui/material'
@@ -18,6 +19,7 @@ import AdbIcon from '@mui/icons-material/Adb';
 import { Link } from "react-router-dom";
 import { useNavigate } from 'react-router-dom';
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
+import NavUsers from '../pages/common/components/NavUsers';
 
 
 export default function Navigation({role}){
@@ -29,6 +31,8 @@ export default function Navigation({role}){
      } )
      .then(r => console.log(r)).catch(er => console.log(er));
      setCookie('flag',1,{path : '/'});
+
+   
   }
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
@@ -48,6 +52,7 @@ export default function Navigation({role}){
     setAnchorElUser(null);
   };
   const isCustomer = true;
+
   const MenuNav = () => {
     try{
     if(role.toUpperCase().trim().localeCompare('"CUSTOMER"', undefined, { sensitivity: 'base' }) === 0){
@@ -67,7 +72,7 @@ export default function Navigation({role}){
               </IconButton>        
                 <Menu
                  className="menu-popover" sx={{ mt: '45px' }} id="menu-appbar"
-                    // anchorEl={anchorElUser}
+                    anchorEl={anchorElUser}
                     anchorOrigin={{vertical: 'top', horizontal: 'right',}}
                     keepMounted
                     transformOrigin={{vertical: 'top',horizontal: 'right',}}
@@ -85,6 +90,7 @@ export default function Navigation({role}){
           </Box></li> 
   </ul> 
   </nav>
+
     );
     }
     else
