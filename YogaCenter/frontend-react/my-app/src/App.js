@@ -11,15 +11,14 @@ import Footer from './components/Footer';
 import RegisterClass from './components/RegisterClass';
 import NavUsers from './pages/common/components/NavUsers'
 import HomeCustomer from './pages/customer/components/homeCustomer';
-
 import StaffManager from './pages/staff/components/StaffManager';
 import Redirect from './pages/Redirect';
-
-import { useCookies } from 'react-cookie';
 import Staffmanage from './pages/staff/components/Staffmanage';
 import UpdateClass from './pages/staff/components/UpdateClass';
 import Notification from './pages/customer/components/Notification';
 import ScheduleCustomer from './pages/customer/components/ScheduleCustomer';
+import ProfileCustomer from './pages/customer/components/ProfileCustomer';
+
 
 
 function App() {
@@ -49,7 +48,7 @@ function App() {
         <Route path='/StaffManager' element={<StaffManager/>} />
         <Route path='/staffmanage' element={<Staffmanage/>} />
         <Route path='home-customer' element={<HomeCustomer/>} />
-        <Route path='/Profile' element={<Profile/>} />
+        <Route path='/Profile' element={<ProfileCustomer/>} />
         <Route path='/customer-schedule' element={<ScheduleCustomer/>}/>
         {/* <Route path='/updateClass:id' element={<UpdateClass/>} /> */}
       </Routes>
