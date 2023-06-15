@@ -1,5 +1,4 @@
 import '../css/navigation.css'
-import '.././pages/common/css/navUsers.css'
 import axios from 'axios'
 import { useCookies } from 'react-cookie'
 import { Button } from '@mui/material'
@@ -19,7 +18,6 @@ import AdbIcon from '@mui/icons-material/Adb';
 import { Link } from "react-router-dom";
 import { useNavigate } from 'react-router-dom';
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
-import NavUsers from '../pages/common/components/NavUsers';
 
 
 export default function Navigation({role}){
@@ -28,11 +26,9 @@ export default function Navigation({role}){
   axios.defaults.withCredentials = true;
   const logout = () =>{
      axios.post("https://localhost:7096/api/User/Logout","",{
-     } )
+     })
      .then(r => console.log(r)).catch(er => console.log(er));
      setCookie('flag',1,{path : '/'});
-
-   
   }
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
@@ -52,7 +48,7 @@ export default function Navigation({role}){
     setAnchorElUser(null);
   };
   const isCustomer = true;
-
+  
   const MenuNav = () => {
     try{
     if(role.toUpperCase().trim().localeCompare('"CUSTOMER"', undefined, { sensitivity: 'base' }) === 0){
@@ -90,7 +86,6 @@ export default function Navigation({role}){
           </Box></li> 
   </ul> 
   </nav>
-
     );
     }
     else
@@ -121,7 +116,7 @@ export default function Navigation({role}){
       </li>
       <li className='menu'><Link  to='#'>Manage User</Link>
         <ul className='drop-menu'>
-            <li><Link to='#'></Link></li>
+            <li><Link to='#'>hihi</Link></li>
             <li><Link>haha</Link></li>
             <li><Link>haha</Link></li>
             <li><Link>haha</Link></li>
