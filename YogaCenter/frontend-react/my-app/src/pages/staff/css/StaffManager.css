@@ -1,3 +1,22 @@
 .staffDiv{
-    height: 100px;
+
+    height: 70px;
 }
+div{
+    justify-content: center;
+    
+}
+.class-post{
+    background-color: rgb(233, 224, 228);
+}
+.class-post table{
+    margin-left: 10%;
+    width: 80%;
+    border: 10px black;
+}
+table, th, td {
+    border: 5px solid rgb(77, 21, 52);
+    border-collapse: collapse;
+    text-align: center;
+  }
+

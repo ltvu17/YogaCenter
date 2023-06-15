@@ -43,56 +43,58 @@ export default function Redirect() {
     const navigate = useNavigate();
     let haveCookie = JSON.stringify(userCookie);   
     var count = 0;   
-    useEffect(() =>{     
+    useEffect(() =>{          
+          if(userCookie.flag == 1){
+          removeCookie("flag");
+          navigate(0);}
   
-        if(userCookie.flag == 1){
-        removeCookie("flag");
-        navigate(0);}
-
-        if(haveCookie.localeCompare('{}', undefined, { sensitivity: 'base' }) === 0){
-          setCookie("mesage","invalid",{ path : '/'});
-          navigate("/login");
-        }
-        try{
-          var role = JSON.stringify(userCookie.Role);       
-          if(role.toUpperCase().trim().localeCompare('"CUSTOMER"', undefined, { sensitivity: 'base' }) === 0){        
-            navigate('/Home');
+          if(haveCookie.localeCompare('{}', undefined, { sensitivity: 'base' }) === 0){
+            setCookie("mesage","invalid",{ path : '/'});
+            navigate("/login");
           }
-          else 
-            if(role.toUpperCase().trim().localeCompare('"STAFF"', undefined, { sensitivity: 'base' }) === 0){               
-            navigate('/StaffManager');
-          }}catch(err){
-          }        
+          try{
+            var role = JSON.stringify(userCookie.Role);       
+            if(role.toUpperCase().trim().localeCompare('"CUSTOMER"', undefined, { sensitivity: 'base' }) === 0){        
+              navigate('/HomeCustomer');
+            }
+            else 
+              if(role.toUpperCase().trim().localeCompare('"STAFF"', undefined, { sensitivity: 'base' }) === 0){               
+              navigate('/staffmanage');
+            }}catch(err){
+            }        
     },[count]);
+
   return (
-    <div className="login" style={{ backgroundImage: "url('/assets/images/backgroundLogin.png')" }}>
-    <div className='box'>
-    <div className='formLogin'>
-    <h1>  Sign in </h1>
-    <UsernameTextField  name='userName' className="login-username"  sx={{  width: '300px' }} label="Username" variant="standard"/>
-    <FormControl  className="login-password" sx={{  width: '300px' }} variant="standard">
-     <PasswordInputLabel htmlFor="standard-adornment-password" label="Password">Password</PasswordInputLabel>
-     <PasswordInputUnderline 
-       name='userPasswork'
-       id="standard-adornment-password"
-       type={showPassword ? 'text' : 'password'}
-       endAdornment={
-         <InputAdornment position="end">
-           <IconButton
-             aria-label="toggle password visibility"
-             onClick={handleClickShowPassword}
-           >
-             {showPassword ? <VisibilityOff /> : <Visibility />}
-           </IconButton>
-         </InputAdornment>
-       }
-       
-     />
-   </FormControl>
-   <div className='button-forgot'><Link  to='/#'>Forgot your password?</Link></div>
-   <Button variant='contained' className='button-login'>Login</Button>
-     </div>
-     </div>
-   </div>
+        <div className="login" style={{ backgroundImage: "url('/assets/images/backgroundLogin.png')" }}>
+         <div className='box'>
+         <div className='formLogin'>
+         <h1>  Sign in </h1>
+         <UsernameTextField  name='userName' className="login-username"  sx={{  width: '300px' }} label="Username" variant="standard"/>
+         <FormControl  className="login-password" sx={{  width: '300px' }} variant="standard">
+          <PasswordInputLabel htmlFor="standard-adornment-password" label="Password">Password</PasswordInputLabel>
+          <PasswordInputUnderline 
+            name='userPasswork'
+            id="standard-adornment-password"
+            type={showPassword ? 'text' : 'password'}
+            endAdornment={
+              <InputAdornment position="end">
+                <IconButton
+                  aria-label="toggle password visibility"
+                  onClick={handleClickShowPassword}
+                >
+                  {showPassword ? <VisibilityOff /> : <Visibility />}
+                </IconButton>
+              </InputAdornment>
+            }
+            
+          />
+        </FormControl>
+        <div className='button-forgot'><Link  to='/#'>Forgot your password?</Link></div>
+        <Button variant='contained' className='button-login'>Login</Button>
+          </div>
+          </div>
+        </div>
+        
+
   )
 }

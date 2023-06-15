@@ -31,7 +31,7 @@ namespace YogaCenter.Repository
 
         public async Task<Class> GetClassById(Guid id)
         {
-            return await _context.Classes.Where(p => p.Id == id).Include(p => p.Teacher).FirstOrDefaultAsync();
+            return await _context.Classes.Where(p => p.Id == id).Include(p => p.Teacher).Include(p=>p.Course).FirstOrDefaultAsync();
         }
 
         public async Task<Class> GetClassByIdDelete(Guid id)

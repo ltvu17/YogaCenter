@@ -9,7 +9,9 @@
   import { Input } from '@mui/material';
   import Box from '@mui/material/Box';
   import { Link, useNavigate } from "react-router-dom";
-  import {useCookies } from 'react-cookie'
+  import { useCookies } from "react-cookie";
+
+
   const ariaLabel = { 'aria-label': 'description' };
   
   export default function Home() {
@@ -61,16 +63,13 @@
     `;
     const[flag,setCookie,remove] = useCookies();
     var navigate = useNavigate();
-    useEffect(() => {
-      try{
+    useEffect(() => { 
       if(flag.flag == 1){
         remove("flag");
         navigate(0);
-      }
-    } catch(err){
+      }   
 
-    }
-    })
+    
     return (
       <div className="home">
         <div className="banner">

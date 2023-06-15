@@ -15,8 +15,12 @@ import HomeCustomer from './pages/customer/components/homeCustomer';
 import StaffManager from './pages/staff/components/StaffManager';
 import Redirect from './pages/Redirect';
 
+import { useCookies } from 'react-cookie';
+import Staffmanage from './pages/staff/components/Staffmanage';
+import UpdateClass from './pages/staff/components/UpdateClass';
 import Notification from './pages/customer/components/Notification';
 import ScheduleCustomer from './pages/customer/components/ScheduleCustomer';
+
 
 function App() {
  
@@ -38,17 +42,20 @@ function App() {
         <Route path='/schedule' element={<Schedule/>}/>
         <Route path='/login' element={<Login/>}/>
         <Route path='/registerClass' element={<RegisterClass/>}/>
-     
-        <Route path='/NavUsers' element={<NavUsers/>}/>
+
+        <Route path='/schedule' element={<Schedule/>}/>
+        {/* <Route path='/NavUsers' element={<NavUsers/>}/> */}
         <Route path='/Redirecting' element={<Redirect/>} />
         <Route path='/StaffManager' element={<StaffManager/>} />
+        <Route path='/staffmanage' element={<Staffmanage/>} />
         <Route path='home-customer' element={<HomeCustomer/>} />
-        {/* <Route path="/notification" element={<Notification/>} /> */}
+        <Route path='/Profile' element={<Profile/>} />
         <Route path='/customer-schedule' element={<ScheduleCustomer/>}/>
-      </Routes>   
+        {/* <Route path='/updateClass:id' element={<UpdateClass/>} /> */}
+      </Routes>
+     <Footer/>
+    </div>
 
-     <Footer/>   
-     </div>
   
   );
   
