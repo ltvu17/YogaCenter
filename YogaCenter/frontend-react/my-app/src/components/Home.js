@@ -1,4 +1,4 @@
-  import React from "react";
+  import React, { useEffect } from "react";
 
   import "../css/home.css";
 
@@ -8,8 +8,12 @@
   import Grid from '@mui/material/Unstable_Grid2';
   import { Input } from '@mui/material';
   import Box from '@mui/material/Box';
-  import { Link } from "react-router-dom";
+  import { Link, useNavigate } from "react-router-dom";
+  import { useCookies } from "react-cookie";
+
+
   const ariaLabel = { 'aria-label': 'description' };
+  
   export default function Home() {
     const InputCus = styled(Input)`
      &:after{
@@ -57,6 +61,15 @@
         background-color: #734660;
       }
     `;
+    const[flag,setCookie,remove] = useCookies();
+    var navigate = useNavigate();
+    useEffect(() => { 
+      if(flag.flag == 1){
+        remove("flag");
+        navigate(0); }})
+  
+
+    
     return (
       <div className="home">
         <div className="banner">
