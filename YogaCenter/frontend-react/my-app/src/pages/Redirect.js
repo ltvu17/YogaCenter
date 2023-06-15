@@ -56,11 +56,11 @@ export default function Redirect() {
           try{
             var role = JSON.stringify(userCookie.Role);       
             if(role.toUpperCase().trim().localeCompare('"CUSTOMER"', undefined, { sensitivity: 'base' }) === 0){        
-              navigate('/Home');
+              navigate('/HomeCustomer');
             }
             else 
               if(role.toUpperCase().trim().localeCompare('"STAFF"', undefined, { sensitivity: 'base' }) === 0){               
-              navigate('/StaffManager');
+              navigate('/staffmanage');
             }}catch(err){
             }        
     },[count]);

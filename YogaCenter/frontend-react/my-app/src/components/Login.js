@@ -1,5 +1,4 @@
 import React from 'react'
-import MouseEvent from 'react'
 import { useState, useEffect } from 'react';
 import {Form, Link, json,useNavigate } from 'react-router-dom'
 import IconButton from '@mui/material/IconButton';
@@ -16,7 +15,7 @@ import axios from 'axios';
 import Alert, { AlertProps } from '@mui/material/Alert';
 import { Cookies, useCookies } from 'react-cookie';
 import '../css/login.css'
-import { type } from '@testing-library/user-event/dist/type';
+
 const UsernameTextField = styled(TextField)`
 & label.Mui-focused {
     color: #866077;

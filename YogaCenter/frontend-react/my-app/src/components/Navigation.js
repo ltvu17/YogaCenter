@@ -58,9 +58,9 @@ export default function Navigation({role}){
       <p>EVERY DAY</p>
       </Link>
       <ul className='nav'>
-     <li><Link to='/home'>Home</Link></li>
-     <li><Link to='#'>Blog</Link></li>
-     <li><Link to={isCustomer ? '/home-customer' : '/home-instructor'}>My Account</Link></li>
+      <li><Link to='/home'>Home</Link></li>
+      <li><Link to='#'>Blog</Link></li>
+      <li><Link to={isCustomer ? '/home-customer' : '/home-instructor'}>My Account</Link></li>
       <li> <Box sx={{ flexGrow: 0 }}>           
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                 <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
@@ -89,8 +89,7 @@ export default function Navigation({role}){
     }
     else
     if(role.toUpperCase().trim().localeCompare('"STAFF"', undefined, { sensitivity: 'base' }) === 0){
-      return(
-       
+      return(      
       <nav className='Navigation'>
       <Link to='/' className='logo'>
         <h1>Yoga FPTU Center</h1>
@@ -123,7 +122,7 @@ export default function Navigation({role}){
           </ul> 
       </li>
       <li><Link onClick={logout} to='/home'>Logout</Link></li>
-    </ul>
+      </ul>
     </nav> 
  
     );

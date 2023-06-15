@@ -15,6 +15,8 @@ import Profile from './pages/common/components/Profile';
 import StaffManager from './pages/staff/components/StaffManager';
 import Redirect from './pages/Redirect';
 import { useCookies } from 'react-cookie';
+import Staffmanage from './pages/staff/components/Staffmanage';
+import UpdateClass from './pages/staff/components/UpdateClass';
 
 function App() {
   const[roleCookie,setCookie]= useCookies(['']);
@@ -34,8 +36,10 @@ function App() {
         {/* <Route path='/NavUsers' element={<NavUsers/>}/> */}
         <Route path='/Redirecting' element={<Redirect/>} />
         <Route path='/StaffManager' element={<StaffManager/>} />
+        <Route path='/staffmanage' element={<Staffmanage/>} />
         <Route path='/HomeCustomer' element={<HomeCustomer/>} />
         <Route path='/Profile' element={<Profile/>} />
+        {/* <Route path='/updateClass:id' element={<UpdateClass/>} /> */}
       </Routes>
      <Footer/>
     </div>
