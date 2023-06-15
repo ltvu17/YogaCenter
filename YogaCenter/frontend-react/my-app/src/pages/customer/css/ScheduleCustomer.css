@@ -1,0 +1,78 @@
+.week-schedule-container {
+    width: 1200px;
+    margin: 0 auto;
+    background-color: #f5f5f5;
+    padding: 20px;
+    height: 800px;
+  }
+  
+  .week-schedule-container h1 {
+    
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+  
+  .week-schedule-container h1 span {
+    margin: 5px;
+  }
+  
+  .week-schedule-container table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+  }
+  
+
+  .week-schedule-container th,
+  .week-schedule-container td {
+    padding: 10px;
+    text-align: center;
+    border: 1px solid #ddd;
+  }
+  
+  .week-schedule-container th {
+    background-color: #f2f2f2;
+    font-weight: bold;
+    width: calc(100% / 8);
+  }
+  
+  .week-schedule-container tbody td {
+    background-color: #fff;
+  }
+  
+  .week-schedule-container tbody tr:nth-child(even) td {
+    background-color: #f9f9f9;
+  }
+  
+  .week-schedule-container td input,
+  .week-schedule-container td select {
+    width: 100%;
+    padding: 5px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+  }
+  
+  .week-schedule-container td button {
+    padding: 5px 10px;
+    background-color: #333;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .week-schedule-container td button:hover {
+    background-color: #555;
+  }
+  .navigation-buttons {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 10px;
+  }
+  
+  .navigation-buttons button {
+    margin: 0 5px;
+  }

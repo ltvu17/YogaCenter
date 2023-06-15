@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
-import { Route, Routes, useNavigate } from 'react-router-dom';
+import React from 'react';
+import { Route, Routes} from 'react-router-dom';
 import Navigation from './components/Navigation';
-
+import { useCookies } from 'react-cookie';
 import './css/App.css';
 import './css/home.css'
 import Login from './components/Login';
@@ -10,24 +10,51 @@ import Schedule from './components/Schedule';
 import Footer from './components/Footer';
 import RegisterClass from './components/RegisterClass';
 import NavUsers from './pages/common/components/NavUsers'
+import HomeCustomer from './pages/customer/components/homeCustomer';
+import StaffManager from './pages/staff/components/StaffManager';
+import Redirect from './pages/Redirect';
+import Staffmanage from './pages/staff/components/Staffmanage';
+import UpdateClass from './pages/staff/components/UpdateClass';
+import Notification from './pages/customer/components/Notification';
+import ScheduleCustomer from './pages/customer/components/ScheduleCustomer';
+import ProfileCustomer from './pages/customer/components/ProfileCustomer';
+
+
 
 function App() {
  
+  try {
+  const[roleCookie,setCookie]= useCookies(['']);
+  var roleApp = JSON.stringify(roleCookie.Role);
+} catch(err){
+
+}
 
   return (
     <div className="App">
-      {/* <NavUsers/> */}
-    <Navigation/>
+       {/* <NavUsers/>  */}
+    <Navigation role={roleApp}/>
+    
       <Routes>
         <Route path='/' element={<Home />} />
         <Route path='/home' element={<Home />} />
         <Route path='/schedule' element={<Schedule/>}/>
         <Route path='/login' element={<Login/>}/>
         <Route path='/registerClass' element={<RegisterClass/>}/>
+
         <Route path='/schedule' element={<Schedule/>}/>
+        {/* <Route path='/NavUsers' element={<NavUsers/>}/> */}
+        <Route path='/Redirecting' element={<Redirect/>} />
+        <Route path='/StaffManager' element={<StaffManager/>} />
+        <Route path='/staffmanage' element={<Staffmanage/>} />
+        <Route path='home-customer' element={<HomeCustomer/>} />
+        <Route path='/Profile' element={<ProfileCustomer/>} />
+        <Route path='/customer-schedule' element={<ScheduleCustomer/>}/>
+        {/* <Route path='/updateClass:id' element={<UpdateClass/>} /> */}
       </Routes>
      <Footer/>
     </div>
+
   
   );
   

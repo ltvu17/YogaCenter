@@ -1,6 +1,6 @@
 import React from 'react'
-import { useState } from 'react';
-import {Link} from 'react-router-dom'
+import { useState, useEffect } from 'react';
+import {Form, Link, json,useNavigate } from 'react-router-dom'
 import IconButton from '@mui/material/IconButton';
 import { Input } from '@mui/material';
 import InputLabel from '@mui/material/InputLabel';
@@ -12,7 +12,11 @@ import TextField from '@mui/material/TextField';
 import Button from "@mui/material/Button";
 import {styled}    from '@mui/material/styles';
 import axios from 'axios';
+import Alert, { AlertProps } from '@mui/material/Alert';
+import { Cookies, useCookies } from 'react-cookie';
+import { type } from '@testing-library/user-event/dist/type';
 import '../css/login.css'
+
 const UsernameTextField = styled(TextField)`
 & label.Mui-focused {
     color: #866077;
@@ -36,44 +40,59 @@ const PasswordInputUnderline = styled(Input)`
   border-bottom-color: #951a3b;
 }
 `;
+var status = null;
+var redirect = 0;
 export default function Login(){
+    axios.defaults.withCredentials = true;
     const [showPassword, setShowPassword] = React.useState(false);
 
     const handleClickShowPassword = () => setShowPassword((show) => !show);
 
-    axios.defaults.withCredentials = true;
+    
     const [user,setState] = useState({
       userName : "",
-      userPasswork: ""
+      userPassword: ""
     });
+    const navigate = useNavigate();
+    const [cookie,setCookie,remove] = useCookies();
+    try{
+      var mesage = JSON.stringify(cookie.mesage);
+      if(mesage.localeCompare('"invalid"', undefined, { sensitivity: 'base' }) === 0){    
+        status = 'Invalid Account';
+        remove("mesage");
+    }}catch(er){}
     
       const ChangeHandler = (e) =>{
         setState(p => {
           return {...user, [e.target.name] : e.target.value }
-        })
-        
+        })    
       };
-      const handleSubmit = (e) => {
+      const handleSubmit= (e) => {   
         axios.post("https://localhost:7096/api/User/Login", "", {
           headers:{
             'userName': user.userName,
-            'userPasswork': user.userPasswork
+            'userPasswork': user.userPassword,
           },
-        })
-        .then(r => console.log(r)).catch(er => console.log(er))
-        console.log(user)
+        }).then().catch(er => console.log(er));    
+        setCookie('flag', 1,{ path:'/'});
+        navigate('/Redirecting');
       };
+      
     return(
-        
-        <div className="login" style={{ backgroundImage: "url('/assets/images/backgroundLogin.png')" }}>
+         <div className="login" style={{ backgroundImage: "url('/assets/images/backgroundLogin.png')" }}>
          <div className='box'>
          <div className='formLogin'>
          <h1>  Sign in </h1>
-         <UsernameTextField onChange={ChangeHandler} name='userName' className="login-username"  sx={{  width: '300px' }} label="Username" variant="standard"/>
+         {status != null?
+          (<Alert severity="error" variant="filled"  sx={{ width: '80%', marginTop: '10px', color: '#550A35', backgroundColor:'#F67280', marginLeft: '10%' }}>
+          {status}
+          </Alert>) :''
+          }
+          
+         <UsernameTextField onChange={ ChangeHandler} name='userName' className="login-username"  sx={{  width: '300px' }} label="Username" variant="standard"/>
          <FormControl  className="login-password" sx={{  width: '300px' }} variant="standard">
           <PasswordInputLabel htmlFor="standard-adornment-password" label="Password">Password</PasswordInputLabel>
-          <PasswordInputUnderline onChange={ ChangeHandler}
-            name='userPasswork'
+          <PasswordInputUnderline onChange={ ChangeHandler} name='userPassword'
             id="standard-adornment-password"
             type={showPassword ? 'text' : 'password'}
             endAdornment={
@@ -85,12 +104,13 @@ export default function Login(){
                   {showPassword ? <VisibilityOff /> : <Visibility />}
                 </IconButton>
               </InputAdornment>
-            }
-            
+            }          
           />
         </FormControl>
-        <div className='button-forgot'><Link  to='/#'>Forgot your password?</Link></div>
-        <Button onClick={handleSubmit} variant='contained' className='button-login'>Login</Button>
+          <div className='button-forgot'><Link  to='/#'>Forgot your password?</Link></div>
+          <form onSubmit ={handleSubmit}>
+          <Button  type='submit' variant='contained' className='button-login'>Login</Button>
+          </form>
           </div>
           </div>
         </div>
