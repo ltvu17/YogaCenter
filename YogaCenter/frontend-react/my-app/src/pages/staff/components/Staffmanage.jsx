@@ -1,4 +1,4 @@
-import React,{useContext, useEffect, useRef, useState} from 'react'
+import React,{useCallback, useContext, useEffect, useRef, useState} from 'react'
 import '../css/StaffManager.css'
 import axios from 'axios'
 import {URL_API}from '../components/ConstDefine'
@@ -11,7 +11,16 @@ import { IconButton } from '@mui/material';
 import TextField from "@mui/material/TextField";
 import { Link } from 'react-router-dom';
 import UpdateClass from './UpdateClass';
-// import UpdateClass from './UpdateClass';
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogTitle from '@mui/material/DialogTitle';
+import { useNavigate } from 'react-router-dom';
+import AccessibilityNewIcon from '@mui/icons-material/AccessibilityNew';
+import StudentManage from './StudentManage';
+import RemoveCircleIcon from '@mui/icons-material/RemoveCircle';
+
 
 var curr = new Date();
 curr.setDate(curr.getDate()+1);
@@ -25,6 +34,12 @@ export default function Staffmanage() {
     const [postsCoures,setPostCourses]=useState([]);
     const [postsTeacher,setPostTeacher]=useState([]);
     const [idUpdate,setUpdate] = useState('');
+    const [idDelete,setIdDelete] =useState('');
+    const [idStudentManage,setIdStudentManage] = useState({
+        id:'',
+        name:''
+    });
+    const [open, setOpen] = useState(false);
     const [inputField,setInputFields] = useState({
         teacherId : '-1',
         courseId : '0',
@@ -34,11 +49,13 @@ export default function Staffmanage() {
     });
     const [count,setCount] =useState(0);
     const [message,setMessage] =useState();
+    const navigate = useNavigate();
     ///URL_API
     let getallclass = URL_API+'Class';
     let getallcourse = URL_API+'Course';
     let getallteaccher = URL_API+'Teacher';
     let postNewClass = URL_API+'Class';
+    let deleteClassURL = URL_API+`Class/${idDelete}`
     ///////GET API
     //GetAllclass
     useEffect(() =>{       
@@ -55,6 +72,13 @@ export default function Staffmanage() {
         axios.get(getallteaccher).then(r=>{
             setPostTeacher(r.data)}).catch(er=>console.log(er))
     },[]);
+    ///DeleteClass
+    const deleteSubmit = () =>{
+        setOpen(false);
+        navigate(0);
+        axios.delete(deleteClassURL).then(r=>{
+            console(r)}).catch(er=>console.log(er))
+    }
 
 
     //handler
@@ -71,6 +95,22 @@ export default function Staffmanage() {
           return {...inputField, [e.target.name] : e.target.value }
         })    
       };
+    const offUpdateHandler = () =>{
+        setUpdate(p=>'');
+    }
+    
+    const handleClose = () => {
+        setOpen(false);
+    }; 
+    const offStudentManageHandler = () =>{
+        setIdStudentManage(p=>{
+            return{
+                id:'',
+                name: ''
+            }
+        });
+    }
+
 
     //filter function
     function filterDay(day){
@@ -98,26 +138,40 @@ export default function Staffmanage() {
         }
         ).then(r => console.log(r)).catch(er=>console.log(er));
     }
+    function deleteClass(value){
+        setOpen(true);     
+        setIdDelete(value);  
+    }
 
 
     // filter value
-
-     function getvalue(value){
-        setUpdate(p=>value);
-        
+    function getvalueUpdate(value){
+        if(idUpdate === '')
+        setUpdate(p => value);
         const element = document.getElementById('update');
         if (element) {
             element.scrollIntoView({ behavior: 'smooth' });
-          }
-        
-     }   
+          }    
+    } 
+    function getValueStudentManage(Name,Id){
+        if(idStudentManage.id === '')
+        setIdStudentManage(p => {
+            return{
+                id : Id,
+                name:Name
+            }
+        });
+        navigate('/studentmanage',{state: { id : Id,name : Name}}); 
+    } 
+
+
 
   return (
     <div>
     <div className='staffDiv'>
     </div>
       <div className='class-post' >
-        <p>Add class</p>  
+        <h1>Class Management</h1>
         <form>
         <table className='table-add-class'>
                 <thead>
@@ -142,10 +196,12 @@ export default function Staffmanage() {
                         <td>{item.course.courseDescription}</td>
                         <td style={{textAlign: 'center'}}>
                             <div> 
-                                <Button variant='text' color='success' startIcon={<UpgradeRoundedIcon/>} onClick={()=>getvalue(item.id)}
-                            sx={{padding :1,margin:1, color: 'white', backgroundColor:'rgb(127, 69, 101)'}}>Update Class</Button>
-                                <Button variant='text' color='success' startIcon={<DeleteForeverOutlinedIcon/>}
+                                <Button variant='text' size='small' color='success' startIcon={<UpgradeRoundedIcon/>} onClick={() => getvalueUpdate(item.id)} 
+                                sx={{padding :1,margin:1, color: 'white', backgroundColor:'rgb(127, 69, 101)'}}>Update Class</Button>
+                                <Button variant='text' size='small' color='success' startIcon={<DeleteForeverOutlinedIcon/>} onClick={()=>deleteClass(item.id)}
                                 sx={{padding :1,margin:1, color: 'white', backgroundColor:'rgb(127, 69, 101)'}}>Delete Class</Button>
+                                 <Button variant='text' size='small' color='success' startIcon={<AccessibilityNewIcon/>} onClick={()=>getValueStudentManage(item.className,item.id)}
+                                sx={{padding :1,margin:1, color: 'white', backgroundColor:'rgb(127, 69, 101)'}}>Student Manage</Button>
                             
                             </div>
                         </td>        
@@ -158,7 +214,7 @@ export default function Staffmanage() {
                     <td><IconButton onClick={MinusHandler}><DeleteForeverIcon/></IconButton></td>
                     <td><TextField variant='outlined' size='small' name='className' label='Class name' required onChange={ChangeHandler}
                     sx={{color : 'rgb(127, 69, 101)',backgroundColor:'#F9A7B0',borderRadius:'5px'}}></TextField></td>
-                    <td><input type='date' name='classStartDate' defaultValue={date} min={date} required onChange={ChangeHandler}/></td>
+                    <td><input type='date' name='classStartDate' defaultValue={date} required onChange={ChangeHandler}/></td>
                     <td><input type='date' name='classEndDate' defaultValue={date} min={inputField.classStartDate} required onChange={ChangeHandler}/></td>
                     <td><select defaultValue="0" name='teacherId' required onChange={ChangeHandler}>
                             <option value="0" disabled hidden>Choose Teacher</option>
@@ -195,10 +251,47 @@ export default function Staffmanage() {
             </form>
     </div>
             <div>
+            {idUpdate!== '' ? (  
+            <div>
+            <h1 id="update">Update <IconButton color='error' onClick={offUpdateHandler}
+            ><DeleteForeverIcon/></IconButton></h1>
             <dataContext.Provider value={{teachers:postsTeacher,courses:postsCoures}}>
                <UpdateClass id={idUpdate}/>
             </dataContext.Provider> 
-            </div>        
+            </div>
+             ) :''}
+            </div>  
+            <div id="delete"> 
+                    <Dialog
+                       open={open}
+                         onClose={handleClose}
+                         aria-labelledby="alert-dialog-title"
+                          aria-describedby="alert-dialog-description"
+                         >
+                         <DialogTitle id="alert-dialog-title">
+                              {"YogaCenter Management"}
+                        </DialogTitle>
+                    <DialogContent>
+                        <DialogContentText id="alert-dialog-description" >
+                    <p style={{color:'red'}}>Do you want to delete this class ?</p>
+                        </DialogContentText>
+                    </DialogContent>
+                        <DialogActions>
+                        <Button onClick={handleClose}>No</Button>
+                     <Button  onClick={deleteSubmit} autoFocus>
+                    Yes
+                </Button>
+                 </DialogActions>
+              </Dialog>        
+            </div>
+            {/* {idStudentManage.id !== '' ? (
+             <div id='studentManage'>
+             <h1>Student management <IconButton color='error' onClick={offStudentManageHandler}
+            ><RemoveCircleIcon/></IconButton></h1>
+            <h2>Class Name: {idStudentManage.name}</h2>
+                <StudentManage id={idStudentManage.id}/>
+             </div>
+            ) :''} */}
     </div>
   )
 }

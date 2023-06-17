@@ -18,6 +18,7 @@ import UpdateClass from './pages/staff/components/UpdateClass';
 import Notification from './pages/customer/components/Notification';
 import ScheduleCustomer from './pages/customer/components/ScheduleCustomer';
 import ProfileCustomer from './pages/customer/components/ProfileCustomer';
+import StudentManage from './pages/staff/components/StudentManage';
 
 
 
@@ -45,11 +46,12 @@ function App() {
         <Route path='/schedule' element={<Schedule/>}/>
         {/* <Route path='/NavUsers' element={<NavUsers/>}/> */}
         <Route path='/Redirecting' element={<Redirect/>} />
-        <Route path='/StaffManager' element={<StaffManager/>} />
+        {/* <Route path='/StaffManager' element={<StaffManager/>} /> */}
         <Route path='/staffmanage' element={<Staffmanage/>} />
-        <Route path='home-customer' element={<HomeCustomer/>} />
+        <Route path='/home-customer' element={<HomeCustomer/>} />
         <Route path='/Profile' element={<ProfileCustomer/>} />
         <Route path='/customer-schedule' element={<ScheduleCustomer/>}/>
+        <Route path='/studentmanage' element={<StudentManage/>}/>
         {/* <Route path='/updateClass:id' element={<UpdateClass/>} /> */}
       </Routes>
      <Footer/>
