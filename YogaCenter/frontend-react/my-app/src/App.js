@@ -19,6 +19,9 @@ import Notification from './pages/customer/components/Notification';
 import ScheduleCustomer from './pages/customer/components/ScheduleCustomer';
 import ProfileCustomer from './pages/customer/components/ProfileCustomer';
 import StudentManage from './pages/staff/components/StudentManage';
+import ScheduleManage from './pages/staff/components/ScheduleManage';
+import ConstDefine from './pages/staff/components/ConstDefine';
+import AddClassSchedule from './pages/staff/components/AddClassSchedule';
 
 
 
@@ -52,6 +55,9 @@ function App() {
         <Route path='/Profile' element={<ProfileCustomer/>} />
         <Route path='/customer-schedule' element={<ScheduleCustomer/>}/>
         <Route path='/studentmanage' element={<StudentManage/>}/>
+        <Route path='/schedulemanage' element={<ScheduleManage/>}/>
+        <Route path='/addclassschedule' element={<AddClassSchedule/>}/>
+        {/* <Route path='/const' element={<ConstDefine/>}/> */}
         {/* <Route path='/updateClass:id' element={<UpdateClass/>} /> */}
       </Routes>
      <Footer/>

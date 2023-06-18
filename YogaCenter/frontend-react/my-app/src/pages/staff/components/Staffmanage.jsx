@@ -284,14 +284,7 @@ export default function Staffmanage() {
                  </DialogActions>
               </Dialog>        
             </div>
-            {/* {idStudentManage.id !== '' ? (
-             <div id='studentManage'>
-             <h1>Student management <IconButton color='error' onClick={offStudentManageHandler}
-            ><RemoveCircleIcon/></IconButton></h1>
-            <h2>Class Name: {idStudentManage.name}</h2>
-                <StudentManage id={idStudentManage.id}/>
-             </div>
-            ) :''} */}
+         
     </div>
   )
 }

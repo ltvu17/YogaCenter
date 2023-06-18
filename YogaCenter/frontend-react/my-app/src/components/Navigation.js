@@ -114,6 +114,7 @@ export default function Navigation({role}){
             <li><Link>haha</Link></li>
           </ul> 
       </li>
+      <li className='menu'><Link  to='/schedulemanage'>Manage Schedule</Link></li>
       <li className='menu'><Link  to='#'>Manage User</Link>
         <ul className='drop-menu'>
             <li><Link to='#'>hihi</Link></li>

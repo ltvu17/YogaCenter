@@ -51,6 +51,17 @@ namespace YogaCenter.Controllers
 
 
         }
+        [HttpGet("date/{date}")]
+        public async Task<IActionResult> GetLessoByDate(DateTime date)
+        {
+            if (date.Equals(null)) return BadRequest();
+
+            if (!ModelState.IsValid) { return BadRequest(ModelState); }
+            var lessons = await _lessonRepository.GetLessonByDate(date);
+            return Ok(lessons);
+
+
+        }
 
         [HttpPost]
         public async Task<IActionResult> CreateLesson([FromHeader] Guid roomId, [FromHeader] Guid shifftId, [FromHeader] Guid classId, [FromBody] LessonDTO lessonDto)

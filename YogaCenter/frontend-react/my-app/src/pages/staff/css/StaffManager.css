@@ -14,7 +14,7 @@ div{
     width: 80%;
     border: 10px black;
 }
-table, th, td {
+.class-post table,.class-post th,.class-post td {
     border: 5px solid rgb(77, 21, 52);
     border-collapse: collapse;
     text-align: center;
@@ -25,5 +25,65 @@ table, th, td {
     height: 20px;
     
 }
+
+.scheduleTable table,.scheduleTable th,.scheduleTable td {
+    border: 1px solid;
+    border-collapse: collapse;
+    text-align: left;
+}
+.scheduleTable th{
+    text-align: center;
+}
+.scheduleTable{
+    margin-left: 10%;
+    width: 80%;
+    border: 10px black;
+}
+.scheduleTable th,.scheduleTable td{
+    width: 500px;
+}
+.scheduleTable td{
+    position: relative;
+    padding: 5%;
+}
+.scheduleTable :link{
+    position: absolute;
+    top: 0%;
+    right: 5%;
+}
+.className{
+    position: static;
+    display: block;
+    top: 10%;
+    left: 5%;
+}
+
+.className p{
+    font-size: small;
+    
+}
+.shift0{
+    display: inline-flex;
+    position: absolute; 
+    top :15%;
+}
+.shift1{
+    display: inline-flex;
+    position: absolute; 
+    top :35%;
+}
+.shift2{
+    display: inline-flex;
+    position: absolute; 
+    top :55%;
+}
+.shift3{
+    display: inline-flex;
+    position: absolute; 
+    top :75%;
+}
+
+
+
 
 

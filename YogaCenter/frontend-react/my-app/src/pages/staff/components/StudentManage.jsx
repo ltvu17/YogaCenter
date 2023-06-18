@@ -21,7 +21,6 @@ import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 export default function StudentManage() {
     ///Declare
   const location = useLocation();
-  console.log(location);
   const [id,setId] = useState(location.state.id);
   const [name,setName] = useState(location.state.name);
   const navigate = useNavigate()
