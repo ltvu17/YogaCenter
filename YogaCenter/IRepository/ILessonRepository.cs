@@ -7,6 +7,7 @@ namespace YogaCenter.IRepository
 
         public Task<ICollection<Lesson>> GetAllLessons();
         public Task<Lesson> GetLessonById(Guid id);
+        public Task<ICollection<Lesson>> GetLessonByDate(DateTime date);
         public Task<ICollection<Lesson>> GetLessonByClassId(Guid classId);
         public Task<Lesson> GetLessonByRoomId(Guid roomId);
         public Task<bool> CreateLesson(Lesson lesson);

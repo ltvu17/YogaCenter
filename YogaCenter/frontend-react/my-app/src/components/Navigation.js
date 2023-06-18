@@ -98,22 +98,23 @@ export default function Navigation({role}){
        </Link>
       <ul className='nav'>
       <li><Link to='/home'>Home</Link></li>
-       <li className='menu'><Link to='#'>Manage Class</Link>
-          <ul className='drop-menu'>
+       <li className='menu'><Link to='/staffmanage'>Manage Class</Link>
+          {/* <ul className='drop-menu'>
             <li><Link to='#'>hihi</Link></li>
             <li><Link>haha</Link></li>
             <li><Link>haha</Link></li>
             <li><Link>haha</Link></li>
-          </ul>  
+          </ul>   */}
       </li>
       <li className='menu'><Link  to='#'>Manage Blog</Link>
       <ul className='drop-menu'>
-            <li><Link to='#'>hihi</Link></li>
+            <li><Link to=''>Man</Link></li>
             <li><Link>haha</Link></li>
             <li><Link>haha</Link></li>
             <li><Link>haha</Link></li>
           </ul> 
       </li>
+      <li className='menu'><Link  to='/schedulemanage'>Manage Schedule</Link></li>
       <li className='menu'><Link  to='#'>Manage User</Link>
         <ul className='drop-menu'>
             <li><Link to='#'>hihi</Link></li>
