@@ -66,7 +66,9 @@
     useEffect(() => { 
       if(flag.flag == 1){
         remove("flag");
-        navigate(0); }})
+        navigate(0)
+        
+        ; }})
   
 
     

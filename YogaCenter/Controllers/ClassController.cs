@@ -98,7 +98,8 @@ namespace YogaCenter.Controllers
             var course = await _courseRepository.GetCourseById(courseId);
              
             classs.ClassStartDate = classDto.ClassStartDate;
-            classs.ClassEndDate = classs.ClassEndDate;         
+            classs.ClassEndDate = classDto.ClassEndDate;  
+            classs.ClassName = classDto.ClassName;
             classs.Course = course;
             classs.Teacher = teacher;
 

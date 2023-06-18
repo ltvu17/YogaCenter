@@ -55,7 +55,7 @@ export default function Redirect() {
           try{
             var role = JSON.stringify(userCookie.Role);       
             if(role.toUpperCase().trim().localeCompare('"CUSTOMER"', undefined, { sensitivity: 'base' }) === 0){        
-              navigate('/HomeCustomer');
+              navigate('/home-customer');
             }
             else 
               if(role.toUpperCase().trim().localeCompare('"STAFF"', undefined, { sensitivity: 'base' }) === 0){               

@@ -57,7 +57,7 @@ namespace YogaCenter.Controllers
             }
             if (!await _customerRepository.CustomerExists(customerId)) return BadRequest("Customer is not exists");
             if (await _classCustomerRepository.GetClassAndCustomerById(classId: classId, customerId: customerId) != null)
-                return BadRequest("Already Exist");
+                return BadRequest("Customer already Exist");
             if (!ModelState.IsValid) { return BadRequest(ModelState); }
            
             var classs = await _classRepository.GetClassByIdDelete(classId);
