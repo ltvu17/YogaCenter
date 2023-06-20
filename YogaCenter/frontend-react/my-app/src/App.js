@@ -22,6 +22,7 @@ import StudentManage from "./pages/staff/components/StudentManage";
 import ScheduleManage from "./pages/staff/components/ScheduleManage";
 import ConstDefine from "./pages/staff/components/ConstDefine";
 import AddClassSchedule from "./pages/staff/components/AddClassSchedule";
+import Contact from "./pages/common/components/Contact";
 
 function App() {
   try {
@@ -42,6 +43,7 @@ function App() {
         <Route path="/registerClass" element={<RegisterClass />} />
 
         <Route path="/schedule" element={<Schedule />} />
+        <Route path="/contact" element={<Contact/>} />
         {/* <Route path='/NavUsers' element={<NavUsers/>}/> */}
         <Route path="/Redirecting" element={<Redirect />} />
         {/* <Route path='/StaffManager' element={<StaffManager/>} /> */}

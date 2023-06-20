@@ -19,57 +19,51 @@ import { CleaningServices } from "@mui/icons-material";
 import axios from "axios";
 
 const Item = styled(Paper)`
-  background-color: #ddddddb8;
-  height: 50px;
-  width: 50px;
-  padding: 0;
-  display: flex;
+ 
+    background-color: #ddddddb8;
+height:50px;
+width: 50px;
+padding: 0;
+display: flex;
   align-items: center;
   justify-content: center;
   flex-direction: column;
   margin-top: 40px;
   margin-left: 6px;
-  box-shadow: 0px 0px 20px 3px #5f515970;
-  &:hover {
-    width: 66px;
-    height: 66px;
-  }
+    box-shadow: 0px 0px 20px 3px #5f515970;
+
 `;
 const Course = styled(SelfImprovementIcon)`
-  font-size: 30px;
-  color: #d2608d;
-  &:hover {
-    font-size: 60px;
-  }
+   
+    font-size: 30px;
+        color: #d2608d;
+
 `;
 const Notifi = styled(NotificationsIcon)`
-  font-size: 30px;
-  color: #d2608d;
-  &:hover {
-    font-size: 60px;
-  }
+
+font-size: 30px;
+    color: #d2608d;
+
 `;
 const Schedule = styled(CalendarMonthIcon)`
-  font-size: 30px;
-  color: #d2608d;
-  &:hover {
-    font-size: 60px;
-  }
+
+font-size: 30px;
+    color: #d2608d;
+
 `;
 const Support = styled(PermContactCalendarIcon)`
-  font-size: 30px;
-  color: #d2608d;
-  &:hover {
-    font-size: 60px;
-  }
+
+    font-size: 30px;
+        color: #d2608d;
+ 
 `;
 const Feedback = styled(FeedbackIcon)`
-  font-size: 30px;
-  color: #d2608d;
-  &:hover {
-    font-size: 60px;
-  }
+
+   font-size: 30px;
+        color: #d2608d;
+
 `;
+
 export default function HomeCustomer() {
   const [userCookie, setCookie] = useCookies("");
   const [customer, setCustomer] = useState("");

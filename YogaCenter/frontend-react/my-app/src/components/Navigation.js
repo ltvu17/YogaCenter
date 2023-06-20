@@ -17,6 +17,7 @@ import MenuItem from "@mui/material/MenuItem";
 import AdbIcon from "@mui/icons-material/Adb";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import NavUsers from "../pages/common/components/NavUsers";
 const settings = ["Profile", "Account", "Dashboard", "Logout"];
 
 export default function Navigation({ role }) {
@@ -58,61 +59,7 @@ export default function Navigation({ role }) {
           .localeCompare('"CUSTOMER"', undefined, { sensitivity: "base" }) === 0
       ) {
         return (
-          <nav className="navUsers">
-            <Link to="/" className="logoUsers">
-              <h1>Yoga FPTU Center</h1>
-              <p>EVERY DAY</p>
-            </Link>
-            <ul className="nav">
-              <li>
-                <Link to="/home">Home</Link>
-              </li>
-              <li>
-                <Link to="#">Blog</Link>
-              </li>
-              <li>
-                <Link to={isCustomer ? "/home-customer" : "/home-instructor"}>
-                  My Account
-                </Link>
-              </li>
-              <li>
-                {" "}
-                <Box sx={{ flexGrow: 0 }}>
-                  <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                    <Avatar
-                      alt="Remy Sharp"
-                      src="/static/images/avatar/2.jpg"
-                    />
-                  </IconButton>
-                  <Menu
-                    className="menu-popover"
-                    sx={{ mt: "45px" }}
-                    id="menu-appbar"
-                    anchorEl={anchorElUser}
-                    anchorOrigin={{ vertical: "top", horizontal: "right" }}
-                    keepMounted
-                    transformOrigin={{ vertical: "top", horizontal: "right" }}
-                    open={Boolean(anchorElUser)}
-                    onClose={handleCloseUserMenu}
-                  >
-                    {settings.map((setting) => (
-                      <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                        {setting === "Profile" ? (
-                          <Link to="/profile">Profile</Link>
-                        ) : setting === "Logout" ? (
-                          <Link onClick={logout} to="/home">
-                            Logout
-                          </Link>
-                        ) : (
-                          <Typography textAlign="center">{setting}</Typography>
-                        )}
-                      </MenuItem>
-                    ))}
-                  </Menu>
-                </Box>
-              </li>
-            </ul>
-          </nav>
+          <NavUsers></NavUsers>
         );
       } else if (
         role
