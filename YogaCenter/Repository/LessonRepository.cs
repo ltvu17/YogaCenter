@@ -16,6 +16,13 @@ namespace YogaCenter.Repository
             _context = context;
            
         }
+
+        public async Task<bool> CreateCustomerLesson(ICollection<CustomerLesson> customerLesson)
+        {
+            await _context.AddRangeAsync(customerLesson);
+            return await Save();
+        }
+
         public async Task<bool> CreateLesson(Lesson lesson)
         {
             await _context.AddAsync(lesson);
@@ -30,13 +37,18 @@ namespace YogaCenter.Repository
 
         public async Task<ICollection<Lesson>> GetAllLessons()
         {
-            return await _context.Lessons.Include(p =>p.Room).Include(p => p.Shift).Include(p => p.Class).AsNoTracking().ToListAsync();
+            return await _context.Lessons.Include(p =>p.Room).Include(p => p.Shift).Include(p => p.Class).OrderBy(p=>p.Shift.TimeStart).AsNoTracking().ToListAsync();
+        }
+
+        public async Task<ICollection<Customer>> GetCustomerByClass(Guid classId)
+        {
+            return await _context.ClassCustomers.Where(p=> p.ClassId == classId).Include(p=>p.Customer).Select(p => p.Customer).ToListAsync();
         }
 
         public async Task<ICollection<Lesson>> GetLessonByClassId(Guid classId)
         {
             //.Include(p => p.Class).Include(p => p.Shift).Include(p => p.Room)
-            return await _context.Lessons.Where(p => p.Class.Id == classId).ToListAsync();
+            return await _context.Lessons.Where(p => p.Class.Id == classId).Include(p => p.Room).Include(p => p.Shift).Include(p => p.Class).ToListAsync();
         }
 
         public async Task<ICollection<Lesson>> GetLessonByDate(DateTime date)

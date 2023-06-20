@@ -35,8 +35,8 @@ div{
     text-align: center;
 }
 .scheduleTable{
-    margin-left: 10%;
-    width: 80%;
+    margin-left: 5%;
+    width: 90%;
     border: 10px black;
 }
 .scheduleTable th,.scheduleTable td{
@@ -44,7 +44,7 @@ div{
 }
 .scheduleTable td{
     position: relative;
-    padding: 5%;
+    padding: 2%;
 }
 .scheduleTable :link{
     position: absolute;
@@ -64,23 +64,19 @@ div{
 }
 .shift0{
     display: inline-flex;
-    position: absolute; 
-    top :15%;
+   
 }
 .shift1{
     display: inline-flex;
-    position: absolute; 
-    top :35%;
+   
 }
 .shift2{
     display: inline-flex;
-    position: absolute; 
-    top :55%;
+    
 }
 .shift3{
     display: inline-flex;
-    position: absolute; 
-    top :75%;
+    
 }
 
 

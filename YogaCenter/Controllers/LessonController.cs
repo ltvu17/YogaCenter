@@ -76,15 +76,26 @@ namespace YogaCenter.Controllers
             if (!await _roomRepository.RoomExists(roomId)) return BadRequest("Room is not exists");
             if(!await _shiftRepository.ShiftExists(shifftId)) return BadRequest("Shifft is not exists");
             if (!await _classRepository.ClassExists(classId)) return BadRequest("Class is not exists");
-            if (!ModelState.IsValid) { return BadRequest(ModelState); } 
+            if (!ModelState.IsValid) { return BadRequest(ModelState); }
+            var customers =await _lessonRepository.GetCustomerByClass(classId);    
             var lesson = _mapper.Map<Lesson>(lessonDto);
             lesson.Id = Guid.NewGuid();
             lesson.Status = 0;
             lesson.Room = await _roomRepository.GetRoomById(roomId);
             lesson.Shift = await _shiftRepository.GetShiftById(shifftId);
             lesson.Class = await _classRepository.GetClassById(classId);
-            if (await _lessonRepository.CreateLesson(lesson))
+            List<CustomerLesson> list = new List<CustomerLesson>();
+            foreach (var customer in customers)
             {
+                var customerLesson = new CustomerLesson()
+                {
+                    Lesson = lesson,
+                    Customer = customer
+                };
+                list.Add(customerLesson);
+            }
+            if (await _lessonRepository.CreateLesson(lesson))
+            { if(await _lessonRepository.CreateCustomerLesson(list))
                 return Ok("Created");
             }
             return NotFound();
