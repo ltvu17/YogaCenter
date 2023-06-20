@@ -14,6 +14,6 @@ namespace YogaCenter.ModelsDto
         [Required]
         public string CustomerAddress { get; set; }
         [Required]
-        public int CustomerPhone { get; set; }
+        public String CustomerPhone { get; set; }
     }
 }

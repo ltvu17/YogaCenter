@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
+using System.Numerics;
 using YogaCenter.IRepository;
 using YogaCenter.Models;
 using YogaCenter.ModelsDto;
@@ -87,7 +88,7 @@ namespace YogaCenter.Controllers
             customer.CustomerName = customerDto.CustomerName;
             customer.CustomerGender = customerDto.CustomerGender;
             customer.CustomerAddress = customerDto.CustomerAddress;
-            customer.CustomerPhone = customerDto.CustomerPhone; 
+            customer.CustomerPhone = Int32.Parse(customerDto.CustomerPhone); 
 
             if (await _customerRepository.UpdateCustomer(customer))
             {
