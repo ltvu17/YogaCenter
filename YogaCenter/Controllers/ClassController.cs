@@ -26,7 +26,11 @@ namespace YogaCenter.Controllers
         [HttpGet]
         public async Task<IActionResult> GetAllClasses()
         {
-            var classes = await _classesRepository.GetClasses();
+            var classes = _mapper.Map<ICollection<ClassCapacityDto>>(await _classesRepository.GetClasses());
+            foreach(ClassCapacityDto classs in classes)
+            {
+                classs.capacity = await _classesRepository.GetClassCapacity(classs.Id);
+            }
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);

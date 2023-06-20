@@ -45,13 +45,13 @@ function App() {
         {/* <Route path='/NavUsers' element={<NavUsers/>}/> */}
         <Route path="/Redirecting" element={<Redirect />} />
         {/* <Route path='/StaffManager' element={<StaffManager/>} /> */}
-        <Route path="/staffmanage" element={<Staffmanage />} />
-        <Route path="/home-customer" element={<HomeCustomer />} />
-        <Route path="/Profile" element={<ProfileCustomer />} />
-        <Route path="/customer-schedule" element={<ScheduleCustomer />} />
-        <Route path="/studentmanage" element={<StudentManage />} />
-        <Route path="/schedulemanage" element={<ScheduleManage />} />
-        <Route path="/addclassschedule" element={<AddClassSchedule />} />
+        <Route path='/staffmanage' element={<Staffmanage/>} />
+        <Route path='/home-customer' element={<HomeCustomer/>} />
+        <Route path='/Profile' element={<ProfileCustomer/>} />
+        <Route path='/customer-schedule' element={<ScheduleCustomer/>}/>
+        <Route path='/studentmanage' element={<StudentManage/>}/>
+        <Route path='/schedulemanage' element={<ScheduleManage/>}/>
+        <Route path='/addclassschedule' element={<AddClassSchedule/>}/>
         {/* <Route path='/const' element={<ConstDefine/>}/> */}
         {/* <Route path='/updateClass:id' element={<UpdateClass/>} /> */}
       </Routes>
