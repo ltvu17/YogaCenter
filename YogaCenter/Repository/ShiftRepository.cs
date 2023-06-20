@@ -31,7 +31,7 @@ namespace YogaCenter.Repository
 
         public async Task<ICollection<Shift>> GetShifts()
         {
-            return await _context.Shifts.ToListAsync();
+            return await _context.Shifts.OrderBy(p => p.TimeStart).ToListAsync();
         }
 
         public async Task<bool> Save()

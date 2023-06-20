@@ -18,6 +18,8 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import { shift } from './ConstDefine';
+import RadioButtonCheckedIcon from '@mui/icons-material/RadioButtonChecked';
 
 export default function AddClassSchedule() {
     ///Declare
@@ -130,7 +132,30 @@ export default function AddClassSchedule() {
                             <td>{index+1}</td>
                             <td>{item.class.className}</td>
                             <td>{item.room.roomDetail}</td>
-                            <td>{filterTime(item.shift.timeStart)}-{filterTime(item.shift.timeEnd)}</td>
+                            <td>
+                                
+            {`${filterTime(item.shift.timeStart)}-${filterTime(item.shift.timeEnd)}` === shift[0]?
+            (
+            <RadioButtonCheckedIcon fontSize='small' color='primary'/>
+            ):''
+            }
+            {`${filterTime(item.shift.timeStart)}-${filterTime(item.shift.timeEnd)}` === shift[1]?
+            (
+            <RadioButtonCheckedIcon fontSize='small' color='success'/>          
+            ):''
+            }
+            {`${filterTime(item.shift.timeStart)}-${filterTime(item.shift.timeEnd)}` === shift[2]?
+            (
+            <RadioButtonCheckedIcon fontSize='small' color='secondary'/>
+            ):''
+            }
+            {`${filterTime(item.shift.timeStart)}-${filterTime(item.shift.timeEnd)}` === shift[3]?
+            (
+            <RadioButtonCheckedIcon fontSize='small' color='error'/>
+            ):''
+            }
+            {filterTime(item.shift.timeStart)}-{filterTime(item.shift.timeEnd)}
+            </td>
                             <td><Button variant='text' size='small' color='success' startIcon={<DeleteForeverOutlinedIcon/>} onClick={()=>deleteClass(item.id)}
                                 sx={{padding :1,margin:1, color: 'white', backgroundColor:'rgb(127, 69, 101)'}}>Delete</Button></td>
                         </tr>
