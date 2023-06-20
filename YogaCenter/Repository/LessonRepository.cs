@@ -53,7 +53,7 @@ namespace YogaCenter.Repository
 
         public async Task<ICollection<Lesson>> GetLessonByDate(DateTime date)
         {
-            return await _context.Lessons.Where(p=> p.LessonDate == date).Include(p => p.Room).Include(p => p.Shift).Include(p => p.Class).ToListAsync();
+            return await _context.Lessons.Where(p=> p.LessonDate == date).Include(p => p.Room).Include(p => p.Shift).Include(p => p.Class).OrderBy(p => p.Shift.TimeStart).ToListAsync();
         }
 
         public async Task<Lesson> GetLessonById(Guid id)
