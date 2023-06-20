@@ -5,17 +5,23 @@ import WestIcon from '@mui/icons-material/West';
 import { IconButton } from '@mui/material';
 import EastIcon from '@mui/icons-material/East';
 import axios from 'axios';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { URL_API } from './ConstDefine';
 import RadioButtonCheckedIcon from '@mui/icons-material/RadioButtonChecked';
 import { shift } from './ConstDefine';
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
+import Select from '@mui/material/Select';
+
 
 export default function ScheduleManage() {
   ////initiate data
+    const location = useLocation();
     const dayinweek = ["Sunday","Monday",'Tuesday',"Wendnesday","Thusday","Friday","Saturday"]
     const month = ["","January","February","March","April","May","June","July","August","September","October","November","December"];   
-    const [currentMonth,setCurrenMonth] = useState( (new Date).getMonth()+1);
-    const [currentYear,setCurrentYear]= useState((new Date).getFullYear());
+    const [currentMonth,setCurrenMonth] = useState(location.state !== null? location.state.month: (new Date).getMonth()+1);
+    const [currentYear,setCurrentYear]= useState(location.state !== null? location.state.year:(new Date).getFullYear());
     var displaydata=[];
     const GenarateData=(month,year)=>{
       var currentDateOfWeek = (new Date(`0${month} 1 ${year}`)).getDay();
@@ -63,6 +69,15 @@ export default function ScheduleManage() {
           setCurrenMonth(p => currentMonth+1);
         }
     }
+    const ChangeHandlerMonth = (e) =>{
+      setCurrenMonth(p => 
+         e.target.value 
+    )    
+    };
+    const ChangeHandlerYear = (e) =>{
+    setCurrentYear(p => 
+      e.target.value)
+    };
     ////Declare
     const [lessons,setLesson] = useState([]);
     ///
@@ -151,7 +166,48 @@ export default function ScheduleManage() {
         </div>
         {GenarateData(currentMonth,currentYear)}
         <div className="scheduleTable" style={{textAlign : 'center'}}>
-         <h2><IconButton onClick={preMonth}><WestIcon/></IconButton> {month[currentMonth]} {currentYear} <IconButton onClick={nextMonth}><EastIcon/></IconButton></h2>         
+         <h2><IconButton onClick={preMonth}><WestIcon/></IconButton> 
+         <FormControl sx={{ m: 1, minWidth: 120 }} size="small">
+          <InputLabel id="demo-simple-select-label">Month</InputLabel>
+            <Select
+           labelId="demo-simple-select-label"
+           id="demo-simple-select"
+           value={currentMonth}
+           label="Month"
+           name='currentMonth'
+           onChange={ChangeHandlerMonth}
+           >
+          <MenuItem value={1}>January</MenuItem>
+          <MenuItem value={2}>February</MenuItem>
+          <MenuItem value={3}>March</MenuItem>
+          <MenuItem value={4}>April</MenuItem>
+          <MenuItem value={5}>May</MenuItem>
+          <MenuItem value={6}>June</MenuItem>
+          <MenuItem value={7}>July</MenuItem>
+          <MenuItem value={8}>August</MenuItem>
+          <MenuItem value={9}>September</MenuItem>
+          <MenuItem value={10}>October</MenuItem>
+          <MenuItem value={11}>November</MenuItem>
+          <MenuItem value={12}>December</MenuItem>
+          </Select>
+          </FormControl> 
+          <FormControl sx={{ m: 1, minWidth: 120 }} size="small">
+          <InputLabel id="demo-simple-select-label">Year</InputLabel>
+            <Select
+           labelId="demo-simple-select-label"
+           id="demo-simple-select"
+           value={currentYear}
+           label="Year"
+           name='currentYear'
+           onChange={ChangeHandlerYear}
+           >
+           <MenuItem value={2023}>2023</MenuItem>
+           <MenuItem value={2024}>2024</MenuItem>
+           <MenuItem value={2025}>2025</MenuItem>
+          </Select>
+          </FormControl>
+           <IconButton onClick={nextMonth}><EastIcon/></IconButton>
+          </h2>         
             <table>
                 <thead>
                     <tr>
