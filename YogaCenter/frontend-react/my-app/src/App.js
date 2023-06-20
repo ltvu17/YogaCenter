@@ -55,7 +55,7 @@ function App() {
         <Route path='/Profile' element={<ProfileCustomer/>} />
         <Route path='/customer-schedule' element={<ScheduleCustomer/>}/>
         <Route path='/studentmanage' element={<StudentManage/>}/>
-        <Route path='/schedulemanage' element={<ScheduleManage/>}/>
+        <Route forceRefresh={true} path='/schedulemanage' element={<ScheduleManage/>}/>
         <Route path='/addclassschedule' element={<AddClassSchedule/>}/>
         {/* <Route path='/const' element={<ConstDefine/>}/> */}
         {/* <Route path='/updateClass:id' element={<UpdateClass/>} /> */}

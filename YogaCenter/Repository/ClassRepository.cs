@@ -39,9 +39,14 @@ namespace YogaCenter.Repository
             return await _context.Classes.Where(p => p.Id == id).FirstOrDefaultAsync();
         }
 
+        public async Task<int> GetClassCapacity(Guid id)
+        {
+            return await _context.ClassCustomers.Where(p=> p.ClassId == id).CountAsync();
+        }
+
         public async Task<ICollection<Class>> GetClasses()
         {
-            return await _context.Classes.Include(p => p.Teacher).Include(p => p.Course).ToListAsync();
+            return await _context.Classes.Include(p => p.Teacher).Include(p => p.Course).OrderBy(p => p.ClassStartDate).ToListAsync();
         }
         public async Task<bool> Save()
         {
