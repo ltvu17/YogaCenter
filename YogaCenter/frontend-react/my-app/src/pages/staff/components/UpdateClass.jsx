@@ -52,7 +52,8 @@ export default function UpdateClass({id}) {
         }     
     },[id]);
    ////Submit data
-   const submitAdd=()=>{
+   function submitAdd(e){
+    e.preventDefault();
     setOpen(false);
     navigate(0);
     if(inputField.className === ''){
@@ -136,7 +137,7 @@ export default function UpdateClass({id}) {
                 </DialogContent>
                <DialogActions>
               <Button onClick={handleClose}>Disagree</Button>
-              <Button type='submit' onClick={submitAdd} autoFocus>
+              <Button type='submit' onClick={(e)=>submitAdd(e)} autoFocus>
             Agree
           </Button>
         </DialogActions>
