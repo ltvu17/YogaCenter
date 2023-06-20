@@ -1,6 +1,6 @@
 import React, { useCallback } from 'react'
 import { useState } from 'react'
-import { URL_API } from './ConstDefine';
+import { URL_API } from '../../../api/ConstDefine';
 import { useEffect } from 'react';
 import axios from 'axios';
 import '../css/StaffManager.css'
@@ -21,6 +21,7 @@ import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 export default function StudentManage() {
     ///Declare
   const location = useLocation();
+  console.log(location);
   const [id,setId] = useState(location.state.id);
   const [name,setName] = useState(location.state.name);
   const navigate = useNavigate()
@@ -114,7 +115,6 @@ export default function StudentManage() {
     }
     
 
-          
   return (
     <div>
     <div className='staffDiv'>

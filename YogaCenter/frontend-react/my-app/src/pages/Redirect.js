@@ -13,6 +13,7 @@ import Button from "@mui/material/Button";
 import {styled}    from '@mui/material/styles';
 import '../css/login.css'
 import { useCookies } from 'react-cookie';
+import axios from 'axios';
 const UsernameTextField = styled(TextField)`
 & label.Mui-focused {
     color: #866077;
@@ -63,17 +64,35 @@ export default function Redirect() {
             }}catch(err){
             }        
     },[count]);
-
+    const ChangeHandler = (e) =>{
+      setState(p => {
+        return {...user, [e.target.name] : e.target.value }
+      })    
+    };
+    const [user,setState] = useState({
+      userName : "",
+      userPassword: ""
+    });
+    const handleSubmit= (e) => {   
+      axios.post("https://localhost:7096/api/User/Login", "", {
+        headers:{
+          'userName': user.userName,
+          'userPasswork': user.userPassword,
+        },
+      }).then().catch(er => console.log(er));    
+      setCookie('flag', 1,{ path:'/'});
+      navigate('/Redirecting');
+    };
   return (
         <div className="login" style={{ backgroundImage: "url('/assets/images/backgroundLogin.png')" }}>
          <div className='box'>
          <div className='formLogin'>
          <h1>  Sign in </h1>
-         <UsernameTextField  name='userName' className="login-username"  sx={{  width: '300px' }} label="Username" variant="standard"/>
+         <UsernameTextField  onChange={ChangeHandler} name='userName' className="login-username"  sx={{  width: '300px' }} label="Username" variant="standard"/>
          <FormControl  className="login-password" sx={{  width: '300px' }} variant="standard">
           <PasswordInputLabel htmlFor="standard-adornment-password" label="Password">Password</PasswordInputLabel>
-          <PasswordInputUnderline 
-            name='userPasswork'
+          <PasswordInputUnderline onChange={ChangeHandler}
+            name='userPassword'
             id="standard-adornment-password"
             type={showPassword ? 'text' : 'password'}
             endAdornment={
@@ -90,7 +109,9 @@ export default function Redirect() {
           />
         </FormControl>
         <div className='button-forgot'><Link  to='/#'>Forgot your password?</Link></div>
-        <Button variant='contained' className='button-login'>Login</Button>
+        <form onSubmit ={handleSubmit}>
+          <Button  type='submit' variant='contained' className='button-login'>Login</Button>
+          </form>
           </div>
           </div>
         </div>

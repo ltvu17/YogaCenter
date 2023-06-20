@@ -1,12 +1,16 @@
-.week-schedule-container {
-    width: 1200px;
+.week-schedule-container{
+  background: linear-gradient(to right, #b8afafab, #8a7b90ba);
+  padding-top: 70px;
+  padding-bottom: 70px;
+}
+.schedule-box {
+   width: 80%;
     margin: 0 auto;
-    background-color: #f5f5f5;
     padding: 20px;
-    height: 800px;
+    height: 100vh;
   }
   
-  .week-schedule-container h1 {
+  .schedule-box h1 {
     
     margin-bottom: 10px;
     display: flex;
@@ -15,47 +19,43 @@
     flex-wrap: wrap;
   }
   
-  .week-schedule-container h1 span {
+  .schedule-box h1 span {
     margin: 5px;
   }
   
-  .week-schedule-container table {
+  .schedule-table-customer{
     width: 100%;
-    border-collapse: collapse;
+    height: 70%;
     margin-top: 20px;
   }
-  
+  .schedule-table-customer thead tr{
+    background: linear-gradient(180deg, #797579, #d0b5d0);
+  }
 
-  .week-schedule-container th,
-  .week-schedule-container td {
-    padding: 10px;
+  .schedule-box th,
+  .schedule-box td {
+    width: auto;
+
     text-align: center;
     border: 1px solid #ddd;
+
   }
   
-  .week-schedule-container th {
-    background-color: #f2f2f2;
+  .schdule-table-customer th {
+    background-color: #787a91;
     font-weight: bold;
     width: calc(100% / 8);
   }
   
-  .week-schedule-container tbody td {
-    background-color: #fff;
-  }
-  
-  .week-schedule-container tbody tr:nth-child(even) td {
-    background-color: #f9f9f9;
-  }
-  
-  .week-schedule-container td input,
-  .week-schedule-container td select {
+  .schdule-table-customer td input,
+  .schdule-table-customertd select {
     width: 100%;
     padding: 5px;
     border: 1px solid #ddd;
     border-radius: 4px;
   }
   
-  .week-schedule-container td button {
+  .schdule-table-customertd button {
     padding: 5px 10px;
     background-color: #333;
     color: #fff;
@@ -64,7 +64,7 @@
     cursor: pointer;
   }
   
-  .week-schedule-container td button:hover {
+  .schdule-table-customertd button:hover {
     background-color: #555;
   }
   .navigation-buttons {
@@ -76,3 +76,53 @@
   .navigation-buttons button {
     margin: 0 5px;
   }
+ .day-name span{
+  font-style: italic;
+  color: white;
+  font-size: 23px;
+ }
+.day-date span{
+  font-style: italic;
+  color: white;
+  font-size: 23px;
+}
+.lessonDay {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  border: 1px solid #4b1650;
+}
+.lesson-info {
+  background-color: #47004e;
+  width: 15%;
+  height: 15%;
+  writing-mode: vertical-rl;
+  text-orientation: upright;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform: rotate(-180deg);
+}
+.lesson-info p{
+  color: aliceblue;
+  font: 20px;
+  font-weight: 700;
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+  transform: rotate(0deg);
+  white-space: nowrap;
+  letter-spacing: 10px;
+ 
+}
+
+.lesson-details {
+  width: 85%;
+
+}
+
+.lesson-details p{
+  padding-bottom: 10px;
+}
+
+

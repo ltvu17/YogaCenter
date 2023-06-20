@@ -1,13 +1,14 @@
 import React,{useCallback, useContext, useEffect, useRef, useState} from 'react'
 import '../css/StaffManager.css'
 import axios from 'axios'
-import {URL_API}from '../components/ConstDefine'
+import { URL_API } from '../../../api/ConstDefine';
 import Button from '@mui/material/Button';
 import AddCircleOutlineRoundedIcon from '@mui/icons-material/AddCircleOutlineRounded';
 import UpgradeRoundedIcon from '@mui/icons-material/UpgradeRounded';
 import DeleteForeverOutlinedIcon from '@mui/icons-material/DeleteForeverOutlined';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import { IconButton } from '@mui/material';
+import TextField from "@mui/material/TextField";
 import { Link } from 'react-router-dom';
 import UpdateClass from './UpdateClass';
 import Dialog from '@mui/material/Dialog';
@@ -19,11 +20,6 @@ import { useNavigate } from 'react-router-dom';
 import AccessibilityNewIcon from '@mui/icons-material/AccessibilityNew';
 import StudentManage from './StudentManage';
 import RemoveCircleIcon from '@mui/icons-material/RemoveCircle';
-import TextField from '@mui/material/TextField';
-import MenuItem from '@mui/material/MenuItem';
-import FormControl from '@mui/material/FormControl';
-import Select from '@mui/material/Select';
-import InputLabel from '@mui/material/InputLabel';
 
 
 var curr = new Date();
@@ -37,10 +33,6 @@ export default function Staffmanage() {
     const [postsClass,setPostClass]=useState([]);
     const [postsCoures,setPostCourses]=useState([]);
     const [postsTeacher,setPostTeacher]=useState([]);
-    const [search,setSearch]=useState({
-        search: '',
-        searchBy: ''
-    });
     const [idUpdate,setUpdate] = useState('');
     const [idDelete,setIdDelete] =useState('');
     const [idStudentManage,setIdStudentManage] = useState({
@@ -58,14 +50,12 @@ export default function Staffmanage() {
     const [count,setCount] =useState(0);
     const [message,setMessage] =useState();
     const navigate = useNavigate();
-
     ///URL_API
     let getallclass = URL_API+'Class';
     let getallcourse = URL_API+'Course';
     let getallteaccher = URL_API+'Teacher';
     let postNewClass = URL_API+'Class';
     let deleteClassURL = URL_API+`Class/${idDelete}`
-    
     ///////GET API
     //GetAllclass
     useEffect(() =>{       
@@ -112,57 +102,15 @@ export default function Staffmanage() {
     const handleClose = () => {
         setOpen(false);
     }; 
-    const searchHanlde = (e) =>{
-        setSearch(p => {
-            return {
-                ...search,
-                [e.target.name] : e.target.value.toUpperCase().trim() 
+    const offStudentManageHandler = () =>{
+        setIdStudentManage(p=>{
+            return{
+                id:'',
+                name: ''
             }
-        })    
-      };
-    const searchSubmit =()=>{
-        var temp = [];
-        if(search.search !== '' && search.searchBy === 'BYNAME'){
-        postsClass.forEach(classs => {
-            if(classs.className.toUpperCase().includes(search.search)){
-                temp.push(classs)         
-            }
-            setPostClass(temp);          
         });
-        }
-      
-        if(search.search !== '' && search.searchBy === 'BYTEACHER'){
-            postsClass.forEach(classs => {
-                if(classs.teacher !== null){
-                if(classs.teacher.teacherName.toUpperCase().includes(search.search)){
-                    temp.push(classs)         
-                }      
-                setPostClass(temp);    
-                }
-                if(search.search === "NONE"){
-                    if(classs.teacher === null){
-                        temp.push(classs)         
-                    }      
-                    setPostClass(temp);
-                }
-            });
-        }
-        if(search.search !== '' && search.searchBy === 'BYCOURSE'){
-            postsClass.forEach(classs => {
-                if(classs.course.courseDescription.toUpperCase().includes(search.search)){
-                    temp.push(classs)         
-                }      
-                setPostClass(temp);          
-            });
-        }
+    }
 
-        
-        
-        if(search.search == ''){
-            axios.get(getallclass).then(r=>{
-                setPostClass(r.data)}).catch(er=>console.log(er))               
-        };      
-    }       
 
     //filter function
     function filterDay(day){
@@ -223,25 +171,7 @@ export default function Staffmanage() {
     <div className='staffDiv'>
     </div>
       <div className='class-post' >
-        <h1>Class Management <TextField name='search' id="filled-basic" label="Search" variant="filled" size='small' onChange={searchHanlde}>
-            </TextField>
-            <FormControl sx={{ m: 1, minWidth: 120 }} size="small">
-            <InputLabel id="demo-simple-select-label">Search By</InputLabel>
-            <Select
-           labelId="demo-simple-select-label"
-           id="demo-simple-select"
-           label="Search By"
-           name='searchBy'
-           value={search.searchBy}
-           onChange={searchHanlde}
-           required
-           >       
-           <MenuItem value={`BYNAME`}>Name</MenuItem>
-           <MenuItem value='BYTEACHER'>Teacher</MenuItem>
-           <MenuItem value='BYCOURSE'>Course</MenuItem>
-          </Select>
-          </FormControl>
-            <Button variant="outlined" onClick={searchSubmit}>Search</Button></h1>
+        <h1>Class Management</h1>
         <form>
         <table className='table-add-class'>
                 <thead>
@@ -252,7 +182,6 @@ export default function Staffmanage() {
                     <th>Class EndDate</th>
                     <th>Teacher</th>
                     <th>Course</th>
-                    <th>Capacity</th>
                     <th>Action</th>
                 </tr>
                 </thead>
@@ -265,7 +194,6 @@ export default function Staffmanage() {
                         <td>{filterDay(item.classEndDate)}</td>
                         <td>{item.teacher ? item.teacher.teacherName : null}</td>
                         <td>{item.course.courseDescription}</td>
-                        <td>{item.capacity}/20</td>
                         <td style={{textAlign: 'center'}}>
                             <div> 
                                 <Button variant='text' size='small' color='success' startIcon={<UpgradeRoundedIcon/>} onClick={() => getvalueUpdate(item.id)} 
@@ -308,13 +236,13 @@ export default function Staffmanage() {
                         {message?(<p style={{color: 'red', backgroundColor:'white'}}>{message}</p>):''}
                         
                     </td>
-                    <td colSpan={2}><Button variant='text' color='success' type='submit' onClick={submitAdd}
+                    <td><Button variant='text' color='success' type='submit' onClick={submitAdd}
                     sx={{padding :1,margin:1, color: 'white', backgroundColor:'rgb(127, 69, 101)'}}>Add</Button></td>
                     </tr>
                     )))}  
    {/*  */}
                     <tr>
-                        <td colSpan={8}><Button variant='text' color='success' onClick={AddHandler}
+                        <td colSpan={7}><Button variant='text' color='success' onClick={AddHandler}
                         startIcon={<AddCircleOutlineRoundedIcon sx={{ fontSize: 30 }}>add_circle</AddCircleOutlineRoundedIcon>}
                         sx={{padding :1,margin:1, color: 'white', backgroundColor:'rgb(127, 69, 101)'}}>Add New Class</Button></td>
                     </tr>
@@ -356,7 +284,14 @@ export default function Staffmanage() {
                  </DialogActions>
               </Dialog>        
             </div>
-         
+            {/* {idStudentManage.id !== '' ? (
+             <div id='studentManage'>
+             <h1>Student management <IconButton color='error' onClick={offStudentManageHandler}
+            ><RemoveCircleIcon/></IconButton></h1>
+            <h2>Class Name: {idStudentManage.name}</h2>
+                <StudentManage id={idStudentManage.id}/>
+             </div>
+            ) :''} */}
     </div>
   )
 }

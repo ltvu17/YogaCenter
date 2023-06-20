@@ -1,5 +1,5 @@
 import React, { useCallback, useContext, useEffect, useState } from 'react'
-import { URL_API } from './ConstDefine';
+import { URL_API } from '../../../api/ConstDefine';
 import axios from 'axios';
 import { dataContext } from './Staffmanage';
 import TextField from "@mui/material/TextField";
@@ -52,8 +52,7 @@ export default function UpdateClass({id}) {
         }     
     },[id]);
    ////Submit data
-   function submitAdd(e){
-    e.preventDefault();
+   const submitAdd=()=>{
     setOpen(false);
     navigate(0);
     if(inputField.className === ''){
@@ -137,7 +136,7 @@ export default function UpdateClass({id}) {
                 </DialogContent>
                <DialogActions>
               <Button onClick={handleClose}>Disagree</Button>
-              <Button type='submit' onClick={(e)=>submitAdd(e)} autoFocus>
+              <Button type='submit' onClick={submitAdd} autoFocus>
             Agree
           </Button>
         </DialogActions>

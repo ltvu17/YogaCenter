@@ -43,6 +43,7 @@ const PasswordInputUnderline = styled(Input)`
 var status = null;
 var redirect = 0;
 export default function Login(){
+  const [cookies] = useCookies(['id']);
     axios.defaults.withCredentials = true;
     const [showPassword, setShowPassword] = React.useState(false);
 
@@ -73,11 +74,16 @@ export default function Login(){
             'userName': user.userName,
             'userPasswork': user.userPassword,
           },
-        }).then().catch(er => console.log(er));    
+        }).then(
+          () =>{
+            const userId = cookie.id;
+            console.log(userId)
+          }
+        ).catch(er => console.log(er));    
         setCookie('flag', 1,{ path:'/'});
         navigate('/Redirecting');
       };
-      
+     
     return(
          <div className="login" style={{ backgroundImage: "url('/assets/images/backgroundLogin.png')" }}>
          <div className='box'>
@@ -108,9 +114,9 @@ export default function Login(){
           />
         </FormControl>
           <div className='button-forgot'><Link  to='/#'>Forgot your password?</Link></div>
-          <form onSubmit ={handleSubmit}>
-          <Button  type='submit' variant='contained' className='button-login'>Login</Button>
-          </form>
+        
+          <Button onClick={handleSubmit} type='submit' variant='contained' className='button-login'>Login</Button>
+         
           </div>
           </div>
         </div>
