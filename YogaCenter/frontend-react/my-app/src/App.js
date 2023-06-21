@@ -9,7 +9,7 @@ import Home from "./components/Home";
 import Schedule from "./components/Schedule";
 import Footer from "./components/Footer";
 import RegisterClass from "./components/RegisterClass";
-import NavUsers from "./pages/common/components/NavUsers";
+
 import HomeCustomer from "./pages/customer/components/homeCustomer";
 import StaffManager from "./pages/staff/components/StaffManager";
 import Redirect from "./pages/Redirect";
@@ -20,9 +20,10 @@ import ScheduleCustomer from "./pages/customer/components/ScheduleCustomer";
 import ProfileCustomer from "./pages/customer/components/ProfileCustomer";
 import StudentManage from "./pages/staff/components/StudentManage";
 import ScheduleManage from "./pages/staff/components/ScheduleManage";
-import ConstDefine from "./pages/staff/components/ConstDefine";
+
 import AddClassSchedule from "./pages/staff/components/AddClassSchedule";
 import Contact from "./pages/common/components/Contact";
+import ClassCustomer from "./pages/customer/components/ClassCustomer";
 
 function App() {
   try {
@@ -44,7 +45,7 @@ function App() {
 
         <Route path="/schedule" element={<Schedule />} />
         <Route path="/contact" element={<Contact/>} />
-        {/* <Route path='/NavUsers' element={<NavUsers/>}/> */}
+        <Route path='/customer-class' element={<ClassCustomer/>}/>
         <Route path="/Redirecting" element={<Redirect />} />
         {/* <Route path='/StaffManager' element={<StaffManager/>} /> */}
         <Route path='/staffmanage' element={<Staffmanage/>} />
