@@ -21,48 +21,43 @@ import axios from "axios";
 const Item = styled(Paper)`
  
     background-color: #ddddddb8;
-height:50px;
-width: 50px;
-padding: 0;
-display: flex;
+  height:5em;
+  width: 5em;
+  padding: 0;
+  display: flex;
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  margin-top: 40px;
+  margin-top: 12px;
   margin-left: 6px;
     box-shadow: 0px 0px 20px 3px #5f515970;
 
 `;
 const Course = styled(SelfImprovementIcon)`
    
-    font-size: 30px;
+    font-size: 50px;
         color: #d2608d;
 
 `;
 const Notifi = styled(NotificationsIcon)`
 
-font-size: 30px;
+font-size: 50px;
     color: #d2608d;
 
 `;
 const Schedule = styled(CalendarMonthIcon)`
 
-font-size: 30px;
+font-size: 50px;
     color: #d2608d;
 
 `;
 const Support = styled(PermContactCalendarIcon)`
 
-    font-size: 30px;
+    font-size: 50px;
         color: #d2608d;
  
 `;
-const Feedback = styled(FeedbackIcon)`
 
-   font-size: 30px;
-        color: #d2608d;
-
-`;
 
 export default function HomeCustomer() {
   const [userCookie, setCookie] = useCookies("");
@@ -90,8 +85,8 @@ export default function HomeCustomer() {
             {customer.customerName}
             </Typography>
             
-            <Grid container sx={{ width: "45%", display: "flex" }}>
-              <Grid sx={{ maxWidth: "180px" }} className="grid-item">
+            <Grid container sx={{ width: "20%", display: "flex" }}>
+              <Grid item md={6} sx={{ maxWidth: "10%" }} className="grid-item">
                 <Link to={"/notification"}>
                   <Item>
                     <Notifi></Notifi>
@@ -100,7 +95,7 @@ export default function HomeCustomer() {
                 </Link>
               </Grid>
 
-              <Grid sx={{ maxWidth: "180px" }} className="grid-item">
+              <Grid item md={6} sx={{ maxWidth: "10%" }} className="grid-item">
                 <Link to={"/customer-schedule"}>
                   <Item>
                     <Schedule></Schedule>
@@ -109,16 +104,16 @@ export default function HomeCustomer() {
                 </Link>
               </Grid>
 
-              <Grid sx={{ maxWidth: "180px" }} className="grid-item">
-                <Link to={"/customer-course"}>
+              <Grid item md={6} sx={{ maxWidth: "10%" }} className="grid-item">
+                <Link to={"/customer-class"}>
                   <Item>
                     <Course></Course>
-                    <p>My Course</p>
+                    <p>My Class</p>
                   </Item>
                 </Link>
               </Grid>
 
-              <Grid sx={{ maxWidth: "180px" }} className="grid-item">
+              <Grid item md={6} sx={{ maxWidth: "10%" }} className="grid-item">
                 <Link to={"/contact"}>
                   <Item>
                     <Support></Support>
@@ -127,14 +122,6 @@ export default function HomeCustomer() {
                 </Link>
               </Grid>
 
-              <Grid sx={{ maxWidth: "180px" }} className="grid-item">
-                <Link to={"/contact"}>
-                  <Item>
-                    <Feedback></Feedback>
-                    <p>Feedback</p>
-                  </Item>
-                </Link>
-              </Grid>
             </Grid>
           </Box>
         </div>
