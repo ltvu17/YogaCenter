@@ -39,7 +39,7 @@ export default function ProfileCustomer() {
       });
   }, []);
   localStorage.setItem("userData", JSON.stringify(userData));
-
+  console.log(editing)
   const handleEdit = () => {
     setEditing(true);
     setChangePassword(false);
@@ -62,6 +62,7 @@ export default function ProfileCustomer() {
       ...userData,
       [e.target.name]: e.target.value,
     });
+    console.log(e.target.name)
   };
   const handleEditProfile = (e) => {
     e.preventDefault();
@@ -242,7 +243,7 @@ export default function ProfileCustomer() {
                       label="Gender"
                       variant="standard"
                       fullWidth
-                      name="Gnder"
+                      name="Gender"
                       defaultValue={userData.gender}
                       onChange={handleChange}
                     />
