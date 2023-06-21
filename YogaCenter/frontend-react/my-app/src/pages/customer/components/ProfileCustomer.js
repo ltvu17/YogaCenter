@@ -91,15 +91,6 @@ export default function ProfileCustomer() {
         console.log(error);
       });
   };
-
-  const TextCus = styled(TextField)`
-    & label.Mui-focused {
-      color: #866077;
-    }
-    .MuiInput-underline:after {
-      border-bottom-color: #951a3b;
-    }
-  `;
   const TextChangePassword = styled(TextField)`
     & .MuiInputBase-root {
       height: 40px;
@@ -219,7 +210,7 @@ export default function ProfileCustomer() {
               <>
                 {editing ? (
                   <div className="profileCustomer-save">
-                    <TextCus
+                    <TextField className="input-profile"
                       sx={{ padding: "0px 10px 32px" }}
                       label="User Name"
                       variant="standard"
@@ -228,7 +219,7 @@ export default function ProfileCustomer() {
                       defaultValue={userData.userName}
                       onChange={handleChange}
                     />
-                    <TextCus
+                    <TextField className="input-profile"
                       sx={{ padding: "0px 10px 32px" }}
                       label="Phone"
                       variant="standard"
@@ -237,7 +228,7 @@ export default function ProfileCustomer() {
                       defaultValue={userData.phone}
                       onChange={handleChange}
                     />
-                    <TextCus
+                    <TextField className="input-profile"
                       sx={{ padding: "0px 10px 32px" }}
                       label="Gender"
                       variant="standard"
@@ -246,7 +237,7 @@ export default function ProfileCustomer() {
                       defaultValue={userData.gender}
                       onChange={handleChange}
                     />
-                    <TextCus
+                    <TextField className="input-profile"
                       sx={{ padding: "0px 10px 32px" }}
                       label="Address"
                       variant="standard"
