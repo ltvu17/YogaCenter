@@ -1,24 +1,13 @@
 import "../css/navigation.css";
 import axios from "axios";
 import { useCookies } from "react-cookie";
-import { Button } from "@mui/material";
+
 import * as React from "react";
-import AppBar from "@mui/material/AppBar";
-import Box from "@mui/material/Box";
-import Toolbar from "@mui/material/Toolbar";
-import IconButton from "@mui/material/IconButton";
-import Typography from "@mui/material/Typography";
-import Menu from "@mui/material/Menu";
-import MenuIcon from "@mui/icons-material/Menu";
-import Container from "@mui/material/Container";
-import Avatar from "@mui/material/Avatar";
-import Tooltip from "@mui/material/Tooltip";
-import MenuItem from "@mui/material/MenuItem";
-import AdbIcon from "@mui/icons-material/Adb";
+
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import NavUsers from "../pages/common/components/NavUsers";
-const settings = ["Profile", "Account", "Dashboard", "Logout"];
+
 
 export default function Navigation({ role }) {
   const [cookie, setCookie] = useCookies();
@@ -31,24 +20,7 @@ export default function Navigation({ role }) {
       .catch((er) => console.log(er));
     setCookie("flag", 1, { path: "/" });
   };
-  const [anchorElNav, setAnchorElNav] = React.useState(null);
-  const [anchorElUser, setAnchorElUser] = React.useState(null);
 
-  const handleOpenNavMenu = (event) => {
-    setAnchorElNav(event.currentTarget);
-  };
-  const handleOpenUserMenu = (event) => {
-    setAnchorElUser(event.currentTarget);
-  };
-
-  const handleCloseNavMenu = () => {
-    setAnchorElNav(null);
-  };
-
-  const handleCloseUserMenu = () => {
-    setAnchorElUser(null);
-  };
-  const isCustomer = true;
 
   const MenuNav = () => {
     try {
@@ -132,88 +104,65 @@ export default function Navigation({ role }) {
           </nav>
         );
       }
-    } catch (err) {
-      return (
-        <nav className="Navigation">
-          <Link to="/" className="logo">
-            <h1>Yoga FPTU Center</h1>
-            <p>EVERY DAY</p>
-          </Link>
-          <ul className="nav">
-            <li>
-              <Link to="/home">Home</Link>
-            </li>
-            <li>
-              <Link to="#">Blog</Link>
-            </li>
-            <li>
-              <Link to="/schedule">Schedule</Link>
-            </li>
-            <li>
-              <Link to="/login">Login</Link>
-            </li>
-          </ul>
-        </nav>
-      );
-    }
 
-    else
-    if(role.toUpperCase().trim().localeCompare('"MANAGER"', undefined, { sensitivity: 'base' }) === 0){
-      return(      
-      <nav className='Navigation'>
-      <Link to='/' className='logo'>
-        <h1>Yoga FPTU Center</h1>
-        <p>EVERY DAY</p>
-       </Link>
-      <ul className='nav'>
-      <li><Link to='/home'>Home</Link></li>
-       <li className='menu'><Link to='/staffmanage'>Manage Class</Link>
-          {/* <ul className='drop-menu'>
+      else if (role.toUpperCase().trim().localeCompare('"MANAGER"', undefined, { sensitivity: 'base' }) === 0) 
+      {
+        return (
+          <nav className='Navigation'>
+            <Link to='/' className='logo'>
+              <h1>Yoga FPTU Center</h1>
+              <p>EVERY DAY</p>
+            </Link>
+            <ul className='nav'>
+              <li><Link to='/home'>Home</Link></li>
+              <li className='menu'><Link to='/staffmanage'>Manage Class</Link>
+                {/* <ul className='drop-menu'>
             <li><Link to='#'>hihi</Link></li>
             <li><Link>haha</Link></li>
             <li><Link>haha</Link></li>
             <li><Link>haha</Link></li>
           </ul>   */}
-      </li>
-      <li className='menu'><Link  to='#'>Manage Blog</Link>
-      <ul className='drop-menu'>
-            <li><Link to=''>Man</Link></li>
-            <li><Link>haha</Link></li>
-            <li><Link>haha</Link></li>
-            <li><Link>haha</Link></li>
-          </ul> 
-      </li>
-      <li className='menu'><Link  to='/schedulemanage'>Manage Schedule</Link></li>
-      <li className='menu'><Link  to='/coursemanage'>Manage Course</Link>
-      <ul className='drop-menu'>
-            <li><Link to='/coursemanage'>Course</Link></li>
-            <li><Link to='/eventmanage'>Event</Link></li>
-            <li><Link>haha</Link></li>
-            <li><Link>haha</Link></li>
-          </ul> 
-      </li>
-      <li><Link onClick={logout} to='/home'>Logout</Link></li>
-      </ul>
-    </nav> 
- 
-    );
-    }
-  }catch(err){
-    return(
-      <nav className='Navigation'>
-      <Link to='/' className='logo'>
-        <h1>Yoga FPTU Center</h1>
-        <p>EVERY DAY</p>
-      </Link>
-    <ul className='nav'>
-      <li><Link to='/home'>Home</Link></li>
-      <li><Link to='#'>Blog</Link></li>
-      <li><Link to='/schedule'>Schedule</Link></li>
-      <li><Link to='/login'>Login</Link></li>
-    </ul>
-    </nav>
-    );
+              </li>
+              <li className='menu'><Link to='#'>Manage Blog</Link>
+                <ul className='drop-menu'>
+                  <li><Link to=''>Man</Link></li>
+                  <li><Link>haha</Link></li>
+                  <li><Link>haha</Link></li>
+                  <li><Link>haha</Link></li>
+                </ul>
+              </li>
+              <li className='menu'><Link to='/schedulemanage'>Manage Schedule</Link></li>
+              <li className='menu'><Link to='/coursemanage'>Manage Course</Link>
+                <ul className='drop-menu'>
+                  <li><Link to='/coursemanage'>Course</Link></li>
+                  <li><Link to='/eventmanage'>Event</Link></li>
+                  <li><Link>haha</Link></li>
+                  <li><Link>haha</Link></li>
+                </ul>
+              </li>
+              <li><Link onClick={logout} to='/home'>Logout</Link></li>
+            </ul>
+          </nav>
 
-  };
-  return <MenuNav />;
-}
+        );
+      }
+    } catch (err) {
+      return (
+        <nav className='Navigation'>
+          <Link to='/' className='logo'>
+            <h1>Yoga FPTU Center</h1>
+            <p>EVERY DAY</p>
+          </Link>
+          <ul className='nav'>
+            <li><Link to='/home'>Home</Link></li>
+            <li><Link to='#'>Blog</Link></li>
+            <li><Link to='/schedule'>Schedule</Link></li>
+            <li><Link to='/login'>Login</Link></li>
+          </ul>
+        </nav>
+      );
+
+    };
+  }
+    return <MenuNav />;
+  }
