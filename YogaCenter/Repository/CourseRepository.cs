@@ -31,12 +31,12 @@ namespace YogaCenter.Repository
 
         public async Task<Course> GetCourseById(Guid id)
         {
-            return await _context.Courses.Where(p => p.Id == id).FirstOrDefaultAsync();
+            return await _context.Courses.Where(p => p.Id == id).Include(p => p.Event).FirstOrDefaultAsync();
         }
 
         public async Task<ICollection<Course>> GetCourses()
         {
-            return await _context.Courses.ToListAsync();
+            return await _context.Courses.Include(p => p.Event).OrderBy(p=>p.CourseCreateDate).ToListAsync();
         }
 
         public async Task<bool> Save()

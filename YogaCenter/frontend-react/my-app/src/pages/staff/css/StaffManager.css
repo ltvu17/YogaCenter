@@ -6,6 +6,11 @@ div{
     justify-content: center;
     
 }
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
 
 .class-post table{
     margin-left: 10%;
