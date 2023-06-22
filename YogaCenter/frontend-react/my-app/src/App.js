@@ -1,29 +1,32 @@
-import React from "react";
-import { Route, Routes } from "react-router-dom";
-import Navigation from "./components/Navigation";
-import { useCookies } from "react-cookie";
-import "./css/App.css";
-import "./css/home.css";
-import Login from "./components/Login";
-import Home from "./components/Home";
-import Schedule from "./components/Schedule";
-import Footer from "./components/Footer";
-import RegisterClass from "./components/RegisterClass";
 
-import HomeCustomer from "./pages/customer/components/homeCustomer";
-import StaffManager from "./pages/staff/components/StaffManager";
-import Redirect from "./pages/Redirect";
-import Staffmanage from "./pages/staff/components/Staffmanage";
-import UpdateClass from "./pages/staff/components/UpdateClass";
-import Notification from "./pages/customer/components/Notification";
-import ScheduleCustomer from "./pages/customer/components/ScheduleCustomer";
-import ProfileCustomer from "./pages/customer/components/ProfileCustomer";
-import StudentManage from "./pages/staff/components/StudentManage";
-import ScheduleManage from "./pages/staff/components/ScheduleManage";
+import React from 'react';
+import { Route, Routes} from 'react-router-dom';
+import Navigation from './components/Navigation';
+import { useCookies } from 'react-cookie';
+import './css/App.css';
+import './css/home.css'
+import Login from './components/Login';
+import Home from './components/Home';
+import Schedule from './components/Schedule';
+import Footer from './components/Footer';
+import RegisterClass from './components/RegisterClass';
+import NavUsers from './pages/common/components/NavUsers'
+import HomeCustomer from './pages/customer/components/homeCustomer';
+import StaffManager from './pages/staff/components/StaffManager';
+import Redirect from './pages/Redirect';
+import Staffmanage from './pages/staff/components/Staffmanage';
+import UpdateClass from './pages/staff/components/UpdateClass';
+import Notification from './pages/customer/components/Notification';
+import ScheduleCustomer from './pages/customer/components/ScheduleCustomer';
+import ProfileCustomer from './pages/customer/components/ProfileCustomer';
+import StudentManage from './pages/staff/components/StudentManage';
+import ScheduleManage from './pages/staff/components/ScheduleManage';
+import ConstDefine from './pages/staff/components/ConstDefine';
+import AddClassSchedule from './pages/staff/components/AddClassSchedule';
+import CourseManage from './pages/manager/CourseManage';
+import EventManage from './pages/manager/EventManage';
 
-import AddClassSchedule from "./pages/staff/components/AddClassSchedule";
-import Contact from "./pages/common/components/Contact";
-import ClassCustomer from "./pages/customer/components/ClassCustomer";
+
 
 function App() {
   try {
@@ -55,6 +58,8 @@ function App() {
         <Route path='/studentmanage' element={<StudentManage/>}/>
         <Route path='/schedulemanage' element={<ScheduleManage/>}/>
         <Route path='/addclassschedule' element={<AddClassSchedule/>}/>
+        <Route path='/coursemanage' element={<CourseManage/>}/>
+        <Route path='/eventmanage' element={<EventManage/>}/>
         {/* <Route path='/const' element={<ConstDefine/>}/> */}
         {/* <Route path='/updateClass:id' element={<UpdateClass/>} /> */}
       </Routes>
