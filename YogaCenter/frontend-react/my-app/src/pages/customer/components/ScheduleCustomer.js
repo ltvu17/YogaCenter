@@ -25,56 +25,54 @@ function ScheduleCustomer() {
       const nextDate = new Date(prevDate);
       const currentMonth = nextDate.getMonth();
       const currentDay = nextDate.getDate();
-
+  
       if (currentDay <= 23) {
         nextDate.setDate(currentDay + 7);
       } else {
         const isCurrentMonth30Days = is30Days(currentMonth + 1);
         const nextMonth = currentMonth + 1;
-
+  
         if ((currentDay === 24 && isCurrentMonth30Days) || currentDay === 25) {
-        
-          nextDate.setMonth(nextMonth + 1);
+          nextDate.setMonth(nextMonth);
           nextDate.setDate(1);
         } else {
-        
           nextDate.setMonth(nextMonth);
           nextDate.setDate(currentDay + 7 - (isCurrentMonth30Days ? 30 : 31));
         }
       }
-
-      return nextDate;
+  
+      return new Date(nextDate); 
     });
   };
-
+  
   const goTobeforeMonth = () => {
     setCurrentDate((prevDate) => {
       const beforeDate = new Date(prevDate);
       const currentMonth = beforeDate.getMonth();
       const currentDay = beforeDate.getDate();
-
-      if (currentDay >= 8 ){
+  
+      if (currentDay >= 8) {
         beforeDate.setDate(currentDay - 7);
       } else {
         const isbeforeMonth30Days = is30Days(currentMonth - 1);
         const beforeMonth = currentMonth - 1;
-
+  
         if (currentDay === 7 || (currentDay === 6 && isbeforeMonth30Days)) {
-          
-          beforeDate.setMonth(beforeMonth - 1);
+          beforeDate.setMonth(beforeMonth);
           beforeDate.setDate(isbeforeMonth30Days ? 30 : 31);
         } else {
-         
           beforeDate.setMonth(beforeMonth);
           beforeDate.setDate(
             currentDay - 7 + (isbeforeMonth30Days ? 30 : 31)
           );
         }
       }
-
-      return beforeDate;
+  
+      return new Date(beforeDate); 
     });
   };
+  
+  
 
   const monthName = ['January','February','March','April','May','June','July','August','September','October','November','December'];
   const currentMonthName = monthName[currentMonth - 1];
@@ -138,26 +136,27 @@ function ScheduleCustomer() {
         <th style={{ background: 'linear-gradient(90deg, #d2608d, rgb(136 101 136 / 65%))', paddingTop:'20px',paddingBottom:'20px',width:'125px'}}>
         <CalendarMonthIcon style={{color:'white',fontSize:'40px'}} />
         </th>
-          {days.map((day, index) => {
-            const currentDateCopy = new Date(currentDate);
-            currentDateCopy.setDate(currentDateCopy.getDate() + index); 
+        {days.map((day, index) => {
+  const currentDateCopy = new Date(currentDate);
+  currentDateCopy.setDate(currentDateCopy.getDate() - currentDateCopy.getDay() + index + 1);
 
-            const currentDay = currentDateCopy.getDate();
-            const currentMonthNumber = currentDateCopy.getMonth() + 1;
+  const currentDay = currentDateCopy.getDate();
+  const currentMonthNumber = currentDateCopy.getMonth() + 1;
 
-            return (
-              <th key={day}>
-                <div className="day-header">
-                  <div className="day-name"><span>{day}</span></div>
-                  <div className="day-date">
-                    <span className="date">{currentDay}</span>
-                    <span>/</span>
-                    <span className="month">{currentMonthNumber}</span>
-                  </div>
-                </div>
-              </th>
-            );
-          })}
+  return (
+    <th key={day}>
+      <div className="day-header">
+        <div className="day-name"><span>{day}</span></div>
+        <div className="day-date">
+          <span className="date">{currentDay}</span>
+          <span>/</span>
+          <span className="month">{currentMonthNumber}</span>
+        </div>
+      </div>
+    </th>
+  );
+})}
+
         </tr>
         </thead>
         <tbody>

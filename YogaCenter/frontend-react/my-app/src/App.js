@@ -18,6 +18,8 @@ import Staffmanage from './pages/staff/components/Staffmanage';
 import UpdateClass from './pages/staff/components/UpdateClass';
 import Notification from './pages/customer/components/Notification';
 import ScheduleCustomer from './pages/customer/components/ScheduleCustomer';
+import Contact from './pages/common/components/Contact'
+import ClassCustomer from './pages/customer/components/ClassCustomer';
 import ProfileCustomer from './pages/customer/components/ProfileCustomer';
 import StudentManage from './pages/staff/components/StudentManage';
 import ScheduleManage from './pages/staff/components/ScheduleManage';
@@ -53,7 +55,7 @@ function App() {
         <Route path="/contact" element={<Contact/>} />
         <Route path='/customer-class' element={<ClassCustomer/>}/>
         <Route path="/Redirecting" element={<Redirect />} />
-        {/* <Route path='/StaffManager' element={<StaffManager/>} /> */}
+        <Route path='/StaffManager' element={<StaffManager/>} />
         <Route path='/staffmanage' element={<Staffmanage/>} />
         <Route path='/home-customer' element={<HomeCustomer/>} />
         <Route path='/Profile' element={<ProfileCustomer/>} />
