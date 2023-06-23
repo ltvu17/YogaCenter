@@ -35,6 +35,7 @@ export default function StudentManage() {
     ////URL_API
     let studentClassAPI = URL_API+`ClassCustomer/${id}`;
     let getAllStudentAPI = URL_API+'Customer'
+    let getAllStudentRegisAPI = URL_API+`Invoice/course/${location.state.courseId}`
     let postStudentClass = URL_API+`ClassCustomer/${id}`
     let deleteStudentClass = URL_API+`ClassCustomer/${id}`
     ///Get DATA
@@ -45,10 +46,10 @@ export default function StudentManage() {
     },[id]);
     useEffect(() =>{
         if(id !== ''){
-            axios.get(getAllStudentAPI).then(r => {setStudents(r.data)}).catch(err => console.log(err));
+            axios.get(getAllStudentRegisAPI).then(r => {setStudents(r.data)}).catch(err => console.log(err));
         }
     },[id]);
-
+    console.log(location);
     ////Fuctions
 
     const addStudenClass = () =>{

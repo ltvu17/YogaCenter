@@ -190,11 +190,11 @@ export default function Staffmanage() {
         }
         ).then(r => console.log(r)).catch(er=>console.log(er));
     }
+    
     function deleteClass(value){
         setOpen(true);     
         setIdDelete(value);  
     }
-
 
     // filter value
     function getvalueUpdate(value){
@@ -205,7 +205,7 @@ export default function Staffmanage() {
             element.scrollIntoView({ behavior: 'smooth' });
           }    
     } 
-    function getValueStudentManage(Name,Id){
+    function getValueStudentManage(Name,Id,courseId){
         if(idStudentManage.id === '')
         setIdStudentManage(p => {
             return{
@@ -213,7 +213,7 @@ export default function Staffmanage() {
                 name:Name
             }
         });
-        navigate('/studentmanage',{state: { id : Id,name : Name}}); 
+        navigate('/studentmanage',{state: { id : Id,name : Name,courseId : courseId}}); 
     } 
 
 
@@ -272,7 +272,7 @@ export default function Staffmanage() {
                                 sx={{padding :1,margin:1, color: 'white', backgroundColor:'rgb(127, 69, 101)'}}>Update Class</Button>
                                 <Button variant='text' size='small' color='success' startIcon={<DeleteForeverOutlinedIcon/>} onClick={()=>deleteClass(item.id)}
                                 sx={{padding :1,margin:1, color: 'white', backgroundColor:'rgb(127, 69, 101)'}}>Delete Class</Button>
-                                 <Button variant='text' size='small' color='success' startIcon={<AccessibilityNewIcon/>} onClick={()=>getValueStudentManage(item.className,item.id)}
+                                 <Button variant='text' size='small' color='success' startIcon={<AccessibilityNewIcon/>} onClick={()=>getValueStudentManage(item.className,item.id,item.course.id)}
                                 sx={{padding :1,margin:1, color: 'white', backgroundColor:'rgb(127, 69, 101)'}}>Student Manage</Button>
                             
                             </div>
