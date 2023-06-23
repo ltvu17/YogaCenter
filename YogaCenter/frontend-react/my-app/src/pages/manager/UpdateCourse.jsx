@@ -57,7 +57,7 @@ export default function UpdateCourse({id}) {
     }     
 },[id]);
    ///Submit
-   function submitAdd(e){
+  function submitAdd(e){
     axios.put(postCourse,{
       courseDescription: inputField.courseDescription,
       courseLectureNumber :inputField.courseLectureNumber,
@@ -73,13 +73,13 @@ export default function UpdateCourse({id}) {
     }).then(r => console.log(r)).catch(err => console.log(err));
   }
    ///Handler
-   const ChangeHandler = (e) =>{
+  const ChangeHandler = (e) =>{
     setInputFields(p => {
       return {...inputField, [e.target.name] : e.target.value }
     })    
   };
    //Filter 
-   function filterDay(day){
+  function filterDay(day){
     const split = day.split("T");
     let value = split[0];
     return value;

@@ -11,7 +11,7 @@ namespace YogaCenter.Models
         [Required]
         public DateTime DateRequest { get; set; }
         [Required]
-        public DateTime DatePay { get; set; }
+        public DateTime? DatePay { get; set; }
         [Required]
         public int TotalPay { get; set; }
         public Customer Customer { get; set; }

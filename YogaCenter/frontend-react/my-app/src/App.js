@@ -27,6 +27,10 @@ import ConstDefine from './pages/staff/components/ConstDefine';
 import AddClassSchedule from './pages/staff/components/AddClassSchedule';
 import CourseManage from './pages/manager/CourseManage';
 import EventManage from './pages/manager/EventManage';
+import Contact from './pages/common/components/Contact';
+import ClassCustomer from './pages/customer/components/ClassCustomer';
+import RegisterAccount from './pages/staff/components/RegisterAccount';
+import RegisterTeacher from './pages/manager/RegisterTeacher';
 
 
 
@@ -40,7 +44,6 @@ function App() {
     <div className="App">
       {/* <NavUsers/>  */}
       <Navigation role={roleApp} />
-
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/home" element={<Home />} />
@@ -62,6 +65,8 @@ function App() {
         <Route path='/addclassschedule' element={<AddClassSchedule/>}/>
         <Route path='/coursemanage' element={<CourseManage/>}/>
         <Route path='/eventmanage' element={<EventManage/>}/>
+        <Route path='/register' element={<RegisterAccount/>}/>
+        <Route path='/register-teacher' element={<RegisterTeacher/>}/>
         {/* <Route path='/const' element={<ConstDefine/>}/> */}
         {/* <Route path='/updateClass:id' element={<UpdateClass/>} /> */}
       </Routes>
