@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Route, Routes } from "react-router-dom";
+
 import Typography from "@mui/material/Typography";
 import { styled } from "@mui/material/styles";
 import Grid from "@mui/material/Grid";
@@ -9,14 +9,15 @@ import NotificationsIcon from "@mui/icons-material/Notifications";
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 import SelfImprovementIcon from "@mui/icons-material/SelfImprovement";
 import PermContactCalendarIcon from "@mui/icons-material/PermContactCalendar";
-import FeedbackIcon from "@mui/icons-material/Feedback";
+import WbSunnyIcon from '@mui/icons-material/WbSunny';
+import BedtimeIcon from '@mui/icons-material/Bedtime';
 import ".././css/homeCustomer.css";
-import Notification from "./Notification";
-import ProfileCustomer from "./ProfileCustomer";
+
 import { Link } from "react-router-dom";
 import { useCookies } from "react-cookie";
-import { CleaningServices } from "@mui/icons-material";
+
 import axios from "axios";
+import TextAnimation from "../../../animations/TextAnimation";
 
 const Item = styled(Paper)`
  
@@ -36,32 +37,43 @@ const Item = styled(Paper)`
 const Course = styled(SelfImprovementIcon)`
    
     font-size: 50px;
-        color: #d2608d;
+        color: #0d07099c;
 
 `;
 const Notifi = styled(NotificationsIcon)`
 
 font-size: 50px;
-    color: #d2608d;
+    color: #0d07099c;
 
 `;
 const Schedule = styled(CalendarMonthIcon)`
 
 font-size: 50px;
-    color: #d2608d;
+    color: #0d07099c;
 
 `;
 const Support = styled(PermContactCalendarIcon)`
 
     font-size: 50px;
-        color: #d2608d;
- 
+    color: #0d07099c;
 `;
+const Bedicon = styled(BedtimeIcon)`
+    font-size: 50px;
+    margin-left: 2%;
+  `;
+const Sunnyicon = styled(WbSunnyIcon)`
+  font-size: 50px;
+  margin-left: 2%;
+  
+`;
+
 
 
 export default function HomeCustomer() {
   const [userCookie, setCookie] = useCookies("");
   const [customer, setCustomer] = useState("");
+  const [greeting, setGreeting] = useState("");
+  const [icon, setIcon] = useState(null);
   useEffect(() => {
     axios
       .get(`https://localhost:7096/api/Customer/${userCookie.userId}`)
@@ -72,6 +84,21 @@ export default function HomeCustomer() {
         console.log(err);
       });
   }, []);
+  useEffect(() => {
+    const currentHour = new Date().getHours();
+
+    if (currentHour < 12 && currentHour >=5) {
+      setGreeting("Good Morning");
+      setIcon(<Sunnyicon></Sunnyicon>)
+    } else if (currentHour <= 18 && currentHour >=12) {
+      setGreeting("Good Afternoon");
+      setIcon(<Bedicon  ></Bedicon>)
+    } else {
+      setGreeting("Good Evening");
+      setIcon(<Bedicon  ></Bedicon>)
+    }
+  }, []);
+
    return (
     <div className="HomeCustomer">
       <div className="introduction-customer">
@@ -79,14 +106,14 @@ export default function HomeCustomer() {
         <div className="content-customer">
           <Box sx={{ width: "100%" }}>
             <Typography variant="h2" component="h2">
-              Good Morning
+              <TextAnimation />
             </Typography>
             <Typography variant="h3" component="h3">
-            {customer.customerName}
-            </Typography>
+              {customer.customerName}
+            </Typography>    
             
-            <Grid container sx={{ width: "20%", display: "flex" }}>
-              <Grid item md={6} sx={{ maxWidth: "10%" }} className="grid-item">
+            <Grid container sx={{ width: "20%", marginLeft:'5%',marginTop:'3%', display: "flex" }}>
+              <Grid item xs={12} sm={12} md={6} sx={{ maxWidth: "10%" }} className="grid-item">
                 <Link to={"/notification"}>
                   <Item>
                     <Notifi></Notifi>
@@ -95,7 +122,7 @@ export default function HomeCustomer() {
                 </Link>
               </Grid>
 
-              <Grid item md={6} sx={{ maxWidth: "10%" }} className="grid-item">
+              <Grid item xs={12} sm={12} md={6} sx={{ maxWidth: "10%" }} className="grid-item">
                 <Link to={"/customer-schedule"}>
                   <Item>
                     <Schedule></Schedule>
@@ -104,7 +131,7 @@ export default function HomeCustomer() {
                 </Link>
               </Grid>
 
-              <Grid item md={6} sx={{ maxWidth: "10%" }} className="grid-item">
+              <Grid item xs={12} sm={12} md={6} sx={{ maxWidth: "10%" }} className="grid-item">
                 <Link to={"/customer-class"}>
                   <Item>
                     <Course></Course>
@@ -113,7 +140,7 @@ export default function HomeCustomer() {
                 </Link>
               </Grid>
 
-              <Grid item md={6} sx={{ maxWidth: "10%" }} className="grid-item">
+              <Grid item xs={12} sm={12} md={6} sx={{ maxWidth: "10%" }} className="grid-item">
                 <Link to={"/contact"}>
                   <Item>
                     <Support></Support>
