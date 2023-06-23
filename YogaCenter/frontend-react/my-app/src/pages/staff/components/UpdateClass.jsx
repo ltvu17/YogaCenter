@@ -58,10 +58,18 @@ export default function UpdateClass({ id }) {
   function submitAdd(e) {
     e.preventDefault();
     setOpen(false);
+    axios.put(getclass,{
+      className : inputField.className,
+      classStartDate : inputField.classStartDate,
+      classEndDate : inputField.classEndDate,
+  },{
+      headers:{
+          teacherId : inputField.teacherId === '-1'?null:inputField.teacherId,
+          courseId : inputField.courseId
+      }
+  }).then(r=>console.log(r)).catch(err=>console.log(err));
     navigate(0);
-    if (inputField.className === "") {
-      return;
-    }
+    
   }
 
   //Filter

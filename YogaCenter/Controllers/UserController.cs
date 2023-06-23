@@ -94,7 +94,7 @@ namespace YogaCenter.Controllers
             if(roleName == null || userDto == null) { return BadRequest(); }
             if (await _userRepository.UserExists(userDto.UserName) || await _userRepository.UserExistsById(userDto.Id))
             {
-                ModelState.AddModelError("", "User already Exists");
+                ModelState.AddModelError("message", "User name already Exists");
                 return BadRequest(ModelState);
             }
             var role = await _roleRepository.GetRoleByName(roleName);
