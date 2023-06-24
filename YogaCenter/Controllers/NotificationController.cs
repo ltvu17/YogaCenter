@@ -34,7 +34,6 @@ namespace YogaCenter.Controllers
             if(notificationDto == null) { return BadRequest(); }
             if (!ModelState.IsValid) { return BadRequest(); }
             var notification = _mapper.Map<Notification>(notificationDto);
-            notification.Id = Guid.NewGuid();
             if (await _notificationRepository.Create(notification))
             {
                 return Ok(

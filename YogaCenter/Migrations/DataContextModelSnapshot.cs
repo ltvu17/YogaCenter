@@ -419,6 +419,9 @@ namespace YogaCenter.Migrations
                     b.Property<Guid?>("SenderId")
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<DateTime>("Daycreate")
+                        .HasColumnType("datetime2");
+
                     b.Property<Guid?>("ReceiverId")
                         .HasColumnType("uniqueidentifier");
 

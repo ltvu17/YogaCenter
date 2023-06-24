@@ -17,6 +17,7 @@ export default function RegisterAccount() {
     color:'white',
   }));
   const [message,setMessage] = useState('');
+  const [status,setStatus] = useState(false);
   const [idUser, setId] = useState(uuidv4());
   const [inputField,setInputFields] = useState({
     userName : '',
@@ -53,14 +54,15 @@ export default function RegisterAccount() {
       id: idUser,
       userName : inputField.userName,
       userPasswork : inputField.userPassword,
-    }).then(r=> console.log(r)).catch(err=> setMessage(err.response.data.message));
+    }).then(r=> {console.log(r)
+                setStatus(true)}).catch(err=> setMessage(err.response.data.message));
     await axios.post(postCustomerAPI,{
       customerName: inputField.customerName.replace(/\s\s+/g, ' '),
       customerGender: inputField.customerGender,
       customerAddress: inputField.customerAddress.replace(/\s\s+/g, ' '),
       customerPhone : inputField.customerPhone.substring(1)
     }).then(r=> console.log(r)).catch(err=>console.log(err));
-    if(message ===''){
+    if(status === true){
       alert("Create successfully");
       navigate(0);
     }
@@ -111,7 +113,7 @@ export default function RegisterAccount() {
             <br/>
             <TextField name='customerPhone' type='number' required label="Phone"  onChange={ChangeHandler} variant="outlined" />
             <br/>
-            {message? <p style={{marginLeft:'25%', color:'red'}}>{message}</p>            
+            {message? <p style={{marginLeft:'33%', color:'red', textAlign:'left'}}>{message}</p>            
               :''}
 
             <Button variant="contained" type='submit'  fullWidth={false}>Register</Button>         

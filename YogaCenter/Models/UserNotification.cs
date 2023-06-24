@@ -13,5 +13,6 @@ namespace YogaCenter.Models
         public Guid NotificationId { get; set; }
         [ForeignKey(nameof(NotificationId))]
         public Notification Notification { get;set; }
+        public DateTime Daycreate { get; set; }
     }
 }
