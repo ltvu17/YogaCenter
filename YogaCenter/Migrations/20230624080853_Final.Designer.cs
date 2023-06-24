@@ -12,8 +12,8 @@ using YogaCenter.Models;
 namespace YogaCenter.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20230622151242_FinalCreate")]
-    partial class FinalCreate
+    [Migration("20230624080853_Final")]
+    partial class Final
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -421,6 +421,9 @@ namespace YogaCenter.Migrations
 
                     b.Property<Guid?>("SenderId")
                         .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("Daycreate")
+                        .HasColumnType("datetime2");
 
                     b.Property<Guid?>("ReceiverId")
                         .HasColumnType("uniqueidentifier");

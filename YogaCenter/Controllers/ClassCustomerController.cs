@@ -35,6 +35,20 @@ namespace YogaCenter.Controllers
             }
             return Ok(customers);
         }
+        [HttpGet("course/{courseId}")]
+        public async Task<IActionResult> GetCourseCustomer(Guid courseId)
+        {
+            if (courseId.Equals(Guid.Empty))
+            {
+                return NotFound();
+            }
+            var customers = await _classCustomerRepository.GetCusByClass(courseId);
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            return Ok(customers);
+        }
         [HttpGet("getCustomer/{customerId}")]
         public async Task<IActionResult> GetCustomerClasses(Guid customerId)
         {

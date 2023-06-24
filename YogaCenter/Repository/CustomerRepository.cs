@@ -31,7 +31,7 @@ namespace YogaCenter.Repository
 
         public async Task<ICollection<Customer>> GetAllCustomers()
         {
-            return await _context.Customers.Include(p=> p.User).ToListAsync();
+            return await _context.Customers.Include(p=> p.User).OrderBy(p=>p.CustomerName).ToListAsync();
         }
 
         public async Task<Customer> GetCustomerById(Guid id)

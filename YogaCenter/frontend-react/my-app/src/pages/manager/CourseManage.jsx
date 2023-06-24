@@ -146,7 +146,7 @@ export default function CourseManage() {
                                 sx={{padding :1,margin:1, color: 'white', backgroundColor:'rgb(127, 69, 101)'}}>Delete Course</Button>
                             </div>
                         </td>        
-                       </tr>
+                        </tr>
                     ))):''}
                     {Array.from(Array(count)).map(((index,c) => (
                         
