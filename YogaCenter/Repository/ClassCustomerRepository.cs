@@ -54,6 +54,9 @@ namespace YogaCenter.Repository
             var save = await _context.SaveChangesAsync();
             return save > 0 ? true : false;
         }
-        
+        public async Task<ICollection<Customer>> GetCusByClass(Guid courseId)
+        {
+            return await _context.ClassCustomers.Where(p=>p.Class.Course.Id == courseId).Include(p=>p.Customer).Select(p => p.Customer).ToListAsync();  
+        }
     }
 }

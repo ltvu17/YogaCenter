@@ -11,7 +11,7 @@ export default function uuidv4() {
     (c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> c / 4).toString(16)
     );
 }
-
+export const notification = 'dab31fb0-0078-490b-a76f-e4142948ca8a'
 // export default function ConstDefine() {
 //     const [shiftpost,setShiftPost] = useState([]);
 //     useEffect(()=>{

@@ -45,7 +45,7 @@ namespace YogaCenter
             builder.Services.AddScoped<IEventRepository, EventRepository>();
             builder.Services.AddScoped<IInvoiceRepository, InvoiceRepository>();
             builder.Services.AddScoped<INotificationRepository, NotificationRepository>();
-
+            builder.Services.AddScoped<IUserNotificationsRepository, UserNotificationRepository>();
             builder.Services.AddControllers();
             builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
             

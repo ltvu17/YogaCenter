@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace YogaCenter.Migrations
 {
     /// <inheritdoc />
-    public partial class FinalCreate : Migration
+    public partial class Final : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -175,7 +175,8 @@ namespace YogaCenter.Migrations
                 {
                     SenderId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     NotificationId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    ReceiverId = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
+                    ReceiverId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
+                    Daycreate = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
                 {
