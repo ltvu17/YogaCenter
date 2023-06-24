@@ -18,7 +18,6 @@ import Staffmanage from './pages/staff/components/Staffmanage';
 import UpdateClass from './pages/staff/components/UpdateClass';
 import Notification from './pages/customer/components/Notification';
 import ScheduleCustomer from './pages/customer/components/ScheduleCustomer';
-import Contact from './pages/common/components/Contact'
 import ClassCustomer from './pages/customer/components/ClassCustomer';
 import ProfileCustomer from './pages/customer/components/ProfileCustomer';
 import StudentManage from './pages/staff/components/StudentManage';
@@ -27,6 +26,11 @@ import ConstDefine from './pages/staff/components/ConstDefine';
 import AddClassSchedule from './pages/staff/components/AddClassSchedule';
 import CourseManage from './pages/manager/CourseManage';
 import EventManage from './pages/manager/EventManage';
+import Contact from './pages/common/components/Contact';
+import RegisterAccount from './pages/staff/components/RegisterAccount';
+import RegisterTeacher from './pages/manager/RegisterTeacher';
+import CreateInvoice from './pages/staff/components/CreateInvoice';
+import NotificationStaff from './pages/staff/components/NotificationStaff';
 
 
 
@@ -40,7 +44,6 @@ function App() {
     <div className="App">
       {/* <NavUsers/>  */}
       <Navigation role={roleApp} />
-
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/home" element={<Home />} />
@@ -52,7 +55,7 @@ function App() {
         <Route path="/contact" element={<Contact/>} />
         <Route path='/customer-class' element={<ClassCustomer/>}/>
         <Route path="/Redirecting" element={<Redirect />} />
-        <Route path='/StaffManager' element={<StaffManager/>} />
+        {/* <Route path='/StaffManager' element={<StaffManager/>} /> */}
         <Route path='/staffmanage' element={<Staffmanage/>} />
         <Route path='/home-customer' element={<HomeCustomer/>} />
         <Route path='/Profile' element={<ProfileCustomer/>} />
@@ -62,6 +65,10 @@ function App() {
         <Route path='/addclassschedule' element={<AddClassSchedule/>}/>
         <Route path='/coursemanage' element={<CourseManage/>}/>
         <Route path='/eventmanage' element={<EventManage/>}/>
+        <Route path='/register' element={<RegisterAccount/>}/>
+        <Route path='/register-teacher' element={<RegisterTeacher/>}/>
+        <Route path='/create-invoice' element={<CreateInvoice/>}/>
+        <Route path='/staff-notification' element={<NotificationStaff/>}/>
         {/* <Route path='/const' element={<ConstDefine/>}/> */}
         {/* <Route path='/updateClass:id' element={<UpdateClass/>} /> */}
       </Routes>

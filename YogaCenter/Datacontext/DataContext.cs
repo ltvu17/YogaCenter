@@ -23,6 +23,8 @@ namespace YogaCenter.Models
         public DbSet<ClassCustomer> ClassCustomers { get; set; }
         public DbSet<CustomerLesson> CustomerLessons { get; set; }
         public DbSet<Invoice> Invoice { get; set; }
+        public DbSet<Notification> Notifications { get; set; }
+        public DbSet<UserNotification> UserNotifications { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -37,6 +39,25 @@ namespace YogaCenter.Models
                 .UsingEntity<CustomerLesson>(
                 r => r.Property(r => r.Attendance).HasDefaultValue(2)
                 );
+            modelBuilder.Entity<Notification>()
+                .HasMany(e => e.Sender)
+                .WithMany(e => e.Sender)
+                .UsingEntity<UserNotification>();
+            modelBuilder.Entity<Notification>()
+                .HasMany(e => e.Receiver)
+                .WithMany(e => e.Receiver)
+                .UsingEntity<UserNotification>();
+            modelBuilder.Entity<UserNotification>()
+                .HasOne(e => e.Sender)
+                .WithMany(e => e.UserNotificationsSender);
+            modelBuilder.Entity<UserNotification>()
+                .HasOne(e => e.Receiver)
+                .WithMany(e => e.UserNotificationsReceiver);
+            modelBuilder.Entity<UserNotification>()
+                .HasOne(e => e.Notification)
+                .WithMany(e => e.UserNotifications);
+
+
         }
     }
 }

@@ -31,11 +31,14 @@ export default function StudentManage() {
   const [currentList,setList] =useState([]);
   const [open, setOpen] = useState(false);
   const [idDelete,setIdDelete] =useState('');
+  const [studentHasClass,setStudentHasClass] = useState();
 
     ////URL_API
     let studentClassAPI = URL_API+`ClassCustomer/${id}`;
     let getAllStudentAPI = URL_API+'Customer'
+    let getAllStudentRegisAPI = URL_API+`Invoice/course/${location.state.courseId}`
     let postStudentClass = URL_API+`ClassCustomer/${id}`
+    let getStudentAlreadyHaveClassAPI = URL_API+`ClassCustomer/course/${location.state.courseId}`
     let deleteStudentClass = URL_API+`ClassCustomer/${id}`
     ///Get DATA
     useEffect(()=>{
@@ -45,10 +48,15 @@ export default function StudentManage() {
     },[id]);
     useEffect(() =>{
         if(id !== ''){
-            axios.get(getAllStudentAPI).then(r => {setStudents(r.data)}).catch(err => console.log(err));
+            axios.get(getStudentAlreadyHaveClassAPI).then(r => {setStudentHasClass(r.data)}).catch(err => console.log(err));
         }
     },[id]);
-
+    useEffect(() =>{
+        if(id !== ''){
+            axios.get(getAllStudentRegisAPI).then(r => {setStudents(r.data)}).catch(err => console.log(err));
+        }
+    },[id]);
+    console.log(studentHasClass);
     ////Fuctions
 
     const addStudenClass = () =>{
@@ -86,7 +94,6 @@ export default function StudentManage() {
             studentAdd.push(studentid);
         }    
         setStudentAdd(studentAdd);
-        console.log(studentAdd)
     }
     function deleteStudent(studentId){
         setOpen(true);     
@@ -99,22 +106,20 @@ export default function StudentManage() {
         setAddMode(p => false)
     }
     const addMode = ()=>{
-        if(studentPosts !== null && currentList.length < studentPosts.length){
-        studentPosts.forEach(student =>{
-            currentList.push(student.customerId);
-        })}
+        studentHasClass.forEach(student =>{
+            currentList.push(student.id);
+        })
         if(add ===false){ 
         setAddMode(p => true)}
         else{
             setAddMode(p => false);
         }
     }
+    console.log(currentList);
     const back = () =>{
         navigate('/staffmanage');
     }
     
-
-          
   return (
     <div>
     <div className='staffDiv'>

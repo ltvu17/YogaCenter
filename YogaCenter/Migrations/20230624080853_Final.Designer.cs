@@ -12,8 +12,8 @@ using YogaCenter.Models;
 namespace YogaCenter.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20230608115245_Test")]
-    partial class Test
+    [Migration("20230624080853_Final")]
+    partial class Final
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -226,7 +226,8 @@ namespace YogaCenter.Migrations
                     b.Property<Guid>("CustomerId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<DateTime>("DatePay")
+                    b.Property<DateTime?>("DatePay")
+                        .IsRequired()
                         .HasColumnType("datetime2");
 
                     b.Property<DateTime>("DateRequest")
@@ -278,6 +279,28 @@ namespace YogaCenter.Migrations
                     b.HasIndex("ShiftId");
 
                     b.ToTable("Lessons");
+                });
+
+            modelBuilder.Entity("YogaCenter.Models.Notification", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Detail")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Notifications");
                 });
 
             modelBuilder.Entity("YogaCenter.Models.Role", b =>
@@ -389,6 +412,29 @@ namespace YogaCenter.Migrations
                     b.HasIndex("RoleId");
 
                     b.ToTable("Users");
+                });
+
+            modelBuilder.Entity("YogaCenter.Models.UserNotification", b =>
+                {
+                    b.Property<Guid>("NotificationId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid?>("SenderId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("Daycreate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid?>("ReceiverId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("NotificationId", "SenderId");
+
+                    b.HasIndex("ReceiverId");
+
+                    b.HasIndex("SenderId");
+
+                    b.ToTable("UserNotifications");
                 });
 
             modelBuilder.Entity("YogaCenter.Models.Certificate", b =>
@@ -539,6 +585,31 @@ namespace YogaCenter.Migrations
                     b.Navigation("Role");
                 });
 
+            modelBuilder.Entity("YogaCenter.Models.UserNotification", b =>
+                {
+                    b.HasOne("YogaCenter.Models.Notification", "Notification")
+                        .WithMany("UserNotifications")
+                        .HasForeignKey("NotificationId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("YogaCenter.Models.User", "Receiver")
+                        .WithMany("UserNotificationsReceiver")
+                        .HasForeignKey("ReceiverId");
+
+                    b.HasOne("YogaCenter.Models.User", "Sender")
+                        .WithMany("UserNotificationsSender")
+                        .HasForeignKey("SenderId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Notification");
+
+                    b.Navigation("Receiver");
+
+                    b.Navigation("Sender");
+                });
+
             modelBuilder.Entity("YogaCenter.Models.Class", b =>
                 {
                     b.Navigation("ClassCustomers");
@@ -570,6 +641,11 @@ namespace YogaCenter.Migrations
                     b.Navigation("CustomerLessons");
                 });
 
+            modelBuilder.Entity("YogaCenter.Models.Notification", b =>
+                {
+                    b.Navigation("UserNotifications");
+                });
+
             modelBuilder.Entity("YogaCenter.Models.Role", b =>
                 {
                     b.Navigation("Users");
@@ -588,6 +664,13 @@ namespace YogaCenter.Migrations
             modelBuilder.Entity("YogaCenter.Models.Teacher", b =>
                 {
                     b.Navigation("Certificates");
+                });
+
+            modelBuilder.Entity("YogaCenter.Models.User", b =>
+                {
+                    b.Navigation("UserNotificationsReceiver");
+
+                    b.Navigation("UserNotificationsSender");
                 });
 #pragma warning restore 612, 618
         }
