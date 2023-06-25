@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using YogaCenter.Models;
 
 namespace YogaCenter.ModelsDto
 {
@@ -13,5 +14,6 @@ namespace YogaCenter.ModelsDto
         public DateTime DatePay { get; set; }
         [Required]
         public int TotalPay { get; set; }
+        public Course Course { get; set; }
     }
 }

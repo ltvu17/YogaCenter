@@ -41,7 +41,12 @@ namespace YogaCenter.Repository
 
         public async Task<ICollection<CustomerLesson>> GetCustomerLessonByCustomerId(Guid customerId)
         {
-            return await _context.CustomerLessons.Where(p => p.CustomerId == customerId).ToListAsync();
+            return await _context.CustomerLessons
+                .Where(p => p.CustomerId == customerId)
+                .Include(p => p.Lesson).ThenInclude(p => p.Room)
+                .Include(p => p.Lesson).ThenInclude(p => p.Shift)
+                .Include(p => p.Lesson).ThenInclude(p => p.Class).ThenInclude(p=>p.Course)
+                .ToListAsync();
         }
 
         public async Task<ICollection<CustomerLesson>> GetCustomerLessonByLessonId(Guid lessonId)
