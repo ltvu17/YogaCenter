@@ -60,7 +60,12 @@ export default function Redirect() {
             else 
               if(role.toUpperCase().trim().localeCompare('"STAFF"', undefined, { sensitivity: 'base' }) === 0){               
               navigate('/staffmanage');
-            }}catch(err){
+            }  else 
+            if(role.toUpperCase().trim().localeCompare('"TEACHER"', undefined, { sensitivity: 'base' }) === 0){               
+            navigate('/home-instructor');
+          }
+            
+          }catch(err){
             }        
     },[count]);
 
