@@ -83,5 +83,6 @@ namespace YogaCenter.Repository
             _context.Update(lessonUpdate);
             return await Save();
         }
+
     }
 }

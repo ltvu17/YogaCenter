@@ -62,11 +62,13 @@ export default function Home() {
     }
   `;
 
-  
-  const [listTecher, setListTeacher] = useState();
+  const [listTecher, setListTeacher] = useState([]);
   const [flag, setCookie, remove] = useCookies();
   var navigate = useNavigate();
-  console.log(listTecher);
+  const [cookies] = useCookies(["userId"]);
+  const cookieValue = cookies.userId;
+  // console.log(listTecher);
+  // console.log(listTecher !== null);
   useEffect(() => {
     if (flag.flag == 1) {
       remove("flag");
@@ -83,8 +85,11 @@ export default function Home() {
         console.log(error);
       });
   }, []);
-  const [cookies] = useCookies(["userId"]);
-  const cookieValue = cookies.userId;
+  const getFormattedDate = (dateString) => {
+    const date = new Date(dateString);
+    const formattedDate = date.toLocaleDateString();
+    return formattedDate;
+  };
   return (
     <div className="home">
       <div className="banner">
@@ -267,28 +272,23 @@ export default function Home() {
 
         <div className="myCoach">
           <h1 className="title">MY COACH</h1>
-          <div className="myCoach-list">
-            <div className="myCoach-detail">
-              <img src="/assets/images/coach.png" />
-              <h2 className="myCoach-name">Quang Vinh</h2>
-              <p className="myCoach-major">Strength</p>
+          {listTecher.length !== null ? (
+            <div className="myCoach-list">
+              {listTecher.map((teacher, index) => (
+                <div className="myCoach-detail" key={index}>
+                  <img src="/assets/images/coach.png" />
+                  <h2 className="myCoach-name">{teacher.teacherName}</h2>
+                  <p>Gender: {teacher.teacherGender}</p>
+                  <p>Address: {teacher.teacherAddress}</p>
+                  <p>Phone: {teacher.teacherPhone}</p>
+                  <p>Start Date: {getFormattedDate(teacher.teacherStartDate)}</p>
+                  <p>End Date: {getFormattedDate(teacher.teacherEndDate)}</p>
+                </div>
+              ))}
             </div>
-            <div className="myCoach-detail">
-              <img src="/assets/images/coach.png" />
-              <h2 className="myCoach-name">Quang Vinh</h2>
-              <p className="myCoach-major">Flexibility</p>
-            </div>
-            <div className="myCoach-detail">
-              <img src="/assets/images/coach.png" />
-              <h2 className="myCoach-name">Quang Vinh</h2>
-              <p className="myCoach-major">Mobility</p>
-            </div>
-            <div className="myCoach-detail">
-              <img src="/assets/images/coach.png" />
-              <h2 className="myCoach-name">Quang Vinh</h2>
-              <p className="myCoach-major">Strength</p>
-            </div>
-          </div>
+          ) : (
+            <p>No teachers available</p>
+          )}
         </div>
       </div>
 
@@ -317,7 +317,7 @@ export default function Home() {
           </div>
         </Grid>
         <>
-          {cookieValue !== null ? (
+          {cookieValue !== undefined ? (
             ""
           ) : (
             <Grid item md={6}>
