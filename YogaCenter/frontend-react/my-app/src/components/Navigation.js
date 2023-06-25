@@ -7,7 +7,8 @@ import * as React from "react";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import NavUsers from "../pages/common/components/NavUsers";
-
+import NavStaff from "../pages/common/components/NavStaff";
+import NavInstructor from "../pages/common/components/NavInstructor"
 
 export default function Navigation({ role }) {
   const [cookie, setCookie] = useCookies();
@@ -33,60 +34,26 @@ export default function Navigation({ role }) {
         return (
           <NavUsers></NavUsers>
         );
-      } else if (
+      } else  if (
+        role
+          .toUpperCase()
+          .trim()
+          .localeCompare('"TEACHER"', undefined, { sensitivity: "base" }) === 0
+      ) { 
+        return(
+          <NavInstructor></NavInstructor>
+        )
+      }else if (
         role
           .toUpperCase()
           .trim()
           .localeCompare('"STAFF"', undefined, { sensitivity: "base" }) === 0
       ) {
         return (
-          <nav className="Navigation">
-            <Link to="/" className="logo">
-              <h1>Yoga FPTU Center</h1>
-              <p>EVERY DAY</p>
-            </Link>
-            <ul className="nav">
-              <li>
-                <Link to="/home">Home</Link>
-              </li>
-              <li className="menu">
-                <Link to="/staffmanage">Class</Link>
-                {/* <ul className='drop-menu'>
-            <li><Link to='#'>hihi</Link></li>
-            <li><Link>haha</Link></li>
-            <li><Link>haha</Link></li>
-            <li><Link>haha</Link></li>
-          </ul>   */}
-              </li>
-              <li className="menu">
-                <Link to="#"> Information</Link>
-                <ul className="drop-menu">
-                  <li>
-                    <Link to='/staff-notification'>Notification</Link>
-                  </li>                
-                </ul>
-              </li>
-              <li className="menu">
-                <Link to="/schedulemanage">Schedule</Link>
-              </li>
-              <li className="menu">
-                <Link to="#"> User</Link>
-                <ul className="drop-menu">                
-                  <li>
-                    <Link to="/register"> Register</Link>
-                  </li>
-                  <li>
-                    <Link to="/create-invoice">Create Invoice</Link>
-                  </li>                
-                </ul>
-              </li>
-              <li>
-                <Link onClick={logout} to="/home">
-                  Logout
-                </Link>
-              </li>
-            </ul>
-          </nav>
+
+         
+          <NavStaff/>
+
         );
       }
     else
