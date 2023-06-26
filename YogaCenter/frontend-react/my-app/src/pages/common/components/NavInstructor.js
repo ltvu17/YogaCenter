@@ -36,7 +36,7 @@ function NavUsers(){
       .catch((er) => console.log(er));
     setCookie("flag", 1, { path: "/" });
   };
-  const isCustomer = true;
+  const isCustomer = false;
 
 
   return (
@@ -79,7 +79,7 @@ function NavUsers(){
               {settings.map((setting) => (
                 <MenuItem key={setting} onClick={handleCloseUserMenu}>
                   {setting === "Profile" ? (
-                    <Link to="/profile-customer">Profile</Link>
+                    <Link to="/profile-instructor">Profile</Link>
                   ) : setting === "Logout" ? (
                     <Link onClick={logout} to="/home">
                       Logout
