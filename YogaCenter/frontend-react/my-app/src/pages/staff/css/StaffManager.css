@@ -6,6 +6,11 @@ div{
     justify-content: center;
     
 }
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
 
 .class-post table{
     margin-left: 10%;
@@ -61,19 +66,19 @@ div{
     
 }
 .shift0{
-    display: inline-flex;
+    display: flex;
    
 }
 .shift1{
-    display: inline-flex;
+    display: flex;
    
 }
 .shift2{
-    display: inline-flex;
+    display: flex;
     
 }
 .shift3{
-    display: inline-flex;
+    display: flex;
     
 }
 

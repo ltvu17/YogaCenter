@@ -31,6 +31,17 @@ namespace YogaCenter.Controllers
             }
             return Ok(_mapper.Map<ICollection<EventDto>>(e));
         }
+        [HttpGet("{eventId}")]
+        public async Task<IActionResult> GetEvent(Guid eventId)
+        {
+            var e = await _eventRepository.GetEventById(eventId);
+            if (e == null) return BadRequest("Null");
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            return Ok(e);
+        }
         [HttpPost]
         public async Task<IActionResult> CreateEvent([FromBody] EventDto eventDto)
         {

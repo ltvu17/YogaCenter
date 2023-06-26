@@ -1,8 +1,12 @@
-import React, { useState } from 'react';
-import '../css/ScheduleCustomer.css';
-import NavigateNextIcon from '@mui/icons-material/NavigateNext';
-import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
+import React, { useState, useEffect } from "react";
 
+import "../css/ScheduleCustomer.css";
+import KeyboardDoubleArrowRightIcon from "@mui/icons-material/KeyboardDoubleArrowRight";
+import KeyboardDoubleArrowLeftIcon from "@mui/icons-material/KeyboardDoubleArrowLeft";
+import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
+import { URL_API } from "../../../api/ConstDefine";
+
+import axios from "axios";
 function ScheduleCustomer() {
   const [currentDate, setCurrentDate] = React.useState(new Date());
 
@@ -10,7 +14,7 @@ function ScheduleCustomer() {
   const currentMonth = currentDate.getMonth() + 1;
 
   const is30Days = (month) => {
-    const months30Days = [4, 6, 9, 11]; 
+    const months30Days = [4, 6, 9, 11];
     return months30Days.includes(month);
   };
 
@@ -27,17 +31,15 @@ function ScheduleCustomer() {
         const nextMonth = currentMonth + 1;
 
         if ((currentDay === 24 && isCurrentMonth30Days) || currentDay === 25) {
-        
-          nextDate.setMonth(nextMonth + 1);
+          nextDate.setMonth(nextMonth);
           nextDate.setDate(1);
         } else {
-        
           nextDate.setMonth(nextMonth);
           nextDate.setDate(currentDay + 7 - (isCurrentMonth30Days ? 30 : 31));
         }
       }
 
-      return nextDate;
+      return new Date(nextDate);
     });
   };
 
@@ -54,83 +56,245 @@ function ScheduleCustomer() {
         const beforeMonth = currentMonth - 1;
 
         if (currentDay === 7 || (currentDay === 6 && isbeforeMonth30Days)) {
-          
-          beforeDate.setMonth(beforeMonth - 1);
+          beforeDate.setMonth(beforeMonth);
           beforeDate.setDate(isbeforeMonth30Days ? 30 : 31);
         } else {
-         
           beforeDate.setMonth(beforeMonth);
-          beforeDate.setDate(
-            currentDay - 7 + (isbeforeMonth30Days ? 30 : 31)
-          );
+          beforeDate.setDate(currentDay - 7 + (isbeforeMonth30Days ? 30 : 31));
         }
       }
 
-      return beforeDate;
+      return new Date(beforeDate);
     });
   };
 
-  const monthName = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+  const monthName = [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December",
+  ];
   const currentMonthName = monthName[currentMonth - 1];
+  const time = ["06:00", "07:00", "15:00 ", "18:00 "];
+  const days = ["MON", "TUE", "WED", "THU", "FRI", "SAT", "SUN"];
+  //Get Data
+  const [scheduleData, setScheduleData] = useState({});
+  const [classData, setClassData] = useState({});
+  const [courses, setCourse] = useState([]);
+  const [lessonList, setLessonList] = useState([]);
+  const savedUserData = localStorage.getItem("userData");
+  const userData = savedUserData ? JSON.parse(savedUserData) : {};
+  const customerId = userData.customerId;
+  let classCustomerAPI = URL_API + `ClassCustomer/getCustomer/${customerId}`;
+  // lấy invioce để lấy courses
+  let invoiceByCusIdAPI = URL_API + `Invoice/customer/${customerId}`;
+  let lessonByCusIDAPI =
+    URL_API + `CustomerLesson/getCusLessonByCusId/${customerId}`;
+  //getClassCustomer
+  console.log(customerId);
+  useEffect(() => {
+    axios
+      .get(classCustomerAPI)
+      .then((response) => {
+        const lessons = response.data;
+        const classInfo = lessons.map((lesson) => lesson.class);
+        setClassData(classInfo);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, []);
 
-  const [scheduleData, setScheduleData] = useState({
-    Monday: [],
-    Tuesday: [],
-    Wednesday: [],
-    Thursday: [],
-    Friday: [],
-    Saturday: [],
-    Sunday: [],
-  });
-
-  const time = ['8:00 AM', '10:00 AM', '12:00 PM', '2:00 PM', '4:00 PM'];
-  const days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
+  useEffect(() => {
+    axios
+      .get(invoiceByCusIdAPI)
+      .then((res) => {
+        setCourse(res.data.map((item) => item.course));
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, [customerId]);
+  useEffect(() => {
+    axios
+      .get(lessonByCusIDAPI)
+      .then((res) => {
+        setLessonList(res.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, [customerId]);
+  useEffect(() => {
+    if (classData.length > 0) {
+      let lessonClassAPI = URL_API + `Lesson/${classData[0].id}`;
+      axios
+        .get(lessonClassAPI)
+        .then((response) => {
+          setScheduleData(response.data);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    }
+  }, [classData]);
 
   return (
     <div className="week-schedule-container">
-      <h1>
-        <ChevronLeftIcon onClick={goTobeforeMonth} />
-        <span>{currentMonthName}</span>
-        <span>{currentYear}</span>
-        <NavigateNextIcon onClick={goToNextMonth}>Next Month</NavigateNextIcon>
-      </h1>
+      <div className="schedule-box">
+        <h1 style={{ color: "white" }}>
+          <KeyboardDoubleArrowLeftIcon onClick={goTobeforeMonth} />
+          <span>{currentMonthName}</span>
+          <span>{currentYear}</span>
+          <KeyboardDoubleArrowRightIcon onClick={goToNextMonth}>
+            Next Month
+          </KeyboardDoubleArrowRightIcon>
+        </h1>
 
-      <table>
-        <thead>
-          <tr>
-            <th></th>
-            {days.map((day, index) => (
-              <th key={day}>
-                <div className="day-header">
-                  <div className="day-name">{day}</div>
-                  <div className="day-date">
-                    <span className="date">
-                      {currentDate.getDate() + index <= (is30Days(currentMonth) ? 30 : 31)
-                        ? currentDate.getDate() + index
-                        : currentDate.getDate() + index - (is30Days(currentMonth) ? 30 : 31)}
-                    </span>/
-                    <span className="month">
-                      {currentDate.getDate() + index <= (is30Days(currentMonth) ? 30 : 31) ? currentMonth : currentMonth + 1}
-                    </span>
-                  </div>
-                </div>
+        <table className="schedule-table-customer">
+          <thead>
+            <tr>
+              <th
+                style={{
+                  background:
+                    "linear-gradient(90deg, #d2608d, rgb(136 101 136 / 65%))",
+                  paddingTop: "20px",
+                  paddingBottom: "20px",
+                  width: "125px",
+                }}
+              >
+                <CalendarMonthIcon
+                  style={{ color: "white", fontSize: "40px" }}
+                />
               </th>
-            ))}
-          </tr>
-        </thead>
-        <tbody>
-          {time.map((timeSlot) => (
-            <tr key={timeSlot}>
-              <td>{timeSlot}</td>
-              {days.map((day) => (
-                <td key={`${day}-${timeSlot}`}>
-                    {/* Data bỏ đây á nghe */}
-                </td>
-              ))}
+              {days.map((day, index) => {
+                const currentDateCopy = new Date(currentDate);
+                currentDateCopy.setDate(
+                  currentDateCopy.getDate() -
+                    currentDateCopy.getDay() +
+                    index +
+                    1
+                );
+                const currentDay = currentDateCopy.getDate();
+                const currentMonthNumber = currentDateCopy.getMonth() + 1;
+                return (
+                  <th key={day}>
+                    <div className="day-header">
+                      <div className="day-name">
+                        <span>{day}</span>
+                      </div>
+                      <div className="day-date">
+                        <span className="date">{currentDay}</span>
+                        <span>/</span>
+                        <span className="month">{currentMonthNumber}</span>
+                      </div>
+                    </div>
+                  </th>
+                );
+              })}
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+
+          <tbody>
+            {time.map((timeSlot) => (
+              <tr key={timeSlot}>
+                <td
+                  style={{
+                    background:
+                      "linear-gradient(90deg, rgb(183 159 181), rgb(209 191 209 / 27%))",
+                  }}
+                >
+                  <h1
+                    style={{
+                      marginBottom: "10px",
+                      display: "flex",
+                      justifyContent: "center",
+                      alignItems: "center",
+                      color: "white",
+                      fontSize: "25px",
+                      fontWeight: "700",
+                      fontFamily: "sans-serif",
+                    }}
+                  >
+                    {timeSlot}
+                  </h1>
+                </td>
+
+                {days.map((day, index) => {
+                  //date of table
+                  const currentDateCopy = new Date(currentDate);
+                  currentDateCopy.setDate(
+                    currentDateCopy.getDate() -
+                      currentDateCopy.getDay() +
+                      index +
+                      1
+                  );
+                  const currentDayTable = currentDateCopy.getDate();
+                  const currentMonthTable = currentDateCopy.getMonth() + 1;
+                  const currentYearTable = currentDateCopy.getFullYear();
+
+                  const lessonMatch = lessonList.find((lesson) => {
+                    const lessonDate = new Date(lesson.lesson.lessonDate);
+                    const apiTime = new Date(lesson.lesson.shift.timeStart);
+                    const rowDate = new Date();
+                    rowDate.setHours(Number(timeSlot.split(":")[0]), 0, 0, 0);
+                    if (
+                      lessonDate.getDate() === currentDayTable &&
+                      lessonDate.getMonth() === currentMonthTable - 1 &&
+                      lessonDate.getFullYear() === currentYearTable &&
+                      rowDate.getHours() === apiTime.getHours()
+                    ) {
+                      return lesson;
+                    } else {
+                      return undefined;
+                    }
+                  });
+                  if (lessonMatch !== undefined) {
+                    return (
+                      <td key={`${day}-${timeSlot}`}>
+                        <div className="lessonDay">
+                          <div className="lesson-details">
+                            <p style={{ color: "##47004e" }}>
+                              name course:{" "}
+                              {
+                                lessonMatch.lesson.class.course
+                                  .courseDescription
+                              }
+                            </p>
+                            <p style={{ color: "##47004e" }}>
+                              Name class: {lessonMatch.lesson.class.className}
+                            </p>
+                            <p style={{ color: "##47004e" }}>
+                              Room: {lessonMatch.lesson.room.roomDetail}
+                            </p>
+                            {lessonMatch.attendance === 2 ? (
+                              <p style={{ color: "red" }}>Not get</p>
+                            ) : lessonMatch.attendance === 1 ? (
+                              <p style={{ color: "green" }}>Attendence</p>
+                            ) : (
+                              <p style={{ color: "red" }}>Absent</p>
+                            )}
+                          </div>
+                        </div>
+                      </td>
+                    );
+                  } else {
+                    return <td key={`${day}-${timeSlot}`}></td>;
+                  }
+                })}
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 }

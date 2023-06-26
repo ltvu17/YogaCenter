@@ -20,8 +20,8 @@ export default function ScheduleManage() {
     const location = useLocation();
     const dayinweek = ["Sunday","Monday",'Tuesday',"Wendnesday","Thusday","Friday","Saturday"]
     const month = ["","January","February","March","April","May","June","July","August","September","October","November","December"];   
-    const [currentMonth,setCurrenMonth] = useState(location.state !== null? location.state.month: (new Date).getMonth()+1);
-    const [currentYear,setCurrentYear]= useState(location.state !== null? location.state.year:(new Date).getFullYear());
+    const [currentMonth,setCurrenMonth] = useState(location.state !== null? parseInt(location.state.month): (new Date).getMonth()+1);
+    const [currentYear,setCurrentYear]= useState(location.state !== null? parseInt(location.state.year):(new Date).getFullYear());
     var displaydata=[];
     const GenarateData=(month,year)=>{
       var currentDateOfWeek = (new Date(`0${month} 1 ${year}`)).getDay();
@@ -33,17 +33,17 @@ export default function ScheduleManage() {
       for(i=0;i<6;i++){
         var temp =[];
         for(j=0;j<7;j++){         
-           if(j<currentDateOfWeek && i===0){
+          if(j<currentDateOfWeek && i===0){
             daysInprevMonth++;
             temp.push('');           
-           }else
-           {
-           
-           if(count<=daysInMonth){
-           temp.push(count);
-           count++;
-           }
-           else{
+          }else
+          {
+          
+          if(count<=daysInMonth){
+          temp.push(count);
+          count++;
+          }
+          else{
             temp.push('');
            }
            }

@@ -12,25 +12,23 @@
     background-size: cover;
     background-repeat: no-repeat;
     width: 70%;
-  
+    
     left: 400px;
     top: 70px;
 }
 .introduction-customer h2{
   
     font-size: 60px;
-    width: 45%;
-    color: #d2608d;
+    letter-spacing: 10px;
+    color: black;
     font-weight: 600;
-  
     line-height: 1.2;
-   
-  
+
 }
 .introduction-customer h3{
     font-size: 60px;
    
-    color: #d2608d;
+    color:  black;
     font-weight: 600;
     
     line-height: 1.2;
@@ -63,7 +61,7 @@
 
 .grid-item {
   transition: transform 0.3s;
-
+  display: flex;
   position: relative;
 }
 .grid-item:hover {
@@ -73,11 +71,10 @@
 }
 .grid-item:hover p{
    display: block;
-   color: black;
-    font-size: 16px;
+   color: #0d07099c;
+   font-size: 0.8em;
      width: 150px;
- position: absolute;
-top: 110px;
+
 }
 .grid-item p{
     
