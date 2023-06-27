@@ -21,7 +21,7 @@ export default function RegisterTeacher() {
     const Div = styled('div')(({ theme }) => ({
         ...theme.typography.button,
         backgroundColor: 'black',
-        padding: theme.spacing(1),  
+        padding: theme.spacing(5),  
         color:'white',
     }));
     const [message,setMessage] = useState('');
@@ -87,8 +87,6 @@ export default function RegisterTeacher() {
     return (
     <div>
         <div>
-        <div style={{height:'70px'}}>
-        </div>
         <div style={{textAlign :'center'}}>
         <Div>{"Register Teacher Account"}</Div>
         <form onSubmit={(e)=>SubmitHandle(e)}>   

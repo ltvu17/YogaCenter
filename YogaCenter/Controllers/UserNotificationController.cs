@@ -40,6 +40,13 @@ namespace YogaCenter.Controllers
             if (!ModelState.IsValid) { return BadRequest(ModelState); }
             return Ok(notifications);
         }
+        [HttpGet("sender/{senderId}")]
+        public async Task<IActionResult> GetUserSent(Guid senderId)
+        {
+            var notifications = await _userNotificationsRepository.GetBySender(senderId);
+            if (!ModelState.IsValid) { return BadRequest(ModelState); }
+            return Ok(notifications);
+        }
         [HttpPost]
         public async Task<IActionResult> CreateSend([FromHeader] Guid senderId, [FromHeader] Guid receiverId, [FromHeader] Guid noteId)
         {

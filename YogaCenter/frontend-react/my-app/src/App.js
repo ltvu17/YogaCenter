@@ -66,7 +66,7 @@ function App() {
 
         <Route path='home-instructor' element={<HomeInstructor/>} />
 
-        <Route path='/StaffManager' element={<StaffManager/>} />
+        {/* <Route path='/StaffManager' element={<StaffManager/>} /> */}
         <Route path='/staffmanage' element={<Staffmanage/>} />
         <Route path='/studentmanage' element={<StudentManage/>}/>
         <Route path='/schedulemanage' element={<ScheduleManage/>}/>

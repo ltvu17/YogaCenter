@@ -12,23 +12,21 @@ import SchoolIcon from '@mui/icons-material/School';
 import BookOutlinedIcon from '@mui/icons-material/BookOutlined';
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 import GroupIcon from '@mui/icons-material/Group';
+import DifferenceIcon from '@mui/icons-material/Difference';
+import CelebrationIcon from '@mui/icons-material/Celebration';
 import LogoutIcon from '@mui/icons-material/Logout';
 import CircleNotificationsIcon from '@mui/icons-material/CircleNotifications';
 import ReceiptIcon from '@mui/icons-material/Receipt';
 
-export default function NavStaff(){
+export default function NavManager() {
     const [cookie, setCookie] = useCookies();
-    const navigate = useNavigate();
-   
-    axios.defaults.withCredentials = true;
     const logout = () => {
-      axios
-        .post("https://localhost:7096/api/User/Logout", "", {})
-        .then((r) => console.log(r))
-        .catch((er) => console.log(er));
-        setCookie("flag", 1, { path: "/" });
-    };
-
+        axios
+          .post("https://localhost:7096/api/User/Logout", "", {})
+          .then((r) => console.log(r))
+          .catch((er) => console.log(er));
+          setCookie("flag", 1, { path: "/" });
+      };
     return (
         <nav className='NavStaff'>
           <ul className="nav-sub-staff">
@@ -48,15 +46,22 @@ export default function NavStaff(){
               <Link to="/schedulemanage"><CalendarMonthIcon className="icon-nav"></CalendarMonthIcon><p>Manage Schedule</p></Link>
             </li>
             <li className="menu">
-              <Link to="/register"><GroupIcon className="icon-nav"></GroupIcon><p>Register User</p></Link>
+              <Link to="#"><GroupIcon className="icon-nav"></GroupIcon><p>Manage User</p></Link>
+              <ul className='drop-menu'>
+              <li><Link to='/register'>Register Customer</Link></li>
+              <li><Link to='/register-teacher' >Register Teacher</Link></li>
+          </ul>
             </li>
             <li className='menu'><Link  to='/create-invoice'><ReceiptIcon className="icon-nav"></ReceiptIcon><p>Create Invoice</p></Link>
             </li>
+            <li className='menu'><Link  to='/coursemanage'><DifferenceIcon className="icon-nav"></DifferenceIcon><p>Manage Course</p></Link>
+            </li>
+            <li className='menu'><Link  to='/eventmanage'><CelebrationIcon className="icon-nav"></CelebrationIcon><p>Manage Event</p></Link>
+            </li>
             <li className="menu">
             <Link onClick={logout} to='/home'><LogoutIcon className="icon-nav"></LogoutIcon><p>Logout</p></Link>
-            </li>
-         
+            </li>        
           </ul>
         </nav>
-      );
+    )
 }

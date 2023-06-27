@@ -36,7 +36,12 @@ namespace YogaCenter.Repository
 
         public async Task<ICollection<UserNotification>> GetByReceiverId(Guid id)
         {
-            return await _context.UserNotifications.Where(p => p.ReceiverId == id).Include(p => p.Notification).ToListAsync();
+            return await _context.UserNotifications.Where(p => p.ReceiverId == id).Include(p => p.Notification).OrderBy(p => p.Daycreate).ToListAsync();
+        }
+
+        public async Task<ICollection<UserNotification>> GetBySender(Guid id)
+        {
+            return await _context.UserNotifications.Where(p => p.SenderId == id).Include(p => p.Notification).OrderBy(p=>p.Daycreate).ToListAsync();
         }
 
         public async Task<ICollection<UserNotification>> GetCommomNotifications()

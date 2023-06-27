@@ -56,7 +56,7 @@ export default function StudentManage() {
             axios.get(getAllStudentRegisAPI).then(r => {setStudents(r.data)}).catch(err => console.log(err));
         }
     },[id]);
-    console.log(studentHasClass);
+    console.log(location);
     ////Fuctions
 
     const addStudenClass = () =>{
@@ -121,11 +121,11 @@ export default function StudentManage() {
     }
     
   return (
+    <div style={{marginLeft:'10%', marginRight:'2%'}}>
     <div>
-    <div className='staffDiv'>
-    </div>
+        </div>
     <div className='class-post'>
-      <Button variant='text' color='success' startIcon={<ArrowBackIcon fontSize='large'/>} onClick={back}
+    <Button variant='text' color='success' startIcon={<ArrowBackIcon fontSize='large'/>} onClick={back}
         sx={{padding :1,margin:1, color: 'white', backgroundColor:'rgb(127, 69, 101)'}}>Back to class list</Button>
         <h1>Class Name: {name}</h1>
         {studentPosts.length < 20? (
