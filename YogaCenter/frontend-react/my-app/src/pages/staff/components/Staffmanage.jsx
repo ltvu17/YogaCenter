@@ -319,7 +319,7 @@ export default function Staffmanage() {
                                                 </DeleteButton>
                                             </Box>
                                             <Box gridColumn="span 12">
-                                                <CustomButton variant="contained" startIcon={<AccessibilityNewIcon />} onClick={() => getValueStudentManage(item.className, item.id)}
+                                                <CustomButton variant="contained" startIcon={<AccessibilityNewIcon />} onClick={() => getValueStudentManage(item.className, item.id,item.course.id)}
                                                     sx={{color: 'white',width: '100%'}}>
                                                     Student Manage
                                                 </CustomButton>

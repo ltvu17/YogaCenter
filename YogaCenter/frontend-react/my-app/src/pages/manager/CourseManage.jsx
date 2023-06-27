@@ -18,6 +18,7 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import { useNavigate } from 'react-router-dom';
+import styled from '@emotion/styled';
 
 var curr = new Date();
 curr.setDate(curr.getDate()+1);
@@ -104,14 +105,42 @@ export default function CourseManage() {
         let value = split[0];
         return value;
     }
+    ///
+    const CustomButton = styled(Button)`
+         background-color: #010f51b8;
+      font-family: arial;
+      color: white;
+      border-radius: 35px;
+      height: 50px;
+      font-weight: 500;
+
+   
+      &:hover {
+        background-color: #27212552;
+      }
+    `;
+    const DeleteButton = styled(Button)`
+       background-color: #a70707;
+     font-family: arial;
+     color: white;
+     border-radius: 35px;
+     height: 50px;
+     font-weight: 500;
+
+  
+     &:hover {
+        background-color: #ff353587;
+     }
+   `;
     return (
-    <div>
+    <div style={{marginLeft : '10%', marginBottom:'5%'}}>
         <div style={{height:'70px'}}>
         </div>
         <div>
         <div className='class-post'>
+        <h1 className='staff-title'>Course Management </h1>
         <form>
-        <table>
+        <table className='table-add-class'>
             <thead>
                 <tr>
                 <th>Index</th>
@@ -140,10 +169,10 @@ export default function CourseManage() {
                         <td>{item.event? item.event.eventName : 'None'}</td>                   
                         <td style={{textAlign: 'center'}}>
                             <div> 
-                                <Button variant='text' size='small' color='success' startIcon={<UpgradeRoundedIcon/>} onClick={() => getvalueUpdate(item.id)} 
-                                sx={{padding :1,margin:1, color: 'white', backgroundColor:'rgb(127, 69, 101)'}}>Update Course</Button>
-                                <Button variant='text' size='small' color='success' startIcon={<DeleteForeverOutlinedIcon/>} onClick={()=>deleteClass(item.id)}
-                                sx={{padding :1,margin:1, color: 'white', backgroundColor:'rgb(127, 69, 101)'}}>Delete Course</Button>
+                                <CustomButton variant='text' size='small' color='success' startIcon={<UpgradeRoundedIcon/>} onClick={() => getvalueUpdate(item.id)} 
+                                sx={{padding :1,margin:1, color: 'white', backgroundColor:'rgb(127, 69, 101)'}}>Update Course</CustomButton>
+                                <DeleteButton variant='text' size='small' color='success' startIcon={<DeleteForeverOutlinedIcon/>} onClick={()=>deleteClass(item.id)}
+                                sx={{padding :1,margin:1, color: 'white', backgroundColor:'rgb(127, 69, 101)'}}>Delete Course</DeleteButton>
                             </div>
                         </td>        
                         </tr>
@@ -165,14 +194,14 @@ export default function CourseManage() {
                         <td><TextField variant='outlined' size='small' name='courseDetail' label='courseDetail' multiline required onChange={ChangeHandler}
                     sx={{color : 'rgb(127, 69, 101)',backgroundColor:'#F9A7B0',borderRadius:'5px'}}></TextField></td>
                         <td><input type='date' name='courseCreateDate' defaultValue={date} required onChange={ChangeHandler}/></td>
-                        <td colSpan={2}><Button variant='text' color='success' type='submit' onClick={submitAdd}
-                        sx={{padding :1,margin:1, color: 'white', backgroundColor:'rgb(127, 69, 101)'}}>Add</Button></td> 
+                        <td colSpan={2}><CustomButton variant='text' color='success' type='submit' onClick={submitAdd}
+                        sx={{padding :1,margin:1, color: 'white', backgroundColor:'rgb(127, 69, 101)'}}>Add</CustomButton></td> 
                         </tr>
                         )))}
                     <tr>
-                        <td colSpan={10}><Button variant='text' color='success' onClick={AddHandler}
+                        <td colSpan={10}><CustomButton variant='text' color='success' onClick={AddHandler}
                         startIcon={<AddCircleOutlineRoundedIcon sx={{ fontSize: 30 }}>add_circle</AddCircleOutlineRoundedIcon>}
-                        sx={{padding :1,margin:1, color: 'white', backgroundColor:'rgb(127, 69, 101)'}}>Add New Course</Button></td>
+                        sx={{padding :1,margin:1, color: 'white', backgroundColor:'rgb(127, 69, 101)'}}>Add New Course</CustomButton></td>
                     </tr>
             </tbody>
         </table>

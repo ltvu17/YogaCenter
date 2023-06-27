@@ -22,7 +22,7 @@ export default function CreateInvoice() {
         const Div = styled('div')(({ theme }) => ({
         ...theme.typography.button,
         backgroundColor: 'black',
-        padding: theme.spacing(1),  
+        padding: theme.spacing(5),  
         color:'white',
         }));
         const [message,setMessage] = useState('');
@@ -94,8 +94,6 @@ export default function CreateInvoice() {
         }
     return (
         <div>
-        <div style={{height:'70px'}}>
-        </div>
         <div style={{textAlign :'center'}}>
         <Div>{"Create Invoice"}</Div>
         <form onSubmit={(e)=>SubmitHandle(e)}>

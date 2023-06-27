@@ -15,6 +15,7 @@ import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import Grid from '@mui/material/Grid';
 
+
 export default function ScheduleManage() {
   ////initiate data
 
@@ -170,7 +171,7 @@ export default function ScheduleManage() {
       <h1 className='staff-title'>Schedule Management </h1>
       {GenarateData(currentMonth, currentYear)}
       <Grid container spacing={2} sx={{paddingTop:'3%', height:'100%'}}>
-        <Grid item md={8} className='box-schedule'>
+        <Grid item md={10} className='box-schedule'>
             <div className='staff-time-nav'><IconButton onClick={preMonth}><WestIcon /></IconButton>
                 <FormControl sx={{ m: 1, minWidth: 120 }} size="small">
                   <InputLabel id="demo-simple-select-label">Month</InputLabel>
@@ -241,7 +242,7 @@ export default function ScheduleManage() {
               
               </div>
         </Grid>
-        <Grid item md={4} className='note-schedule' >
+        <Grid item md={2} className='note-schedule' >
             <div className='note-staff'>
                 <h1>Note</h1>
        

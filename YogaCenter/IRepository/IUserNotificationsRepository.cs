@@ -6,6 +6,7 @@ namespace YogaCenter.IRepository
     {
         public Task<ICollection<UserNotification>> GetAll();
         public Task<ICollection<UserNotification>> GetByReceiverId(Guid id);
+        public Task<ICollection<UserNotification>> GetBySender(Guid id);
         public Task<ICollection<UserNotification>> GetByNoteId(Guid noteId,Guid senderId);
         public Task<ICollection<UserNotification>> GetCommomNotifications();
         public Task<bool> CreateNotification(UserNotification notification);

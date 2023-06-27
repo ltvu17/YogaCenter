@@ -30,7 +30,7 @@ namespace YogaCenter.Controllers
             {
                 return BadRequest(ModelState);
             }
-            return Ok(_mapper.Map<ICollection<CustomerDto>>(customers));
+            return Ok(customers);
         }
         [HttpGet("{userId}")]
         public async Task<IActionResult> GetCustomerByUserId(Guid userId)

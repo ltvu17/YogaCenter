@@ -82,34 +82,39 @@ input::-webkit-inner-spin-button {
   
   color: red;
 }
-
-
-<<<<<<< Updated upstream
-.className p{
-    font-size: small;
-    
-}
-.shift0{
-    display: flex;
-   
-}
-.shift1{
-    display: flex;
-   
-}
-.shift2{
-    display: flex;
-    
-}
-.shift3{
-    display: flex;
-    
-=======
 .text-addClass .MuiInputBase-input{
  height: 2.2em;
  padding: 0 14px;
->>>>>>> Stashed changes
 }
+.compose-Notification {
+  position: absolute;
+}
+.compose-blur{
+  backdrop-filter: blur(10px);
+  padding: 350px 660px;
+  display: inline;
+  position: absolute;
+}
+.compose-detail{
+  background-color:white;
+  color: black;
+  padding: 100px 100px;
+  margin-top: 10px;
+  margin-left: 700px;
+  position: absolute;
+  display: inline;
+  border-radius: 5px;
+  border: solid 1px black;
+  
+}
+/* .compose-Notification div:first-child{
+  backdrop-filter: blur(10px);
+  color: black;
+  padding: 751% 100%;
+  margin-top: 10px;
+  display: inline;
+} */
+
 
 
 
