@@ -44,6 +44,30 @@ namespace YogaCenter.Controllers
             }
             return BadRequest();
         }
+        [HttpPut("{noteId}")]
+        public async Task<IActionResult> MaskAsRead(Guid noteId)
+        {
+            if(noteId == Guid.Empty) {  return BadRequest(); }
+            var note = await _notificationRepository.Get(noteId);
+            if(note == null) { return  NotFound(); }
+            if (note.Status == 1)
+            {
+                note.Status = 0;
+            }
+            else
+            {
+                note.Status = 1;
+            }
+            if(await _notificationRepository.Update(note))
+            {
+                return Ok(new
+                {
+                    message = "Updated"
+                });
+
+            }
+            return BadRequest();
+        }
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(Guid id)
         {

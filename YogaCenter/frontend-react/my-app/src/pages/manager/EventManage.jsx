@@ -18,6 +18,7 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import UpdateEvent from './UpdateEvent';
 import { useNavigate } from 'react-router-dom';
+import styled from '@emotion/styled';
 
 var curr = new Date();
 curr.setDate(curr.getDate()+1);
@@ -84,7 +85,8 @@ export default function EventManage() {
   const deleteSubmit = () =>{
     setOpen(false);
     axios.delete(deleteEvent).then(r => console.log(r)).catch(err => console.log(err));
-    // navigate(0);
+    alert("Deleted");
+    navigate(0);
 }
   ///Filter
   function filterDay(day){
@@ -102,15 +104,42 @@ export default function EventManage() {
       eventDiscount : inputField.eventDiscount,
   }).then(r=> console.log(r)).catch(err => console.log(err));
   }
+  const CustomButton = styled(Button)`
+         background-color: #010f51b8;
+      font-family: arial;
+      color: white;
+      border-radius: 35px;
+      height: 50px;
+      font-weight: 500;
+
+   
+      &:hover {
+        background-color: #27212552;
+      }
+    `;
+    const DeleteButton = styled(Button)`
+       background-color: #a70707;
+     font-family: arial;
+     color: white;
+     border-radius: 35px;
+     height: 50px;
+     font-weight: 500;
+
+  
+     &:hover {
+        background-color: #ff353587;
+     }
+   `;
 
   return (
-    <div>
+    <div style={{marginLeft:'10%',marginRight:'2%', marginBottom:'5%'}}>
       <div style={{height:'70px'}}>
       </div>
       <div>
       <div className='class-post'>
+      <h1 className='staff-title'>Event Management </h1>
         <form>
-        <table>
+        <table className='table-add-class'>
             <thead>
                 <tr>
                 <th>Index</th>
@@ -133,10 +162,10 @@ export default function EventManage() {
                           <td>{item.eventDiscount}%</td>              
                           <td style={{textAlign: 'center'}}>
                             <div> 
-                                <Button variant='text' size='small' color='success' startIcon={<UpgradeRoundedIcon/>}  onClick={() => getvalueUpdate(item.id)} 
-                                sx={{padding :1,margin:1, color: 'white', backgroundColor:'rgb(127, 69, 101)'}}>Update Event</Button>
-                                <Button variant='text' size='small' color='success' startIcon={<DeleteForeverOutlinedIcon/>} onClick={()=> deleteClass(item.id)}
-                                sx={{padding :1,margin:1, color: 'white', backgroundColor:'rgb(127, 69, 101)'}}>Delete Event</Button>
+                                <CustomButton variant='text' size='small' color='success' startIcon={<UpgradeRoundedIcon/>}  onClick={() => getvalueUpdate(item.id)} 
+                                sx={{padding :1,margin:1, color: 'white', backgroundColor:'rgb(127, 69, 101)'}}>Update Event</CustomButton>
+                                <DeleteButton variant='text' size='small' color='success' startIcon={<DeleteForeverOutlinedIcon/>} onClick={()=> deleteClass(item.id)}
+                                sx={{padding :1,margin:1, color: 'white', backgroundColor:'rgb(127, 69, 101)'}}>Delete Event</DeleteButton>
                             </div>
                           </td>        
                       </tr>
@@ -158,9 +187,9 @@ export default function EventManage() {
                         </tr>
                         )))}
                     <tr>
-                        <td colSpan={10}><Button variant='text' color='success' onClick={AddHandler}
+                        <td colSpan={10}><CustomButton variant='text' color='success' onClick={AddHandler}
                         startIcon={<AddCircleOutlineRoundedIcon sx={{ fontSize: 30 }}>add_circle</AddCircleOutlineRoundedIcon>}
-                        sx={{padding :1,margin:1, color: 'white', backgroundColor:'rgb(127, 69, 101)'}}>Add New Event</Button></td>
+                        sx={{padding :1,margin:1, color: 'white', backgroundColor:'rgb(127, 69, 101)'}}>Add New Event</CustomButton></td>
                     </tr>
             </tbody>
         </table>

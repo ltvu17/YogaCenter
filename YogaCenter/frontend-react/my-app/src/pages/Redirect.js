@@ -59,11 +59,14 @@ export default function Redirect() {
             }
             else 
               if(role.toUpperCase().trim().localeCompare('"STAFF"', undefined, { sensitivity: 'base' }) === 0){               
-              navigate('/staffmanage');
+              navigate('/staff-notification');
             }  else 
             if(role.toUpperCase().trim().localeCompare('"TEACHER"', undefined, { sensitivity: 'base' }) === 0){               
             navigate('/home-instructor');
-          }
+          }else 
+          if(role.toUpperCase().trim().localeCompare('"MANAGER"', undefined, { sensitivity: 'base' }) === 0){               
+          navigate('/staff-notification');
+        }
             
           }catch(err){
             }        
