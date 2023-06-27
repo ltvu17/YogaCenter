@@ -26,11 +26,15 @@ import ConstDefine from './pages/staff/components/ConstDefine';
 import AddClassSchedule from './pages/staff/components/AddClassSchedule';
 import CourseManage from './pages/manager/CourseManage';
 import EventManage from './pages/manager/EventManage';
+
 import Contact from './pages/common/components/Contact';
 import RegisterAccount from './pages/staff/components/RegisterAccount';
 import RegisterTeacher from './pages/manager/RegisterTeacher';
 import CreateInvoice from './pages/staff/components/CreateInvoice';
 import NotificationStaff from './pages/staff/components/NotificationStaff';
+
+import HomeInstructor from './pages/instructor/components/HomeInstructor';
+
 
 
 
@@ -45,21 +49,25 @@ function App() {
       {/* <NavUsers/>  */}
       <Navigation role={roleApp} />
       <Routes>
+        <Route path="/Redirecting" element={<Redirect />} />
         <Route path="/" element={<Home />} />
         <Route path="/home" element={<Home />} />
         <Route path="/schedule" element={<Schedule />} />
         <Route path="/login" element={<Login />} />
         <Route path="/registerClass" element={<RegisterClass />} />
-
         <Route path="/schedule" element={<Schedule />} />
         <Route path="/contact" element={<Contact/>} />
+
         <Route path='/customer-class' element={<ClassCustomer/>}/>
-        <Route path="/Redirecting" element={<Redirect />} />
+
+        <Route path='/home-customer' element={<HomeCustomer/>} />
+        <Route path='/porofile-customer' element={<ProfileCustomer/>} />
+        <Route path='/customer-schedule' element={<ScheduleCustomer/>}/>
+
+        <Route path='home-instructor' element={<HomeInstructor/>} />
+
         {/* <Route path='/StaffManager' element={<StaffManager/>} /> */}
         <Route path='/staffmanage' element={<Staffmanage/>} />
-        <Route path='/home-customer' element={<HomeCustomer/>} />
-        <Route path='/Profile' element={<ProfileCustomer/>} />
-        <Route path='/customer-schedule' element={<ScheduleCustomer/>}/>
         <Route path='/studentmanage' element={<StudentManage/>}/>
         <Route path='/schedulemanage' element={<ScheduleManage/>}/>
         <Route path='/addclassschedule' element={<AddClassSchedule/>}/>

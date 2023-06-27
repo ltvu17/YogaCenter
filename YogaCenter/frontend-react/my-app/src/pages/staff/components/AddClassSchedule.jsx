@@ -110,13 +110,13 @@ export default function AddClassSchedule() {
         return value;
       }
     return (
-    <div>
-        <div style={{height:'70px'}}>
+    <div style={{marginLeft:'10%'}}>
+        <div style={{height:'50px'}}>
         </div>
         <div className='class-post'>
         <Button variant='text' color='success' startIcon={<ArrowBackIcon fontSize='large'/>} onClick={back}
         sx={{padding :1,margin:1, color: 'white', backgroundColor:'rgb(127, 69, 101)'}}>Back to chedule</Button>
-            <table>
+            <table className='table-add-class'>
                 <thead>
                     <tr>
                         <th>Index</th>
@@ -191,7 +191,7 @@ export default function AddClassSchedule() {
                     <tr>
                         <td colSpan={7}><Button variant='text' color='success' onClick={AddHandler}
                         startIcon={<AddCircleOutlineRoundedIcon sx={{ fontSize: 30 }}>add_circle</AddCircleOutlineRoundedIcon>}
-                        sx={{padding :1,margin:1, color: 'white', backgroundColor:'rgb(127, 69, 101)'}}>Add Class</Button></td>
+                        sx={{padding :1,marginLeft:25, color: 'white', backgroundColor:'rgb(127, 69, 101)'}}>Add Class</Button></td>
                     </tr>
                 </tbody>
             </table>
