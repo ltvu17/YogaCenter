@@ -99,13 +99,26 @@ input::-webkit-inner-spin-button {
   background-color:white;
   color: black;
   padding: 100px 100px;
-  margin-top: 10px;
-  margin-left: 700px;
+  top: 5%;
+  left: 40%;
   position: absolute;
   display: inline;
   border-radius: 5px;
   border: solid 1px black;
+  transition: 0.3 ease-in-out;
+ animation-name: animation;
+ animation-duration: .6s;
+ 
   
+}
+@keyframes animation {
+   0%{
+     opacity: 0;
+     transform:  rotate(30deg) translateX(10px)  translatey(40px)  translateX(10px);
+   }
+   100%{
+    transform:  rotate(30deg) translateX(10px)  translatey(40px)  translateX(10px);
+   }
 }
 /* .compose-Notification div:first-child{
   backdrop-filter: blur(10px);
