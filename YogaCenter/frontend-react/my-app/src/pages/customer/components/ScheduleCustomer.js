@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-
+import { useCookies } from "react-cookie";
 import "../css/ScheduleCustomer.css";
 import KeyboardDoubleArrowRightIcon from "@mui/icons-material/KeyboardDoubleArrowRight";
 import KeyboardDoubleArrowLeftIcon from "@mui/icons-material/KeyboardDoubleArrowLeft";
@@ -86,43 +86,26 @@ function ScheduleCustomer() {
   const time = ["06:00", "07:00", "15:00 ", "18:00 "];
   const days = ["MON", "TUE", "WED", "THU", "FRI", "SAT", "SUN"];
   //Get Data
-  const [scheduleData, setScheduleData] = useState({});
-  const [classData, setClassData] = useState({});
-  const [courses, setCourse] = useState([]);
+  const [userData, setUserData] = useState('');
   const [lessonList, setLessonList] = useState([]);
-  const savedUserData = localStorage.getItem("userData");
-  const userData = savedUserData ? JSON.parse(savedUserData) : {};
-  const customerId = userData.customerId;
-  let classCustomerAPI = URL_API + `ClassCustomer/getCustomer/${customerId}`;
-  // lấy invioce để lấy courses
-  let invoiceByCusIdAPI = URL_API + `Invoice/customer/${customerId}`;
+  console.log(userData)
+  // console.log(savedUserData);
+  const [userId, setUserId] = useCookies("userId");
+  let customerByUserIdAPI = URL_API + `Customer/${userId.userId}`
   let lessonByCusIDAPI =
-    URL_API + `CustomerLesson/getCusLessonByCusId/${customerId}`;
+    URL_API + `CustomerLesson/getCusLessonByCusId/${userData !== '' ? userData.id : ""}`;
   //getClassCustomer
-  console.log(customerId);
+  console.log(userData.id);
   useEffect(() => {
     axios
-      .get(classCustomerAPI)
-      .then((response) => {
-        const lessons = response.data;
-        const classInfo = lessons.map((lesson) => lesson.class);
-        setClassData(classInfo);
+      .get(customerByUserIdAPI)
+      .then((res) => {
+        setUserData(res.data);
       })
       .catch((error) => {
         console.log(error);
       });
   }, []);
-
-  useEffect(() => {
-    axios
-      .get(invoiceByCusIdAPI)
-      .then((res) => {
-        setCourse(res.data.map((item) => item.course));
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  }, [customerId]);
   useEffect(() => {
     axios
       .get(lessonByCusIDAPI)
@@ -132,20 +115,7 @@ function ScheduleCustomer() {
       .catch((error) => {
         console.log(error);
       });
-  }, [customerId]);
-  useEffect(() => {
-    if (classData.length > 0) {
-      let lessonClassAPI = URL_API + `Lesson/${classData[0].id}`;
-      axios
-        .get(lessonClassAPI)
-        .then((response) => {
-          setScheduleData(response.data);
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-    }
-  }, [classData]);
+  }, [userData.id]);
 
   return (
     <div className="week-schedule-container">

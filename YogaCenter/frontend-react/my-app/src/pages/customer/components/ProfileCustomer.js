@@ -14,12 +14,17 @@ import CardMedia from "@mui/material/CardMedia";
 import "../css/profileCustomer.css";
 import { URL_API } from "../../../api/ConstDefine";
 import { useNavigate } from "react-router-dom";
+import { pathUser } from "../../../service/pathImage/pathToSaveFile";
 export default function ProfileCustomer() {
   const [editing, setEditing] = useState(false);
   const [changePassword, setChangePassword] = useState(false);
+  const [updateAvatart, setUpdateAvatar] = useState(false);
   const [profileTitle, setProfileTitle] = useState("Profile");
   const [cookies] = useCookies();
   const userId = cookies.userId;
+  console.log(userId);
+  const [avatar, setAvatar] = useState(null);
+  const [urlImage, setUrlImage] = useState(`../../assets/images/userImage/${userId}.jpg`)
   const [oldCustomer, setOldCustomer] = useState({});
   const [newCustomer, setNewCustomer] = useState({});
   const [validPhoneNumber, setValidPhoneNumber] = useState(true);
@@ -52,6 +57,10 @@ export default function ProfileCustomer() {
     setChangePassword(false);
     setProfileTitle("Edit");
   };
+  const handleChangeAvatar = (e) => {
+    // console.log(e.target.files[0].name);
+    setAvatar(e.target.files[0]);
+  };
   const handleChange = (e) => {
     setNewCustomer({
       ...newCustomer,
@@ -74,10 +83,41 @@ export default function ProfileCustomer() {
       setChangePassword(false);
       setProfileTitle("Profile");
     }
+    if(value === "avatar"){
+      setUpdateAvatar(false);
+      setProfileTitle("Profile");
+    }
   };
+  const handleSubmitAvatar = async (event) => {
+    event.preventDefault();
+    setUpdateAvatar(false);
+    setProfileTitle("Profile");
+    if (avatar) {
+      const formData = new FormData();
+      formData.append("file", avatar);
+      formData.append("fileName", `${userId}.jpg`);
+      formData.append("filePath", pathUser);
 
+      try {
+        const response = await axios.post(
+          "https://localhost:7096/api/File/UploadFile",
+          formData
+        );
+
+        if (response.status === 200) {
+          setUrlImage(`${pathUser}${userId}.jpg`);
+          console.log("File uploaded successfully!");
+        } else {
+          console.error("Failed to upload file.");
+        }
+      } catch (error) {
+        console.error("An error occurred:", error);
+        console.log("sai ròi")
+      }
+    }
+  };
   const handleEditProfile = () => {
-    setEditing(false);
+    // setUpdateAvatar(false);
     setProfileTitle("Profile");
     if (newCustomer.customerPhone.length === 9) {
       axios
@@ -133,7 +173,13 @@ export default function ProfileCustomer() {
     // .catch((error) => {
     //   console.log("Mật khẩu hiện tại không chính xác:", error);
     // });
-
+  };
+  const handlerAvatar = (e) => {
+    setUpdateAvatar(true);
+    setEditing(false);
+    setChangePassword(false);
+    setProfileTitle("Update Avatar");
+    console.log(e.target.value);
   };
   const handleChangeOfPassword = (e) => {
     setFormData({
@@ -141,7 +187,7 @@ export default function ProfileCustomer() {
       [e.target.name]: e.target.value,
     });
   };
-  console.log(formData);
+  // console.log(formData);
 
   const TextChangePassword = styled(TextField)`
     & .MuiInputBase-root {
@@ -180,11 +226,14 @@ export default function ProfileCustomer() {
               component="img"
               alt="green iguana"
               height="65%"
-              image="../../assets/images/class1.jpg"
+              image=  {urlImage}
               sx={{ marginBottom: "20px" }}
             />
             <CardActions className="changeProfile">
-              <Button sx={{ border: "1px dashed #532e4d", padding: "20px" }}>
+              <Button
+                sx={{ border: "1px dashed #532e4d", padding: "20px" }}
+                onClick={handlerAvatar}
+              >
                 <UpgradeIcon />
                 Avatar
               </Button>
@@ -320,6 +369,29 @@ export default function ProfileCustomer() {
                       <Button
                         className="button-cancel"
                         onClick={() => handlerCancel("edit")}
+                        variant="contained"
+                      >
+                        Cancel
+                      </Button>
+                    </CardActions>
+                  </div>
+                ) : updateAvatart ? (
+                  <div className="profileCustomer-save">
+                    <div>
+                      <input type="file" onChange={handleChangeAvatar} />
+                    </div>
+
+                    <CardActions sx={{ paddingTop: "22px" }}>
+                      <Button
+                        className="button-save"
+                        onClick={handleSubmitAvatar}
+                        variant="contained"
+                      >
+                        Save
+                      </Button>
+                      <Button
+                        className="button-cancel"
+                        onClick={() => handlerCancel("avatar")}
                         variant="contained"
                       >
                         Cancel
