@@ -6,10 +6,11 @@
     width: 8%;
     padding:0 30px;
     transition: width 0.3s ease;
-    overflow: auto;
+    overflow: hidden;
 }
 .NavStaff:hover {
-  width: 13%; 
+  overflow-y: auto;
+  width: 14%; 
 }
 .NavStaff p {
   display: none;

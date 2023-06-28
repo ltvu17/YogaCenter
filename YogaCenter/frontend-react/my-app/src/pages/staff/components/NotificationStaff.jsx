@@ -68,9 +68,9 @@ export default function NotificationStaff() {
             navigate(0);
     }
     return (
-    <div style={{marginLeft:'10%', marginBottom:'2%', marginRight:'1%'}}>
+    <div style={{position:'relative',marginLeft:'10%', marginBottom:'2%', marginRight:'1%'}}>
         {composeStatus? (
-        <div className='compose-Notification'>
+        <div className='compose-Notification'  style={{position:'absolute',width:'100%',height:'100%'}}>
             <div className='compose-blur' onClick={statusHanlder}></div>
             <div className='compose-detail'>
             {/* <form> */}
@@ -100,6 +100,7 @@ export default function NotificationStaff() {
             <br/>
             <p>Detail :</p>
             <textarea onChange={ChangeHandler} name='detail' required rows={10} cols={50}></textarea>   
+            <br/>
             <Button size='large' type='submit' onClick={Submit} startIcon={<SendIcon/>} variant="contained">Send</Button>
             {/* </form> */}
             </div>
