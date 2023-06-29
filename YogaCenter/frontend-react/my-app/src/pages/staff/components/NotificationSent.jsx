@@ -58,9 +58,9 @@ export default function NotificationSent({status}) {
     navigate(0);
     }
     return (
-    <div>
-    <h1 className='staff-title'>Sent</h1>
-    <table className='table-add-class'>
+    <div className='staff-sent'>
+    
+    <table className='table-staff-noti'>
         <thead>
             <tr>
                 <th>Index</th>

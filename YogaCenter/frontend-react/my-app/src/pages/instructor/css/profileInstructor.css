@@ -24,11 +24,11 @@
     font-size: 42px;
   
 }
-.profileCustomer-left{
+.profileInstructor-left{
     
     height: 100%;
 }
-.profileCustomer-left img{
+.profileInstructor-left img{
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
@@ -43,11 +43,11 @@
     font-weight: 700;
     height: 80px;
 }
-.profileCustomer-edit p{
+.profileInstructor-edit p{
     padding-top: 8px;
     color: #00000091;
 }
-.profileCustomer-save .button-save{
+.profileInstructor-save .button-save{
     background-color: #b5738f;
     color: #ffddfa;
     font-size: 14px;
@@ -61,12 +61,12 @@
 .input-profile .MuiInputLabel-root.Mui-focused{
     color: #866077;
 }
-.profileCustomer-save .button-save:hover{
+.profileInstructor-save .button-save:hover{
     background-color: #b5738f;
     color: #ffddfa;
    
 }
-.profileCustomer-save .button-cancel{
+.profileInstructor-save .button-cancel{
     background-color: #d2c7c9;
     color: #b5738f;
     font-size: 14px;
@@ -75,31 +75,36 @@
     height: 50px;
 
 }
-.profileCustomer-save .button-cancel:hover{
+.profileInstructor-save .button-cancel:hover{
     background-color: #d2c7c9;
     color: #b5738f;
    
 
 }
-.profileCustomer-edit Button{
+.profileInstructor-edit Button{
     color: #532e4d;
     font-size: 14px;
     font-weight: 700;
     width: 200px;
     height: 80px;
 }
-.profileCustomer-save .form-row {
+.profileInstructor-save .form-row {
   display: flex;
   align-items: center;
   margin-bottom: 1.4em;
   justify-content: space-between;
 }
-.inputPassword-profile .MuiInputBase-root.Mui-focused {
-    border-color: #951a3b;
-}
-.profileCustomer-save .form-row label {
+
+.profileInstructor-save .form-row label {
   margin-right: 10px;
 }
 .form-row .MuiFormControl-root{
     width: 60%;
+}
+.instructor-input-password .MuiInputBase-root{
+    height: 40px;
+    margin-left: 10px;
+}
+.instructor-input-password .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline {
+    border-color: #951a3b;
 }
