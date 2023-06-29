@@ -12,8 +12,8 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import dayjs from 'dayjs';
-import Typography from '@mui/material/Typography';
-
+import { Grid, Typography } from "@mui/material";
+import '../staff/css/RegisterAccount.css'
 var curr = new Date();
 curr.setDate(curr.getDate()+1);
 var date = curr.toISOString().substring(0,10);
@@ -85,64 +85,78 @@ export default function RegisterTeacher() {
             return value;
         }
     return (
-    <div>
-        <div>
-        <div style={{textAlign :'center'}}>
-        <Div>{"Register Teacher Account"}</Div>
-        <form onSubmit={(e)=>SubmitHandle(e)}>   
-            <Box
-            sx={{
-            '& > :not(style)': { m: 1, width: '35%' },
-            }}
-            noValidate
-            autoComplete="on"
-            >
-            <TextField name='userName'type='email' required label="UserName" onChange={ChangeHandler} variant="outlined" />
-            <br/>
-            <TextField name='userPassword' type='password' required label="UserPassword" onChange={ChangeHandler} variant="outlined" />
-            <br/>
-            <TextField name='userPasswordConfirm' type='password' required label="Confirm UserPassword" onChange={ChangeHandler} variant="outlined"/>
-            <br/>
-            <TextField name='teacherName'  required label="Name" onChange={ChangeHandler} variant="outlined" />
-            <br/>
-            <TextField
-                    onChange={ChangeHandler}
-                    name='teacherGender'
-                    id="outlined-select-currency"
-                    select
-                    label="Gender"
-                    defaultValue=''
-                    helperText="Please select gender"
-                    required
-            >       
-            <MenuItem value="Male">
-                Male
-            </MenuItem>
-            <MenuItem value="Female">
-                Female
-            </MenuItem>
-            </TextField>
-            <br/>
-            <TextField name='teacherAddress'  required label="Address" onChange={ChangeHandler} variant="outlined" />
-            <br/>
-            <TextField name='teacherPhone' type='number' required label="Phone"  onChange={ChangeHandler} variant="outlined" />
-            <br/>
-            <LocalizationProvider dateAdapter={AdapterDayjs}>
-                <DatePicker name='teacherStartDate' label="Teacher Start Date" defaultValue={dayjs(date)} 
-                onChange={(newvalue) => setInputFields(p=>{return{...inputField,teacherStartDate: filterDay((new Date(`${newvalue.$y}-${newvalue.$M+1}-${newvalue.$D+1}`).toISOString()))}})}/>
-                <br/>
-                <DatePicker name='teacherEndDate' label="Teacher End Date" defaultValue={dayjs(date)} minDate={dayjs(inputField.teacherStartDate)}
-                onChange={(newvalue) => setInputFields(p=>{return{...inputField,teacherEndDate: filterDay((new Date(`${newvalue.$y}-${newvalue.$M+1}-${newvalue.$D+1}`).toISOString()))}})}/>
-            </LocalizationProvider>
-            <br/>
+    <div className='register-acc-container'>
+       <h1 className='staff-title'>Register Teacher</h1>
+       
+       
+        <form  style={{width:'60%',height:'60%',position:'relative'}} onSubmit={(e)=>SubmitHandle(e)}>   
+            <Box className="box-register-acc">
+                <Typography variant='h1'>New Teacher</Typography>
+                <Grid container>
+                    <Grid item md={12}>
+                        <TextField className='input-register-acc' name='teacherName'  required label="Full name" onChange={ChangeHandler} variant="outlined" />
+                    </Grid>
+                    <Grid item md={12}>
+                        <TextField className='input-register-acc' name='userName' type='email' required label="UserName" onChange={ChangeHandler} variant="outlined" />
+                    </Grid>
+                    <Grid container item md={12} spacing={2}>
+                        <Grid item md={6}>
+                            <TextField className='input-register-acc' name='userPassword' type='password' required label="UserPassword" onChange={ChangeHandler} variant="outlined" />
+                        </Grid>
+                        <Grid item md={6}>
+                            <TextField className='input-register-acc' name='userPasswordConfirm' type='password' required label="Confirm UserPassword" onChange={ChangeHandler} variant="outlined"/>
+                        </Grid>
+                    </Grid>
+                    <Grid container item md={12} spacing={2}>
+                        <Grid item md={6}>
+                            <TextField className='input-register-acc'
+                                onChange={ChangeHandler}
+                                name='teacherGender'
+                                id="outlined-select-currency"
+                                select
+                                label="Gender"
+                                defaultValue=''
+                                required
+                        >    
+                            <MenuItem value="Male">
+                                Male
+                            </MenuItem>
+                            <MenuItem value="Female">
+                                Female
+                            </MenuItem>
+                        </TextField>
+                        </Grid>
+                        <Grid item md={6}>
+                            <TextField className='input-register-acc' name='teacherPhone' type='number' required label="Phone"  onChange={ChangeHandler} variant="outlined" />
+                        </Grid>
+                    </Grid>
+                    <Grid item md={12}>
+                        <TextField className='input-register-acc' name='teacherAddress'  required label="Address" onChange={ChangeHandler} variant="outlined" />
+                    </Grid>
+                    <Grid container item md={12} spacing={2}>
+                    <LocalizationProvider dateAdapter={AdapterDayjs}>
+                        <Grid item md={6}>
+                        <DatePicker className='input-register-acc' name='teacherStartDate' label="Teacher Start Date" defaultValue={dayjs(date)} 
+                        onChange={(newvalue) => setInputFields(p=>{return{...inputField,teacherStartDate: filterDay((new Date(`${newvalue.$y}-${newvalue.$M+1}-${newvalue.$D+1}`).toISOString()))}})}/>
+                        <br/>
+                        </Grid>
+                        <Grid item md={6}>
+                        <DatePicker  className='input-register-acc' name='teacherEndDate' label="Teacher End Date" defaultValue={dayjs(date)} minDate={dayjs(inputField.teacherStartDate)}
+                        onChange={(newvalue) => setInputFields(p=>{return{...inputField,teacherEndDate: filterDay((new Date(`${newvalue.$y}-${newvalue.$M+1}-${newvalue.$D+1}`).toISOString()))}})}/>
+                        </Grid>
+                       
+                    </LocalizationProvider>
+                    </Grid>
+                </Grid>
+
             {message? <p style={{marginLeft:'25%', color:'red'}}>{message}</p>            
                 :''}
 
-            <Button variant="contained" type='submit'  fullWidth={false}>Register</Button>         
+            <Button variant="contained" type='submit' sx={{width:"100%",borderRadius:'16px',fontSize:'20px',fontWeight:'600'}}>Register</Button>         
             </Box>
             </form>
-        </div>
-    </div>
+        
+ 
     </div>
     )
 }

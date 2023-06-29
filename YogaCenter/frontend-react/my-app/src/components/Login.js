@@ -47,7 +47,21 @@ export default function Login(){
     const [showPassword, setShowPassword] = React.useState(false);
 
     const handleClickShowPassword = () => setShowPassword((show) => !show);
-
+    
+    useEffect(() => {
+      const keyDownHandler = event => {
+        console.log('User pressed: ', event.key);
+  
+        if (event.key === 'Enter') {
+          event.preventDefault();
+          handleSubmit();
+        }
+      };
+      document.addEventListener('keydown', keyDownHandler);
+      return () => {
+        document.removeEventListener('keydown', keyDownHandler);
+      };
+    }, []);
     
     const [user,setState] = useState({
       userName : "",
@@ -108,7 +122,7 @@ export default function Login(){
           />
         </FormControl>
           <div className='button-forgot'><Link  to='/#'>Forgot your password?</Link></div>
-          <form onSubmit ={handleSubmit}>
+          <form onSubmit ={handleSubmit} >
           <Button  type='submit' variant='contained' className='button-login'>Login</Button>
           </form>
           </div>

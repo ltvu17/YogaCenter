@@ -33,14 +33,14 @@
     animation-duration: 6s;
     animation-fill-mode: forwards;
     animation-iteration-count: infinite;
-    animation-timing-function: cubic-bezier(0.075, 0.82, 0.165, 1);
+    animation-timing-function: cubic-bezier(0.075, 0.82, 0.165, 1); 
   }
-  
+
   @keyframes animation {
  
         0% {
       opacity: 0;
-      transform: translateY(100%) translateX(-100%) skew(60deg, 2deg);;
+      transform: translateY(100%) translateX(-100%) skew(90deg, 10deg);;
     }
     100% {
       opacity: 1;

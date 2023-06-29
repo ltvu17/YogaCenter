@@ -9,7 +9,11 @@ import { useNavigate } from "react-router-dom";
 import NavUsers from "../pages/common/components/NavUsers";
 import NavStaff from "../pages/common/components/NavStaff";
 import NavInstructor from "../pages/common/components/NavInstructor"
+
 import NavManager from "../pages/common/components/NavManager";
+
+
+import NavAdmin from "../pages/common/components/NavAdmin"
 
 export default function Navigation({ role }) {
   const [cookie, setCookie] = useCookies();
@@ -52,7 +56,6 @@ export default function Navigation({ role }) {
       ) {
         return (
           <NavStaff/>
-
         );
       }
     else
@@ -64,58 +67,7 @@ export default function Navigation({ role }) {
     else
     if(role.toUpperCase().trim().localeCompare('"ADMIN"', undefined, { sensitivity: 'base' }) === 0){
       return(      
-      <nav className='Navigation'>
-      <Link to='/' className='logo'>
-        <h1>Yoga FPTU Center</h1>
-        <p>EVERY DAY</p>
-       </Link>
-      <ul className='nav'>
-      <li><Link to='/home'>Home</Link></li>
-       <li className='menu'><Link to='/staffmanage'>Class</Link>
-          {/* <ul className='drop-menu'>
-            <li><Link to='#'>hihi</Link></li>
-            <li><Link>haha</Link></li>
-            <li><Link>haha</Link></li>
-            <li><Link>haha</Link></li>
-          </ul>   */}
-      </li>
-      <li className='menu'><Link  to='#'>Information</Link>
-      <ul className='drop-menu'>
-            <li><Link to=''>Blog</Link></li>
-            <li><Link to='/staff-notification' >Notification</Link></li>
-            <li><Link>haha</Link></li>
-            <li><Link>haha</Link></li>
-          </ul> 
-      </li>
-      <li className='menu'><Link  to='/schedulemanage'>Schedule</Link></li>
-      <li className='menu'><Link  to='/coursemanage'>Course</Link>
-      <ul className='drop-menu'>
-            <li><Link to='/coursemanage'>Course</Link></li>
-            <li><Link to='/eventmanage'>Event</Link></li>
-            <li><Link>haha</Link></li>
-            <li><Link>haha</Link></li>
-          </ul> 
-      </li>
-      <li className="menu">
-                <Link to="#">User</Link>
-                <ul className="drop-menu">                
-                  <li>
-                    <Link to="/register"> Register User</Link>
-                  </li>   
-                  <li>
-                    <Link to="/account-management"> Manage Account</Link>
-                  </li>  
-                  <li>
-                    <Link to="/register-teacher"> Register Teacher</Link>
-                  </li>           
-                  <li>
-                    <Link to="/create-invoice">Create Invoice</Link>
-                  </li>                  
-                </ul>
-              </li>
-      <li><Link onClick={logout} to='/home'>Logout</Link></li>
-      </ul>
-    </nav> 
+        <NavAdmin/>
 
     );
     }

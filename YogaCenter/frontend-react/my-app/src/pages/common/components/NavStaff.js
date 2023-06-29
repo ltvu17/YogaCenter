@@ -47,13 +47,19 @@ export default function NavStaff(){
             <li className="menu">
               <Link to="/schedulemanage"><CalendarMonthIcon className="icon-nav"></CalendarMonthIcon><p>Manage Schedule</p></Link>
             </li>
+            <li>
+            <Link to="/staff-registerAccount"><GroupIcon className="icon-nav"></GroupIcon><p>Manage User</p></Link>
+            </li>
             <li className="menu">
+
               <Link to="/register"><GroupIcon className="icon-nav"></GroupIcon><p>Register User</p></Link>
             </li>
-            <li className='menu'><Link  to='/create-invoice'><ReceiptIcon className="icon-nav"></ReceiptIcon><p>Create Invoice</p></Link>
+            <li className='menu'><Link  to='/create-invoice'><ReceiptIcon className="icon-nav"></ReceiptIcon><p >Create Invoice</p></Link>
             </li>
+          
             <li className="menu">
             <Link onClick={logout} to='/home'><LogoutIcon className="icon-nav"></LogoutIcon><p>Logout</p></Link>
+
             </li>
          
           </ul>
