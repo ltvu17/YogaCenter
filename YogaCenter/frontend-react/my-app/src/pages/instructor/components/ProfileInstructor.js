@@ -11,17 +11,17 @@ import EditIcon from "@mui/icons-material/Edit";
 import UpgradeIcon from "@mui/icons-material/Upgrade";
 import axios from "axios";
 import CardMedia from "@mui/material/CardMedia";
-import "../css/profileCustomer.css";
+import "../css/profileInstructor.css"
 import { URL_API } from "../../../api/ConstDefine";
 import { useNavigate } from "react-router-dom";
-export default function ProfileCustomer() {
+export default function ProfileTeacher(){
   const [editing, setEditing] = useState(false);
   const [changePassword, setChangePassword] = useState(false);
   const [profileTitle, setProfileTitle] = useState("Profile");
   const [cookies] = useCookies();
   const userId = cookies.userId;
-  const [oldCustomer, setOldCustomer] = useState({});
-  const [newCustomer, setNewCustomer] = useState({});
+  const [oldTeacher, setoldTeacher] = useState({});
+  const [newTeacher, setNewTeacher] = useState({});
   const [validPhoneNumber, setValidPhoneNumber] = useState(true);
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
@@ -29,21 +29,21 @@ export default function ProfileCustomer() {
     newPassword: "",
     confirmNewPassword: "",
   });
-  let profileCustomerAPI = URL_API + `Customer/${userId}`;
+  let profileTeacherAPI = URL_API + `Teacher/${userId}`;
 
   useEffect(() => {
     axios
-      .get(profileCustomerAPI)
+      .get(profileTeacherAPI)
       .then((res) => {
-        setOldCustomer(res.data);
-        setNewCustomer(res.data);
+        setoldTeacher(res.data);
+        setNewTeacher(res.data);
       })
       .catch((error) => {
         console.log(error);
       });
   }, [userId]);
-  // console.log(newCustomer);
-  // console.log(oldCustomer);
+  // console.log(newTeacher);
+  // console.log(oldTeacher);
 
   // localStorage.setItem("userData", JSON.stringify(userData));
 
@@ -53,10 +53,10 @@ export default function ProfileCustomer() {
     setProfileTitle("Edit");
   };
   const handleChange = (e) => {
-    setNewCustomer({
-      ...newCustomer,
+    setNewTeacher({
+      ...newTeacher,
       [e.target.name]:
-        e.target.name === "customerName"
+        e.target.name === "teacherName"
           ? e.target.value
               .trim()
               .replace(/\s+/g, " ")
@@ -79,13 +79,13 @@ export default function ProfileCustomer() {
   const handleEditProfile = () => {
     setEditing(false);
     setProfileTitle("Profile");
-    if (newCustomer.customerPhone.length === 9) {
+    if (newTeacher.teacherPhone.length === 9) {
       axios
-        .put(profileCustomerAPI, {
-          customerName: newCustomer.customerName,
-          customerPhone: newCustomer.customerPhone,
-          customerAddress: newCustomer.customerAddress,
-          customerGender: newCustomer.customerGender,
+        .put(profileTeacherAPI, {
+          teacherName: newTeacher.teacherName,
+            teacherPhone: newTeacher.teacherPhone,
+          teacherAddress: newTeacher.teacherAddress,
+          teacherGender: newTeacher.teacherGender,
         })
         .then(navigate(0))
         .catch((error) => {
@@ -120,7 +120,7 @@ export default function ProfileCustomer() {
     // })
     // .then((res) => {
     //   axios
-    //     .put(profileCustomerAPI, {
+    //     .put(profileTeacherAPI, {
     //       newPassword: newPassword,
     //     })
     //     .then((res) => {
@@ -196,11 +196,11 @@ export default function ProfileCustomer() {
             }}
           >
             {changePassword ? (
-              <div className="profileCustomer-save">
+              <div className="profileInstructor-save">
                 <div className="form-row">
                   <label htmlFor="currentPassword">Current password</label>
                   <TextField
-                   className="inputPassword-profile"
+                    className="instructor-input-password"
                     id="currentPassword"
                     name="currentPassword"
                     type="password"
@@ -212,7 +212,7 @@ export default function ProfileCustomer() {
                 <div className="form-row">
                   <label htmlFor="newPassword">New password</label>
                   <TextField
-                   className="inputPassword-profile"
+                                      className="instructor-input-password"
                     id="newPassword"
                     name="newPassword"
                     type="password"
@@ -225,7 +225,7 @@ export default function ProfileCustomer() {
                     Confirm new password
                   </label>
                   <TextField
-                      className="inputPassword-profile"
+                                      className="instructor-input-password"
                     id="confirmNewpassword"
                     name="confirmNewpassword"
                     type="password"
@@ -233,12 +233,11 @@ export default function ProfileCustomer() {
                     onChange={handleChangeOfPassword}
                   />
                 </div>
-               
                 <CardActions
                   sx={{
                     paddingTop: "22px",
                     position: "relative",
-                    top: "5.6em",
+                    top: "140px",
                   }}
                 >
                   <Button
@@ -260,15 +259,15 @@ export default function ProfileCustomer() {
             ) : (
               <>
                 {editing ? (
-                  <div className="profileCustomer-save">
+                  <div className="profileInstructor-save">
                     <TextField
                       className="input-profile"
                       sx={{ padding: "0px 10px 32px" }}
                       label="User Name"
                       variant="standard"
                       fullWidth
-                      name="customerName"
-                      defaultValue={oldCustomer.customerName}
+                      name="teacherName"
+                      defaultValue={oldTeacher.teacherName}
                       onChange={handleChange}
                     />
                     <TextField
@@ -278,8 +277,8 @@ export default function ProfileCustomer() {
                       label="Phone"
                       variant="standard"
                       fullWidth
-                      name="customerPhone"
-                      defaultValue={oldCustomer.customerPhone}
+                      name="teacherPhone"
+                      defaultValue={oldTeacher.teacherPhone}
                       onChange={handleChange}
                     />
                     <TextField
@@ -288,8 +287,8 @@ export default function ProfileCustomer() {
                       label="Gender"
                       variant="standard"
                       fullWidth
-                      name="customerGender"
-                      defaultValue={oldCustomer.customerGender}
+                      name="teacherGender"
+                      defaultValue={oldTeacher.teacherGender}
                       onChange={handleChange}
                     />
                     <TextField
@@ -298,8 +297,8 @@ export default function ProfileCustomer() {
                       label="Address"
                       variant="standard"
                       fullWidth
-                      name="customerAddress"
-                      defaultValue={oldCustomer.customerAddress}
+                      name="teacherAddress"
+                      defaultValue={oldTeacher.teacherAddress}
                       onChange={handleChange}
                     />
                     <CardActions sx={{ paddingTop: "22px" }}>
@@ -320,16 +319,16 @@ export default function ProfileCustomer() {
                     </CardActions>
                   </div>
                 ) : (
-                  <Grid container className="profileCustomer-edit">
+                  <Grid container className="profileInstructor-edit">
                     <Grid md={12} sx={{ padding: "0px 10px 32px" }}>
                       User Name:
                       <br />
-                      <p>{oldCustomer.customerName}</p>
+                      <p>{oldTeacher.teacherName}</p>
                     </Grid>
                     <Grid md={12} sx={{ padding: "0px 10px 32px" }}>
                       Phone:
                       <br />
-                      <p>0{oldCustomer.customerPhone}</p>
+                      <p>0{oldTeacher.teacherPhone}</p>
                       <p>
                         {!validPhoneNumber
                           ? "Số điện thoại sai format. Vui lòng nhập lại!"
@@ -339,12 +338,12 @@ export default function ProfileCustomer() {
                     <Grid md={12} sx={{ padding: "0px 10px 32px" }}>
                       Gender:
                       <br />
-                      <p>{oldCustomer.customerGender}</p>
+                      <p>{oldTeacher.teacherGender}</p>
                     </Grid>
                     <Grid md={12} sx={{ padding: "0px 10px 32px" }}>
                       Address:
                       <br />
-                      <p>{oldCustomer.customerAddress}</p>
+                      <p>{oldTeacher.teacherAddress}</p>
                     </Grid>
                     <CardActions>
                       <Button
