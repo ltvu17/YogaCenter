@@ -94,7 +94,9 @@
   margin-bottom: 1.4em;
   justify-content: space-between;
 }
-
+.inputPassword-profile .MuiInputBase-root.Mui-focused {
+    border-color: #951a3b;
+}
 .profileCustomer-save .form-row label {
   margin-right: 10px;
 }

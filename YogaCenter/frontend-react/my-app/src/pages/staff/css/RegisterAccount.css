@@ -1,0 +1,34 @@
+.register-acc-container{
+    padding-left: 15%;
+    padding-top: 30px;
+    padding-bottom: 30px;
+    padding-right: 5%;
+    background: linear-gradient(45deg, #ffffff, #98969680);
+    height: 100vh;
+}
+.box-register-acc{
+    width: 100%;
+    border: 1px solid silver;
+    border-radius: 10px;
+    padding: 30px 60px 45px 60px;
+    position: absolute;
+    left: 50%;
+    top: 10%;
+    transform: translate(-16%);
+    background-color: #0e0e0e0f;
+}
+.box-register-acc h1{
+    font-size: 27px;
+    text-align: center;
+    font-weight: 600;
+    padding-bottom: 3%;
+}
+.box-register-acc .input-register-acc{
+    width: 100%;
+    margin: 10px 0;
+    background: white;
+    border-radius: 16px;
+}
+.input-register-acc .MuiInputBase-root{
+    border-radius: 16px;
+}
