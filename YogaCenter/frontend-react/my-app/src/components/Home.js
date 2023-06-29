@@ -11,6 +11,7 @@ import Box from "@mui/material/Box";
 import { Link, useNavigate } from "react-router-dom";
 import { useCookies } from "react-cookie";
 import axios from "axios";
+import RegisterAccountCustomer from "../pages/customer/components/RegisterAccountCustomer";
 
 const ariaLabel = { "aria-label": "description" };
 
@@ -62,13 +63,42 @@ export default function Home() {
     }
   `;
 
+  //---------------------------------------Data------------------------------------------
   const [listTecher, setListTeacher] = useState([]);
   const [flag, setCookie, remove] = useCookies();
   var navigate = useNavigate();
   const [cookies] = useCookies(["userId"]);
   const cookieValue = cookies.userId;
+  const [customerEmail, setCustomerEmail] = useState("");
+const [customerName, setCustomerName] = useState("");
+const [customerPhone, setCustomerPhone] = useState("");
+const [customerGender, setCustomerGender] = useState("");
+const [customerAddress, setCustomerAddress] = useState("");
+console.log(customerEmail, customerName,customerPhone,customerGender,customerAddress)
   // console.log(listTecher);
   // console.log(listTecher !== null);
+
+  //---------------------------------------handle-------------------------------------------
+
+  const handleEmailChange = (event) => {
+    setCustomerEmail(event.target.value);
+  };
+  const handleNameChange = (event) => {
+    setCustomerName(event.target.value);
+  };
+
+  const handlePhoneChange = (event) => {
+    setCustomerPhone(event.target.value);
+  };
+  const handleGenderChange = (event) => {
+    setCustomerGender(event.target.value);
+  };
+  const handleAddressChange = (event) => {
+    setCustomerAddress(event.target.value);
+  };
+  const handlerRegisterSubmit = (event) =>{
+
+  }
   useEffect(() => {
     if (flag.flag == 1) {
       remove("flag");
@@ -281,7 +311,9 @@ export default function Home() {
                   <p>Gender: {teacher.teacherGender}</p>
                   <p>Address: {teacher.teacherAddress}</p>
                   <p>Phone: {teacher.teacherPhone}</p>
-                  <p>Start Date: {getFormattedDate(teacher.teacherStartDate)}</p>
+                  <p>
+                    Start Date: {getFormattedDate(teacher.teacherStartDate)}
+                  </p>
                   <p>End Date: {getFormattedDate(teacher.teacherEndDate)}</p>
                 </div>
               ))}
@@ -317,45 +349,14 @@ export default function Home() {
           </div>
         </Grid>
         <>
+        <Grid item md={6}>
           {cookieValue !== undefined ? (
             ""
           ) : (
-            <Grid item md={6}>
-              <ul className="customer-formRegister">
-                <li>
-                  <InputCus
-                    className="customer-input"
-                    placeholder="Họ và tên"
-                    inputProps={ariaLabel}
-                  />
-                </li>
-                <li>
-                  <InputCus
-                    className="customer-input"
-                    placeholder="Số điện thoại"
-                    inputProps={ariaLabel}
-                  />
-                </li>
-                <li>
-                  <InputCus
-                    className="customer-input"
-                    placeholder="Email"
-                    inputProps={ariaLabel}
-                  />
-                </li>
-                <li>
-                  <InputCus
-                    className="customer-input"
-                    placeholder="Thành Phố"
-                    inputProps={ariaLabel}
-                  />
-                </li>
-                <li>
-                  <Button variant="contained">Register</Button>
-                </li>
-              </ul>
-            </Grid>
+
+           <RegisterAccountCustomer/>
           )}
+          </Grid>
         </>
       </Grid>
       <div className="bookingClass">
