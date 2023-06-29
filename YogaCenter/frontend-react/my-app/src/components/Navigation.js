@@ -51,8 +51,6 @@ export default function Navigation({ role }) {
           .localeCompare('"STAFF"', undefined, { sensitivity: "base" }) === 0
       ) {
         return (
-
-         
           <NavStaff/>
 
         );
@@ -103,7 +101,10 @@ export default function Navigation({ role }) {
                 <ul className="drop-menu">                
                   <li>
                     <Link to="/register"> Register User</Link>
-                  </li>     
+                  </li>   
+                  <li>
+                    <Link to="/account-management"> Manage Account</Link>
+                  </li>  
                   <li>
                     <Link to="/register-teacher"> Register Teacher</Link>
                   </li>           

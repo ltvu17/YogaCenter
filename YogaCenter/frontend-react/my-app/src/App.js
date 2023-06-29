@@ -34,6 +34,7 @@ import CreateInvoice from './pages/staff/components/CreateInvoice';
 import NotificationStaff from './pages/staff/components/NotificationStaff';
 
 import HomeInstructor from './pages/instructor/components/HomeInstructor';
+import AccountManagement from './pages/manager/AccountManagement';
 
 
 
@@ -77,6 +78,7 @@ function App() {
         <Route path='/register-teacher' element={<RegisterTeacher/>}/>
         <Route path='/create-invoice' element={<CreateInvoice/>}/>
         <Route path='/staff-notification' element={<NotificationStaff/>}/>
+        <Route path='/account-management' element={<AccountManagement/>}/>
         {/* <Route path='/const' element={<ConstDefine/>}/> */}
         {/* <Route path='/updateClass:id' element={<UpdateClass/>} /> */}
       </Routes>

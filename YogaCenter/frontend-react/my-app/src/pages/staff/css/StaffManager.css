@@ -120,6 +120,7 @@ input::-webkit-inner-spin-button {
     transform:  rotate(30deg) translateX(10px)  translatey(40px)  translateX(10px);
    }
 }
+
 /* .compose-Notification div:first-child{
   backdrop-filter: blur(10px);
   color: black;

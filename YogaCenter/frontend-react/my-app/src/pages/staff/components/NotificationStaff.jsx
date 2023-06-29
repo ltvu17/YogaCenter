@@ -68,7 +68,7 @@ export default function NotificationStaff() {
             navigate(0);
     }
     return (
-    <div style={{position:'relative',marginLeft:'10%', marginBottom:'2%', marginRight:'1%'}}>
+    <div style={{position:'relative',marginLeft:'14%', marginBottom:'2%', marginRight:'2%'}}>
         {composeStatus? (
         <div className='compose-Notification'  style={{position:'absolute',width:'100%',height:'100%'}}>
             <div className='compose-blur' onClick={statusHanlder}></div>
