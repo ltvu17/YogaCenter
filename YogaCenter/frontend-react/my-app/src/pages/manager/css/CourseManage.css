@@ -1,0 +1,12 @@
+.course-manage{
+    padding-left: 15%;
+    padding-top: 30px;
+    padding-bottom: 30px;
+    padding-right: 5%;
+    background: linear-gradient(45deg, #ffffff, #98969680);
+    height: 100vh;
+}
+.course-manage .icon-delete .MuiSvgIcon-root {
+  
+    color: red;
+  }

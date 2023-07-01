@@ -170,7 +170,7 @@ export default function ScheduleManage() {
     <div className='Manage-schedule'>
       <h1 className='staff-title'>Schedule Management </h1>
       {GenarateData(currentMonth, currentYear)}
-      <Grid container spacing={2} sx={{paddingTop:'3%', height:'100%'}}>
+      <Grid container spacing={2} sx={{marginTop:'3%', height:'100%',backgroundColor:'white',marginLeft:'0'}}>
         <Grid item md={10} className='box-schedule'>
             <div className='staff-time-nav'><IconButton onClick={preMonth}><WestIcon /></IconButton>
                 <FormControl sx={{ m: 1, minWidth: 120 }} size="small">

@@ -82,51 +82,15 @@ input::-webkit-inner-spin-button {
   
   color: red;
 }
+
+
+
 .text-addClass .MuiInputBase-input{
  height: 2.2em;
  padding: 0 14px;
+
 }
-.compose-Notification {
-  position: absolute;
-}
-.compose-blur{
-  backdrop-filter: blur(10px);
-  padding: 350px 660px;
-  display: inline;
-  position: absolute;
-}
-.compose-detail{
-  background-color:white;
-  color: black;
-  padding: 100px 100px;
-  top: 5%;
-  left: 40%;
-  position: absolute;
-  display: inline;
-  border-radius: 5px;
-  border: solid 1px black;
-  transition: 0.3 ease-in-out;
- animation-name: animation;
- animation-duration: .6s;
- 
-  
-}
-@keyframes animation {
-   0%{
-     opacity: 0;
-     transform:  rotate(30deg) translateX(10px)  translatey(40px)  translateX(10px);
-   }
-   100%{
-    transform:  rotate(30deg) translateX(10px)  translatey(40px)  translateX(10px);
-   }
-}
-/* .compose-Notification div:first-child{
-  backdrop-filter: blur(10px);
-  color: black;
-  padding: 751% 100%;
-  margin-top: 10px;
-  display: inline;
-} */
+
 
 
 

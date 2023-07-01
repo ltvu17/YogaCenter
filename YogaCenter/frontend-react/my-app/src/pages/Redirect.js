@@ -59,14 +59,20 @@ export default function Redirect() {
             }
             else 
               if(role.toUpperCase().trim().localeCompare('"STAFF"', undefined, { sensitivity: 'base' }) === 0){               
-              navigate('/staff-notification');
+              navigate('/homestaff');
             }  else 
             if(role.toUpperCase().trim().localeCompare('"TEACHER"', undefined, { sensitivity: 'base' }) === 0){               
             navigate('/home-instructor');
+
           }else 
           if(role.toUpperCase().trim().localeCompare('"MANAGER"', undefined, { sensitivity: 'base' }) === 0){               
-          navigate('/staff-notification');
+          navigate('/homestaff');
         }
+          else 
+            if(role.toUpperCase().trim().localeCompare('"ADMIN', undefined, { sensitivity: 'base' }) === 0){               
+            navigate('/dashboard');
+          }
+
             
           }catch(err){
             }        

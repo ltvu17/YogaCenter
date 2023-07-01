@@ -19,7 +19,7 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import { useNavigate } from 'react-router-dom';
 import styled from '@emotion/styled';
-
+import './css/CourseManage.css'
 var curr = new Date();
 curr.setDate(curr.getDate()+1);
 var date = curr.toISOString().substring(0,10);
@@ -133,10 +133,8 @@ export default function CourseManage() {
      }
    `;
     return (
-    <div style={{marginLeft : '10%', marginBottom:'5%'}}>
-        <div style={{height:'70px'}}>
-        </div>
-        <div>
+    <div className='course-manage'>
+    
         <div className='class-post'>
         <h1 className='staff-title'>Course Management </h1>
         <form>
@@ -144,13 +142,13 @@ export default function CourseManage() {
             <thead>
                 <tr>
                 <th>Index</th>
-                <th>Course Name</th>
-                <th>CourseLecture Number</th>
-                <th>CourseLength</th>
-                <th>CoursePrice</th>
+                <th>Name</th>
+                <th>Lecture Number</th>
+                <th>Length</th>
+                <th>Price</th>
                 <th>Pre_Requisite</th>
-                <th>Course Detail</th>
-                <th>Course Create Date</th>
+                <th>Detail</th>
+                <th>Create Date</th>
                 <th>Event</th>
                 <th>Action</th>
                 </tr>
@@ -169,33 +167,33 @@ export default function CourseManage() {
                         <td>{item.event? item.event.eventName : 'None'}</td>                   
                         <td style={{textAlign: 'center'}}>
                             <div> 
-                                <CustomButton variant='text' size='small' color='success' startIcon={<UpgradeRoundedIcon/>} onClick={() => getvalueUpdate(item.id)} 
-                                sx={{padding :1,margin:1, color: 'white', backgroundColor:'rgb(127, 69, 101)'}}>Update Course</CustomButton>
-                                <DeleteButton variant='text' size='small' color='success' startIcon={<DeleteForeverOutlinedIcon/>} onClick={()=>deleteClass(item.id)}
-                                sx={{padding :1,margin:1, color: 'white', backgroundColor:'rgb(127, 69, 101)'}}>Delete Course</DeleteButton>
+                                <CustomButton variant='text'  startIcon={<UpgradeRoundedIcon/>} onClick={() => getvalueUpdate(item.id)} 
+                                sx={{padding :1,margin:1, color: 'white'}}>Update Course</CustomButton>
+                                <DeleteButton variant='text'  startIcon={<DeleteForeverOutlinedIcon/>} onClick={()=>deleteClass(item.id)}
+                                sx={{padding :1,margin:1, color: 'white'}}>Delete Course</DeleteButton>
                             </div>
                         </td>        
                         </tr>
                     ))):''}
                     {Array.from(Array(count)).map(((index,c) => (
                         
-                        <tr key ={c}> 
-                        <td><IconButton onClick={MinusHandler}><DeleteForeverIcon/></IconButton></td>
-                        <td><TextField variant='outlined' size='small' name='courseDescription' label='Course Name' required onChange={ChangeHandler}
-                    sx={{color : 'rgb(127, 69, 101)',backgroundColor:'#F9A7B0',borderRadius:'5px'}}></TextField></td>
-                        <td><TextField variant='outlined' type='number' InputProps={{ inputProps: { min: 0 } }} size='small' name='courseLectureNumber' label='courseLectureNumber' required onChange={ChangeHandler}
-                    sx={{color : 'rgb(127, 69, 101)',backgroundColor:'#F9A7B0',borderRadius:'5px'}}></TextField></td>
-                        <td><TextField variant='outlined' type='number' InputProps={{ inputProps: { min: 0 } }} size='small' name='courseLength' label='courseLength' required onChange={ChangeHandler}
-                    sx={{color : 'rgb(127, 69, 101)',backgroundColor:'#F9A7B0',borderRadius:'5px'}}></TextField></td>
-                        <td><TextField variant='outlined' type='number' InputProps={{ inputProps: { min: 0 } }} size='small' name='coursePrice' label='coursePrice' required onChange={ChangeHandler}
-                    sx={{color : 'rgb(127, 69, 101)',backgroundColor:'#F9A7B0',borderRadius:'5px'}}></TextField></td>
-                        <td><TextField variant='outlined' size='small' name='pre_Requisite' label='pre_Requisite' required onChange={ChangeHandler}
-                    sx={{color : 'rgb(127, 69, 101)',backgroundColor:'#F9A7B0',borderRadius:'5px'}}></TextField></td>
-                        <td><TextField variant='outlined' size='small' name='courseDetail' label='courseDetail' multiline required onChange={ChangeHandler}
-                    sx={{color : 'rgb(127, 69, 101)',backgroundColor:'#F9A7B0',borderRadius:'5px'}}></TextField></td>
+                        <tr className='staff-add-newClass' key ={c}> 
+                        <td><IconButton className='icon-delete' onClick={MinusHandler}><DeleteForeverIcon/></IconButton></td>
+                        <td><TextField  className='text-addClass' variant='outlined'  name='courseDescription' placeholder='Course Name' required onChange={ChangeHandler}
+                    sx={{ width:'8em', backgroundColor: 'white', borderRadius: '5px' }}></TextField></td>
+                        <td><TextField   className='text-addClass' variant='outlined' type='number' InputProps={{ inputProps: { min: 0 } }}  name='courseLectureNumber' placeholder='Lecture Number' required onChange={ChangeHandler}
+                    sx={{ width:'8em', backgroundColor: 'white', borderRadius: '5px'}}></TextField></td>
+                        <td><TextField className='text-addClass' variant='outlined' type='number' InputProps={{ inputProps: { min: 0 } }}  name='courseLength' placeholder='courseLength' required onChange={ChangeHandler}
+                    sx={{ width:'8em', backgroundColor: 'white', borderRadius: '5px'}}></TextField></td>
+                        <td><TextField className='text-addClass' variant='outlined' type='number' InputProps={{ inputProps: { min: 0 } }}  name='coursePrice' placeholder='Price' required onChange={ChangeHandler}
+                    sx={{ width:'8em', backgroundColor: 'white', borderRadius: '5px'}}></TextField></td>
+                        <td><TextField  className='text-addClass' variant='outlined'  name='pre_Requisite' placeholder='pre_Requisite' required onChange={ChangeHandler}
+                    sx={{ width:'8em', backgroundColor: 'white', borderRadius: '5px'}}></TextField></td>
+                        <td><TextField className='text-addClass' variant='outlined'  name='courseDetail' placeholder='Detail' multiline required onChange={ChangeHandler}
+                    sx={{ width:'8em', backgroundColor: 'white', borderRadius: '5px'}}></TextField></td>
                         <td><input type='date' name='courseCreateDate' defaultValue={date} required onChange={ChangeHandler}/></td>
-                        <td colSpan={2}><CustomButton variant='text' color='success' type='submit' onClick={submitAdd}
-                        sx={{padding :1,margin:1, color: 'white', backgroundColor:'rgb(127, 69, 101)'}}>Add</CustomButton></td> 
+                        <td colSpan={2}><Button variant='contained' type='submit' onClick={submitAdd}
+                        sx={{padding :1,margin:1,  color: 'white', backgroundColor: '#a41a1a' }}>Add</Button></td> 
                         </tr>
                         )))}
                     <tr>
@@ -239,7 +237,7 @@ export default function CourseManage() {
                  </DialogActions>
               </Dialog>        
             </div>
-        </div>
+     
     </div>
   )
 }

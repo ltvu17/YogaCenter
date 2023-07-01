@@ -11,59 +11,39 @@ import EditIcon from "@mui/icons-material/Edit";
 import UpgradeIcon from "@mui/icons-material/Upgrade";
 import axios from "axios";
 import CardMedia from "@mui/material/CardMedia";
-import "../css/profileCustomer.css";
+import "../css/profileInstructor.css"
 import { URL_API } from "../../../api/ConstDefine";
 import { useNavigate } from "react-router-dom";
-import { pathUser } from "../../../service/pathImage/pathToSaveFile";
-export default function ProfileCustomer() {
+export default function ProfileTeacher(){
   const [editing, setEditing] = useState(false);
   const [changePassword, setChangePassword] = useState(false);
-  const [updateAvatart, setUpdateAvatar] = useState(false);
   const [profileTitle, setProfileTitle] = useState("Profile");
   const [cookies] = useCookies();
   const userId = cookies.userId;
-  const [avatar, setAvatar] = useState(null);
-  const [urlImage, setUrlImage] = useState(
-    `../../assets/images/userImage/${userId}.jpg`
-  );
-  const [oldCustomer, setOldCustomer] = useState({});
-  const [newCustomer, setNewCustomer] = useState({});
+  const [oldTeacher, setoldTeacher] = useState({});
+  const [newTeacher, setNewTeacher] = useState({});
   const [validPhoneNumber, setValidPhoneNumber] = useState(true);
-  const [message, setMessage] = useState("");
-  const [oldPassword, setOldPassword] = useState();
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
     currentPassword: "",
     newPassword: "",
     confirmNewPassword: "",
   });
-  let profileCustomerAPI = URL_API + `Customer/${userId}`;
-  let checkCurrentPasswordAPI = URL_API + `User/${userId}`;
+  let profileTeacherAPI = URL_API + `Teacher/${userId}`;
+
   useEffect(() => {
     axios
-      .get(profileCustomerAPI)
+      .get(profileTeacherAPI)
       .then((res) => {
-        setOldCustomer(res.data);
-        setNewCustomer(res.data);
+        setoldTeacher(res.data);
+        setNewTeacher(res.data);
       })
       .catch((error) => {
         console.log(error);
       });
   }, [userId]);
-  useEffect(() => {
-    axios
-      .get(checkCurrentPasswordAPI)
-      .then((res) => {
-        setOldPassword(res.data);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  }, [userId]);
-  console.log(oldPassword);
-  console.log(formData.newPassword);
-  // console.log(newCustomer);
-  // console.log(oldCustomer);
+  // console.log(newTeacher);
+  // console.log(oldTeacher);
 
   // localStorage.setItem("userData", JSON.stringify(userData));
 
@@ -71,17 +51,12 @@ export default function ProfileCustomer() {
     setEditing(true);
     setChangePassword(false);
     setProfileTitle("Edit");
-    setMessage("");
-  };
-  const handleChangeAvatar = (e) => {
-    // console.log(e.target.files[0].name);
-    setAvatar(e.target.files[0]);
   };
   const handleChange = (e) => {
-    setNewCustomer({
-      ...newCustomer,
+    setNewTeacher({
+      ...newTeacher,
       [e.target.name]:
-        e.target.name === "customerName"
+        e.target.name === "teacherName"
           ? e.target.value
               .trim()
               .replace(/\s+/g, " ")
@@ -90,61 +65,27 @@ export default function ProfileCustomer() {
           : e.target.value,
     });
   };
-
   const handlerCancel = (value) => {
     if (value === "edit") {
       setEditing(false);
       setProfileTitle("Profile");
     }
     if (value === "password") {
-      setUpdateAvatar(false);
       setChangePassword(false);
       setProfileTitle("Profile");
     }
-    if (value === "avatar") {
-      setUpdateAvatar(false);
-      setProfileTitle("Profile");
-    }
-    setMessage("");
   };
-  const handleSubmitAvatar = async (event) => {
-    event.preventDefault();
-    setUpdateAvatar(false);
-    setProfileTitle("Profile");
-    if (avatar) {
-      const formData = new FormData();
-      formData.append("file", avatar);
-      formData.append("fileName", `${userId}.jpg`);
-      formData.append("filePath", pathUser);
 
-      try {
-        const response = await axios.post(
-          "https://localhost:7096/api/File/UploadFile",
-          formData
-        );
-
-        if (response.status === 200) {
-          setUrlImage(`${pathUser}${userId}.jpg`);
-          console.log("File uploaded successfully!");
-        } else {
-          console.error("Failed to upload file.");
-        }
-      } catch (error) {
-        console.error("An error occurred:", error);
-        console.log("sai ròi");
-      }
-    }
-  };
   const handleEditProfile = () => {
-    // setUpdateAvatar(false);
+    setEditing(false);
     setProfileTitle("Profile");
-    if (newCustomer.customerPhone.length === 9) {
+    if (newTeacher.teacherPhone.length === 9) {
       axios
-        .put(profileCustomerAPI, {
-          customerName: newCustomer.customerName,
-          customerPhone: newCustomer.customerPhone,
-          customerAddress: newCustomer.customerAddress,
-          customerGender: newCustomer.customerGender,
+        .put(profileTeacherAPI, {
+          teacherName: newTeacher.teacherName,
+            teacherPhone: newTeacher.teacherPhone,
+          teacherAddress: newTeacher.teacherAddress,
+          teacherGender: newTeacher.teacherGender,
         })
         .then(navigate(0))
         .catch((error) => {
@@ -154,55 +95,45 @@ export default function ProfileCustomer() {
       setValidPhoneNumber(false);
       return;
     }
-
-    setMessage("");
   };
 
   const handlePasswordChange = () => {
     setEditing(false);
     setChangePassword(true);
     setProfileTitle("Change Password");
-
-    setMessage("");
   };
 
-  const handlerSubmitChangePassword = (e) => {
+  const handlerUpdatePassword = (e) => {
     e.preventDefault();
-    if (formData.newPassword !== formData.confirmNewPassword) {
-      setMessage("new password and confirm password are not the same");
-      return;
-    }
-    if (formData.currentPassword !== oldPassword.userPasswork) {
-      setMessage("Password Wrong");
-      console.log("nhap password sai roi");
-      return;
-    }
-    axios
-      .put(checkCurrentPasswordAPI, {
-        userName: oldPassword.userName,
-        userPasswork: formData.newPassword,
-        status: 1,
-      })
-      .then((res) => {
-        setMessage("Update password success");
-        setEditing(false);
-        setChangePassword(false);
-        setProfileTitle("Profile");
-      })
-      .catch((error) => {
-        setMessage(
-          "Something wrong. You can send a message to the center for support"
-        );
-      });
-  };
-  const handlerAvatar = (e) => {
-    setUpdateAvatar(true);
     setEditing(false);
     setChangePassword(false);
-    setProfileTitle("Update Avatar");
+    setProfileTitle("Profile");
+    // if (formData.newPassword !== formData.confirmNewPassword) {
+    //   console.log("Mật khẩu mới không khớp!");
+    //   return;
+    // }
 
-    setMessage("");
-    console.log(e.target.value);
+    // axios
+    // .post(CHECK_CURRENT_PASSWORD_API, {
+    //   userId: userId,
+    //   currentPassword: currentPassword,
+    // })
+    // .then((res) => {
+    //   axios
+    //     .put(profileTeacherAPI, {
+    //       newPassword: newPassword,
+    //     })
+    //     .then((res) => {
+    //       console.log("Mật khẩu đã được cập nhật thành công!");
+    //     })
+    //     .catch((error) => {
+    //       console.log("Có lỗi xảy ra khi cập nhật mật khẩu:", error);
+    //     });
+    // })
+    // .catch((error) => {
+    //   console.log("Mật khẩu hiện tại không chính xác:", error);
+    // });
+
   };
   const handleChangeOfPassword = (e) => {
     setFormData({
@@ -210,7 +141,7 @@ export default function ProfileCustomer() {
       [e.target.name]: e.target.value,
     });
   };
-  // console.log(formData);
+  console.log(formData);
 
 
 
@@ -222,9 +153,6 @@ export default function ProfileCustomer() {
             <KeyboardDoubleArrowRightIcon />
             {profileTitle}
           </Typography>
-          <font>
-            <div>{message}</div>
-          </font>
         </div>
         <Grid container>
           <Grid
@@ -241,14 +169,11 @@ export default function ProfileCustomer() {
               component="img"
               alt="green iguana"
               height="65%"
-              image={urlImage}
+              image="../../assets/images/class1.jpg"
               sx={{ marginBottom: "20px" }}
             />
             <CardActions className="changeProfile">
-              <Button
-                sx={{ border: "1px dashed #532e4d", padding: "20px" }}
-                onClick={handlerAvatar}
-              >
+              <Button sx={{ border: "1px dashed #532e4d", padding: "20px" }}>
                 <UpgradeIcon />
                 Avatar
               </Button>
@@ -271,11 +196,11 @@ export default function ProfileCustomer() {
             }}
           >
             {changePassword ? (
-              <div className="profileCustomer-save">
+              <div className="profileInstructor-save">
                 <div className="form-row">
                   <label htmlFor="currentPassword">Current password</label>
                   <TextField
-                   className="inputPassword-profile"
+                    className="instructor-input-password"
                     id="currentPassword"
                     name="currentPassword"
                     type="password"
@@ -287,7 +212,7 @@ export default function ProfileCustomer() {
                 <div className="form-row">
                   <label htmlFor="newPassword">New password</label>
                   <TextField
-                   className="inputPassword-profile"
+                                      className="instructor-input-password"
                     id="newPassword"
                     name="newPassword"
                     type="password"
@@ -299,7 +224,8 @@ export default function ProfileCustomer() {
                   <label htmlFor="confirmNewpassword">
                     Confirm new password
                   </label>
-                  <TextChangePassword
+                  <TextField
+                                      className="instructor-input-password"
                     id="confirmNewpassword"
                     name="confirmNewpassword"
                     type="password"
@@ -307,18 +233,17 @@ export default function ProfileCustomer() {
                     onChange={handleChangeOfPassword}
                   />
                 </div>
-               
                 <CardActions
                   sx={{
                     paddingTop: "22px",
                     position: "relative",
-                    top: "5.6em",
+                    top: "140px",
                   }}
                 >
                   <Button
                     className="button-save"
                     variant="contained"
-                    onClick={handlerSubmitChangePassword}
+                    onClick={handlerUpdatePassword}
                   >
                     Save
                   </Button>
@@ -334,15 +259,15 @@ export default function ProfileCustomer() {
             ) : (
               <>
                 {editing ? (
-                  <div className="profileCustomer-save">
+                  <div className="profileInstructor-save">
                     <TextField
                       className="input-profile"
                       sx={{ padding: "0px 10px 32px" }}
                       label="User Name"
                       variant="standard"
                       fullWidth
-                      name="customerName"
-                      defaultValue={oldCustomer.customerName}
+                      name="teacherName"
+                      defaultValue={oldTeacher.teacherName}
                       onChange={handleChange}
                     />
                     <TextField
@@ -352,8 +277,8 @@ export default function ProfileCustomer() {
                       label="Phone"
                       variant="standard"
                       fullWidth
-                      name="customerPhone"
-                      defaultValue={oldCustomer.customerPhone}
+                      name="teacherPhone"
+                      defaultValue={oldTeacher.teacherPhone}
                       onChange={handleChange}
                     />
                     <TextField
@@ -362,8 +287,8 @@ export default function ProfileCustomer() {
                       label="Gender"
                       variant="standard"
                       fullWidth
-                      name="customerGender"
-                      defaultValue={oldCustomer.customerGender}
+                      name="teacherGender"
+                      defaultValue={oldTeacher.teacherGender}
                       onChange={handleChange}
                     />
                     <TextField
@@ -372,8 +297,8 @@ export default function ProfileCustomer() {
                       label="Address"
                       variant="standard"
                       fullWidth
-                      name="customerAddress"
-                      defaultValue={oldCustomer.customerAddress}
+                      name="teacherAddress"
+                      defaultValue={oldTeacher.teacherAddress}
                       onChange={handleChange}
                     />
                     <CardActions sx={{ paddingTop: "22px" }}>
@@ -393,40 +318,17 @@ export default function ProfileCustomer() {
                       </Button>
                     </CardActions>
                   </div>
-                ) : updateAvatart ? (
-                  <div className="profileCustomer-save">
-                    <div>
-                      <input type="file" onChange={handleChangeAvatar} />
-                    </div>
-
-                    <CardActions sx={{ paddingTop: "22px" }}>
-                      <Button
-                        className="button-save"
-                        onClick={handleSubmitAvatar}
-                        variant="contained"
-                      >
-                        Save
-                      </Button>
-                      <Button
-                        className="button-cancel"
-                        onClick={() => handlerCancel("avatar")}
-                        variant="contained"
-                      >
-                        Cancel
-                      </Button>
-                    </CardActions>
-                  </div>
                 ) : (
-                  <Grid container className="profileCustomer-edit">
+                  <Grid container className="profileInstructor-edit">
                     <Grid md={12} sx={{ padding: "0px 10px 32px" }}>
                       User Name:
                       <br />
-                      <p>{oldCustomer.customerName}</p>
+                      <p>{oldTeacher.teacherName}</p>
                     </Grid>
                     <Grid md={12} sx={{ padding: "0px 10px 32px" }}>
                       Phone:
                       <br />
-                      <p>0{oldCustomer.customerPhone}</p>
+                      <p>0{oldTeacher.teacherPhone}</p>
                       <p>
                         {!validPhoneNumber
                           ? "Số điện thoại sai format. Vui lòng nhập lại!"
@@ -436,12 +338,12 @@ export default function ProfileCustomer() {
                     <Grid md={12} sx={{ padding: "0px 10px 32px" }}>
                       Gender:
                       <br />
-                      <p>{oldCustomer.customerGender}</p>
+                      <p>{oldTeacher.teacherGender}</p>
                     </Grid>
                     <Grid md={12} sx={{ padding: "0px 10px 32px" }}>
                       Address:
                       <br />
-                      <p>{oldCustomer.customerAddress}</p>
+                      <p>{oldTeacher.teacherAddress}</p>
                     </Grid>
                     <CardActions>
                       <Button

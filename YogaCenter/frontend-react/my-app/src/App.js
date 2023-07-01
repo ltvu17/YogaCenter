@@ -34,7 +34,11 @@ import CreateInvoice from './pages/staff/components/CreateInvoice';
 import NotificationStaff from './pages/staff/components/NotificationStaff';
 
 import HomeInstructor from './pages/instructor/components/HomeInstructor';
-
+import ProfileInstructor from './pages/instructor/components/ProfileInstructor'
+import ClassInstructor from './pages/instructor/components/ClassInstructor';
+import ScheduleInstructor from './pages/instructor/components/ScheduleInstructor';
+import Dashboard from './pages/admin/components/Dashboard';
+import HomeStaff from './pages/staff/components/HomeStaff';
 
 
 
@@ -58,25 +62,34 @@ function App() {
         <Route path="/schedule" element={<Schedule />} />
         <Route path="/contact" element={<Contact/>} />
 
+        {/* Customer */}
         <Route path='/customer-class' element={<ClassCustomer/>}/>
-
         <Route path='/home-customer' element={<HomeCustomer/>} />
         <Route path='/profile-customer' element={<ProfileCustomer/>} />
         <Route path='/customer-schedule' element={<ScheduleCustomer/>}/>
 
+        {/* Instructor */}
         <Route path='home-instructor' element={<HomeInstructor/>} />
+        <Route path='/profile-instructor' element={<ProfileInstructor/>} />
+        <Route path='/class-instructor' element={<ClassInstructor/>}/>
+        <Route path='/schedule-instructor' element={<ScheduleInstructor/>}/>
 
         {/* <Route path='/StaffManager' element={<StaffManager/>} /> */}
+        <Route path='/homestaff' element={<HomeStaff/>} />
         <Route path='/staffmanage' element={<Staffmanage/>} />
         <Route path='/studentmanage' element={<StudentManage/>}/>
         <Route path='/schedulemanage' element={<ScheduleManage/>}/>
         <Route path='/addclassschedule' element={<AddClassSchedule/>}/>
         <Route path='/coursemanage' element={<CourseManage/>}/>
         <Route path='/eventmanage' element={<EventManage/>}/>
-        <Route path='/register' element={<RegisterAccount/>}/>
+        <Route path='/staff-registerAccount' element={<RegisterAccount/>}/>
         <Route path='/register-teacher' element={<RegisterTeacher/>}/>
         <Route path='/create-invoice' element={<CreateInvoice/>}/>
         <Route path='/staff-notification' element={<NotificationStaff/>}/>
+
+
+        {/* ADMIN */}
+        <Route path='/dashboard' element={<Dashboard/>} />
         {/* <Route path='/const' element={<ConstDefine/>}/> */}
         {/* <Route path='/updateClass:id' element={<UpdateClass/>} /> */}
       </Routes>
