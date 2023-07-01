@@ -11,15 +11,16 @@ import axios from "axios";
 
 function ClassCustomer() {
   const [userId] = useCookies("userId");
-  const [userData, setUserData] = useState('');
-  const customerId = userData !== '' ? userData.id : "";
+  const [userData, setUserData] = useState("");
+  const customerId = userData !== "" ? userData.id : "";
   let customerByUserIdAPI = URL_API + `Customer/${userId.userId}`;
   let lessonByCusIDAPI = URL_API + `ClassCustomer/getCustomer/${customerId}`;
   //   console.log(savedUserData);
 
   const isSingleItem = courses.length === 1;
   const gridColumnCount = isSingleItem ? 1 : 2;
-  const [myClass, setMyClass] = useState([]);
+  const [myClass, setMyClass] = useState("");
+  // console.log(myClass[0].class.id)
   useEffect(() => {
     axios
       .get(customerByUserIdAPI)
@@ -35,8 +36,10 @@ function ClassCustomer() {
       .get(lessonByCusIDAPI)
       .then((res) => {
         setMyClass(res.data);
+        console.log("oke");
       })
       .catch((error) => {
+        console.log("sai roi");
         console.log(error);
       });
   }, [customerId]);
@@ -47,74 +50,88 @@ function ClassCustomer() {
           <Typography variant="h2">My Class</Typography>
         </div>
         <Grid container spacing={10}>
-          {myClass.map((classs) => (
-            <Grid
-              item
-              xs={12}
-              md={6}
-              key={classs.class.classId}
-              sx={{
-                width: "20%",
-                borderRadius: "10px",
-                display: "flex",
-                justifyContent: isSingleItem ? "center" : "flex-start",
-                gridColumn: `span ${gridColumnCount}`,
-              }}
-            >
-              <div className="course-box">
-                <Card
+          {myClass 
+            ? myClass.map((classs) => (
+                <Grid
+                  item
+                  xs={12}
+                  md={6}
+                  key={classs.class.id}
                   sx={{
+                    width: "20%",
+                    borderRadius: "10px",
                     display: "flex",
-                    backgroundColor: "#dfd3d9ad",
-                    width: "100%",
-                    height: "100%",
-                    borderRadius: "20px",
+                    justifyContent: isSingleItem ? "center" : "flex-start",
+                    gridColumn: `span ${gridColumnCount}`,
                   }}
                 >
-                  <CardMedia
-                    component="img"
-                    // image={course.img}
-                    alt="green iguana"
-                    sx={{ width: "40%", padding: "25px", borderRadius: "45px" }}
-                  />
-                  <CardContent
-                    sx={{
-                      width: "60%",
-                      margin: "16px",
-                      padding: "0",
-                      position: "relative",
-                    }}
-                  >
-                    <Typography variant="h2">
-                      {classs.class.className}
-                    </Typography>
-                    <Typography variant="subtitle1">
-                      Start Date:{" "}
-                      {new Date(
-                        classs.class.classStartDate
-                      ).toLocaleDateString()}
-                    </Typography>
-                    <Typography variant="subtitle1">
-                      Start Date:{" "}
-                      {new Date(classs.class.classEndDate).toLocaleDateString()}
-                    </Typography>
-                    <Typography variant="subtitle1">
-                      {classs.class.course.courseDetail}
-                    </Typography>
-                    <Typography variant="h5">
-                      {classs.class.teacher !== null
-                        ? classs.class.teacher.teacherName
-                        : ""}
-                    </Typography>
-                  </CardContent>
-                </Card>
-              </div>
-            </Grid>
-          ))}
+                  <div className="course-box">
+                    <Card
+                      sx={{
+                        display: "flex",
+                        backgroundColor: "#dfd3d9ad",
+                        width: "100%",
+                        height: "100%",
+                        borderRadius: "20px",
+                      }}
+                    >
+                      <CardMedia
+                        component="img"
+                        image={
+                          "/assets/images/classImage/" +
+                          classs.class.id +
+                          ".jpg"
+                        }
+                        onError={(e) => {
+                          e.target.onError = null;
+                          e.target.src =
+                            "/assets/images/classImage/classDefault.jpg";
+                        }}
+                        alt="green iguana"
+                        sx={{
+                          width: "40%",
+                          padding: "25px",
+                          borderRadius: "45px",
+                        }}
+                      />
+                      <CardContent
+                        sx={{
+                          width: "60%",
+                          margin: "16px",
+                          padding: "0",
+                          position: "relative",
+                        }}
+                      >
+                        <Typography variant="h2">
+                          {classs.class.className}
+                        </Typography>
+                        <Typography variant="subtitle1">
+                          Start Date:{" "}
+                          {new Date(
+                            classs.class.classStartDate
+                          ).toLocaleDateString()}
+                        </Typography>
+                        <Typography variant="subtitle1">
+                          Start Date:{" "}
+                          {new Date(
+                            classs.class.classEndDate
+                          ).toLocaleDateString()}
+                        </Typography>
+                        <Typography variant="subtitle1">
+                          {classs.class.course.courseDetail}
+                        </Typography>
+                        <Typography variant="h5">
+                          {classs.class.teacher !== null
+                            ? classs.class.teacher.teacherName
+                            : ""}
+                        </Typography>
+                      </CardContent>
+                    </Card>
+                  </div>
+                </Grid>
+              ))
+            : ""}
         </Grid>
-        <div>
-          <input type="file"></input>
-        </div>
       </div>
     </div>
   );

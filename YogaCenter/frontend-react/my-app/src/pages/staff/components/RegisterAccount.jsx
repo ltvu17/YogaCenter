@@ -81,7 +81,7 @@ export default function RegisterAccount() {
             noValidate
             autoComplete="on"
             >
-            <TextField name='userName'type='email' required label="UserName" onChange={ChangeHandler} variant="outlined" />
+            <TextField name='userName' type='email' required label="UserName" onChange={ChangeHandler} variant="outlined" />
             <br/>
             <TextField name='userPassword' type='password' required label="UserPassword" onChange={ChangeHandler} variant="outlined" />
             <br/>

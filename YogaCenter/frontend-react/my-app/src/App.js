@@ -61,7 +61,7 @@ function App() {
         <Route path='/customer-class' element={<ClassCustomer/>}/>
 
         <Route path='/home-customer' element={<HomeCustomer/>} />
-        <Route path='/porofile-customer' element={<ProfileCustomer/>} />
+        <Route path='/profile-customer' element={<ProfileCustomer/>} />
         <Route path='/customer-schedule' element={<ScheduleCustomer/>}/>
 
         <Route path='home-instructor' element={<HomeInstructor/>} />
