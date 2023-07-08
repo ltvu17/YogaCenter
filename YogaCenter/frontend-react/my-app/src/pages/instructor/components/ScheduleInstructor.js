@@ -154,24 +154,24 @@ function ScheduleInstructor() {
   return (
     <div className="week-schedule-container">
       <div className="schedule-box">
-        <h1 style={{ color: "white" }}>
+        <h1 style={{ color: "black" }}>
+        <div style={{ fontSize:'20px', backgroundColor: '#bdded999',borderRadius: '25px',padding: '10px',display: 'flex',alignItems: 'center'}}>
           <KeyboardDoubleArrowLeftIcon onClick={goTobeforeMonth} />
           <span>{currentMonthName}</span>
           <span>{currentYear}</span>
           <KeyboardDoubleArrowRightIcon onClick={goToNextMonth}>
             Next Month
           </KeyboardDoubleArrowRightIcon>
+          </div>
         </h1>
 
         <table className="schedule-table-customer">
           <thead>
             <tr>
               <th
-                style={{
-                  background:
-                    "linear-gradient(90deg, #d2608d, rgb(136 101 136 / 65%))",
-                  paddingTop: "20px",
-                  paddingBottom: "20px",
+           style={{
+                  backgroundColor: 'rgb(0 0 0 / 49%)',
+                 padding:'10px',
                   width: "125px",
                 }}
               >
@@ -210,12 +210,7 @@ function ScheduleInstructor() {
           <tbody>
             {time.map((timeSlot) => (
               <tr key={timeSlot}>
-                <td
-                  style={{
-                    background:
-                      "linear-gradient(90deg, rgb(183 159 181), rgb(209 191 209 / 27%))",
-                  }}
-                >
+              <td style={{backgroundColor:'#d3dfef'}}>
                   <h1
                     style={{
                       marginBottom: "10px",
