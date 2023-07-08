@@ -314,8 +314,7 @@ export default function Home() {
               {listTecher.map((teacher, index) => (
                 <div className="myCoach-detail" key={index}>
                   <img src="/assets/images/coach.png" />
-                  <h2 className="myCoach-name">{teacher.teacherName}</h2>
-             
+                  <h2 className="myCoach-name">{teacher.teacherName}</h2> 
                 </div>
               ))}
             </div>
