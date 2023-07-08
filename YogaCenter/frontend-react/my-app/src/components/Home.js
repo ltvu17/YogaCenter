@@ -70,11 +70,17 @@ export default function Home() {
   const [cookies] = useCookies(["userId"]);
   const cookieValue = cookies.userId;
   const [customerEmail, setCustomerEmail] = useState("");
-const [customerName, setCustomerName] = useState("");
-const [customerPhone, setCustomerPhone] = useState("");
-const [customerGender, setCustomerGender] = useState("");
-const [customerAddress, setCustomerAddress] = useState("");
-console.log(customerEmail, customerName,customerPhone,customerGender,customerAddress)
+  const [customerName, setCustomerName] = useState("");
+  const [customerPhone, setCustomerPhone] = useState("");
+  const [customerGender, setCustomerGender] = useState("");
+  const [customerAddress, setCustomerAddress] = useState("");
+  console.log(
+    customerEmail,
+    customerName,
+    customerPhone,
+    customerGender,
+    customerAddress
+  );
   // console.log(listTecher);
   // console.log(listTecher !== null);
 
@@ -96,9 +102,7 @@ console.log(customerEmail, customerName,customerPhone,customerGender,customerAdd
   const handleAddressChange = (event) => {
     setCustomerAddress(event.target.value);
   };
-  const handlerRegisterSubmit = (event) =>{
-
-  }
+  const handlerRegisterSubmit = (event) => {};
   useEffect(() => {
     if (flag.flag == 1) {
       remove("flag");
@@ -128,7 +132,10 @@ console.log(customerEmail, customerName,customerPhone,customerGender,customerAdd
           <h4>FIND YOUR WAY</h4>
           <h1>TO YOGA LIFESTYLE</h1>
           <h3>Do yoga today with FPTU Yoga Center</h3>
-          <CustomButton variant="contained">Booking Now</CustomButton>
+
+          <Link to={"/registerClass"}>
+            <CustomButton variant="contained">Booking Now</CustomButton>
+          </Link>
         </div>
       </div>
 
@@ -349,13 +356,8 @@ console.log(customerEmail, customerName,customerPhone,customerGender,customerAdd
           </div>
         </Grid>
         <>
-        <Grid item md={6}>
-          {cookieValue !== undefined ? (
-            ""
-          ) : (
-
-           <RegisterAccountCustomer/>
-          )}
+          <Grid item md={6}>
+            {cookieValue !== undefined ? "" : <RegisterAccountCustomer />}
           </Grid>
         </>
       </Grid>
