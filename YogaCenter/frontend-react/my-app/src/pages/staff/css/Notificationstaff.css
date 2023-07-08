@@ -21,7 +21,6 @@
     border: solid 1px black;
     animation-name: animation;
     animation-duration: .6s;
-   
   }
   @keyframes animation {
     0%{

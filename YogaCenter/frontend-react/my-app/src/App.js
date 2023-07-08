@@ -39,6 +39,7 @@ import ClassInstructor from './pages/instructor/components/ClassInstructor';
 import ScheduleInstructor from './pages/instructor/components/ScheduleInstructor';
 import Dashboard from './pages/admin/components/Dashboard';
 import HomeStaff from './pages/staff/components/HomeStaff';
+import AccountManagement from './pages/manager/AccountManagement';
 
 
 
@@ -87,7 +88,7 @@ function App() {
         <Route path='/create-invoice' element={<CreateInvoice/>}/>
         <Route path='/staff-notification' element={<NotificationStaff/>}/>
 
-
+        <Route path='/account-manage' element={<AccountManagement/>}/>
         {/* ADMIN */}
         <Route path='/dashboard' element={<Dashboard/>} />
         {/* <Route path='/const' element={<ConstDefine/>}/> */}

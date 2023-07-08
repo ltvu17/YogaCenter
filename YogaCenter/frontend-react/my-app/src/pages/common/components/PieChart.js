@@ -1,7 +1,38 @@
 import { ResponsivePie } from '@nivo/pie'
-import { course } from '../../../data/DataPieCourse'
-const PieChart = () => {
+import { useEffect, useState } from 'react'
+import { URL_API } from '../../staff/components/ConstDefine';
+import axios from 'axios';
 
+const PieChart = () => {
+    const [classCourse,setClassCourse] = useState([]);
+    const [courses,setCourses] = useState([]);
+    const [courseList,setCourseList] = useState([]);
+    
+    let classCourseAPI = URL_API+`Class`;
+    let courseAPI = URL_API+`Course`;
+    useEffect(()=>{
+        axios.get(classCourseAPI).then(r=>setClassCourse(r.data)).catch(err=>console.log(err));
+    },[]);
+    useEffect(()=>{
+        axios.get(courseAPI).then(r=>setCourses(r.data)).catch(err=>console.log(err));
+    },[]);
+    var course = [];
+    courses.forEach(c =>{
+        let quantity = 0;
+        classCourse.forEach(cl=>{
+            if(c.id === cl.course.id){
+                quantity +=1;
+            }
+        })
+        c.quantity = quantity;
+        course.push( {
+            id : c.courseDescription,
+            label : c.courseDescription,
+            value : quantity/(classCourse.length),
+            color : "hsl(160, 70%, 50%)"
+        })
+    })
+    
     return(
         <div style={{ height: "100%", width: "100%" }}>
         <h2>Rate of courses</h2>

@@ -301,7 +301,7 @@ export default function ProfileCustomer() {
                   </label>
                   <TextChangePassword
                     id="confirmNewpassword"
-                    name="confirmNewpassword"
+                    name="confirmNewPassword"
                     type="password"
                     value={formData.confirmNewPassword}
                     onChange={handleChangeOfPassword}
