@@ -3,7 +3,7 @@ import { useState } from 'react'
 import { URL_API } from './ConstDefine';
 import { useEffect } from 'react';
 import axios from 'axios';
-import '../css/StaffManager.css'
+import '../css/StudentManage.css'
 import Button from '@mui/material/Button';
 import DeleteForeverOutlinedIcon from '@mui/icons-material/DeleteForeverOutlined';
 import PersonAddIcon from '@mui/icons-material/PersonAdd';
@@ -121,16 +121,15 @@ export default function StudentManage() {
     }
     
   return (
-    <div style={{marginLeft:'10%', marginRight:'2%'}}>
-    <div>
-        </div>
+    <div className='student-manage'>
+    
     <div className='class-post'>
-    <Button variant='text' color='success' startIcon={<ArrowBackIcon fontSize='large'/>} onClick={back}
-        sx={{padding :1,margin:1, color: 'white', backgroundColor:'rgb(127, 69, 101)'}}>Back to class list</Button>
+    <Button className='button-back' variant='contained'  startIcon={<ArrowBackIcon fontSize='large'/>} onClick={back}
+        sx={{padding :1,margin:1, color: 'white', fontSize:'18px',fontWeight:'600', backgroundColor:'rgb(38 38 38 / 85%)'}}>Back to class list</Button>
         <h1>Class Name: {name}</h1>
         {studentPosts.length < 20? (
-        <div><Button variant='text' color='success' startIcon={<PersonAddIcon fontSize='large'/>} onClick={addMode}
-        sx={{padding :1,margin:1, color: 'white', backgroundColor:'rgb(127, 69, 101)'}}>Add Student</Button></div>
+        <div><Button className='button-add'variant='contained' startIcon={<PersonAddIcon fontSize='large'/>} onClick={addMode}
+        sx={{padding :1,margin:1, color: 'white', backgroundColor:'#010f51b8'}}>Add Student</Button></div>
         ):''}
         
         <table className='table-add-class'>
@@ -150,8 +149,8 @@ export default function StudentManage() {
             <td>{item.customerId}</td>
             <td>{item.customer.customerName}</td>
             <td>N/a</td>
-            <td><Button variant='text' size='small' color='success' startIcon={<DeleteForeverOutlinedIcon/>} onClick={()=>deleteStudent(item.customerId)}
-                sx={{padding :1,margin:1, color: 'white', backgroundColor:'rgb(127, 69, 101)'}}>Delete Student</Button></td>
+            <td><Button variant='text' size='small' startIcon={<DeleteForeverOutlinedIcon/>} onClick={()=>deleteStudent(item.customerId)}
+                sx={{padding :1,margin:1, color: 'white', backgroundColor:'#a70707'}}>Delete Student</Button></td>
         </tr>
      ))): <tr></tr>}
     {add === true ? students.map(((item,index)=>
@@ -170,10 +169,10 @@ export default function StudentManage() {
             </tbody>
         </table>
         {add === true ? (
-            <div style={{textAlign:'center'}}><Button variant='text' size='large' color='success' startIcon={<CheckCircleOutlineIcon/>} onClick={addModeOff}
-            sx={{padding :1,margin:1, color: 'white', backgroundColor:'rgb(127, 69, 101)'}}>Cancel</Button>
-            <Button variant='text' size='large' color='success' startIcon={<CheckCircleOutlineIcon/>} onClick={addStudenClass}
-            sx={{padding :1,margin:1, color: 'white', backgroundColor:'rgb(127, 69, 101)'}}>Save</Button></div>
+            <div style={{textAlign:'center'}}><Button className='cancel-add-stu' variant='contained' startIcon={<CheckCircleOutlineIcon/>} onClick={addModeOff}
+            sx={{padding :1,margin:1, color: 'white', backgroundColor:'#a70707'}}>Cancel</Button>
+            <Button className='save-add-stu' variant='contained' startIcon={<CheckCircleOutlineIcon/>} onClick={addStudenClass}
+            sx={{padding :1,margin:1, color: 'white', backgroundColor:'#010f51b8'}}>Save</Button></div>
         ):''}
         <div id="delete"> 
                     <Dialog

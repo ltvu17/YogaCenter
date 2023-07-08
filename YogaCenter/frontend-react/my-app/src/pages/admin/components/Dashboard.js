@@ -128,8 +128,11 @@ export default function Dashboard(){
                     <StatBox
                         title={revernue+" VND"}
                         subtitle="Revenue"
+
                         progress={thismonthRevernue/revernue}
                         increase={"+"+increase+"%"}
+
+
                         icon={
                         <AttachMoneyIcon
                             sx={{ fontSize: "26px",color:"black" }}
