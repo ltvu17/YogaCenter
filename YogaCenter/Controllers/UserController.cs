@@ -133,6 +133,25 @@ namespace YogaCenter.Controllers
             return NotFound();
 
         }
+        [HttpPut("userName/{userName}")]
+        public async Task<IActionResult> UpdateUserByUserName(string userName, UserDto userUpdate)
+        {
+            
+            if (!await _userRepository.UserExists(userName))
+            {
+                ModelState.AddModelError("", "User is not Exists");
+                return BadRequest(ModelState);
+            }
+            if (!ModelState.IsValid) { return BadRequest(ModelState); }
+            var user = await _userRepository.GetUserByName(userName);
+            user.UserPasswork = userUpdate.UserPasswork;
+            if (await _userRepository.UpdateUser(user))
+            {
+                return Ok("Updated");
+            }
+            return NotFound();
+
+        }
         [HttpDelete("{userId}")]
         public async Task<IActionResult> DeleteUser(Guid userId)
         {

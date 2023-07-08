@@ -121,7 +121,7 @@ export default function Login(){
             }          
           />
         </FormControl>
-          <div className='button-forgot'><Link  to='/#'>Forgot your password?</Link></div>
+          <div className='button-forgot'><Link  to='/forgot-password'>Forgot your password?</Link></div>
           <form onSubmit ={handleSubmit} >
           <Button  type='submit' variant='contained' className='button-login'>Login</Button>
           </form>

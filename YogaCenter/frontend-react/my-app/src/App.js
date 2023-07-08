@@ -39,6 +39,7 @@ import ClassInstructor from './pages/instructor/components/ClassInstructor';
 import ScheduleInstructor from './pages/instructor/components/ScheduleInstructor';
 import Dashboard from './pages/admin/components/Dashboard';
 import HomeStaff from './pages/staff/components/HomeStaff';
+import ForgotPassword from './components/ForgotPassword';
 
 
 
@@ -61,6 +62,7 @@ function App() {
         <Route path="/registerClass" element={<RegisterClass />} />
         <Route path="/schedule" element={<Schedule />} />
         <Route path="/contact" element={<Contact/>} />
+        <Route path='/forgot-password' element={<ForgotPassword/>} />
 
         {/* Customer */}
         <Route path='/customer-class' element={<ClassCustomer/>}/>
