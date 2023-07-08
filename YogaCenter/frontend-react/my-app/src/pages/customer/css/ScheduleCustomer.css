@@ -1,5 +1,5 @@
 .week-schedule-container{
-  background: linear-gradient(to right, #b8afafab, #8a7b90ba);
+  background-color: #fdfdfd;
   padding-top: 70px;
   padding-bottom: 70px;
 }
@@ -11,12 +11,13 @@
   }
   
   .schedule-box h1 {
-    
+    margin-top: 25px;
     margin-bottom: 10px;
     display: flex;
     justify-content: center;
-    align-items: center;
+   
     flex-wrap: wrap;
+    
   }
   
   .schedule-box h1 span {
@@ -25,11 +26,13 @@
   
   .schedule-table-customer{
     width: 100%;
-    height: 70%;
+    /* height: 70%; */
     margin-top: 20px;
+        border-collapse: collapse;
+        background: #aca2a21f;
   }
   .schedule-table-customer thead tr{
-    background: linear-gradient(180deg, #797579, #d0b5d0);
+   background-color: #d3dfef;
   }
 
   .schedule-box th,
@@ -37,7 +40,7 @@
     width: auto;
 
     text-align: center;
-    border: 1px solid #ddd;
+    border: 1px solid #dae1e47a
 
   }
   
@@ -78,49 +81,48 @@
   }
  .day-name span{
   font-style: italic;
-  color: white;
+  color: black;
   font-size: 23px;
  }
 .day-date span{
   font-style: italic;
-  color: white;
-  font-size: 23px;
+  color: black;
+  font-size: 15px;
 }
 .lessonDay {
   height: 100%;
   width: 100%;
-  display: flex;
-  align-items: center;
-  border: 1px solid #4b1650;
+  background-color: #d4dae0;
+  border: 1px solid #e0d8e1;
 }
-.lesson-info {
-  background-color: #47004e;
-  width: 15%;
-  height: 15%;
-  writing-mode: vertical-rl;
-  text-orientation: upright;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transform: rotate(-180deg);
-}
+
 .lesson-info p{
-  color: aliceblue;
-  font: 20px;
-  font-weight: 700;
-  writing-mode: vertical-rl;
-  text-orientation: mixed;
-  transform: rotate(0deg);
-  white-space: nowrap;
-  letter-spacing: 10px;
+  color: black;
+  padding-bottom: 5px;
  
 }
 
-.lesson-details {
-  width: 85%;
+.lesson-attendence{
+
+ writing-mode: vertical-rl;
+  text-orientation: mixed;
+  transform: rotate(0deg);
+  display: flex;
+  justify-content: center;
 
 }
 
-.lesson-details p{
-  padding-bottom: 10px;
+
+.lesson-attendence p{
+  padding: 8px 5px;
+    font-weight: 700;
+   
+    width: 100%;
+    letter-spacing: 2px;
+    border-radius: 42px;
+    margin-right: 3%;
+    height: 90%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }

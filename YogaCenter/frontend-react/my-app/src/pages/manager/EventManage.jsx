@@ -19,7 +19,8 @@ import DialogTitle from '@mui/material/DialogTitle';
 import UpdateEvent from './UpdateEvent';
 import { useNavigate } from 'react-router-dom';
 import styled from '@emotion/styled';
-
+import './css/EventManage.css'
+import Pagination from '@mui/material/Pagination';
 var curr = new Date();
 curr.setDate(curr.getDate()+1);
 var date = curr.toISOString().substring(0,10);
@@ -30,7 +31,7 @@ export default function EventManage() {
   const [idUpdate,setUpdate] = useState('');
   const [count,setCount] =useState(0);
   const [open, setOpen] = useState(false);
-  const [postEvent,setEvent] = useState();
+  const [postEvent,setEvent] = useState([]);
   const [inputField,setInputFields] = useState({
     eventName : '',
     eventDetail : '',
@@ -38,6 +39,13 @@ export default function EventManage() {
     eventEndDate : date,
     eventDiscount: '',
   });
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 5;
+   const totalItems = postEvent.length;
+   const totalPages = Math.ceil(totalItems / itemsPerPage);
+   const startIndex = (currentPage - 1) * itemsPerPage;
+   const endIndex = startIndex + itemsPerPage;
+   const displayedPosts = postEvent.slice(startIndex, endIndex);
   ///URL_API
   let getEvent = URL_API+`Event`;
   let deleteEvent = URL_API+`Event/${idDelete}`
@@ -59,6 +67,9 @@ export default function EventManage() {
         setIdDelete(value);  
     }
   ///Handler
+  const handlePageChange = (event, page) => {
+    setCurrentPage(page);
+  };
   const AddHandler = ()=>{
     if(count < 1)
     setCount(count => count+1);
@@ -132,10 +143,9 @@ export default function EventManage() {
    `;
 
   return (
-    <div style={{marginLeft:'10%',marginRight:'2%', marginBottom:'5%'}}>
-      <div style={{height:'70px'}}>
-      </div>
-      <div>
+    <div className='manage-event'>
+     
+     
       <div className='class-post'>
       <h1 className='staff-title'>Event Management </h1>
         <form>
@@ -152,7 +162,7 @@ export default function EventManage() {
                 </tr>
             </thead>
             <tbody>
-            {postEvent? postEvent.map(((item, index) =>(
+            {displayedPosts? displayedPosts.map(((item, index) =>(
                         <tr key={index}>
                           <td>{index+1}</td>
                           <td>{item.eventName}</td>
@@ -194,6 +204,15 @@ export default function EventManage() {
             </tbody>
         </table>
         </form>
+        <div style={{ display: 'flex', justifyContent: 'center', marginTop: '1rem' }}>
+          <Pagination
+            count={totalPages}
+            page={currentPage}
+            onChange={handlePageChange}
+            showFirstButton
+            showLastButton
+          />
+        </div>
         </div>
         <div>
             {idUpdate!== '' ? (  
@@ -227,7 +246,7 @@ export default function EventManage() {
                   </DialogActions>
               </Dialog>        
             </div>
-      </div>      
+        
     </div>
   )
 }
