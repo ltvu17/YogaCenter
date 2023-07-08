@@ -28,7 +28,7 @@ namespace YogaCenter.Controllers
             {
                 return BadRequest(ModelState);
             }
-            return Ok(_mapper.Map<ICollection<UserDto>>(users));
+            return Ok(users);
         }
         [HttpPost("Login")]
         public async Task<IActionResult> Login([FromHeader] string userName, [FromHeader] string userPasswork)
