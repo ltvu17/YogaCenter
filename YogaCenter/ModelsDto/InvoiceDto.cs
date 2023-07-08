@@ -14,6 +14,5 @@ namespace YogaCenter.ModelsDto
         public DateTime DatePay { get; set; }
         [Required]
         public int TotalPay { get; set; }
-        public Course Course { get; set; }
     }
 }

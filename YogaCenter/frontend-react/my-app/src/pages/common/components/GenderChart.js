@@ -1,12 +1,48 @@
 import React from "react";
 import { ResponsiveBar } from "@nivo/bar";
+import { useState } from "react";
+import { URL_API } from "../../staff/components/ConstDefine";
+import { useEffect } from "react";
+import axios from "axios";
 
-import {gender} from '../../../data/DataGender'
+// import {gender} from '../../../data/DataGender'
 const GenderChart = () => {
     const genderColors = {
         Male: "#FF0000",
         Female: "#0000FF",
-      };
+    };
+    const [customers, setCustomers] = useState([]);
+    let customerAPI = URL_API + `Customer`;
+    useEffect(()=>{
+        axios.get(customerAPI).then(r => setCustomers(r.data)).catch(err => console.log(err));
+    },[]);
+    var male = 0;
+    var female = 0;
+    customers.forEach(cus =>{
+        if(cus.customerGender === 'Male'){
+            male +=1;
+        }
+        if(cus.customerGender === 'Female'){
+            female +=1;
+        }
+    })
+
+    const gender = [
+        {
+            gender:"Male",
+            number:male
+        },
+        {
+            gender:"Female",
+            number:female
+        },
+        {
+            gender:"Sum",
+            number:customers.length
+        }
+    ];
+
+
     return(
         <div style={{  position:"relative", height: "100%", width: "100%" }}>
         <h2 style={{ textAlign: 'center', padding: '8px'}}>

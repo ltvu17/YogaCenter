@@ -15,12 +15,14 @@ import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
 import "../css/registerClass.css";
 import { URL_API } from "../api/ConstDefine";
+import RegisterAccountCustomer from "../pages/customer/components/RegisterAccountCustomer";
+import RegisClasForm from "../pages/customer/components/RegisClassForm";
 const ariaLabel = { "aria-label": "description" };
 export default function RegisterClass() {
   const [Class, setClass] = useState([]);
   const [cookies] = useCookies(["userId"]);
   const [courses, setCourses] = useState("");
-  const [formRegister, setFormRegister] = useState(false);
+  const [formRegister, setFormRegisterClass] = useState(false);
   const userId = cookies.userId;
   const InputCus = styled(Input)`
     &:after {
@@ -32,12 +34,12 @@ export default function RegisterClass() {
 
   const handlerRegisterClassFormSublmit = (event) => {
     if (userId === undefined) {
-      const element = document.getElementById("register");
+      const element = document.getElementById("registerAccount");
       if (element) {
         element.scrollIntoView({ behavior: "smooth" });
       }
     } else {
-      setFormRegister(true);
+      setFormRegisterClass(true);
     }
   };
   useEffect(() => {
@@ -50,8 +52,6 @@ export default function RegisterClass() {
         console.log(error);
       });
   }, []);
-
-  // console.log(courses === "" ? "khong co gi" : pathCourse + courses[0].id);
   console.log(courses);
   return (
     <div className="register-class">
@@ -78,43 +78,13 @@ export default function RegisterClass() {
           </div>
         </Grid>
         {userId === undefined ? (
-          <Grid item md={6} id = "register">
-            <ul className="customer-formRegister">
-              <li>
-                <InputCus
-                  className="customer-input"
-                  placeholder="Họ và tên"
-                  inputProps={ariaLabel}
-                />
-              </li>
-              <li>
-                <InputCus
-                  className="customer-input"
-                  placeholder="Số điện thoại"
-                  inputProps={ariaLabel}
-                />
-              </li>
-              <li>
-                <InputCus
-                  className="customer-input"
-                  placeholder="Email"
-                  inputProps={ariaLabel}
-                />
-              </li>
-              <li>
-                <InputCus
-                  className="customer-input"
-                  placeholder="Thành Phố"
-                  inputProps={ariaLabel}
-                />
-              </li>
-              <li>
-                <Button variant="contained">Register</Button>
-              </li>
-            </ul>
+          <Grid item md={6} id="registerAccount">
+            <RegisterAccountCustomer />
           </Grid>
         ) : (
-          ""
+          <Grid item md={6} id="registerAccount">
+            <RegisClasForm/>
+          </Grid>
         )}
       </Grid>
       <div className="classList">
@@ -180,7 +150,9 @@ export default function RegisterClass() {
                         <Button
                           variant="contained"
                           size="small"
-                          onClick={() => handlerRegisterClassFormSublmit(coursesDetail.id)}
+                          onClick={() =>
+                            handlerRegisterClassFormSublmit(coursesDetail.id)
+                          }
                         >
                           Register
                         </Button>

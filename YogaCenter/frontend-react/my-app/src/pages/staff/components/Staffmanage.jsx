@@ -256,7 +256,6 @@ export default function Staffmanage() {
    `;
     return (
         <div className='Manage-class'>
-
             <div className='class-post' >
                 <h1 className='staff-title'>Class Management </h1>
                 <div className='staff-search-class'>

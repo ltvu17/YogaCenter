@@ -22,12 +22,15 @@ export default function ProfileCustomer() {
   const [profileTitle, setProfileTitle] = useState("Profile");
   const [cookies] = useCookies();
   const userId = cookies.userId;
-  console.log(userId);
   const [avatar, setAvatar] = useState(null);
-  const [urlImage, setUrlImage] = useState(`../../assets/images/userImage/${userId}.jpg`)
+  const [urlImage, setUrlImage] = useState(
+    `../../assets/images/userImage/${userId}.jpg`
+  );
   const [oldCustomer, setOldCustomer] = useState({});
   const [newCustomer, setNewCustomer] = useState({});
   const [validPhoneNumber, setValidPhoneNumber] = useState(true);
+  const [message, setMessage] = useState("");
+  const [oldPassword, setOldPassword] = useState();
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
     currentPassword: "",
@@ -35,7 +38,7 @@ export default function ProfileCustomer() {
     confirmNewPassword: "",
   });
   let profileCustomerAPI = URL_API + `Customer/${userId}`;
-
+  let checkCurrentPasswordAPI = URL_API + `User/${userId}`;
   useEffect(() => {
     axios
       .get(profileCustomerAPI)
@@ -47,6 +50,18 @@ export default function ProfileCustomer() {
         console.log(error);
       });
   }, [userId]);
+  useEffect(() => {
+    axios
+      .get(checkCurrentPasswordAPI)
+      .then((res) => {
+        setOldPassword(res.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, [userId]);
+  console.log(oldPassword);
+  console.log(formData.newPassword);
   // console.log(newCustomer);
   // console.log(oldCustomer);
 
@@ -56,6 +71,7 @@ export default function ProfileCustomer() {
     setEditing(true);
     setChangePassword(false);
     setProfileTitle("Edit");
+    setMessage("");
   };
   const handleChangeAvatar = (e) => {
     // console.log(e.target.files[0].name);
@@ -74,19 +90,22 @@ export default function ProfileCustomer() {
           : e.target.value,
     });
   };
+
   const handlerCancel = (value) => {
     if (value === "edit") {
       setEditing(false);
       setProfileTitle("Profile");
     }
     if (value === "password") {
+      setUpdateAvatar(false);
       setChangePassword(false);
       setProfileTitle("Profile");
     }
-    if(value === "avatar"){
+    if (value === "avatar") {
       setUpdateAvatar(false);
       setProfileTitle("Profile");
     }
+    setMessage("");
   };
   const handleSubmitAvatar = async (event) => {
     event.preventDefault();
@@ -112,7 +131,7 @@ export default function ProfileCustomer() {
         }
       } catch (error) {
         console.error("An error occurred:", error);
-        console.log("sai ròi")
+        console.log("sai ròi");
       }
     }
   };
@@ -135,50 +154,54 @@ export default function ProfileCustomer() {
       setValidPhoneNumber(false);
       return;
     }
+
+    setMessage("");
   };
 
   const handlePasswordChange = () => {
     setEditing(false);
     setChangePassword(true);
     setProfileTitle("Change Password");
+
+    setMessage("");
   };
 
-  const handlerUpdatePassword = (e) => {
+  const handlerSubmitChangePassword = (e) => {
     e.preventDefault();
-    setEditing(false);
-    setChangePassword(false);
-    setProfileTitle("Profile");
-    // if (formData.newPassword !== formData.confirmNewPassword) {
-    //   console.log("Mật khẩu mới không khớp!");
-    //   return;
-    // }
-
-    // axios
-    // .post(CHECK_CURRENT_PASSWORD_API, {
-    //   userId: userId,
-    //   currentPassword: currentPassword,
-    // })
-    // .then((res) => {
-    //   axios
-    //     .put(profileCustomerAPI, {
-    //       newPassword: newPassword,
-    //     })
-    //     .then((res) => {
-    //       console.log("Mật khẩu đã được cập nhật thành công!");
-    //     })
-    //     .catch((error) => {
-    //       console.log("Có lỗi xảy ra khi cập nhật mật khẩu:", error);
-    //     });
-    // })
-    // .catch((error) => {
-    //   console.log("Mật khẩu hiện tại không chính xác:", error);
-    // });
+    if (formData.newPassword !== formData.confirmNewPassword) {
+      setMessage("new password and confirm password are not the same");
+      return;
+    }
+    if (formData.currentPassword !== oldPassword.userPasswork) {
+      setMessage("Password Wrong");
+      console.log("nhap password sai roi");
+      return;
+    }
+    axios
+      .put(checkCurrentPasswordAPI, {
+        userName: oldPassword.userName,
+        userPasswork: formData.newPassword,
+        status: 1,
+      })
+      .then((res) => {
+        setMessage("Update password success");
+        setEditing(false);
+        setChangePassword(false);
+        setProfileTitle("Profile");
+      })
+      .catch((error) => {
+        setMessage(
+          "Something wrong. You can send a message to the center for support"
+        );
+      });
   };
   const handlerAvatar = (e) => {
     setUpdateAvatar(true);
     setEditing(false);
     setChangePassword(false);
     setProfileTitle("Update Avatar");
+
+    setMessage("");
     console.log(e.target.value);
   };
   const handleChangeOfPassword = (e) => {
@@ -199,6 +222,9 @@ export default function ProfileCustomer() {
             <KeyboardDoubleArrowRightIcon />
             {profileTitle}
           </Typography>
+          <font>
+            <div>{message}</div>
+          </font>
         </div>
         <Grid container>
           <Grid
@@ -215,7 +241,7 @@ export default function ProfileCustomer() {
               component="img"
               alt="green iguana"
               height="65%"
-              image=  {urlImage}
+              image={urlImage}
               sx={{ marginBottom: "20px" }}
             />
             <CardActions className="changeProfile">
@@ -273,10 +299,9 @@ export default function ProfileCustomer() {
                   <label htmlFor="confirmNewpassword">
                     Confirm new password
                   </label>
-                  <TextField
-                      className="inputPassword-profile"
+                  <TextChangePassword
                     id="confirmNewpassword"
-                    name="confirmNewpassword"
+                    name="confirmNewPassword"
                     type="password"
                     value={formData.confirmNewPassword}
                     onChange={handleChangeOfPassword}
@@ -293,7 +318,7 @@ export default function ProfileCustomer() {
                   <Button
                     className="button-save"
                     variant="contained"
-                    onClick={handlerUpdatePassword}
+                    onClick={handlerSubmitChangePassword}
                   >
                     Save
                   </Button>

@@ -33,6 +33,16 @@ namespace YogaCenter.Controllers
             }
             return Ok(invoice);
         }
+        [HttpGet("GetAllStudent")]
+        public async Task<IActionResult> GetAllStudent()
+        {
+            var students = await _invoiceRepository.GetAllStudents();
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            return Ok(students);
+        }
         [HttpGet("course/{courseId}")]
         public async Task<IActionResult> GetLessoByCourseId(Guid courseId)
         {

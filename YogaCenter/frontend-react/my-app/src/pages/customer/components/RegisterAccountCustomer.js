@@ -5,16 +5,27 @@ import { Input, TextField } from "@mui/material";
 import { styled } from "@mui/system";
 import { useCookies } from "react-cookie";
 import axios from "axios";
+import { URL_API, notification } from "../../../api/ConstDefine";
+import {
+  guestNotification,
+  staffNotification,
+} from "../../../service/IdPublic/IdPublic";
+import uuidv4 from "../../../service/IdPublic/IdPublic";
 import { Link } from "react-router-dom";
 import Box from "@mui/material/Box";
 import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
+import { TramOutlined } from "@mui/icons-material";
 
 const ariaLabel = { "aria-label": "description" };
 
 export default function RegisterAccountCustomer() {
+  //---------------------------------------API------------------------------------------
+  let notificationAPI = URL_API + `Notification`;
+  let userNotificationAPI = URL_API + `UserNotification`;
+
   //---------------------------------------Stype------------------------------------------
   const InputCus = styled(Input)`
     &:after {
@@ -23,12 +34,14 @@ export default function RegisterAccountCustomer() {
   `;
 
   //---------------------------------------Data------------------------------------------
-
+  const [noteId] = useState(uuidv4());
   const [customerEmail, setCustomerEmail] = useState("");
   const [customerName, setCustomerName] = useState("");
   const [customerPhone, setCustomerPhone] = useState("");
   const [customerGender, setCustomerGender] = useState("");
   const [customerAddress, setCustomerAddress] = useState("");
+  const [phoneEvent, setPhoneEvent] = useState(false);
+  const [registerEven, setRegisterEvent] = useState(false);
 
   //---------------------------------------handle-------------------------------------------
   const handleEmailChange = (event) => {
@@ -47,10 +60,66 @@ export default function RegisterAccountCustomer() {
   const handleAddressChange = (event) => {
     setCustomerAddress(event.target.value);
   };
-  const handlerRegisterSubmit = (event) => {};
+  const handlerRegisterSubmit = async (event) => {
+    event.preventDefault();
+    if (customerPhone.length === 10) {
+      setPhoneEvent(false);
+      await axios
+        .post(notificationAPI, {
+          id: noteId,
+          title: "Customer Register",
+          detail: `${customerEmail}/n${customerName
+            .trim()
+            .replace(/\s+/g, " ")
+            .toLowerCase()
+            .replace(/\b\w/g, (match) =>
+              match.toUpperCase()
+            )}/n${customerPhone.slice(1)}/n${customerGender}/n${customerAddress}/n`,
+          status: "1",
+        })
+        .then((res) => {
+          console.log("succes create notification");
+        })
+        .catch((error) => {
+          console.log(noteId);
+          console.log(error);
+        });
+      await axios
+        .post(
+          userNotificationAPI,
+          {},
+          {
+            headers: {
+              senderId: guestNotification,
+              receiverId: staffNotification,
+              noteId: noteId,
+            },
+          }
+        )
+        .then((res) => {
+          console.log(noteId);
+          console.log("succes create userNotification");
+          setCustomerEmail('');
+          setCustomerName('');
+          setCustomerPhone('');
+          setCustomerGender('');
+          setCustomerAddress('');
+          setRegisterEvent(true);
+        })
+        .catch((error) => {
+          console.log(noteId);
+          console.log(error);
+        });
+    }else{
+      setPhoneEvent(true);
+    }
+  };
+
   return (
     <div>
+      <form onSubmit={handlerRegisterSubmit}>
         <ul className="customer-formRegister">
+        {registerEven ? (<p>Register succes: Follow email and we will send password for you late</p>) : ("")}
           <li>
             <TextField
               className="customer-input"
@@ -73,6 +142,7 @@ export default function RegisterAccountCustomer() {
               onChange={handleNameChange}
             />
           </li>
+          {phoneEvent ? (<p>Phone number wrong format</p>) : ("")}
           <li>
             <TextField
               className="customer-input"
@@ -107,11 +177,12 @@ export default function RegisterAccountCustomer() {
             />
           </li>
           <li>
-            <Button variant="contained" onSubmit={handlerRegisterSubmit}>
+            <Button variant="contained" type="submit">
               Register
             </Button>
           </li>
         </ul>
+      </form>
     </div>
   );
 }

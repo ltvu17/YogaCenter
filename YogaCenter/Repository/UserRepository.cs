@@ -68,5 +68,11 @@ namespace YogaCenter.Repository
             _context.Remove(userDelete);
             return await Save();
         }
+
+        public async Task<bool> ChangeStatusUser(User user)
+        {
+            _context.Update(user);
+            return await Save();
+        }
     }
 }
