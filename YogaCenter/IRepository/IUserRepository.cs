@@ -10,6 +10,7 @@ namespace YogaCenter.IRepository
         public Task<User> GetUserById(Guid id);
         public Task<User> GetUserByName(string userName);
         public Task<bool> CreateUser(User userCreate);
+        public Task<bool> ChangeStatusUser(User user);
         public Task<bool> UpdateUser(User userUpdate);
         public Task<bool> UserExists(string userName);
         public Task<bool> UserExistsById(Guid userName);

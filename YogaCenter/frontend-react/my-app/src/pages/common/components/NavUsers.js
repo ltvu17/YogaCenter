@@ -1,26 +1,25 @@
+import * as React from "react";
 
-import * as React from 'react';
+import Box from "@mui/material/Box";
 
-import Box from '@mui/material/Box';
+import IconButton from "@mui/material/IconButton";
+import Typography from "@mui/material/Typography";
+import Menu from "@mui/material/Menu";
 
-import IconButton from '@mui/material/IconButton';
-import Typography from '@mui/material/Typography';
-import Menu from '@mui/material/Menu';
+import Avatar from "@mui/material/Avatar";
 
-import Avatar from '@mui/material/Avatar';
-
-import MenuItem from '@mui/material/MenuItem';
-
-import '../css/navUsers.css'
+import MenuItem from "@mui/material/MenuItem";
+import "../css/navUsers.css";
 import { Link } from "react-router-dom";
-import { useNavigate } from 'react-router-dom';
-import { useCookies } from 'react-cookie'
-import axios from 'axios'
-const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
+import { useNavigate } from "react-router-dom";
+import { useCookies } from "react-cookie";
+import axios from "axios";
+const settings = ["Profile", "Account", "Dashboard", "Logout"];
 
-function NavUsers(){
+function NavUsers() {
   const [anchorElUser, setAnchorElUser] = React.useState(null);
-  const[cookie,setCookie]=useCookies();
+  const [cookie, setCookie] = useCookies();
+  const userId = cookie.userId;
   var navigate = useNavigate();
   axios.defaults.withCredentials = true;
   const handleOpenUserMenu = (event) => {
@@ -38,9 +37,7 @@ function NavUsers(){
   };
   const isCustomer = true;
 
-
   return (
-
     <nav className="navUsers">
       <Link to="/" className="logoUsers">
         <h1>Yoga FPTU Center</h1>
@@ -62,7 +59,13 @@ function NavUsers(){
           {" "}
           <Box sx={{ flexGrow: 0 }}>
             <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-              <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+              <Avatar
+                alt="Remy Sharp"
+                src={"/assets/images/userImage/" + userId + ".jpg"}
+                onError={(e) => {
+                  e.target.src = "/assets/images/userImage/avatarDefault.jpg";
+                }}
+              />
             </IconButton>
             <Menu
               className="menu-popover"
@@ -89,8 +92,6 @@ function NavUsers(){
                   )}
                 </MenuItem>
               ))}
-
-
             </Menu>
           </Box>
         </li>

@@ -4,7 +4,7 @@
     padding-bottom: 30px;
     padding-right: 5%;
     background: linear-gradient(45deg, #ffffff, #98969680);
-    height: 100vh;
+    height: auto;
 }
 .staff-title {
     color: #000000e0;
@@ -82,38 +82,15 @@ input::-webkit-inner-spin-button {
   
   color: red;
 }
+
+
+
 .text-addClass .MuiInputBase-input{
  height: 2.2em;
  padding: 0 14px;
+
 }
-.compose-Notification {
-  position: absolute;
-}
-.compose-blur{
-  backdrop-filter: blur(10px);
-  padding: 350px 660px;
-  display: inline;
-  position: absolute;
-}
-.compose-detail{
-  background-color:white;
-  color: black;
-  padding: 100px 100px;
-  margin-top: 10px;
-  margin-left: 700px;
-  position: absolute;
-  display: inline;
-  border-radius: 5px;
-  border: solid 1px black;
-  
-}
-/* .compose-Notification div:first-child{
-  backdrop-filter: blur(10px);
-  color: black;
-  padding: 751% 100%;
-  margin-top: 10px;
-  display: inline;
-} */
+
 
 
 

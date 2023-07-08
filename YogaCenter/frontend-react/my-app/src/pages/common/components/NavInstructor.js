@@ -48,10 +48,10 @@ function NavUsers(){
       </Link>
       <ul className="nav">
         <li>
-          <Link to="/home">Home</Link>
+          <Link to="/class-instructor">My Class</Link>
         </li>
         <li>
-          <Link to="#">Blog</Link>
+          <Link to="/schedule-instructor">Schedule</Link>
         </li>
         <li>
           <Link to={isCustomer ? "/home-customer" : "/home-instructor"}>

@@ -175,9 +175,11 @@ export default function Staffmanage() {
         let value = split[0];
         return value;
     }
-    const submitAdd = () => {
+    const submitAdd = (e) => {
+        
         if (inputField.courseId === '0') {
             setMessage(message => 'Chose course!');
+            e.preventDefault();
             return;
         }
         if (inputField.className === '') {
@@ -254,12 +256,9 @@ export default function Staffmanage() {
    `;
     return (
         <div className='Manage-class'>
-
             <div className='class-post' >
                 <h1 className='staff-title'>Class Management </h1>
-
-                <form>
-                    <div className='staff-search-class'>
+                <div className='staff-search-class'>
                         <TextField className='input-search' name='search' id="outlined-basic" label="Search" variant="outlined" onChange={searchHanlde}></TextField>
                         <FormControl sx={{ width: '120px' }} className='form-choice-search' >
                             <InputLabel id="demo-simple-select-label">Search By</InputLabel>
@@ -279,6 +278,8 @@ export default function Staffmanage() {
                         </FormControl>
                         <CustomButton sx={{ borderRadius: '20px', height: '50px' }} className='staff-button-search' variant="contained" onClick={searchSubmit}>Search</CustomButton>
                     </div>
+                <form>
+    
                     <table className='table-add-class'>
                         <thead>
                             <tr>
@@ -334,7 +335,7 @@ export default function Staffmanage() {
                             {Array.from(Array(count)).map(((index, c) => (
                                 <tr className='staff-add-newClass' key={c}>
                                     <td><IconButton className='icon-delete' onClick={MinusHandler}><DeleteForeverIcon /></IconButton></td>
-                                    <td><TextField  className='text-addClass' defaultValue="Class Name" variant='outlined'  name='className'  required onChange={ChangeHandler}
+                                    <td><TextField  className='text-addClass' placeholder='Class Name' variant='outlined'  name='className'  required onChange={ChangeHandler}
                                         sx={{ width:'8em', backgroundColor: 'white', borderRadius: '5px' }}></TextField></td>
                                     <td><input style={{height:'2.5em'}} type='date' name='classStartDate' defaultValue={date} required onChange={ChangeHandler} /></td>
                                     <td><input style={{height:'2.5em'}}  height="2.5em" type='date' name='classEndDate' defaultValue={date} min={inputField.classStartDate} required onChange={ChangeHandler} /></td>

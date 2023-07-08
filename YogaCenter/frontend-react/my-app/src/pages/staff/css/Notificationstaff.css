@@ -1,0 +1,94 @@
+.staff-notification{
+    padding-left: 15%;
+    padding-top: 30px;
+    padding-bottom: 30px;
+    padding-right: 5%;
+    background: linear-gradient(45deg, #ffffff, #98969680);
+    height: 100vh;
+}
+
+  .compose-detail{
+    display: flex;
+    flex-direction: column;
+    gap: 20;
+    background-color: white;
+    color: black;
+    padding: 50px 50px;
+    bottom: 0;
+    right: 1%;
+    position: absolute;
+    border-radius: 5px;
+    border: solid 1px black;
+    animation-name: animation;
+    animation-duration: .6s;
+  }
+  @keyframes animation {
+    0%{
+      opacity: 0;
+      transform:  rotate(30deg) translateX(10px)  translatey(40px)  translateX(10px);
+    }
+    100%{
+     transform:  rotate(30deg) translateX(10px)  translatey(40px)  translateX(10px);
+    }
+ }
+ .close-noti{
+  position: absolute;
+  top: 0;
+  right: 0;
+  margin: 3%;
+ }
+ .notification{
+  display: flex;
+    flex-direction: column;
+ }
+ .staff-compose{
+  float: left;
+  margin-top: 20px;
+ }
+ .staff-compose .MuiButton-startIcon{
+  color: black;
+ }
+ .staff-compose span{
+  color: black;
+  text-transform: none;
+ }
+ .inbox-noti{
+  margin-top: 20px;
+ }
+.sent-noti{
+  margin-top: 20px;
+}
+
+.staff-inbox,.staff-sent{
+  position: absolute;
+  width: 100%;
+  top: 0;
+}
+.table-staff-noti {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.table-staff-noti th,
+.table-staff-noti td {
+  padding: 10px;
+  border: 1px solid #ccc;
+}
+
+.table-staff-noti th {
+  background-color: #f2f2f2;
+  font-weight: bold;
+}
+
+.table-staff-noti td p {
+  margin: 0;
+}
+
+.table-staff-noti td textarea {
+  width: 100%;
+  height: 100%;
+  border: none;
+  resize: none;
+  background-color: transparent;
+  overflow: auto;
+}

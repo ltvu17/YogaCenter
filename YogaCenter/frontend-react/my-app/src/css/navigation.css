@@ -94,9 +94,9 @@
   }
   .menu:hover .drop-menu{
     list-style-type: none;
-    background-color: #dd0c60;
+  
     display: list-item;
-    position: absolute;
+   
     margin-left: 10px;
     border-radius: 5px;
   }

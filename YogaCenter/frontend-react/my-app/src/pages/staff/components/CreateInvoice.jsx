@@ -9,24 +9,15 @@ import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import axios from 'axios';
 import { useEffect } from 'react';
-import Dialog from '@mui/material/Dialog';
-import DialogActions from '@mui/material/DialogActions';
-import DialogContent from '@mui/material/DialogContent';
-import DialogContentText from '@mui/material/DialogContentText';
-import DialogTitle from '@mui/material/DialogTitle';
 
+import '../css/CreateInvoice.css'
 var curr = new Date();
 curr.setDate(curr.getDate());
 var date = curr.toISOString().substring(0,10);
 export default function CreateInvoice() {
-        const Div = styled('div')(({ theme }) => ({
-        ...theme.typography.button,
-        backgroundColor: 'black',
-        padding: theme.spacing(5),  
-        color:'white',
-        }));
+     
         const [message,setMessage] = useState('');
-        const [open, setOpen] = useState(false);
+
         const [status,setStatus] = useState(false);
         const [idUser, setId] = useState(uuidv4());
         const [customers,setCustomer]= useState();
@@ -67,16 +58,21 @@ export default function CreateInvoice() {
             return {...inputField, [e.target.name] : e.target.value }
         })    
         };
-        const OpenHandler = ()=>{
-            setOpen(true);     
-        }
-        const handleClose = () => {
-            setOpen(false);
-        };
+        console.log(inputField);
+     
 
         const navigate = useNavigate();
         ////Submit
         async  function  SubmitHandle(){
+            if (!inputField.customerId) {
+                setMessage("Customer ID is empty!");
+                return;
+            }
+            if(!inputField.customerId){
+                setMessage("Course ID is empty!");
+                return;
+            }
+            setMessage('');
             axios.post(postInvoice,{
                 note : inputField.note,
                 dateRequest : inputField.dateRequest,
@@ -93,9 +89,8 @@ export default function CreateInvoice() {
         
         }
     return (
-        <div>
-        <div style={{textAlign :'center'}}>
-        <Div>{"Create Invoice"}</Div>
+        <div className='create-invoice'>
+             <h1 className='staff-title'>Create Invoice</h1>
         <form onSubmit={(e)=>SubmitHandle(e)}>
         
             <Box
@@ -112,7 +107,7 @@ export default function CreateInvoice() {
                         select
                         label="Select Customer"
                         defaultValue=''
-                        helperText="Please select gender"
+                     
                         required
             >       
             
@@ -132,7 +127,7 @@ export default function CreateInvoice() {
                         select
                         label="Select Course"
                         defaultValue=''
-                        helperText="Please select gender"
+                       
                         required
             >       
             {courses? courses.map((item) =>(
@@ -150,31 +145,11 @@ export default function CreateInvoice() {
             {message? <p style={{marginLeft:'33%', color:'red', textAlign:'left'}}>{message}</p>            
                 :''}
 
-            <Button variant="contained" onClick={OpenHandler} fullWidth={false}>Submit Invoice</Button>         
+            <Button variant="contained" type="submid">Submit Invoice</Button>         
             </Box>
-            <Dialog
-                        open={open}
-                        onClose={handleClose}
-                        aria-labelledby="alert-dialog-title"
-                        aria-describedby="alert-dialog-description"
-                        >
-                        <DialogTitle id="alert-dialog-title">
-                            {"YogaCenter Management"}
-                        </DialogTitle>
-                    <DialogContent>
-                        <DialogContentText id="alert-dialog-description" >
-                    <p style={{color:'red'}}>Do you want to delete this class ?</p>
-                        </DialogContentText>
-                    </DialogContent>
-                        <DialogActions>
-                        <Button onClick={handleClose}>No</Button>
-                    <Button type='submit' onClick={SubmitHandle}   autoFocus>
-                    Yes
-                </Button>
-                </DialogActions>
-            </Dialog>
+        
             </form>
-        </div>
+      
     </div>
     )
 }

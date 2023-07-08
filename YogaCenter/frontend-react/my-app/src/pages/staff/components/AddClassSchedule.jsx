@@ -27,7 +27,13 @@ export default function AddClassSchedule() {
     const [lessons,setLessons] = useState();
     console.log(location)
     const navigate = useNavigate();
-    const day = `${location.state.year}-0${location.state.month}-${location.state.date}`;
+    var day ;
+    if(parseInt(location.state.month)<10){
+        day = `${location.state.year}-0${location.state.month}-${location.state.date}`;
+    }else{
+        day = `${location.state.year}-${location.state.month}-${location.state.date}`;
+    }
+    
     const [classes,getClass] = useState();
     const [rooms,getRoom] = useState();
     const [shifts,getShift] = useState();
@@ -73,6 +79,7 @@ export default function AddClassSchedule() {
         }).then(r=> console.log(r)).catch(err=>console.log(err));
         navigate(0);
     }
+    console.log(day)
     ///Handler
     const AddHandler = ()=>{
         if(count < 1)
