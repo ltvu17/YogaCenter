@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Card from '@mui/material/Card';
 
 import CardContent from '@mui/material/CardContent';
@@ -8,10 +8,18 @@ import Typography from '@mui/material/Typography';
 import { Grid } from "@mui/material";
 import Pagination from "@mui/material/Pagination";
 import { Link } from "react-router-dom";
+import Bloges from "../data/ListOfBlog";
 import '../css/blog.css'
-import { bloges } from "../data/ListOfBlog";
 export default function Blog(){
     const [currentPage, setCurrentPage] = useState(1);
+    const [bloges,setBloges] = useState([]);
+    useEffect(()=>{
+        async function getBloges() {
+            setBloges(await Bloges());
+        }
+        getBloges();
+    },[])
+    console.log(bloges);
     const itemsPerPage = 9;
     const pageCount = Math.ceil(bloges.length / itemsPerPage);
     const indexOfLastItem = currentPage * itemsPerPage;
@@ -20,7 +28,13 @@ export default function Blog(){
     const handleChangePage = (event, newPage) => {
         setCurrentPage(newPage);
       };
+      function filterDay(day){
+        const split = day.split("T");
+        let value = split[0];
+        return value;
+    }
     return(
+        // <div></div>
         <Grid container className="blog-container">
             <Grid item md={12} className="blog-header">
                 <img src='/assets/images/background-blog.jpg' />
@@ -31,7 +45,7 @@ export default function Blog(){
             </Grid>
             <Grid container item md={12} sx={{marginTop:'50px',paddingLeft:'10%',paddingRight:'10%'}} className="blog-content">
             {currentItems.map(blog => (
-                    <Grid key={blog.id} item md={4} sx={{ padding: '20px' }}>
+                    <Grid key={blog.node.slug} item md={4} sx={{ padding: '20px' }}>
                         <Card className="card-blog">
                             <Link to='/'>
                             <div className="image-container">
@@ -41,7 +55,7 @@ export default function Blog(){
                                     height:'250px',
                                     transition: 'transform 0.3s',
                                 }}
-                                image={blog.img}
+                                image={blog.node.image.url}
                                 className="zoom-image"
                                 />
                             </div>
@@ -53,7 +67,7 @@ export default function Blog(){
                                 color: '#0000007a',
                                 margin:'10px 0'
                                 }}>
-                                {blog.type}
+                                {blog.node.category}
                             </Typography>
                             <Link to='/'>
                             <Typography variant="h5" 
@@ -68,7 +82,7 @@ export default function Blog(){
                                     fontSize:'22px',
                                     margin: '0'
                                 }}>
-                                {blog.name}
+                                {blog.node.title}
                             </Typography>
                             </Link>
                             <Typography 
@@ -79,7 +93,7 @@ export default function Blog(){
                                 marginBottom:'10px',
                                 marginTop:'10px',
                             }}>
-                                {blog.time}
+                                {filterDay(blog.node.createdAt)}
                             </Typography>
                             <Typography variant="h6" 
                                 sx={{
@@ -92,7 +106,7 @@ export default function Blog(){
                                 color: 'black',
                                 fontWeight:'500'
                                 }}>
-                                {blog.describe}
+                                {blog.node.description}
                             </Typography>
                             </CardContent>
                     

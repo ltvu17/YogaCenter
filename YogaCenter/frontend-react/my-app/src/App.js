@@ -41,8 +41,14 @@ import Dashboard from './pages/admin/components/Dashboard';
 import HomeStaff from './pages/staff/components/HomeStaff';
 
 import AccountManagement from './pages/manager/AccountManagement';
+import ProtectRouteCustomer from './service/protectRoute/ProtectRouteCustomer';
+import ProtectRouteInstructor from './service/protectRoute/ProtectRouteInstructor';
+import ProtectRouteStaff from './service/protectRoute/ProtectRouteStaff';
+import ProtectRouteAdmin from './service/protectRoute/ProtectRouteAdmin';
 
 import Blog from './components/Blog';
+import ProtectRouteManager from './service/protectRoute/ProtectRouteManager';
+// import Bloges from './data/ListOfBlog'
 
 function App() {
   try {
@@ -61,38 +67,38 @@ function App() {
         <Route path="/schedule" element={<Schedule />} />
         <Route path="/blog" element={<Blog />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/registerClass" element={<RegisterClass />} />
+        <Route path="/registerClass" element={<RegisterClass/>} />
         <Route path="/schedule" element={<Schedule />} />
-        <Route path="/contact" element={<Contact/>} />
-
+        <Route path="/contact" element={<ProtectRouteCustomer user={roleApp} children={<Contact/>}></ProtectRouteCustomer>} />
+        {/* <Route path="/test" element={<Bloges/>} /> */}
         {/* Customer */}
-        <Route path='/customer-class' element={<ClassCustomer/>}/>
-        <Route path='/home-customer' element={<HomeCustomer/>} />
-        <Route path='/profile-customer' element={<ProfileCustomer/>} />
-        <Route path='/customer-schedule' element={<ScheduleCustomer/>}/>
+        <Route path='/customer-class' element={<ProtectRouteCustomer user={roleApp} children={<ClassCustomer/>}></ProtectRouteCustomer>}/>
+        <Route path='/home-customer' element={<ProtectRouteCustomer user={roleApp} children={<HomeCustomer/>}></ProtectRouteCustomer>} />
+        <Route path='/profile-customer' element={<ProtectRouteCustomer user={roleApp} children={<ProfileCustomer/>}></ProtectRouteCustomer>} />
+        <Route path='/customer-schedule' element={<ProtectRouteCustomer user={roleApp} children={<ScheduleCustomer/>}></ProtectRouteCustomer>}/>
 
         {/* Instructor */}
-        <Route path='home-instructor' element={<HomeInstructor/>} />
-        <Route path='/profile-instructor' element={<ProfileInstructor/>} />
-        <Route path='/class-instructor' element={<ClassInstructor/>}/>
-        <Route path='/schedule-instructor' element={<ScheduleInstructor/>}/>
+        <Route path='home-instructor' element={<ProtectRouteInstructor user={roleApp} children={<HomeInstructor/>}></ProtectRouteInstructor>} />
+        <Route path='/profile-instructor' element={<ProtectRouteInstructor user={roleApp} children={<ProfileInstructor/>}></ProtectRouteInstructor>} />
+        <Route path='/class-instructor' element={<ProtectRouteInstructor user={roleApp} children={<ClassInstructor/>}></ProtectRouteInstructor>}/>
+        <Route path='/schedule-instructor' element={<ProtectRouteInstructor user={roleApp} children={<ScheduleInstructor/>}></ProtectRouteInstructor>}/>
 
         {/* <Route path='/StaffManager' element={<StaffManager/>} /> */}
-        <Route path='/homestaff' element={<HomeStaff/>} />
-        <Route path='/staffmanage' element={<Staffmanage/>} />
-        <Route path='/studentmanage' element={<StudentManage/>}/>
-        <Route path='/schedulemanage' element={<ScheduleManage/>}/>
-        <Route path='/addclassschedule' element={<AddClassSchedule/>}/>
-        <Route path='/coursemanage' element={<CourseManage/>}/>
-        <Route path='/eventmanage' element={<EventManage/>}/>
-        <Route path='/staff-registerAccount' element={<RegisterAccount/>}/>
-        <Route path='/register-teacher' element={<RegisterTeacher/>}/>
-        <Route path='/create-invoice' element={<CreateInvoice/>}/>
-        <Route path='/staff-notification' element={<NotificationStaff/>}/>
+        <Route path='/homestaff' element={<ProtectRouteStaff user={roleApp} children={<HomeStaff/>}></ProtectRouteStaff>} />
+        <Route path='/staffmanage' element={<ProtectRouteStaff user={roleApp} children={<Staffmanage/>}></ProtectRouteStaff>} />
+        <Route path='/studentmanage' element={<ProtectRouteStaff user={roleApp} children={<StudentManage/>}></ProtectRouteStaff>}/>
+        <Route path='/schedulemanage' element={<ProtectRouteStaff user={roleApp} children={<ScheduleManage/>}></ProtectRouteStaff>}/>
+        <Route path='/addclassschedule' element={<ProtectRouteStaff user={roleApp} children={<AddClassSchedule/>}></ProtectRouteStaff>}/>
+        <Route path='/coursemanage' element={<ProtectRouteManager user={roleApp} children={<CourseManage/>}></ProtectRouteManager>}/>
+        <Route path='/eventmanage' element={<ProtectRouteManager user={roleApp} children={<EventManage/>}></ProtectRouteManager>}/>
+        <Route path='/staff-registerAccount' element={<ProtectRouteStaff user={roleApp} children={<RegisterAccount/>}></ProtectRouteStaff>}/>
+        <Route path='/register-teacher' element={<ProtectRouteManager user={roleApp} children={<RegisterTeacher/>}></ProtectRouteManager>}/>
+        <Route path='/create-invoice' element={<ProtectRouteStaff user={roleApp} children={<CreateInvoice/>}></ProtectRouteStaff>}/>
+        <Route path='/staff-notification' element={<ProtectRouteStaff user={roleApp} children={<NotificationStaff/>}></ProtectRouteStaff>}/>
 
-        <Route path='/account-manage' element={<AccountManagement/>}/>
+        <Route path='/account-manage' element={<ProtectRouteAdmin user={roleApp} children={<AccountManagement/>}></ProtectRouteAdmin>}/>
         {/* ADMIN */}
-        <Route path='/dashboard' element={<Dashboard/>} />
+        <Route path='/dashboard' element={<ProtectRouteAdmin user={roleApp} children={<Dashboard/>}></ProtectRouteAdmin>} />
         {/* <Route path='/const' element={<ConstDefine/>}/> */}
         {/* <Route path='/updateClass:id' element={<UpdateClass/>} /> */}
       </Routes>
