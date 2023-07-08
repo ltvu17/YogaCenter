@@ -71,6 +71,7 @@ function App() {
         <Route path="/registerClass" element={<RegisterClass/>} />
         <Route path="/schedule" element={<Schedule />} />
         <Route path="/contact" element={<ProtectRouteCustomer user={roleApp} children={<Contact/>}></ProtectRouteCustomer>} />
+        <Route path='/forgot-password' element={<ForgotPassword/>} />
         {/* <Route path="/test" element={<Bloges/>} /> */}
         {/* Customer */}
         <Route path='/customer-class' element={<ProtectRouteCustomer user={roleApp} children={<ClassCustomer/>}></ProtectRouteCustomer>}/>
