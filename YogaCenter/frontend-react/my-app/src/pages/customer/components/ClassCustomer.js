@@ -50,6 +50,7 @@ function ClassCustomer() {
           <Typography variant="h2">My Class</Typography>
         </div>
         <Grid container spacing={10}>
+
           {myClass 
             ? myClass.map((classs) => (
                 <Grid
@@ -57,6 +58,7 @@ function ClassCustomer() {
                   xs={12}
                   md={6}
                   key={classs.class.id}
+
                   sx={{
                     width: "20%",
                     borderRadius: "10px",
@@ -132,6 +134,7 @@ function ClassCustomer() {
               ))
             : ""}
         </Grid>
+
       </div>
     </div>
   );

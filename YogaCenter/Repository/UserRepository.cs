@@ -24,7 +24,7 @@ namespace YogaCenter.Repository
 
         public async Task<ICollection<User>> GetAllUsers()
         {
-            return await _context.Users.ToListAsync();
+            return await _context.Users.Include(p=>p.Role).OrderByDescending(p=>p.Role.RoleName).ToListAsync();
         }
 
         public async Task<User> GetUserByName(string userName)
@@ -66,6 +66,12 @@ namespace YogaCenter.Repository
         public async Task<bool> DeleteUser(User userDelete)
         {
             _context.Remove(userDelete);
+            return await Save();
+        }
+
+        public async Task<bool> ChangeStatusUser(User user)
+        {
+            _context.Update(user);
             return await Save();
         }
     }

@@ -24,7 +24,8 @@ import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import InputLabel from '@mui/material/InputLabel';
 import styled from '@emotion/styled';
-
+import { Grid} from '@mui/material';
+import Pagination from '@mui/material/Pagination';
 var curr = new Date();
 curr.setDate(curr.getDate() + 1);
 var date = curr.toISOString().substring(0, 10);
@@ -251,12 +252,24 @@ export default function Staffmanage() {
 
   
      &:hover {
-        background-color: #ff353587;
+        background-color:  #f10303;
      }
    `;
+
+    const [currentPage, setCurrentPage] = useState(1);
+    const itemsPerPage = 6;
+     const totalItems = postsClass.length;
+     const totalPages = Math.ceil(totalItems / itemsPerPage);
+     const startIndex = (currentPage - 1) * itemsPerPage;
+     const endIndex = startIndex + itemsPerPage;
+     const displayedPosts = postsClass.slice(startIndex, endIndex);
+   
+     // Handler functions
+     const handlePageChange = (event, page) => {
+       setCurrentPage(page);
+     };
     return (
         <div className='Manage-class'>
-
             <div className='class-post' >
                 <h1 className='staff-title'>Class Management </h1>
                 <div className='staff-search-class'>
@@ -295,9 +308,9 @@ export default function Staffmanage() {
                             </tr>
                         </thead>
                         <tbody>
-                            {postsClass.map(((item, index) => (
+                            {displayedPosts.map(((item, index) => (
                                 <tr key={index}>
-                                    <td>{index + 1}</td>
+                                    <td>{startIndex+index + 1}</td>
                                     <td>{item.className}</td>
                                     <td>{filterDay(item.classStartDate)}</td>
                                     <td>{filterDay(item.classEndDate)}</td>
@@ -361,7 +374,7 @@ export default function Staffmanage() {
 
                                     </td>
                                     <td colSpan={2}><Button variant="contained"  type='submit' onClick={submitAdd}
-                                        sx={{ color: 'white', backgroundColor: '#a41a1a' }}>Add</Button></td>
+                                        sx={{ color: 'white', backgroundColor: '#010f51b8' }}>Add</Button></td>
                                 </tr>
                             )))}
                            
@@ -375,17 +388,25 @@ export default function Staffmanage() {
             
 
                 </form>
-
+                <div style={{ display: 'flex', justifyContent: 'center', marginTop: '1rem' }}>
+          <Pagination
+            count={totalPages}
+            page={currentPage}
+            onChange={handlePageChange}
+            showFirstButton
+            showLastButton
+          />
+        </div>
             </div>
             <div >
                 {idUpdate !== '' ? (
-                    <div className='staff-updateClass'>
-                        <h1 id="update">Update <IconButton color='error' onClick={offUpdateHandler}
-                        ><DeleteForeverIcon /></IconButton></h1>
+                    <Grid container className='staff-updateClass'>
+                    <h1 style={{width:'100%',textAlign:'center',marginTop:'25px'}} id="update">Update <IconButton color='error' onClick={offUpdateHandler}>
+                    <DeleteForeverIcon /></IconButton></h1>
                         <dataContext.Provider value={{ teachers: postsTeacher, courses: postsCoures }}>
                             <UpdateClass id={idUpdate} />
                         </dataContext.Provider>
-                    </div>
+                    </Grid>
                 ) : ''}
             </div>
             <div id="delete">

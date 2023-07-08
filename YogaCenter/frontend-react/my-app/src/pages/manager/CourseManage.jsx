@@ -9,7 +9,7 @@ import UpgradeRoundedIcon from '@mui/icons-material/UpgradeRounded';
 import DeleteForeverOutlinedIcon from '@mui/icons-material/DeleteForeverOutlined';
 import AddCircleOutlineRoundedIcon from '@mui/icons-material/AddCircleOutlineRounded';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
-import { IconButton } from '@mui/material';
+import { Grid, IconButton } from '@mui/material';
 import TextField from '@mui/material/TextField';
 import UpdateCourse from './UpdateCourse';
 import Dialog from '@mui/material/Dialog';
@@ -20,12 +20,13 @@ import DialogTitle from '@mui/material/DialogTitle';
 import { useNavigate } from 'react-router-dom';
 import styled from '@emotion/styled';
 import './css/CourseManage.css'
+import Pagination from '@mui/material/Pagination';
 var curr = new Date();
 curr.setDate(curr.getDate()+1);
 var date = curr.toISOString().substring(0,10);
 export default function CourseManage() {
     const navigate = useNavigate();
-    const [postCourse,setCourse] = useState();
+    const [postCourse,setCourse] = useState([]);
     const [count,setCount] =useState(0);
     const [idDelete,setIdDelete] =useState('');
     const [open, setOpen] = useState(false);
@@ -40,6 +41,7 @@ export default function CourseManage() {
         courseCreateDate : date,
     });
     const [idUpdate,setUpdate] = useState('');
+  
     ////URL_API
     let getCourseAPI = URL_API+'Course';
     let postCourseAPI = URL_API+'Course';
@@ -80,6 +82,9 @@ export default function CourseManage() {
     const handleClose = () => {
         setOpen(false);
     };
+    const handlePageChange = (event, page) => {
+        setCurrentPage(page);
+      };
     ///Function
     function getvalueUpdate(value){
         if(idUpdate === '')
@@ -132,6 +137,14 @@ export default function CourseManage() {
         background-color: #ff353587;
      }
    `;
+     const [currentPage, setCurrentPage] = useState(1);
+     const itemsPerPage = 5;
+      const totalItems = postCourse.length;
+      const totalPages = Math.ceil(totalItems / itemsPerPage);
+      const startIndex = (currentPage - 1) * itemsPerPage;
+      const endIndex = startIndex + itemsPerPage;
+      const displayedPosts = postCourse.slice(startIndex, endIndex);
+  
     return (
     <div className='course-manage'>
     
@@ -154,9 +167,9 @@ export default function CourseManage() {
                 </tr>
             </thead>
             <tbody>
-            {postCourse? postCourse.map(((item, index) =>(
+            {displayedPosts? displayedPosts.map(((item, index) =>(
                         <tr key={index}>
-                        <td>{index + 1}</td>
+                        <td>{startIndex+ index + 1}</td>
                         <td>{item.courseDescription}</td>
                         <td>{item.courseLectureNumber}</td>
                         <td>{item.courseLength}</td>
@@ -179,39 +192,49 @@ export default function CourseManage() {
                         
                         <tr className='staff-add-newClass' key ={c}> 
                         <td><IconButton className='icon-delete' onClick={MinusHandler}><DeleteForeverIcon/></IconButton></td>
-                        <td><TextField  className='text-addClass' variant='outlined'  name='courseDescription' placeholder='Course Name' required onChange={ChangeHandler}
-                    sx={{ width:'8em', backgroundColor: 'white', borderRadius: '5px' }}></TextField></td>
-                        <td><TextField   className='text-addClass' variant='outlined' type='number' InputProps={{ inputProps: { min: 0 } }}  name='courseLectureNumber' placeholder='Lecture Number' required onChange={ChangeHandler}
-                    sx={{ width:'8em', backgroundColor: 'white', borderRadius: '5px'}}></TextField></td>
-                        <td><TextField className='text-addClass' variant='outlined' type='number' InputProps={{ inputProps: { min: 0 } }}  name='courseLength' placeholder='courseLength' required onChange={ChangeHandler}
-                    sx={{ width:'8em', backgroundColor: 'white', borderRadius: '5px'}}></TextField></td>
+                        <td><TextField  className='text-addClass' variant='outlined'  name='courseDescription' placeholder='Name' required onChange={ChangeHandler}
+                    sx={{backgroundColor: 'white', borderRadius: '5px' }}></TextField></td>
+                        <td><TextField   className='text-addClass' variant='outlined' type='number' InputProps={{ inputProps: { min: 0 } }}  name='courseLectureNumber' placeholder='Number' required onChange={ChangeHandler}
+                    sx={{backgroundColor: 'white', borderRadius: '5px'}}></TextField></td>
+                        <td><TextField className='text-addClass' variant='outlined' type='number' InputProps={{ inputProps: { min: 0 } }}  name='courseLength' placeholder='Length' required onChange={ChangeHandler}
+                    sx={{backgroundColor: 'white', borderRadius: '5px'}}></TextField></td>
                         <td><TextField className='text-addClass' variant='outlined' type='number' InputProps={{ inputProps: { min: 0 } }}  name='coursePrice' placeholder='Price' required onChange={ChangeHandler}
-                    sx={{ width:'8em', backgroundColor: 'white', borderRadius: '5px'}}></TextField></td>
+                    sx={{backgroundColor: 'white', borderRadius: '5px'}}></TextField></td>
                         <td><TextField  className='text-addClass' variant='outlined'  name='pre_Requisite' placeholder='pre_Requisite' required onChange={ChangeHandler}
-                    sx={{ width:'8em', backgroundColor: 'white', borderRadius: '5px'}}></TextField></td>
-                        <td><TextField className='text-addClass' variant='outlined'  name='courseDetail' placeholder='Detail' multiline required onChange={ChangeHandler}
-                    sx={{ width:'8em', backgroundColor: 'white', borderRadius: '5px'}}></TextField></td>
+                    sx={{backgroundColor: 'white', borderRadius: '5px'}}></TextField></td>
+                        <td><TextField variant='outlined'  name='courseDetail' placeholder='Detail' multiline required onChange={ChangeHandler}
+                    sx={{backgroundColor: 'white', borderRadius: '5px'}}></TextField></td>
                         <td><input type='date' name='courseCreateDate' defaultValue={date} required onChange={ChangeHandler}/></td>
                         <td colSpan={2}><Button variant='contained' type='submit' onClick={submitAdd}
-                        sx={{padding :1,margin:1,  color: 'white', backgroundColor: '#a41a1a' }}>Add</Button></td> 
+                        sx={{padding :1,margin:1,  color: 'white', backgroundColor: '#010f51b8' }}>Add</Button></td> 
                         </tr>
                         )))}
                     <tr>
                         <td colSpan={10}><CustomButton variant='text' color='success' onClick={AddHandler}
                         startIcon={<AddCircleOutlineRoundedIcon sx={{ fontSize: 30 }}>add_circle</AddCircleOutlineRoundedIcon>}
-                        sx={{padding :1,margin:1, color: 'white', backgroundColor:'rgb(127, 69, 101)'}}>Add New Course</CustomButton></td>
+                        sx={{padding :1,margin:1, color: 'white'}}>Add New Course</CustomButton></td>
                     </tr>
             </tbody>
         </table>
         </form>
+        <div style={{ display: 'flex', justifyContent: 'center', marginTop: '1rem' }}>
+          <Pagination
+            count={totalPages}
+            page={currentPage}
+            onChange={handlePageChange}
+            showFirstButton
+            showLastButton
+          />
+        </div>
         </div>
         <div>
             {idUpdate!== '' ? (  
-            <div>
-            <h1 id="update">Update <IconButton color='error' onClick={offUpdateHandler}
-            ><DeleteForeverIcon/></IconButton></h1>
-               <UpdateCourse id={idUpdate}/>
-            </div>
+            <Grid container  className='Update-Class-staff'>
+                <h1 style={{width:'100%',textAlign:'center',marginTop:'25px'}} id="update">Update <IconButton color='error' onClick={offUpdateHandler}>
+                    
+                <DeleteForeverIcon/></IconButton></h1>
+                <UpdateCourse id={idUpdate}/>
+            </Grid>
              ) :''}
             </div>  
             <div id="delete"> 

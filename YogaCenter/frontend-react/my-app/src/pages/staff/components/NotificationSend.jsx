@@ -5,7 +5,7 @@ import { useState } from 'react'
 import { URL_API,notification } from './ConstDefine';
 import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
-
+import Pagination from '@mui/material/Pagination';
 function NotificationSend() {
     const [sendPost,setSendPost] = useState([]);
     const navigate = useNavigate();
@@ -28,6 +28,16 @@ function NotificationSend() {
         setState(true);
 
     }
+    const [currentPage, setCurrentPage] = useState(1);
+    const itemsPerPage = 7;
+     const totalItems = sendPost.length;
+     const totalPages = Math.ceil(totalItems / itemsPerPage);
+     const startIndex = (currentPage - 1) * itemsPerPage;
+     const endIndex = startIndex + itemsPerPage;
+     const displayedPosts = sendPost.slice(startIndex, endIndex);
+     const handlePageChange = (event, page) => {
+        setCurrentPage(page);
+      };
     return (
     <div className='staff-inbox'>
    
@@ -41,10 +51,12 @@ function NotificationSend() {
             </tr>
         </thead>
         <tbody>
-            {sendPost?sendPost.map((item,index) =>(
+            {displayedPosts?displayedPosts.map((item,index) =>(
                 
                 <tr key={index}>  
-                    <td>{index +1}{item.notification.status === 1?(<p style={{color:'ređ'}}>Unread</p>):'' }<Link onClick={()=>readHanlder(item.notification.id)} style={{padding:'20% 350%'}}></Link></td>
+
+                    <td>{startIndex+index +1}{item.notification.status === 1?(<p style={{color:'red'}} >Unread</p>):'' }<Link onClick={()=>readHanlder(item.notification.id)} style={{padding:'20% 350%'}}></Link></td>
+
                     <td>{item.notification.title}</td>
                     <td><textarea disabled style={{ whiteSpace: 'pre-wrap'}} rows={5} cols={50}>{item.notification.detail}</textarea></td>
                     <td>{filterDate(item.daycreate)}</td>
@@ -55,7 +67,15 @@ function NotificationSend() {
           
         </tbody>
     </table>
-    
+    <div style={{ display: 'flex', justifyContent: 'center', marginTop: '1rem' }}>
+          <Pagination
+            count={totalPages}
+            page={currentPage}
+            onChange={handlePageChange}
+            showFirstButton
+            showLastButton
+          />
+        </div>
     </div>
     )
 }

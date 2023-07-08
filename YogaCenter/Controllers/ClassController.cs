@@ -37,6 +37,14 @@ namespace YogaCenter.Controllers
             }
             return Ok(classes);
         }
+        [HttpGet("Teacher/{teacherId}")]
+        public async Task<IActionResult> GetClassByTeacherId(Guid teacherId)
+        {
+            if(teacherId == Guid.Empty) {  return BadRequest(ModelState); }
+            var classes = await _classesRepository.GetClassTeacherId(teacherId);
+           
+            return Ok(classes);
+        }
         [HttpGet("{classId}")]
         public async Task<IActionResult> GetClassesById(Guid classId)
         {

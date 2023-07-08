@@ -22,6 +22,7 @@ const Mail = styled(EmailRoundedIcon)`
 
     return(
         <div className="footer">
+         
         <div className="main-footer">
             <div className="footer-inf"> 
                 <h1>YOGA FPTU</h1>

@@ -58,6 +58,7 @@ export default function CreateInvoice() {
             return {...inputField, [e.target.name] : e.target.value }
         })    
         };
+        console.log(inputField);
      
 
         const navigate = useNavigate();
@@ -146,7 +147,6 @@ export default function CreateInvoice() {
 
             <Button variant="contained" type="submid">Submit Invoice</Button>         
             </Box>
-        
             </form>
       
     </div>

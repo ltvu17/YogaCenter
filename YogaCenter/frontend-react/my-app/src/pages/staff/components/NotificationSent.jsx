@@ -18,6 +18,8 @@ export default function NotificationSent({status}) {
     const [open, setOpen] = useState(false);
     const [idDelete, setIdDelete] = useState('');
     const navigate = useNavigate();
+
+   
     ///URP_API
     let getSendPostAPI = URL_API +`UserNotification/sender/`+notification;
     let deleteNotification = URL_API+`Notification/${idDelete}`;
@@ -42,8 +44,9 @@ export default function NotificationSent({status}) {
         background-color: #ff353587;
      }
    `;
+ 
    ///Handler
-    
+  
     const handleClose = () => {
     setOpen(false);
     };
@@ -57,6 +60,7 @@ export default function NotificationSent({status}) {
     alert("Deleted");
     navigate(0);
     }
+    
     return (
     <div className='staff-sent'>
     
@@ -74,7 +78,7 @@ export default function NotificationSent({status}) {
             {sendPost?sendPost.map((item,index) =>(
                 
                 <tr key={index}>
-                    <td>{index +1}</td>
+                    <td>{  index +1}</td>
                     <td>{item.notification.title}</td>
                     <td><textarea disabled style={{ whiteSpace: 'pre-wrap'}} rows={5} cols={50}>{item.notification.detail}</textarea></td>
                     <td>{filterDate(item.daycreate)}</td>
@@ -84,6 +88,9 @@ export default function NotificationSent({status}) {
             ):<tr></tr>}         
         </tbody>
     </table>
+    <div style={{ display: 'flex', justifyContent: 'center', marginTop: '1rem' }}>
+        
+        </div>
     <div id="delete">
                 <Dialog
                     open={open}

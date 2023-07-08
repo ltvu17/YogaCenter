@@ -94,62 +94,62 @@ function ScheduleInstructor() {
   // Lấy Data Teacher nhé sửa lại cái Vinh comment tại đó là của Customer nhé 
 
   
-//   const savedUserData = localStorage.getItem("userData");
-//   const userData = savedUserData ? JSON.parse(savedUserData) : {};
-//   const customerId = userData.customerId;
-//   let classCustomerAPI = URL_API + `ClassCustomer/getCustomer/${customerId}`;
-//   // lấy invioce để lấy courses
-//   let invoiceByCusIdAPI = URL_API + `Invoice/customer/${customerId}`;
-//   let lessonByCusIDAPI =
-//     URL_API + `CustomerLesson/getCusLessonByCusId/${customerId}`;
-//   //getClassCustomer
-//   console.log(customerId);
-//   useEffect(() => {
-//     axios
-//       .get(classCustomerAPI)
-//       .then((response) => {
-//         const lessons = response.data;
-//         const classInfo = lessons.map((lesson) => lesson.class);
-//         setClassData(classInfo);
-//       })
-//       .catch((error) => {
-//         console.log(error);
-//       });
-//   }, []);
+  const savedUserData = localStorage.getItem("userData");
+  const userData = savedUserData ? JSON.parse(savedUserData) : {};
+  const customerId = userData.customerId;
+  let classCustomerAPI = URL_API + `ClassCustomer/getCustomer/${customerId}`;
+  // lấy invioce để lấy courses
+  let invoiceByCusIdAPI = URL_API + `Invoice/customer/${customerId}`;
+  let lessonByCusIDAPI =
+    URL_API + `CustomerLesson/getCusLessonByCusId/${customerId}`;
+  //getClassCustomer
+  console.log(customerId);
+  useEffect(() => {
+    axios
+      .get(classCustomerAPI)
+      .then((response) => {
+        const lessons = response.data;
+        const classInfo = lessons.map((lesson) => lesson.class);
+        setClassData(classInfo);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, []);
 
-//   useEffect(() => {
-//     axios
-//       .get(invoiceByCusIdAPI)
-//       .then((res) => {
-//         setCourse(res.data.map((item) => item.course));
-//       })
-//       .catch((error) => {
-//         console.log(error);
-//       });
-//   }, [customerId]);
-//   useEffect(() => {
-//     axios
-//       .get(lessonByCusIDAPI)
-//       .then((res) => {
-//         setLessonList(res.data);
-//       })
-//       .catch((error) => {
-//         console.log(error);
-//       });
-//   }, [customerId]);
-//   useEffect(() => {
-//     if (classData.length > 0) {
-//       let lessonClassAPI = URL_API + `Lesson/${classData[0].id}`;
-//       axios
-//         .get(lessonClassAPI)
-//         .then((response) => {
-//           setScheduleData(response.data);
-//         })
-//         .catch((error) => {
-//           console.log(error);
-//         });
-//     }
-//   }, [classData]);
+  useEffect(() => {
+    axios
+      .get(invoiceByCusIdAPI)
+      .then((res) => {
+        setCourse(res.data.map((item) => item.course));
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, [customerId]);
+  useEffect(() => {
+    axios
+      .get(lessonByCusIDAPI)
+      .then((res) => {
+        setLessonList(res.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, [customerId]);
+  useEffect(() => {
+    if (classData.length > 0) {
+      let lessonClassAPI = URL_API + `Lesson/${classData[0].id}`;
+      axios
+        .get(lessonClassAPI)
+        .then((response) => {
+          setScheduleData(response.data);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    }
+  }, [classData]);
 
   return (
     <div className="week-schedule-container">

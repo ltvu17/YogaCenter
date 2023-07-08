@@ -4,7 +4,8 @@
     padding-bottom: 30px;
     padding-right: 5%;
     background: linear-gradient(45deg, #ffffff, #98969680);
-    height: 100vh;
+    min-height: 100vh;
+
 }
 .staff-title {
     color: #000000e0;

@@ -299,9 +299,9 @@ export default function ProfileCustomer() {
                   <label htmlFor="confirmNewpassword">
                     Confirm new password
                   </label>
-                  <TextChangePassword
+                  <TextField
                     id="confirmNewpassword"
-                    name="confirmNewpassword"
+                    name="confirmNewPassword"
                     type="password"
                     value={formData.confirmNewPassword}
                     onChange={handleChangeOfPassword}
