@@ -39,9 +39,10 @@ import ClassInstructor from './pages/instructor/components/ClassInstructor';
 import ScheduleInstructor from './pages/instructor/components/ScheduleInstructor';
 import Dashboard from './pages/admin/components/Dashboard';
 import HomeStaff from './pages/staff/components/HomeStaff';
+
 import AccountManagement from './pages/manager/AccountManagement';
 
-
+import Blog from './components/Blog';
 
 function App() {
   try {
@@ -58,6 +59,7 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/home" element={<Home />} />
         <Route path="/schedule" element={<Schedule />} />
+        <Route path="/blog" element={<Blog />} />
         <Route path="/login" element={<Login />} />
         <Route path="/registerClass" element={<RegisterClass />} />
         <Route path="/schedule" element={<Schedule />} />

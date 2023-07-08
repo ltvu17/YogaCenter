@@ -4,11 +4,7 @@ import axios from "axios";
 import { dataContext } from "./Staffmanage";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
-import Dialog from "@mui/material/Dialog";
-import DialogActions from "@mui/material/DialogActions";
-import DialogContent from "@mui/material/DialogContent";
-import DialogContentText from "@mui/material/DialogContentText";
-import DialogTitle from "@mui/material/DialogTitle";
+import { Grid} from '@mui/material';
 import { useNavigate } from "react-router-dom";
 
 var curr = new Date();
@@ -94,109 +90,96 @@ export default function UpdateClass({ id }) {
 
   // const Updatecomp = useCallback(()=>{
   return (
-    <div>
-      <form>
-        <TextField
-          variant="outlined"
-          size="small"
-          name="className"
-          value={inputField.className}
-          required
-          onChange={ChangeHandler}
-          sx={{
-            color: "rgb(127, 69, 101)",
-            backgroundColor: "#F9A7B0",
-            borderRadius: "5px",
-          }}
-        ></TextField>
-        <input
-          type="date"
-          name="classStartDate"
-          defaultValue={filterDay(inputField.classStartDate)}
-          onChange={ChangeHandler}
-          required
-        />
-        <input
-          type="date"
-          name="classEndDate"
-          defaultValue={filterDay(inputField.classEndDate)}
-          onChange={ChangeHandler}
-          min={filterDay(inputField.classStartDate)}
-          required
-        />
-        <select
-          defaultValue={inputField.teacherId}
-          name="teacherId"
-          required
-          onChange={ChangeHandler}
-        >
-          <option value={inputField.teacherId} disabled hidden>
-            {inputField.teacherName}
-          </option>
-          <option value="-1">None</option>
-          {data.teachers.map((item, index) => (
-            <option key={index} value={item.id}>
-              {item.teacherName}
+    <Grid container item md={12}>
+      <form style={{width:'100%'}}>
+        <table className="table-add-class" style={{ marginTop: "0" }}>
+          <thead>
+            <tr>
+              <th>Class Name</th>
+              <th>StartDate</th>
+              <th>EndDate</th>
+              <th>Teacher</th>
+              <th>Course</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+            <tbody>
+              <tr className='staff-add-newClass'>
+              <td><TextField
+            variant="outlined"
+            name="className"
+            value={inputField.className}
+            required
+            onChange={ChangeHandler}
+            sx={{ backgroundColor: "white", borderRadius: "5px" }}
+          ></TextField></td>
+          <td><input
+            type="date"
+            name="classStartDate"
+            defaultValue={filterDay(inputField.classStartDate)}
+            onChange={ChangeHandler}
+            required
+          /></td>
+          <td><input
+            type="date"
+            name="classEndDate"
+            defaultValue={filterDay(inputField.classEndDate)}
+            onChange={ChangeHandler}
+            min={filterDay(inputField.classStartDate)}
+            required
+          /></td>
+          <td><select
+            defaultValue={inputField.teacherId}
+            name="teacherId"
+            required
+            onChange={ChangeHandler}
+          >
+            <option value={inputField.teacherId} disabled hidden>
+              {inputField.teacherName}
             </option>
-          ))}
-        </select>
-
-        <select
-          defaultValue={inputField.courseId}
-          name="courseId"
-          required
-          onChange={ChangeHandler}
-        >
-          <option value={inputField.courseId} disabled hidden>
-            {inputField.courseName}
-          </option>
-          {data.courses.map((item, index) => (
-            <option key={index} value={item.id}>
-              {item.courseDescription}
+            <option value="-1">None</option>
+            {data.teachers.map((item, index) => (
+              <option key={index} value={item.id}>
+                {item.teacherName}
+              </option>
+            ))}
+          </select></td>
+          <td><select
+            defaultValue={inputField.courseId}
+            name="courseId"
+            required
+            onChange={ChangeHandler}
+          >
+            <option value={inputField.courseId} disabled hidden>
+              {inputField.courseName}
             </option>
-          ))}
-        </select>
-        {/* {message?(<p style={{color: 'red', backgroundColor:'white'}}>{message}</p>):''} */}
+            {data.courses.map((item, index) => (
+              <option key={index} value={item.id}>
+                {item.courseDescription}
+              </option>
+            ))}
+          </select></td>
+          {/* {message?(<p style={{color: 'red', backgroundColor:'white'}}>{message}</p>):''} */}
 
-        <Button
-          variant="text"
-          color="success"
-          onClick={handleClickOpen}
-          sx={{
-            padding: 1,
-            margin: 1,
-            color: "white",
-            backgroundColor: "rgb(127, 69, 101)",
-          }}
-        >
-          Save
-        </Button>
-        <Dialog
-          open={open}
-          onClose={handleClose}
-          aria-labelledby="alert-dialog-title"
-          aria-describedby="alert-dialog-description"
-        >
-          <DialogTitle id="alert-dialog-title">
-            {"YogaCenter Management"}
-          </DialogTitle>
-          <DialogContent>
-            <DialogContentText id="alert-dialog-description">
-              Do you want to update ?
-            </DialogContentText>
-          </DialogContent>
-          <DialogActions>
-            <Button onClick={handleClose}>Disagree</Button>
-            <Button type="submit" onClick={(e) => submitAdd(e)} autoFocus>
-              Agree
+          <Button
+            variant="contained"
+            onClick={handleClickOpen}
+            sx={{
+              padding: 1,
+              margin: 1,
+              color: "white",
+              backgroundColor: "#010f51b8",
+            }}
+          >
+            Save
             </Button>
-          </DialogActions>
-        </Dialog>
+              </tr>
+            </tbody>
+       
+        
+        </table>
       </form>
-    </div>
+    </Grid>
   );
-  // });
-  // return(
-  //   <Updatecomp/>
-  // );
+
 }
