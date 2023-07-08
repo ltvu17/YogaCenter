@@ -4,7 +4,7 @@
     padding-bottom: 30px;
     padding-right: 5%;
     background: linear-gradient(45deg, #ffffff, #98969680);
-    height: 100vh;
+    min-height: 100vh;
 }
 
   .compose-detail{
@@ -21,6 +21,10 @@
     border: solid 1px black;
     animation-name: animation;
     animation-duration: .6s;
+
+    z-index: 2;
+   
+
   }
   @keyframes animation {
     0%{
@@ -67,22 +71,25 @@
 .table-staff-noti {
   width: 100%;
   border-collapse: collapse;
+  background-color: #e1e1e1;
 }
 
 .table-staff-noti th,
 .table-staff-noti td {
   padding: 10px;
   border: 1px solid #ccc;
+  font-weight: 700;
 }
-
+.table-staff-noti tbody tr:hover{
+  background-color: #d2d2d2; 
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.3s, box-shadow 0.3s; 
+}
 .table-staff-noti th {
   background-color: #f2f2f2;
   font-weight: bold;
 }
 
-.table-staff-noti td p {
-  margin: 0;
-}
 
 .table-staff-noti td textarea {
   width: 100%;
@@ -91,4 +98,6 @@
   resize: none;
   background-color: transparent;
   overflow: auto;
+  color: black;
+  font-weight: 500;
 }

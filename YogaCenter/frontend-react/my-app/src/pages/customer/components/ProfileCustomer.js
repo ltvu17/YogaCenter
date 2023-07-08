@@ -299,7 +299,7 @@ export default function ProfileCustomer() {
                   <label htmlFor="confirmNewpassword">
                     Confirm new password
                   </label>
-                  <TextChangePassword
+                  <TextField
                     id="confirmNewpassword"
                     name="confirmNewPassword"
                     type="password"

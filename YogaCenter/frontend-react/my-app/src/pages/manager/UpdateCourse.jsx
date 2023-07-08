@@ -1,17 +1,13 @@
 import React, { useEffect, useState } from 'react'
-import Dialog from '@mui/material/Dialog';
-import DialogActions from '@mui/material/DialogActions';
-import DialogContent from '@mui/material/DialogContent';
-import DialogContentText from '@mui/material/DialogContentText';
-import DialogTitle from '@mui/material/DialogTitle';
+
 import TextField from "@mui/material/TextField";
 import Button from '@mui/material/Button';
 import axios from 'axios';
 import { URL_API } from '../staff/components/ConstDefine';
 import { useNavigate } from 'react-router-dom';
-import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
-import { IconButton } from '@mui/material';
 
+
+import { Grid} from '@mui/material';
 var curr = new Date();
 curr.setDate(curr.getDate()+1);
 var date = curr.toISOString().substring(0,10);
@@ -78,6 +74,7 @@ export default function UpdateCourse({id}) {
       return {...inputField, [e.target.name] : e.target.value }
     })    
   };
+
    //Filter 
   function filterDay(day){
     const split = day.split("T");
@@ -86,31 +83,58 @@ export default function UpdateCourse({id}) {
     }
     console.log(inputField);
   return (
-    <div>
+    
+    <Grid container item md={12}>
+
+    
       <form>
-                        <TextField variant='outlined' size='small' name='courseDescription' label='Course Name' value={inputField.courseDescription} required onChange={ChangeHandler}
-                    sx={{color : 'rgb(127, 69, 101)',backgroundColor:'#F9A7B0',borderRadius:'5px'}}></TextField>
-                        <TextField variant='outlined' type='number' InputProps={{ inputProps: { min: 0 } }} size='small' value={inputField.courseLectureNumber} name='courseLectureNumber' label='courseLectureNumber' required onChange={ChangeHandler}
-                    sx={{color : 'rgb(127, 69, 101)',backgroundColor:'#F9A7B0',borderRadius:'5px'}}></TextField>
-                        <TextField variant='outlined' type='number' InputProps={{ inputProps: { min: 0 } }} size='small' value={inputField.courseLength} name='courseLength' label='courseLength' required onChange={ChangeHandler}
-                    sx={{color : 'rgb(127, 69, 101)',backgroundColor:'#F9A7B0',borderRadius:'5px'}}></TextField>
-                        <TextField variant='outlined' type='number' InputProps={{ inputProps: { min: 0 } }} size='small' value={inputField.coursePrice} name='coursePrice' label='coursePrice' required onChange={ChangeHandler}
-                    sx={{color : 'rgb(127, 69, 101)',backgroundColor:'#F9A7B0',borderRadius:'5px'}}></TextField>
-                        <TextField variant='outlined' size='small' name='pre_Requisite' value={inputField.pre_Requisite} label='pre_Requisite' required onChange={ChangeHandler}
-                    sx={{color : 'rgb(127, 69, 101)',backgroundColor:'#F9A7B0',borderRadius:'5px'}}></TextField>
-                        <TextField variant='outlined' size='small' name='courseDetail' value={inputField.courseDetail} label='courseDetail' multiline required onChange={ChangeHandler}
-                    sx={{color : 'rgb(127, 69, 101)',backgroundColor:'#F9A7B0',borderRadius:'5px'}}></TextField>
-                        <input type='date' name='courseCreateDate' defaultValue={filterDay(inputField.courseCreateDate)} required onChange={ChangeHandler}/>
-                        <select defaultValue={inputField.evenId} name='evenId' required onChange={ChangeHandler} >
+      <table className='table-add-class' style={{marginTop:'0'}}>
+            <thead>
+              <tr>
+                      <th>Name</th>
+                      <th>Lecture Number</th>
+                      <th>Length</th>
+                      <th>Price</th>
+                      <th>Pre_Requisite</th>
+                      <th>Detail</th>
+                      <th>Create Date</th>
+                      <th>Event</th>
+                      <th>Action</th>
+              </tr>
+            </thead>
+            <tbody>
+            <tr className='staff-add-newClass'>
+            <td> <TextField variant='outlined'  name='courseDescription'  value={inputField.courseDescription} required onChange={ChangeHandler}
+                    sx={{backgroundColor: 'white', borderRadius: '5px'}}></TextField></td>
+                        <td>  <TextField variant='outlined' type='number' InputProps={{ inputProps: { min: 0 } }}  value={inputField.courseLectureNumber} name='courseLectureNumber'  required onChange={ChangeHandler}
+                    sx={{backgroundColor: 'white', borderRadius: '5px'}}></TextField> </td> 
+                      
+                      <td>  <TextField variant='outlined' type='number' InputProps={{ inputProps: { min: 0 } }}  value={inputField.courseLength} name='courseLength' required onChange={ChangeHandler}
+                    sx={{backgroundColor: 'white', borderRadius: '5px'}}></TextField></td>
+                       <td> <TextField variant='outlined' type='number' InputProps={{ inputProps: { min: 0 } }}  value={inputField.coursePrice} name='coursePrice'  required onChange={ChangeHandler}
+                    sx={{backgroundColor: 'white', borderRadius: '5px'}}></TextField></td>
+                       <td> <TextField variant='outlined'  name='pre_Requisite' value={inputField.pre_Requisite}  required onChange={ChangeHandler}
+                    sx={{backgroundColor: 'white', borderRadius: '5px'}}></TextField></td>
+                        <td><TextField variant='outlined'  name='courseDetail' value={inputField.courseDetail} multiline required onChange={ChangeHandler}
+                    sx={{backgroundColor: 'white', borderRadius: '5px'}}></TextField></td>
+                       <td><input type='date' name='courseCreateDate' defaultValue={filterDay(inputField.courseCreateDate)} required onChange={ChangeHandler}/></td>
+                        <td><select defaultValue={inputField.evenId} name='evenId' required onChange={ChangeHandler} >
                               <option value={inputField.evenId} disabled hidden>{inputField.eventName}</option>
                               <option value ={"-1"}>None</option>
                           {postsEvent? postsEvent.map(((item,index) =>(                                                         
                                   <option key={index} value={item.id} >{item.eventName}</option>                      
                           ))):''}
                           </select>
+                          </td>
                     <Button variant='text' color='success' type='submit' onClick={submitAdd}
-                        sx={{padding :1,margin:1, color: 'white', backgroundColor:'rgb(127, 69, 101)'}}>Save</Button>
+                        sx={{padding :1,margin:1, color: 'white', backgroundColor:'#010f51b8'}}>Save</Button>
+            </tr>
+            </tbody>
+      </table>
+     
+                     
         </form>
-    </div>
+        </Grid>
+
   )
 }
