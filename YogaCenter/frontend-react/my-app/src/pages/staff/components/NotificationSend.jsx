@@ -44,7 +44,7 @@ function NotificationSend() {
             {sendPost?sendPost.map((item,index) =>(
                 
                 <tr key={index}>  
-                    <td>{index +1}{item.notification.status === 1?(<p style={{color:'ređ'}}>Unread</p>):'' }<Link onClick={()=>readHanlder(item.notification.id)} style={{padding:'20% 350%'}}></Link></td>
+                    <td>{index +1}{item.notification.status === 1?(<p style={{color: "red"}}>Unread</p>):'' }<Link onClick={()=>readHanlder(item.notification.id)} style={{padding:'20% 350%'}}></Link></td>
                     <td>{item.notification.title}</td>
                     <td><textarea disabled style={{ whiteSpace: 'pre-wrap'}} rows={5} cols={50}>{item.notification.detail}</textarea></td>
                     <td>{filterDate(item.daycreate)}</td>

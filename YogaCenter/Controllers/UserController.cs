@@ -35,7 +35,7 @@ namespace YogaCenter.Controllers
         {
             if(userName == null || userPasswork == null) { return NotFound(); }
             var userLogined = await _userRepository.Login(userName, userPasswork);
-            if(userLogined == null)
+            if(userLogined == null || userLogined.Status == 0)
             {
                 ModelState.AddModelError("", "Invalid Account");
                 return BadRequest(ModelState);
@@ -44,6 +44,7 @@ namespace YogaCenter.Controllers
             {
                 return BadRequest(ModelState);
             }
+
             Response.Cookies.Append("userId", userLogined.Id.ToString(), new CookieOptions
             {
                 HttpOnly = false,
@@ -127,6 +128,32 @@ namespace YogaCenter.Controllers
             user.UserPasswork = userUpdate.UserPasswork;
             user.Status = userUpdate.Status;
             if(await _userRepository.UpdateUser(user))
+            {
+                return Ok("Updated");
+            }
+            return NotFound();
+
+        }
+        [HttpPut("ChangeStatus/{userId}")]
+        public async Task<IActionResult> ChangeStatusUser(Guid userId)
+        {
+            if (userId.Equals(null)) { return BadRequest(); }
+            if (!await _userRepository.UserExistsById(userId))
+            {
+                ModelState.AddModelError("", "User is not Exists");
+                return BadRequest(ModelState);
+            }
+            if (!ModelState.IsValid) { return BadRequest(ModelState); }
+            var user = await _userRepository.GetUserById(userId);
+            if(user.Status == 1)
+            {
+                user.Status = 0;
+            }
+            else
+            {
+                user.Status = 1;
+            }
+            if (await _userRepository.UpdateUser(user))
             {
                 return Ok("Updated");
             }

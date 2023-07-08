@@ -69,11 +69,9 @@ export default function Redirect() {
           navigate('/homestaff');
         }
           else 
-            if(role.toUpperCase().trim().localeCompare('"ADMIN', undefined, { sensitivity: 'base' }) === 0){               
-            navigate('/dashboard');
-          }
-
-            
+            if(role.toUpperCase().trim().localeCompare('"ADMIN"', undefined, { sensitivity: 'base' }) === 0){               
+            navigate('/homestaff');
+            }
           }catch(err){
             }        
     },[count]);

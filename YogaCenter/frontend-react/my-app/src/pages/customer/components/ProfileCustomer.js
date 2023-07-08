@@ -276,7 +276,7 @@ export default function ProfileCustomer() {
                   <TextField
                       className="inputPassword-profile"
                     id="confirmNewpassword"
-                    name="confirmNewpassword"
+                    name="confirmNewPassword"
                     type="password"
                     value={formData.confirmNewPassword}
                     onChange={handleChangeOfPassword}

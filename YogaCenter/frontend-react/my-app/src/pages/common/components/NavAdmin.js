@@ -12,13 +12,25 @@ import SchoolIcon from '@mui/icons-material/School';
 import BookOutlinedIcon from '@mui/icons-material/BookOutlined';
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 import GroupIcon from '@mui/icons-material/Group';
+import LogoutIcon from "@mui/icons-material/Logout";
+import DifferenceIcon from "@mui/icons-material/Difference";
+import ReceiptIcon from "@mui/icons-material/Receipt";
+import CelebrationIcon from "@mui/icons-material/Celebration";
+import CircleNotificationsIcon from "@mui/icons-material/CircleNotifications";
+import AccountBoxIcon from '@mui/icons-material/AccountBox';
 
 export default function NavStaff(){
     const [cookie, setCookie] = useCookies();
     const navigate = useNavigate();
    
     axios.defaults.withCredentials = true;
-
+    const logout = () => {
+      axios
+        .post("https://localhost:7096/api/User/Logout", "", {})
+        .then((r) => console.log(r))
+        .catch((er) => console.log(er));
+      setCookie("flag", 1, { path: "/" });
+    };
 
     return (
         <nav className='NavStaff'>
@@ -29,8 +41,74 @@ export default function NavStaff(){
             <li className="menu">
               <Link to="/dashboard"><SchoolIcon className="icon-nav"></SchoolIcon><p>Dashboard</p></Link>
             </li>
-        
-         
+            <li className="menu">
+              <Link to="/account-manage"><AccountBoxIcon className="icon-nav"></AccountBoxIcon><p>Account Manage</p></Link>
+            </li>
+            <li>
+          <Link to="/staff-notification">
+            <CircleNotificationsIcon className="icon-nav"></CircleNotificationsIcon>
+            <p style={{lineHeight:'2.2'}}>Notification</p>
+          </Link>
+        </li>
+        <li className="menu">
+          <Link to="/staffmanage">
+            <SchoolIcon className="icon-nav"></SchoolIcon>
+            <p>Manage Class</p>
+          </Link>
+        </li>
+        <li className="menu">
+          <Link to="#">
+            <BookOutlinedIcon className="icon-nav"></BookOutlinedIcon>
+            <p>Manage Blog</p>
+          </Link>
+        </li>
+        <li className="menu">
+          <Link to="/schedulemanage">
+            <CalendarMonthIcon className="icon-nav"></CalendarMonthIcon>
+            <p>Manage Schedule</p>
+          </Link>
+        </li>
+        <li className="menu">
+          <Link to="#">
+            <GroupIcon className="icon-nav"></GroupIcon>
+            <p>Manage User</p>
+          </Link>
+          <ul className="drop-menu">
+            <li>
+              <Link to="/staff-registerAccount"><p style={{fontSize:'16px',marginLeft:'10px',paddingLeft:'20px',fontWeight:'400'}}>Register Customer</p></Link>
+            </li>
+            <li style={{marginBottom:'0'}}>
+              <Link to="/register-teacher"><p style={{fontSize:'16px',marginLeft:'10px',paddingLeft:'20px',fontWeight:'400'}} >Register Teacher</p></Link>
+            </li>
+          </ul>
+        </li>
+        <li className="menu">
+          <Link to="/create-invoice">
+            <ReceiptIcon className="icon-nav"></ReceiptIcon>
+            <p>Create Invoice</p>
+          </Link>
+        </li>
+        <li className="menu">
+          <Link to="/coursemanage">
+            <DifferenceIcon className="icon-nav"></DifferenceIcon>
+            <p>Manage Course</p>
+          </Link>
+        </li>
+        <li className="menu">
+          <Link to="/eventmanage">
+            <CelebrationIcon className="icon-nav"></CelebrationIcon>
+            <p>Manage Event</p>
+          </Link>
+        </li>
+
+
+            <li className="menu">
+            <Link onClick={logout} to="/home">
+            <LogoutIcon className="icon-nav"></LogoutIcon>
+            <p>Logout</p>
+            </Link>
+            </li>
+
           </ul>
         </nav>
       );
