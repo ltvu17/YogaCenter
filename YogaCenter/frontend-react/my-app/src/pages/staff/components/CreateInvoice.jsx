@@ -147,7 +147,6 @@ export default function CreateInvoice() {
 
             <Button variant="contained" type="submid">Submit Invoice</Button>         
             </Box>
-        
             </form>
       
     </div>

@@ -314,14 +314,7 @@ export default function Home() {
               {listTecher.map((teacher, index) => (
                 <div className="myCoach-detail" key={index}>
                   <img src="/assets/images/coach.png" />
-                  <h2 className="myCoach-name">{teacher.teacherName}</h2>
-                  <p>Gender: {teacher.teacherGender}</p>
-                  <p>Address: {teacher.teacherAddress}</p>
-                  <p>Phone: {teacher.teacherPhone}</p>
-                  <p>
-                    Start Date: {getFormattedDate(teacher.teacherStartDate)}
-                  </p>
-                  <p>End Date: {getFormattedDate(teacher.teacherEndDate)}</p>
+                  <h2 className="myCoach-name">{teacher.teacherName}</h2> 
                 </div>
               ))}
             </div>
@@ -337,6 +330,7 @@ export default function Home() {
       <Grid
         container
         className="customer-care"
+   
         style={{ backgroundImage: "url('/assets/images/customer-care.png')" }}
       >
         <Grid item md={6}>
@@ -360,6 +354,7 @@ export default function Home() {
             {cookieValue !== undefined ? "" : <RegisterAccountCustomer />}
           </Grid>
         </>
+  
       </Grid>
       <div className="bookingClass">
         <div className="booking-content">

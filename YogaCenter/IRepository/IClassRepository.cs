@@ -6,6 +6,7 @@ namespace YogaCenter.IRepository
     {
         public Task<ICollection<Class>> GetClasses();
         public Task<Class> GetClassById(Guid id);
+        public Task<ICollection<Class>> GetClassTeacherId(Guid teacherId);
         public Task<bool> CreateClass(Class classCreate);
         public Task<int> GetClassCapacity(Guid id);
         public Task<bool> UpdateClass(Class classUpdate);

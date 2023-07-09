@@ -220,12 +220,12 @@
 }
 .customer-formRegister{
   padding: 0px 80px;
-  margin: 140px 0;
+  margin: 90px 0;
   
 }
 .customer-formRegister li{
   list-style-type: none;
-  margin: 40px 0;
+  margin: 20px 0;
 }
 .customer-formRegister li:last-child{
   text-align: right;
@@ -257,3 +257,4 @@
   height: 150px;
   max-width: none;
 }
+

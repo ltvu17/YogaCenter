@@ -35,8 +35,8 @@ export default function NavStaff(){
             <li>
                 <Link to="homestaff"><HomeIcon className="icon-nav"></HomeIcon></Link>
             </li>
-            <li>
-                <Link to="/staff-notification"><CircleNotificationsIcon className="icon-nav"></CircleNotificationsIcon><p>Notification</p></Link>
+            <li> 
+                <Link to="/staff-notification"><CircleNotificationsIcon className="icon-nav"></CircleNotificationsIcon><p style={{lineHeight:'2.2'}}>Notification</p></Link>
             </li>
             <li className="menu">
               <Link to="/staffmanage"><SchoolIcon className="icon-nav"></SchoolIcon><p>Manage Class</p></Link>
