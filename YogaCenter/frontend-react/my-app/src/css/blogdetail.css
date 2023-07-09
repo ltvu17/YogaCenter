@@ -1,5 +1,4 @@
 .blogDetail-container{
-  
     width: 100%;
     padding-top: 70px;
 }
@@ -20,5 +19,5 @@
     object-fit: cover;
   }
 .blogDetail-content{
-    padding: 4% 9%;
+    padding: 1% 9%;
 }

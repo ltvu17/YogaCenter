@@ -4,11 +4,13 @@ import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import IconButton from '@mui/material/IconButton';
-
-import { useParams } from 'react-router-dom';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import { Link, useParams } from 'react-router-dom';
 import Bloges from "../data/ListOfBlog";
 import { Grid, Typography } from "@mui/material";
 import '../css/blogdetail.css'
+
+
 export default function BlogDetail(){
     const { slug } = useParams();
     const [bloges,setBloges] = useState([]);
@@ -30,14 +32,15 @@ export default function BlogDetail(){
       return <div>Bài viết không tồn tại</div>;
     }
     return (
-      <Grid container className="blogDetail-container">
-       <Grid item md={12} className="blogDetail-header">
+      <Grid container className="blogDetail-container" >
+       <Grid item md={12} className="blogDetail-header" >
             <div className="img-container">
             <img src={blogPost.node.image.url} alt="Blog Image" />
             </div>
         </Grid>
+        <Link to="/blog"><ArrowBackIcon sx={{ fontSize: 50, marginLeft:'40%' }}></ArrowBackIcon></Link>
         <Grid container item md={12} className="blogDetail-content">
-            <Grid item md={8}>
+            <Grid item md={8} xs='auto'>
                 <Typography variant="h1" sx={{fontSize:'2rem',fontWeight:'700'}}>{blogPost.node.title}</Typography>
                 <Typography variant="subtitle1" 
                     sx={{fontSize: '0.9rem',
@@ -45,15 +48,16 @@ export default function BlogDetail(){
                     fontWeight: '900'}}>
                                         {filterDay(blogPost.node.createdAt)}
                  </Typography>
-                <p>{blogPost.node.description}</p>
+                <div dangerouslySetInnerHTML={{__html : blogPost.node.postContent.html}}></div>
                 {/* Đây là nơi show cái blog đang xem, thử test show ra 1 cái xem như răng để t coi thiết kế lại như răng */}
             </Grid>
-                <Grid container item md={4}>
+            <Grid item md={4} xs > 
                     {/* Đây là list các blog cùng type với cái blog đang xem xếp theo ngày tháng từ mới nhất đến cũ nhất ( tầm 5-6 bài) */}
                 <Typography variant="h4" sx={{fontWeight:'600',color:'#434343'}}>Other Blogs</Typography>
                 <hr style={{ borderTop: '1px solid #434343', margin: '10px 0' }} />
                 {bloges.map(blog => (
                     <Grid key={blog.node.slug} item md={12} sx={{ padding: '20px' }}>
+                    <Link to={`/blog-detail/${blog.node.slug}`}>
                     <Card sx={{ display: 'flex' }}>
                         <CardMedia
                                 component="img"
@@ -84,6 +88,7 @@ export default function BlogDetail(){
                             
                             </Box>
                         </Card>
+                        </Link>
                     </Grid>
                 ))}
             </Grid>
