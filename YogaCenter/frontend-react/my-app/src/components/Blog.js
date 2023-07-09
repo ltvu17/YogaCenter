@@ -71,7 +71,7 @@ export default function Blog(){
                                 }}>
                                 {blog.node.category}
                             </Typography>
-                            <Link to='/'>
+                            <Link to={`/blog-detail/${blog.node.slug}`}>
                             <Typography variant="h5" 
                                 sx={{
                                     display: '-webkit-box',
