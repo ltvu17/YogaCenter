@@ -49,6 +49,7 @@ import ProtectRouteAdmin from './service/protectRoute/ProtectRouteAdmin';
 
 import Blog from './components/Blog';
 import ProtectRouteManager from './service/protectRoute/ProtectRouteManager';
+import BlogDetail from './components/BlogDetail';
 // import Bloges from './data/ListOfBlog'
 
 function App() {
@@ -67,6 +68,7 @@ function App() {
         <Route path="/home" element={<Home />} />
         <Route path="/schedule" element={<Schedule />} />
         <Route path="/blog" element={<Blog />} />
+        <Route path="/blog-detail/:slug" element={<BlogDetail />} />
         <Route path="/login" element={<Login />} />
         <Route path="/registerClass" element={<RegisterClass/>} />
         <Route path="/schedule" element={<Schedule />} />
