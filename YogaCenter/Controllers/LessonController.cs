@@ -51,6 +51,16 @@ namespace YogaCenter.Controllers
 
 
         }
+        [HttpGet("teacher/{userId}")]
+        public async Task<IActionResult> GetLessoByTeacherId(Guid userId)
+        {
+            if (userId.Equals(null)) return BadRequest();
+            if (!ModelState.IsValid) { return BadRequest(ModelState); }
+            var lessons = await _lessonRepository.GetLessonByTeahcherId(userId);
+            return Ok(lessons);
+
+
+        }
         [HttpGet("date/{date}")]
         public async Task<IActionResult> GetLessoByDate(DateTime date)
         {

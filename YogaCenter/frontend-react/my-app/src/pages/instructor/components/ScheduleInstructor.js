@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-
+import { useCookies } from "react-cookie";
 import "../css/scheduleInstructor.css";
 import KeyboardDoubleArrowRightIcon from "@mui/icons-material/KeyboardDoubleArrowRight";
 import KeyboardDoubleArrowLeftIcon from "@mui/icons-material/KeyboardDoubleArrowLeft";
@@ -8,6 +8,40 @@ import { URL_API } from "../../../api/ConstDefine";
 
 import axios from "axios";
 function ScheduleInstructor() {
+  //-----------------------------const-----------------------------
+  const [userId, setUserId] = useCookies("userId");
+  const [classTeacher, setClassTeahcer] = useState('');
+  const [lesson, setLesson] = useState('');
+  //-----------------------------API--------------------------------
+  let lessonByClassId = URL_API + `Lesson/teacher/${userId.userId}`
+  //-----------------------------useEfect--------------------------
+  useEffect(() => {
+    axios
+      .get(lessonByClassId)
+      .then((res) => {
+        setLesson(res.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, []);
+
+
+
+
+  //----------------------------clg----------------------------------
+  // console.log(teacherData)
+  // console.log(teacherData.id);
+  // console.log(classTeacher === '' ? "" : classTeacher[1].id);
+  console.log(lesson)
+  // console.log(lesson[0] === undefined ? "" : lesson[0].class)
+  // console.log(lessonByClassId);
+
+
+
+
+
+  //-----------------------------Date-------------------------------
   const [currentDate, setCurrentDate] = React.useState(new Date());
 
   const currentYear = currentDate.getFullYear();
@@ -91,77 +125,85 @@ function ScheduleInstructor() {
   const [courses, setCourse] = useState([]);
   const [lessonList, setLessonList] = useState([]);
 
-  // Lấy Data Teacher nhé sửa lại cái Vinh comment tại đó là của Customer nhé 
+  // Lấy Data Teacher nhé sửa lại cái Vinh comment tại đó là của Customer nhé
 
-  
-  const savedUserData = localStorage.getItem("userData");
-  const userData = savedUserData ? JSON.parse(savedUserData) : {};
-  const customerId = userData.customerId;
-  let classCustomerAPI = URL_API + `ClassCustomer/getCustomer/${customerId}`;
-  // lấy invioce để lấy courses
-  let invoiceByCusIdAPI = URL_API + `Invoice/customer/${customerId}`;
-  let lessonByCusIDAPI =
-    URL_API + `CustomerLesson/getCusLessonByCusId/${customerId}`;
-  //getClassCustomer
-  console.log(customerId);
-  useEffect(() => {
-    axios
-      .get(classCustomerAPI)
-      .then((response) => {
-        const lessons = response.data;
-        const classInfo = lessons.map((lesson) => lesson.class);
-        setClassData(classInfo);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  }, []);
+  // const savedUserData = localStorage.getItem("userData");
+  // const userData = savedUserData ? JSON.parse(savedUserData) : {};
+  // const customerId = userData.customerId;
+  // let classCustomerAPI = URL_API + `ClassCustomer/getCustomer/${customerId}`;
+  // // lấy invioce để lấy courses
+  // let invoiceByCusIdAPI = URL_API + `Invoice/customer/${customerId}`;
+  // let lessonByCusIDAPI =
+  //   URL_API + `CustomerLesson/getCusLessonByCusId/${customerId}`;
+  // //getClassCustomer
+  // console.log(customerId);
+  // useEffect(() => {
+  //   axios
+  //     .get(classCustomerAPI)
+  //     .then((response) => {
+  //       const lessons = response.data;
+  //       const classInfo = lessons.map((lesson) => lesson.class);
+  //       setClassData(classInfo);
+  //     })
+  //     .catch((error) => {
+  //       console.log(error);
+  //     });
+  // }, []);
 
-  useEffect(() => {
-    axios
-      .get(invoiceByCusIdAPI)
-      .then((res) => {
-        setCourse(res.data.map((item) => item.course));
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  }, [customerId]);
-  useEffect(() => {
-    axios
-      .get(lessonByCusIDAPI)
-      .then((res) => {
-        setLessonList(res.data);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  }, [customerId]);
-  useEffect(() => {
-    if (classData.length > 0) {
-      let lessonClassAPI = URL_API + `Lesson/${classData[0].id}`;
-      axios
-        .get(lessonClassAPI)
-        .then((response) => {
-          setScheduleData(response.data);
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-    }
-  }, [classData]);
+  // useEffect(() => {
+  //   axios
+  //     .get(invoiceByCusIdAPI)
+  //     .then((res) => {
+  //       setCourse(res.data.map((item) => item.course));
+  //     })
+  //     .catch((error) => {
+  //       console.log(error);
+  //     });
+  // }, [customerId]);
+  // useEffect(() => {
+  //   axios
+  //     .get(lessonByCusIDAPI)
+  //     .then((res) => {
+  //       setLessonList(res.data);
+  //     })
+  //     .catch((error) => {
+  //       console.log(error);
+  //     });
+  // }, [customerId]);
+  // useEffect(() => {
+  //   if (classData.length > 0) {
+  //     let lessonClassAPI = URL_API + `Lesson/${classData[0].id}`;
+  //     axios
+  //       .get(lessonClassAPI)
+  //       .then((response) => {
+  //         setScheduleData(response.data);
+  //       })
+  //       .catch((error) => {
+  //         console.log(error);
+  //       });
+  //   }
+  // }, [classData]);
 
   return (
     <div className="week-schedule-container">
       <div className="schedule-box">
         <h1 style={{ color: "black" }}>
-        <div style={{ fontSize:'20px', backgroundColor: '#bdded999',borderRadius: '25px',padding: '10px',display: 'flex',alignItems: 'center'}}>
-          <KeyboardDoubleArrowLeftIcon onClick={goTobeforeMonth} />
-          <span>{currentMonthName}</span>
-          <span>{currentYear}</span>
-          <KeyboardDoubleArrowRightIcon onClick={goToNextMonth}>
-            Next Month
-          </KeyboardDoubleArrowRightIcon>
+          <div
+            style={{
+              fontSize: "20px",
+              backgroundColor: "#bdded999",
+              borderRadius: "25px",
+              padding: "10px",
+              display: "flex",
+              alignItems: "center",
+            }}
+          >
+            <KeyboardDoubleArrowLeftIcon onClick={goTobeforeMonth} />
+            <span>{currentMonthName}</span>
+            <span>{currentYear}</span>
+            <KeyboardDoubleArrowRightIcon onClick={goToNextMonth}>
+              Next Month
+            </KeyboardDoubleArrowRightIcon>
           </div>
         </h1>
 
@@ -169,9 +211,9 @@ function ScheduleInstructor() {
           <thead>
             <tr>
               <th
-           style={{
-                  backgroundColor: 'rgb(0 0 0 / 49%)',
-                 padding:'10px',
+                style={{
+                  backgroundColor: "rgb(0 0 0 / 49%)",
+                  padding: "10px",
                   width: "125px",
                 }}
               >
@@ -210,7 +252,7 @@ function ScheduleInstructor() {
           <tbody>
             {time.map((timeSlot) => (
               <tr key={timeSlot}>
-              <td style={{backgroundColor:'#d3dfef'}}>
+                <td style={{ backgroundColor: "#d3dfef" }}>
                   <h1
                     style={{
                       marginBottom: "10px",
@@ -240,9 +282,9 @@ function ScheduleInstructor() {
                   const currentMonthTable = currentDateCopy.getMonth() + 1;
                   const currentYearTable = currentDateCopy.getFullYear();
 
-                  const lessonMatch = lessonList.find((lesson) => {
-                    const lessonDate = new Date(lesson.lesson.lessonDate);
-                    const apiTime = new Date(lesson.lesson.shift.timeStart);
+                  const lessonMatch = lesson === '' ? undefined : lesson.find((lesson) => {
+                    const lessonDate = new Date(lesson.lessonDate);
+                    const apiTime = new Date( lesson.shift.timeStart);
                     const rowDate = new Date();
                     rowDate.setHours(Number(timeSlot.split(":")[0]), 0, 0, 0);
                     if (
@@ -264,23 +306,16 @@ function ScheduleInstructor() {
                             <p style={{ color: "##47004e" }}>
                               name course:{" "}
                               {
-                                lessonMatch.lesson.class.course
+                                lessonMatch.class.course
                                   .courseDescription
                               }
                             </p>
                             <p style={{ color: "##47004e" }}>
-                              Name class: {lessonMatch.lesson.class.className}
+                              Name class: {lessonMatch.class.className}
                             </p>
                             <p style={{ color: "##47004e" }}>
-                              Room: {lessonMatch.lesson.room.roomDetail}
+                              Room: {lessonMatch.room.roomDetail}
                             </p>
-                            {lessonMatch.attendance === 2 ? (
-                              <p style={{ color: "red" }}>Not get</p>
-                            ) : lessonMatch.attendance === 1 ? (
-                              <p style={{ color: "green" }}>Attendence</p>
-                            ) : (
-                              <p style={{ color: "red" }}>Absent</p>
-                            )}
                           </div>
                         </div>
                       </td>
