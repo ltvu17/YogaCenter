@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Cors.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 using System.Text.Json.Serialization;
 using YogaCenter;
+using YogaCenter.Helper;
 using YogaCenter.IRepository;
 using YogaCenter.Models;
 using YogaCenter.Repository;
@@ -35,6 +36,8 @@ namespace YogaCenter
             builder.Services.AddTransient<IShiftRepository, ShiftRepository>();
             builder.Services.AddTransient<ILessonRepository, LessonRepository>();
             builder.Services.AddTransient<ICustomerLessonRepository, CustomerLessonRepository>();
+            builder.Services.AddTransient<IEmailRepository, EmailRepository>();
+            builder.Services.AddTransient<IHashRepository, HashRepository>();
             builder.Services.AddScoped<IRoleRepository, RoleRepository>();
             builder.Services.AddScoped<IRoomRepository, RoomRepository>();
             builder.Services.AddScoped<ICourseRepository, CourseRepository>();
@@ -52,6 +55,10 @@ namespace YogaCenter
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
+
+            //Add Email
+            builder.Services.Configure<EmailSetting>(builder.Configuration.GetSection("EmailSetting"));
+
             builder.Services.AddDbContext<DataContext>(options =>
             {
                 options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
