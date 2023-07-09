@@ -39,6 +39,7 @@ import ClassInstructor from './pages/instructor/components/ClassInstructor';
 import ScheduleInstructor from './pages/instructor/components/ScheduleInstructor';
 import Dashboard from './pages/admin/components/Dashboard';
 import HomeStaff from './pages/staff/components/HomeStaff';
+import ForgotPassword from './components/ForgotPassword';
 
 import AccountManagement from './pages/manager/AccountManagement';
 import ProtectRouteCustomer from './service/protectRoute/ProtectRouteCustomer';
@@ -70,6 +71,7 @@ function App() {
         <Route path="/registerClass" element={<RegisterClass/>} />
         <Route path="/schedule" element={<Schedule />} />
         <Route path="/contact" element={<ProtectRouteCustomer user={roleApp} children={<Contact/>}></ProtectRouteCustomer>} />
+        <Route path='/forgot-password' element={<ForgotPassword/>} />
         {/* <Route path="/test" element={<Bloges/>} /> */}
         {/* Customer */}
         <Route path='/customer-class' element={<ProtectRouteCustomer user={roleApp} children={<ClassCustomer/>}></ProtectRouteCustomer>}/>

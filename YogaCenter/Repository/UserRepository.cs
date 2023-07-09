@@ -27,9 +27,9 @@ namespace YogaCenter.Repository
             return await _context.Users.Include(p=>p.Role).OrderByDescending(p=>p.Role.RoleName).ToListAsync();
         }
 
-        public Task<User> GetUserByName(string userName)
+        public async Task<User> GetUserByName(string userName)
         {
-            throw new NotImplementedException();
+            return await _context.Users.Where(p => p.UserName == userName).FirstOrDefaultAsync();
         }            
         public async Task<bool> Save()
         {
