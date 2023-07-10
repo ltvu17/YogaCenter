@@ -3,7 +3,13 @@ import React, { useEffect, useState } from "react";
 import { useCookies } from "react-cookie";
 import { URL_API } from "../api/ConstDefine";
 import { useNavigate } from "react-router-dom";
+import Box from '@mui/material/Box';
+import Grid from '@mui/material/Grid';
+import TextField from '@mui/material/TextField';
+import Button from '@mui/material/Button';
+import { Link } from "react-router-dom";
 
+import '../css/forgotpassword.css'
 export default function ForgotPassword() {
   const CryptoJS = require("crypto-js");
   var OTP = "";
@@ -92,45 +98,64 @@ export default function ForgotPassword() {
   };
 
   return (
-    <div>
-      <div style={{ height: "100px" }}></div>
-      <div>
-        <h1>Forgot Password</h1>
-      </div>
-
+    <div className="forgotPassword-container">
+     <div className="forgotPassword-main" >
       {formOTP !== true ? (
-        <div>
+
           <form onSubmit={handleSubmitForgetPassword}>
-            <input
+          <Box sx={{display:'flex',flexDirection:'column'}}>
+          <Grid sx={{textAlign:'center',marginBottom:'10%'}}>
+            <h1>Forgot Password</h1>
+            <p>No worries, we'll send you reset instructions</p>
+          </Grid>
+            <TextField  className="input-forgotPassword"
               type="email"
               value={email}
               onChange={handleEmailChange}
-              placeholder="Enter your email"
-              required
+              placeholder="  Enter your email"
+              required  variant="outlined"
+              sx={{    marginBottom: '7%'}}
             />
-            <br />
-            <button type="submit">Forgot Password</button>
+            <Button sx={{height:'47px',borderRadius: '16px',marginBottom:'7%'}} variant="contained" type="submit">Reset Password</Button>
+            <Link to='/login'>   
+              <Button sx={{    backgroundColor: 'white',color: 'black', width:'100%',height:'47px',borderRadius: '16px',marginBottom:'7%'}} variant="contained" type="submit">Back to Login</Button>
+            </Link>  
+          </Box>
           </form>
-        </div>
+     
       ) : formUpdatePassword === true ? (
         <form onSubmit={handleSubmitChangePassword}>
           <label>New password</label>
-          <input type="password" onChange={newPasswordChange}></input>
+          <TextField  className="input-forgotPassword" type="password" onChange={newPasswordChange}></TextField>
           <label>Confirm password</label>
-          <input type="password" onChange={confirmPasswordChange}></input>
+          <TextField  className="input-forgotPassword" type="password" onChange={confirmPasswordChange}></TextField>
           <br />
-          <button type="submit">Change Password</button>
+          <Button sx={{height:'47px',borderRadius: '16px',marginBottom:'7%'}}  type="submit">Change Password</Button>
         </form>
       ) : (
-        <div>
-          <p>OTP</p>
+        <Box sx={{display:'flex',flexDirection:'column'}}>
+          <Grid sx={{textAlign:'center',marginBottom:'10%'}}>
+            <h1>OTP Verification</h1>
+            <p>Enter OTP Code sent to email</p>
+          </Grid>
+   
           <form onSubmit={HandleSubmitOTP}>
-            <input type="text" onChange={otpChange} value={otpData} />
-            <button type="submit">Send</button>
+          <Box sx={{display:'flex',flexDirection:'column'}}>
+            <TextField  className="input-forgotPassword"
+              type="text"
+              value={otpData} 
+              onChange={otpChange}
+              
+                sx={{marginBottom: '7%'}}
+              />
+          
+          <Button sx={{height:'47px',borderRadius: '16px',marginBottom:'7%'}} variant="contained" type="submit">Send</Button>
+          </Box>
           </form>
           <p>{message}</p>
-        </div>
+        </Box>
       )}
+      </div>
     </div>
   );
 }
