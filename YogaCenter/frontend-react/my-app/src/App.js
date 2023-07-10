@@ -80,6 +80,7 @@ function App() {
         <Route path='/home-customer' element={<ProtectRouteCustomer user={roleApp} children={<HomeCustomer/>}></ProtectRouteCustomer>} />
         <Route path='/profile-customer' element={<ProtectRouteCustomer user={roleApp} children={<ProfileCustomer/>}></ProtectRouteCustomer>} />
         <Route path='/customer-schedule' element={<ProtectRouteCustomer user={roleApp} children={<ScheduleCustomer/>}></ProtectRouteCustomer>}/>
+        <Route path='/notification' element={<ProtectRouteCustomer user={roleApp} children={<Notification/>}></ProtectRouteCustomer>}/>
 
         {/* Instructor */}
         <Route path='home-instructor' element={<ProtectRouteInstructor user={roleApp} children={<HomeInstructor/>}></ProtectRouteInstructor>} />

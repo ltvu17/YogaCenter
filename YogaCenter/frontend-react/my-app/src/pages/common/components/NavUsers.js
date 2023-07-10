@@ -48,7 +48,7 @@ function NavUsers() {
           <Link to="/home">Home</Link>
         </li>
         <li>
-          <Link to="#">Blog</Link>
+          <Link to="/blog">Blog</Link>
         </li>
         <li>
           <Link to={isCustomer ? "/home-customer" : "/home-instructor"}>
