@@ -52,7 +52,7 @@ export default function Dashboard(){
             thismonthRevernue+=invoice.totalPay;
         }
     })
-    var increasePercent = (thismonthRevernue/revernue)*100;
+    var increasePercent = (thismonthRevernue/(revernue-thismonthRevernue))*100;
     var getDecimalVal = increasePercent.toString().indexOf(".");
     if(getDecimalVal !== -1){
     var increase = increasePercent.toString().substring(0,getDecimalVal+2);
@@ -73,7 +73,7 @@ export default function Dashboard(){
             classOfMonth+=1;
         }
     })
-    var increasePercentOfClass = (classOfMonth/totalClass)*100;
+    var increasePercentOfClass = (classOfMonth/(totalClass-classOfMonth))*100;
     var getDecimalValOfClass = increasePercentOfClass.toString().indexOf(".");
     if(getDecimalValOfClass !== -1){
     var increaseClass = increasePercentOfClass.toString().substring(0,getDecimalVal+2);
@@ -86,14 +86,14 @@ export default function Dashboard(){
     teacher.forEach(teacher=>{
         let dateStart = new Date(teacher.teacherStartDate);
         let dateEnd = new Date(teacher.teacherEndDate);
-        if(dateStart< (new Date)&& (new Date) <dateEnd){
+        if(dateStart< (new Date) && (new Date) <dateEnd){
             totalTeacher +=1;
         }
         if(filterDay(teacher.teacherStartDate) === month){
             newteacherOfMonth+=1;
         }
     })
-    var increasePercentOfTeacher= (newteacherOfMonth/totalTeacher)*100;
+    var increasePercentOfTeacher= (newteacherOfMonth/(totalTeacher-newteacherOfMonth))*100;
     var getDecimalValOfTeacher = increasePercentOfTeacher.toString().indexOf(".");
     if(getDecimalValOfTeacher !== -1){
     var increaseTeacher = increasePercentOfTeacher.toString().substring(0,getDecimalVal+2);
@@ -129,7 +129,7 @@ export default function Dashboard(){
                         title={revernue+" VND"}
                         subtitle="Revenue"
 
-                        progress={thismonthRevernue/revernue}
+                        progress={thismonthRevernue/(revernue-thismonthRevernue)}
                         increase={"+"+increase+"%"}
 
 
@@ -169,7 +169,7 @@ export default function Dashboard(){
                     <StatBox
                         title={totalClass}
                         subtitle="Total Class"
-                        progress={classOfMonth/totalClass}
+                        progress={classOfMonth/(totalClass-classOfMonth)}
                         increase={"+"+increaseClass+"%"}
                         icon={
                         <SchoolIcon
@@ -188,7 +188,7 @@ export default function Dashboard(){
                     <StatBox
                         title={totalTeacher}
                         subtitle="Total Instuctor"
-                        progress={newteacherOfMonth/totalTeacher}
+                        progress={newteacherOfMonth/(totalTeacher-newteacherOfMonth)}
                         increase={"+"+increasePercentOfTeacher+"%"}
                         icon={
                         <PersonSearchIcon

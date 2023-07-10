@@ -117,12 +117,12 @@ export default function AddClassSchedule() {
         return value;
       }
     return (
-    <div style={{marginLeft:'10%'}}>
+    <div style={{marginLeft:'10%',marginRight:'5%', marginBottom:'10%'}}>
         <div style={{height:'50px'}}>
         </div>
         <div className='class-post'>
-        <Button variant='text' color='success' startIcon={<ArrowBackIcon fontSize='large'/>} onClick={back}
-        sx={{padding :1,margin:1, color: 'white', backgroundColor:'rgb(127, 69, 101)'}}>Back to chedule</Button>
+        <Button className='button-back' variant='contained'  startIcon={<ArrowBackIcon fontSize='large'/>} onClick={back}
+        sx={{padding :1,margin:1, color: 'white', fontSize:'18px',fontWeight:'600', backgroundColor:'rgb(38 38 38 / 85%)'}}>Back to class list</Button>
             <table className='table-add-class'>
                 <thead>
                     <tr>
@@ -190,15 +190,14 @@ export default function AddClassSchedule() {
                                 <option key={index} value={item.id} >{filterTime(item.timeStart)}-{filterTime(item.timeEnd)}</option>                      
                         )))}
                         </select></td>     
-                        <td><Button variant='text' color='success' startIcon={<Check/>} onClick={submitAdd}
-                        sx={{padding :1,margin:1, color: 'white', backgroundColor:'rgb(127, 69, 101)'}}>Add</Button></td>
+                        <td><Button className='button-add'variant='contained' startIcon={<Check fontSize='large'/>} onClick={submitAdd}
+        sx={{padding :1,margin:1, color: 'white', backgroundColor:'#010f51b8'}}>Add</Button></td>
                             
                         </tr>
                         )))}
                     <tr>
-                        <td colSpan={7}><Button variant='text' color='success' onClick={AddHandler}
-                        startIcon={<AddCircleOutlineRoundedIcon sx={{ fontSize: 30 }}>add_circle</AddCircleOutlineRoundedIcon>}
-                        sx={{padding :1,marginLeft:25, color: 'white', backgroundColor:'rgb(127, 69, 101)'}}>Add Class</Button></td>
+                        <td colSpan={7}><Button className='button-add'variant='contained' startIcon={<AddCircleOutlineRoundedIcon fontSize='large'/>} onClick={AddHandler}
+        sx={{padding :1,margin:1, color: 'white', backgroundColor:'#010f51b8'}}>Add Class</Button></td>
                     </tr>
                 </tbody>
             </table>

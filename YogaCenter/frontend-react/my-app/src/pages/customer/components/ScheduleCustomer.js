@@ -265,7 +265,7 @@ function ScheduleCustomer() {
                             </Grid>
                             <Grid item md={2} className="lesson-attendence">
                             {lessonMatch.attendance === 2 ? (
-                              <p style={{ }}>Not get</p>
+                              <p style={{ }}>Not yet</p>
                             ) : lessonMatch.attendance === 1 ? (
                               <p style={{ backgroundColor:'#5cb85c', color: "white" }}>Attendence</p>
                             ) : (

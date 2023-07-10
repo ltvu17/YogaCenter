@@ -106,7 +106,7 @@ export default async function Bloges(){
   const api = "https://api-ap-southeast-2.hygraph.com/v2/cljsnrl310fap01ukem39hr1n/master"
     const query = gql`
     query MyQuery {
-      postsConnection {
+      postsConnection(orderBy: createdAt_DESC) {
         edges {
           node {
             title

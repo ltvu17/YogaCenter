@@ -11,7 +11,7 @@ import { Link } from "react-router-dom";
 import Bloges from "../data/ListOfBlog";
 import '../css/blog.css'
 export default function Blog(){
-    const [currentPage, setCurrentPage] = useState(1);
+  
     const [bloges,setBloges] = useState([]);
     useEffect(()=>{
         async function getBloges() {
@@ -19,7 +19,9 @@ export default function Blog(){
         }
         getBloges();
     },[])
+
     console.log(bloges);
+      const [currentPage, setCurrentPage] = useState(1);
     const itemsPerPage = 9;
     const pageCount = Math.ceil(bloges.length / itemsPerPage);
     const indexOfLastItem = currentPage * itemsPerPage;
@@ -47,7 +49,7 @@ export default function Blog(){
             {currentItems.map(blog => (
                     <Grid key={blog.node.slug} item md={4} sx={{ padding: '20px' }}>
                         <Card className="card-blog">
-                            <Link to='/'>
+                            <Link to={`/blog-detail/${blog.node.slug}`}>
                             <div className="image-container">
                                 <CardMedia
                                 component="img"
@@ -69,7 +71,7 @@ export default function Blog(){
                                 }}>
                                 {blog.node.category}
                             </Typography>
-                            <Link to='/'>
+                            <Link to={`/blog-detail/${blog.node.slug}`}>
                             <Typography variant="h5" 
                                 sx={{
                                     display: '-webkit-box',
