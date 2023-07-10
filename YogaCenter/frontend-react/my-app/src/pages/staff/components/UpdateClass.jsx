@@ -67,7 +67,6 @@ export default function UpdateClass({ id }) {
     navigate(0);
     
   }
-
   //Filter
   function filterDay(day) {
     const split = day.split("T");
@@ -163,7 +162,7 @@ export default function UpdateClass({ id }) {
 
           <Button
             variant="contained"
-            onClick={handleClickOpen}
+            onClick={submitAdd}
             sx={{
               padding: 1,
               margin: 1,
