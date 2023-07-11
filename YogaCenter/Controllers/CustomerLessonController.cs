@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using YogaCenter.IRepository;
 using YogaCenter.Models;
+using YogaCenter.ModelsDto;
 using YogaCenter.Repository;
 
 namespace YogaCenter.Controllers
@@ -75,6 +76,21 @@ namespace YogaCenter.Controllers
             if (await _customerLessonRepository.CreateCustomerLesson(customerLesson))
             {
                 return Ok("Created");
+            }
+            return NotFound();
+        }
+        [HttpPut("{lessonId}/{customerId}")]
+        public async Task<IActionResult> UpdateCourse(Guid lessonId, Guid customerId, [FromBody] CustomerLessonDto customerLessonDto)
+        {
+            if (customerId.Equals(null)) { return BadRequest(); }
+            if (customerLessonDto == null) { return BadRequest(); }
+            if (!ModelState.IsValid) { return BadRequest(ModelState); }
+            var cusLesson = await _customerLessonRepository.GetCustomerAndLessonById(customerId, lessonId);
+            if (cusLesson == null) { return BadRequest(); }
+            cusLesson.Attendance = customerLessonDto.Attendance;
+            if (await _customerLessonRepository.UpdateCustomerLesson(cusLesson))
+            {
+                return Ok("Updated");
             }
             return NotFound();
         }
