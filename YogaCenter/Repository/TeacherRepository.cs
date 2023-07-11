@@ -37,8 +37,7 @@ namespace YogaCenter.Repository
 
         public async Task<Teacher> GetTeacherByUserId(Guid userId)
         {
-            return await _context.Teachers.Where(p => p.User.Id == userId).FirstOrDefaultAsync();
-        }
+            return await _context.Teachers.Where(p => p.User.Id == userId).Include(p=> p.User).FirstOrDefaultAsync();        }
 
         public async Task<bool> Save()
         {

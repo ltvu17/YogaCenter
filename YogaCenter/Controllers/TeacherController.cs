@@ -42,7 +42,7 @@ namespace YogaCenter.Controllers
             }
             if (!ModelState.IsValid) { return BadRequest(ModelState); }
             var teacher = await _teacherRepository.GetTeacherByUserId(userId);
-            return Ok(teacher);
+            return Ok(_mapper.Map<TeacherDto>(teacher));
 
         }
         [HttpPost("{userId}")]
