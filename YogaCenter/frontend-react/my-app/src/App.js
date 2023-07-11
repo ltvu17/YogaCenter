@@ -73,6 +73,7 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/registerClass" element={<RegisterClass/>} />
         <Route path="/schedule" element={<Schedule />} />
+        <Route path="/thanks" element={<Thanks/>} />
         <Route path="/contact" element={<ProtectRouteCustomer user={roleApp} children={<Contact/>}></ProtectRouteCustomer>} />
         <Route path='/forgot-password' element={<ForgotPassword/>} />
         <Route path='/thanks' element={<Thanks/>} />

@@ -37,7 +37,7 @@ namespace YogaCenter.Repository
 
         public async Task<ICollection<Customer>> GetInvoiceByCourseId(Guid courseId)
         {
-            return await _context.Invoice.Where(p => p.Course.Id == courseId).Include(p => p.Customer).Select(p=> p.Customer).ToListAsync();
+            return await _context.Invoice.Where(p => p.Course.Id == courseId).Include(p => p.Customer).Select(p=> p.Customer).Distinct().ToListAsync();
         }
 
         public async Task<ICollection<Invoice>> GetInvoiceByCustomerId(Guid customerId)
@@ -53,6 +53,11 @@ namespace YogaCenter.Repository
         public async Task<bool> InvoiceExists(Guid id)
         {
             return await _context.Invoice.AnyAsync(p => p.Id == id);
+        }
+
+        public async Task<bool> InvoiceExistsByTransaction(string transactionId)
+        {
+            return await _context.Invoice.AnyAsync(p=>p.Note == transactionId);
         }
 
         public async Task<bool> Save()

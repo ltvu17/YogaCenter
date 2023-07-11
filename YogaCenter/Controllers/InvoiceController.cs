@@ -80,6 +80,33 @@ namespace YogaCenter.Controllers
             if (!ModelState.IsValid) { return BadRequest(ModelState); }
             var invoice = _mapper.Map<Invoice>(invoiceDto);
             invoice.Id = Guid.NewGuid();
+
+            invoice.Customer = await _customerRepository.GetCustomerById(customerId);
+            invoice.Course = await _courseRepository.GetCourseById(courseId);
+            if (await _invoiceRepository.CreateInvoice(invoice))
+            {
+                return Ok("Created");
+            }
+            return NotFound();
+        }
+        [HttpPost("VNPay")]
+        public async Task<IActionResult> CreateInvoiceByVNPay([FromHeader] Guid customerId, [FromHeader] Guid courseId, [FromBody] InvoiceDto invoiceDto)
+        {
+            if (invoiceDto == null) { return BadRequest(); }
+            if (await _invoiceRepository.InvoiceExists(invoiceDto.Id))
+            {
+                ModelState.AddModelError("", "Invoice Id already existed");
+                return BadRequest(ModelState);
+            }
+
+            if (customerId.Equals(Guid.Empty) || courseId.Equals(Guid.Empty)) { return BadRequest("Miss Something"); }
+            if (!await _customerRepository.CustomerExists(customerId)) return BadRequest("Customer is not exists");
+            if (!await _courseRepository.CourseExists(courseId)) return BadRequest("Course is not exists");
+            if (await _invoiceRepository.InvoiceExistsByTransaction(invoiceDto.Note)) return BadRequest("Bad Transaction");
+            if (!ModelState.IsValid) { return BadRequest(ModelState); }
+            var invoice = _mapper.Map<Invoice>(invoiceDto);
+            invoice.Id = Guid.NewGuid();
+
             invoice.Customer = await _customerRepository.GetCustomerById(customerId);
             invoice.Course = await _courseRepository.GetCourseById(courseId);
             if (await _invoiceRepository.CreateInvoice(invoice))
