@@ -22,6 +22,7 @@ export default function RegisterClass() {
   const [Class, setClass] = useState([]);
   const [cookies] = useCookies(["userId"]);
   const [courses, setCourses] = useState("");
+  const [courseId,setCoursesId] = useState(0);
   const [formRegister, setFormRegisterClass] = useState(false);
   const userId = cookies.userId;
   const InputCus = styled(Input)`
@@ -32,13 +33,18 @@ export default function RegisterClass() {
 
   let CourseAPI = URL_API + `Course`;
 
-  const handlerRegisterClassFormSublmit = (event) => {
+  function handlerRegisterClassFormSublmit(courseId) {
     if (userId === undefined) {
       const element = document.getElementById("registerAccount");
       if (element) {
         element.scrollIntoView({ behavior: "smooth" });
       }
     } else {
+      const element = document.getElementById("registerClass");
+      if (element) {
+        element.scrollIntoView({ behavior: "smooth" });
+      }
+      setCoursesId(courseId);
       setFormRegisterClass(true);
     }
   };
@@ -52,7 +58,6 @@ export default function RegisterClass() {
         console.log(error);
       });
   }, []);
-  console.log(courses);
   return (
     <div className="register-class">
       <Grid
@@ -61,7 +66,7 @@ export default function RegisterClass() {
         pt="66px"
         style={{ backgroundImage: "url('/assets/images/customer-care.png')" }}
       >
-        <Grid item md={6}>
+        <Grid item md={8}>
           <div className="customer-care-content">
             <h1 style={{ color: "#d2608d", marginBottom: "0" }}>YOGA FPTU</h1>
             <h1>
@@ -78,14 +83,15 @@ export default function RegisterClass() {
           </div>
         </Grid>
         {userId === undefined ? (
-          <Grid item md={6} id="registerAccount">
+          <Grid item md={4} id="registerAccount">
             <RegisterAccountCustomer />
           </Grid>
         ) : (
-          <Grid item md={6} id="registerAccount">
-            <RegisClasForm/>
+          <Grid item md={4} id="registerClass">
+            <RegisClasForm courseId={courseId}/>
           </Grid>
         )}
+          
       </Grid>
       <div className="classList">
         <div className="classList-title">
