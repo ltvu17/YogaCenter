@@ -105,8 +105,7 @@ namespace YogaCenter.Controllers
             if (await _invoiceRepository.InvoiceExistsByTransaction(invoiceDto.Note)) return BadRequest("Bad Transaction");
             if (!ModelState.IsValid) { return BadRequest(ModelState); }
             var invoice = _mapper.Map<Invoice>(invoiceDto);
-            invoice.Id = Guid.NewGuid();
-
+     
             invoice.Customer = await _customerRepository.GetCustomerById(customerId);
             invoice.Course = await _courseRepository.GetCourseById(courseId);
             if (await _invoiceRepository.CreateInvoice(invoice))

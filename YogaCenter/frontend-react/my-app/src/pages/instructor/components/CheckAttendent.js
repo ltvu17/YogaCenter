@@ -67,7 +67,7 @@ export default function CheckAttendent(props) {
   
   console.log(listStudent);
   return (
-    <div className="student-manage">
+    <div className="student-manage" style={{padding: '5%'}}>
       <div className="class-post">
         <Button
           className="button-back"
