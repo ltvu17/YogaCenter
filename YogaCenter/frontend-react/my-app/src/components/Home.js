@@ -5,17 +5,19 @@ import "../css/home.css";
 import Button from "@mui/material/Button";
 import { styled } from "@mui/system";
 import Person2RoundedIcon from "@mui/icons-material/Person2Rounded";
+import ArrowRightAltIcon from '@mui/icons-material/ArrowRightAlt';
 import Grid from "@mui/material/Unstable_Grid2";
-import { Input } from "@mui/material";
+import { Input, Typography } from "@mui/material";
 import Box from "@mui/material/Box";
 import { Link, useNavigate } from "react-router-dom";
 import { useCookies } from "react-cookie";
 import axios from "axios";
 import RegisterAccountCustomer from "../pages/customer/components/RegisterAccountCustomer";
 
-const ariaLabel = { "aria-label": "description" };
+
 
 export default function Home() {
+
   const InputCus = styled(Input)`
     &:after {
       border-bottom: 2px solid #951a3b;
@@ -396,10 +398,11 @@ export default function Home() {
             <div className="content-detail">
               <p>SCHEDULE</p>
               <h1>FIND A CLASS</h1>
-              <Link to={"/schedule"}>
+              <Link to="/thanks">
                 <ButtonBookingRight
                   variant="contained"
                   className="button-booking"
+           
                 >
                   SHOW SCHEDULE
                 </ButtonBookingRight>
@@ -415,6 +418,15 @@ export default function Home() {
           </div>
         </div>
       </div>
+      <Grid container className='blog-home'>
+            <Grid item md={12}>
+                <Typography variant="h1">Blog</Typography>
+                <Link to='/blog'><Typography className="subtitle1">All<ArrowRightAltIcon></ArrowRightAltIcon></Typography></Link>
+            </Grid>
+            <Grid item md={12}>
+              
+            </Grid>
+      </Grid>
     </div>
   );
 }

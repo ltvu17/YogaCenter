@@ -4,6 +4,8 @@ import { useCookies } from 'react-cookie';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { useLocation } from 'react-router-dom';
 import { URL_API } from '../pages/staff/components/ConstDefine';
+import '../css/thank.css'
+import { Grid, Typography } from '@mui/material';
 
 export default function Thanks() {
   const location = useLocation()
@@ -41,29 +43,28 @@ export default function Thanks() {
         }
       }   
   useEffect(() => {
-    if (showPopup) {
-      const timer = setTimeout(() => {
-        setShowPopup(false);
-      }, 5000);
+    const timeout = setTimeout(() => {
+      navigate('/');
+    }, 6000);
 
-      return () => {
-        
-        clearTimeout(timer);
-      };
-    }
-  }, [showPopup]);
-
+    return () => {
+      clearTimeout(timeout);
+    };
+  }, [navigate]);
+  
   return (
-    <div className='thanks-main'>
-      {createInvoice()}
-      <div style={{height:'200px'}}></div>
-      {showPopup && (
-        <div className="popup-overlay">
-            <div className="popup">
-                <p>Thank you for choosing and trusting us. Wish you have a nice experience</p>
-            </div>
-        </div>
-      )}
-    </div>
+    <Grid container md={12} className='thanks-main'>
+       {createInvoice()}
+      <Grid item md={6} className='thanks-title' sx={{marginTop: '5%',
+                                                      padding: '3%'}}>
+        <Typography variant='h1'>Thank you for choosing and trusting us</Typography>
+        <Typography variant='subtitle1'>Wish you have a nice experience</Typography>
+      </Grid>
+      <Grid item md={6} className='item-thanks'>
+        <img src='assets/images/item-thanks.png' />
+      </Grid>
+    </Grid>
+
   );
-}
+};
+
