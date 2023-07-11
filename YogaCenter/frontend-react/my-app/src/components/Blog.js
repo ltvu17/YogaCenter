@@ -36,7 +36,7 @@ export default function Blog(){
         return value;
     }
     return(
-        // <div></div>
+     
         <Grid container className="blog-container">
             <Grid item md={12} className="blog-header">
                 <img src='/assets/images/background-blog.jpg' />

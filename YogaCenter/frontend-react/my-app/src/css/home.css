@@ -257,4 +257,25 @@
   height: 150px;
   max-width: none;
 }
-
+.blog-home{
+  width: 100%;
+    background-color: #ece8e9;
+    padding: 40px 100px;
+}
+.blog-home .blog-home-title  h1{
+  font-weight: 600;
+  letter-spacing: 4px;
+  color: #050404d6;
+  text-align: center;
+}
+.blog-home .blog-home-title a{
+  text-decoration: none;
+  float: right;
+}
+.blog-home .blog-home-title  p{
+  display: flex;
+  align-items: center;
+  font-size: 1.5rem;
+  letter-spacing: 2px;
+  color: black;
+}

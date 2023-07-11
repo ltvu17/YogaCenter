@@ -48,7 +48,7 @@ namespace YogaCenter.Repository
         public async Task<ICollection<Lesson>> GetLessonByClassId(Guid classId)
         {
             //.Include(p => p.Class).Include(p => p.Shift).Include(p => p.Room)
-            return await _context.Lessons.Where(p => p.Class.Id == classId).Include(p => p.Room).Include(p => p.Shift).Include(p => p.Class).ToListAsync();
+            return await _context.Lessons.Where(p => p.Class.Id == classId).Include(p => p.Room).Include(p => p.Shift).Include(p => p.Class).ThenInclude(p => p.Course).ToListAsync();
         }
 
         public async Task<ICollection<Lesson>> GetLessonByDate(DateTime date)
@@ -65,6 +65,11 @@ namespace YogaCenter.Repository
         public Task<Lesson> GetLessonByRoomId(Guid roomId)
         {
             throw new NotImplementedException();
+        }
+
+        public async Task<ICollection<Lesson>> GetLessonByTeahcherId(Guid userId)
+        {
+            return await _context.Lessons.Where(p => p.Class.Teacher.User.Id == userId).Include(p => p.Room).Include(p => p.Shift).Include(p => p.Class).ThenInclude(p => p.Course).ToListAsync();
         }
 
         public async Task<bool> LessonExists(Guid id)

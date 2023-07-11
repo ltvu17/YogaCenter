@@ -64,5 +64,11 @@ namespace YogaCenter.Repository
             var save = await _context.SaveChangesAsync();
             return save > 0 ? true : false;
         }
+
+        public async Task<bool> UpdateCustomerLesson(CustomerLesson customerLesson)
+        {
+            _context.Update(customerLesson);
+            return await Save();
+        }
     }
 }

@@ -50,14 +50,18 @@ import ProtectRouteAdmin from './service/protectRoute/ProtectRouteAdmin';
 import Blog from './components/Blog';
 import ProtectRouteManager from './service/protectRoute/ProtectRouteManager';
 import BlogDetail from './components/BlogDetail';
+import Thanks from './components/Thanks';
+import ProtectRouteThanks from './service/protectRoute/ProtectRouteThanks';
 // import Bloges from './data/ListOfBlog'
 
 function App() {
   try {
     const [roleCookie, setCookie] = useCookies([""]);
     var roleApp = JSON.stringify(roleCookie.Role);
+    var status = JSON.stringify(roleCookie.timeout)
+    console.log(status);
   } catch (err) {}
-
+ 
   return (
     <div className="App">
       {/* <NavUsers/>  */}
@@ -72,8 +76,10 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/registerClass" element={<RegisterClass/>} />
         <Route path="/schedule" element={<Schedule />} />
+        <Route path="/thanks" element={<ProtectRouteThanks status={status} children={<Thanks/>}></ProtectRouteThanks>} />
         <Route path="/contact" element={<ProtectRouteCustomer user={roleApp} children={<Contact/>}></ProtectRouteCustomer>} />
         <Route path='/forgot-password' element={<ForgotPassword/>} />
+        <Route path='/thanks' element={<Thanks/>} />
         {/* <Route path="/test" element={<Bloges/>} /> */}
         {/* Customer */}
         <Route path='/customer-class' element={<ProtectRouteCustomer user={roleApp} children={<ClassCustomer/>}></ProtectRouteCustomer>}/>

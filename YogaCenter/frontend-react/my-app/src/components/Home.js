@@ -1,21 +1,26 @@
 import React, { useEffect, useState } from "react";
 
 import "../css/home.css";
-
+import "../css/blog.css"
 import Button from "@mui/material/Button";
 import { styled } from "@mui/system";
 import Person2RoundedIcon from "@mui/icons-material/Person2Rounded";
+import ArrowRightAltIcon from '@mui/icons-material/ArrowRightAlt';
 import Grid from "@mui/material/Unstable_Grid2";
-import { Input } from "@mui/material";
+import { Input, Typography } from "@mui/material";
 import Box from "@mui/material/Box";
 import { Link, useNavigate } from "react-router-dom";
 import { useCookies } from "react-cookie";
 import axios from "axios";
 import RegisterAccountCustomer from "../pages/customer/components/RegisterAccountCustomer";
+import Bloges from "../data/ListOfBlog";
+import Card from '@mui/material/Card';
 
-const ariaLabel = { "aria-label": "description" };
+import CardContent from '@mui/material/CardContent';
+import CardMedia from '@mui/material/CardMedia';
 
 export default function Home() {
+
   const InputCus = styled(Input)`
     &:after {
       border-bottom: 2px solid #951a3b;
@@ -119,6 +124,13 @@ export default function Home() {
         console.log(error);
       });
   }, []);
+  const [bloges,setBloges] = useState([]);
+  useEffect(()=>{
+      async function getBloges() {
+          setBloges(await Bloges());
+      }
+      getBloges();
+  },[])
   const getFormattedDate = (dateString) => {
     const date = new Date(dateString);
     const formattedDate = date.toLocaleDateString();
@@ -396,10 +408,11 @@ export default function Home() {
             <div className="content-detail">
               <p>SCHEDULE</p>
               <h1>FIND A CLASS</h1>
-              <Link to={"/schedule"}>
+              <Link to="/thanks">
                 <ButtonBookingRight
                   variant="contained"
                   className="button-booking"
+           
                 >
                   SHOW SCHEDULE
                 </ButtonBookingRight>
@@ -415,6 +428,50 @@ export default function Home() {
           </div>
         </div>
       </div>
+      <Grid container className='blog-home'>
+            <Grid item md={12} className="blog-home-title">
+                <Typography variant="h1">Blog</Typography>
+                <Link to='/blog'><Typography className="subtitle1">All<ArrowRightAltIcon></ArrowRightAltIcon></Typography></Link>
+            </Grid>
+            <Grid container item md={12}>
+            {bloges.slice(0,4).map(blog => (
+                    <Grid key={blog.node.slug} item md={3} sx={{ padding: '20px' }}>
+                    <Card className="card-blog">
+                            <Link to={`/blog-detail/${blog.node.slug}`}>
+                              <div className="image-container">
+                                  <CardMedia
+                                  component="img"
+                                  sx={{
+                                      height:'250px',
+                                      transition: 'transform 0.3s',
+                                  }}
+                                  image={blog.node.image.url}
+                                  className="zoom-image"
+                                  />
+                              </div>
+                            </Link>
+                            <CardContent>
+                        
+                            <Link to={`/blog-detail/${blog.node.slug}`}>
+                            <Typography variant="h5" 
+                                sx={{
+                                    color: 'black',
+                                    fontWeight: '600',
+                                    fontSize:'22px',
+                                    margin: '0'
+                                }}>
+                                {blog.node.title}
+                            </Typography>
+                            </Link>
+                           
+                        
+                            </CardContent>
+                    
+                        </Card>
+                    </Grid>
+                ))}
+            </Grid>
+      </Grid>
     </div>
   );
 }
