@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 
 import "../css/home.css";
-
+import "../css/blog.css"
 import Button from "@mui/material/Button";
 import { styled } from "@mui/system";
 import Person2RoundedIcon from "@mui/icons-material/Person2Rounded";
@@ -13,8 +13,11 @@ import { Link, useNavigate } from "react-router-dom";
 import { useCookies } from "react-cookie";
 import axios from "axios";
 import RegisterAccountCustomer from "../pages/customer/components/RegisterAccountCustomer";
+import Bloges from "../data/ListOfBlog";
+import Card from '@mui/material/Card';
 
-
+import CardContent from '@mui/material/CardContent';
+import CardMedia from '@mui/material/CardMedia';
 
 export default function Home() {
 
@@ -121,6 +124,13 @@ export default function Home() {
         console.log(error);
       });
   }, []);
+  const [bloges,setBloges] = useState([]);
+  useEffect(()=>{
+      async function getBloges() {
+          setBloges(await Bloges());
+      }
+      getBloges();
+  },[])
   const getFormattedDate = (dateString) => {
     const date = new Date(dateString);
     const formattedDate = date.toLocaleDateString();
@@ -419,12 +429,47 @@ export default function Home() {
         </div>
       </div>
       <Grid container className='blog-home'>
-            <Grid item md={12}>
+            <Grid item md={12} className="blog-home-title">
                 <Typography variant="h1">Blog</Typography>
                 <Link to='/blog'><Typography className="subtitle1">All<ArrowRightAltIcon></ArrowRightAltIcon></Typography></Link>
             </Grid>
-            <Grid item md={12}>
-              
+            <Grid container item md={12}>
+            {bloges.slice(0,4).map(blog => (
+                    <Grid key={blog.node.slug} item md={3} sx={{ padding: '20px' }}>
+                    <Card className="card-blog">
+                            <Link to={`/blog-detail/${blog.node.slug}`}>
+                              <div className="image-container">
+                                  <CardMedia
+                                  component="img"
+                                  sx={{
+                                      height:'250px',
+                                      transition: 'transform 0.3s',
+                                  }}
+                                  image={blog.node.image.url}
+                                  className="zoom-image"
+                                  />
+                              </div>
+                            </Link>
+                            <CardContent>
+                        
+                            <Link to={`/blog-detail/${blog.node.slug}`}>
+                            <Typography variant="h5" 
+                                sx={{
+                                    color: 'black',
+                                    fontWeight: '600',
+                                    fontSize:'22px',
+                                    margin: '0'
+                                }}>
+                                {blog.node.title}
+                            </Typography>
+                            </Link>
+                           
+                        
+                            </CardContent>
+                    
+                        </Card>
+                    </Grid>
+                ))}
             </Grid>
       </Grid>
     </div>
