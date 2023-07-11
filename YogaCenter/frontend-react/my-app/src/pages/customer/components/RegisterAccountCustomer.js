@@ -68,13 +68,15 @@ export default function RegisterAccountCustomer() {
         .post(notificationAPI, {
           id: noteId,
           title: "Customer Register",
-          detail: `${customerEmail}/n${customerName
+          detail: `Email: ${customerEmail}\nName: ${customerName
             .trim()
             .replace(/\s+/g, " ")
             .toLowerCase()
             .replace(/\b\w/g, (match) =>
               match.toUpperCase()
-            )}/n${customerPhone.slice(1)}/n${customerGender}/n${customerAddress}/n`,
+            )}\nPhone: ${customerPhone.slice(
+            1
+          )}\nGender: ${customerGender}\nAddress: ${customerAddress}\n`,
           status: "1",
         })
         .then((res) => {
@@ -99,18 +101,18 @@ export default function RegisterAccountCustomer() {
         .then((res) => {
           console.log(noteId);
           console.log("succes create userNotification");
-          setCustomerEmail('');
-          setCustomerName('');
-          setCustomerPhone('');
-          setCustomerGender('');
-          setCustomerAddress('');
+          setCustomerEmail("");
+          setCustomerName("");
+          setCustomerPhone("");
+          setCustomerGender("");
+          setCustomerAddress("");
           setRegisterEvent(true);
         })
         .catch((error) => {
           console.log(noteId);
           console.log(error);
         });
-    }else{
+    } else {
       setPhoneEvent(true);
     }
   };
@@ -119,7 +121,14 @@ export default function RegisterAccountCustomer() {
     <div>
       <form onSubmit={handlerRegisterSubmit}>
         <ul className="customer-formRegister">
-        {registerEven ? (<p>Register succes: Follow email and we will send password for you late</p>) : ("")}
+          {registerEven ? (
+            <p>
+              Register succes: Follow email and we will send password for you
+              late
+            </p>
+          ) : (
+            ""
+          )}
           <li>
             <TextField
               className="customer-input"
@@ -142,7 +151,7 @@ export default function RegisterAccountCustomer() {
               onChange={handleNameChange}
             />
           </li>
-          {phoneEvent ? (<p>Phone number wrong format</p>) : ("")}
+          {phoneEvent ? <p>Phone number wrong format</p> : ""}
           <li>
             <TextField
               className="customer-input"
