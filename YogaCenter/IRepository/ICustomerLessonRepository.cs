@@ -10,6 +10,7 @@ namespace YogaCenter.IRepository
         public Task<ICollection<CustomerLesson>> GetCustomerLessonByLessonId(Guid lessonId);
         public Task<bool> CreateCustomerLesson(CustomerLesson customerLesson);
         public Task<bool> DeleteCustomerLesson(CustomerLesson customerLessonDelete);
+        public Task<bool> UpdateCustomerLesson(CustomerLesson customerLesson);
         public Task<bool> LessonExists(Guid id);
         public Task<bool> CustomerExists(Guid customerId);
         public Task<bool> Save();
