@@ -19,14 +19,15 @@ export const currCode = 'VND'
 export const IpAddr = '127.0.0.1'
 export const locale = 'vn'
 export const orderType = 'orther'
-export const reciveURL = 'http%3A%2F%2Flocalhost%3A3000'
+export const reciveURL = 'http%3A%2F%2Flocalhost%3A3000%2Fthanks'
 export const tmnCode = 'DHTJ6UWT'
 export const txnRef = Math.floor(Math.random() * 100000);
 export const secretKey = 'WLZGWGGXPTZFHBGNRKRFFPJMQXEMJDXC'
 export const version = '2.1.0'
 
-export  function HmacSHA256Hash(input,key){
-    var out = CryptoJS.HmacSHA256(input,key)
+export  function HmacSHA256Hash(){
+    
+    var out = CryptoJS.HmacSHA256(txnRef,secretKey).toString();
     return out;
 }
 

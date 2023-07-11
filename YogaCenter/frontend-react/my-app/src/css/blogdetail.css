@@ -21,3 +21,17 @@
 .blogDetail-content{
     padding: 1% 9%;
 }
+.blogDetail-content a{
+  text-decoration: none;
+}
+.postContent-main{
+  padding-top: 5%;
+  font-family: sans-serif;;
+}
+.postContent-main h2{
+  padding: 1% 0;
+}
+.postContent-main li{
+  padding-left: 2%;
+  list-style-type: none;
+}

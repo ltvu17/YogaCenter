@@ -284,12 +284,12 @@ function ScheduleInstructor() {
         </div>
       ) : (
         <>
-          <div style={{ padding: "100px" }}></div>
+          <div style={{ padding: "35px" }}></div>
           <CheckAttendent
             lesson={lessonCheckAttendent}
             onBackClick={handleBackClick}
           />
-          <div style={{ padding: "100px" }}></div>
+          
         </>
       )}
     </div>

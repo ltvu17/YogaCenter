@@ -2,7 +2,7 @@ import React from 'react'
 import TextField from '@mui/material/TextField';
 import Box from '@mui/material/Box';
 import { styled } from '@mui/material/styles';
-import uuidv4, { HmacSHA256Hash, IpAddr, URL_API, URL_VNPay, command, commandPay, currCode, locale, locate, reciveURL, secretKey, tmnCode, txnRef, version } from './ConstDefine';
+import uuidv4, {  HmacSHA256Hash, IpAddr, URL_API, URL_VNPay, command, commandPay, currCode, locale, locate, reciveURL, secretKey, tmnCode, txnRef, version } from './ConstDefine';
 import Button from '@mui/material/Button';
 import MenuItem from '@mui/material/MenuItem';
 import { Link, useNavigate } from 'react-router-dom';
@@ -18,18 +18,20 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import { HmacSHA256, HmacSHA512 } from 'crypto-js';
+import CryptoJS from "crypto-js";
 
 export default function RegisClasForm({courseId}) {
   const [course,setCourse] = useState([]);
   const [open, setOpen] = useState(false);
+  const [cookie,setcookie] = useCookies();
   const [customer, setCustomer] = useState([]);
   const [user] = useCookies();
   const [inputField,setInputField] = useState({
     totalPaid :0,
     coursePay : '',
   }); 
-  const [payment,setPayment] = useState("CASH");
-  
+  const [payment,setPayment] = useState(2);
+  var refff = Math.floor(Math.random() * 100000);
   let getInvoiceAPI = URL_API+`Course/${courseId}`
   let getUserAPI = URL_API+`Customer/${user.userId}`
   //---------------------------------------API------------------------------------------
@@ -46,7 +48,9 @@ export default function RegisClasForm({courseId}) {
   const handleClose = () => {
     setOpen(false);
   };
-
+  const setPayCookie = () =>{
+    setcookie('timeout', HmacSHA512(txnRef.toString(),secretKey).toString(),{path: '/',maxAge: 900});
+  }
   const changeHandler=(e)=>{
     setPayment(e.target.value);
   }
@@ -108,7 +112,7 @@ export default function RegisClasForm({courseId}) {
     <div>
       <div style={{height:"100px"}}></div>
      <div className='invoice'>
-             <h1 className='staff-title'>Invoice</h1>
+             <h1 className='staff-title'>Shopping Cart</h1>
             <Box
             sx={{
             '& > :not(style)': { m: 1, width: '70%' },
@@ -153,13 +157,14 @@ export default function RegisClasForm({courseId}) {
                         label="Payment method"
                         value={payment}         
             >       
-           <MenuItem value='VNPPAY' >VNPay<Avatar sx={{marginLeft:'2%'}} src='/assets/images/VNPay.PNG' variant='square' ></Avatar> </MenuItem>
-           <MenuItem value='CASH' >Cash <LocalAtmIcon/></MenuItem>
+           <MenuItem value={1} >VNPay<Avatar sx={{marginLeft:'2%'}} src='/assets/images/VNPay.PNG' variant='square' ></Avatar> </MenuItem>
+           <MenuItem value={2} >Cash <LocalAtmIcon/></MenuItem>
             </TextField>
             <br/>
-            <Button variant="contained" type="submid" onClick={submitInvoice}>Submit Invoice </Button>         
+            <Button variant="contained" type="submid" onClick={submitInvoice}>Place Order</Button>         
             </Box>    
     </div>
+            {payment === 1 ?(
                 <Dialog
                     open={open}
                     onClose={handleClose}
@@ -176,11 +181,33 @@ export default function RegisClasForm({courseId}) {
                     </DialogContent>
                     <DialogActions>
                         <Button onClick={handleClose}><Link to='/registerClass'>No</Link></Button>
-                        <Button  autoFocus>
-                            <Link to={vnPayURLRequest}>Yes</Link>
+                        <Button autoFocus>
+                            <Link onClick={setPayCookie} to={vnPayURLRequest}>Yes</Link>
                         </Button>
                     </DialogActions>
-                </Dialog>
+                </Dialog>):
+                (
+                  <Dialog
+                      open={open}
+                      onClose={handleClose}
+                      aria-labelledby="alert-dialog-title"
+                      aria-describedby="alert-dialog-description"
+                  >
+                      <DialogTitle id="alert-dialog-title">
+                          {"YogaCenter Management"}
+                      </DialogTitle>
+                      <DialogContent>
+                          <DialogContentText id="alert-dialog-description" >
+                              <p style={{ color: 'red' }}>Please contact with staff to complete the payment</p>
+                          </DialogContentText>
+                      </DialogContent>
+                      <DialogActions>
+                          <Button onClick={handleClose}  autoFocus>
+                          <Link to='/registerClass'>Close</Link>
+                          </Button>
+                      </DialogActions>
+                  </Dialog>)
+                }
     </div>
   );
 }

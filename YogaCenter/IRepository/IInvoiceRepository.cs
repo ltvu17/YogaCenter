@@ -13,6 +13,7 @@ namespace YogaCenter.IRepository
         public Task<bool> UpdateInvoice(Invoice invoice);
         public Task<bool> DeleteInvoice(Invoice invoiceDelete);
         public Task<bool> InvoiceExists(Guid id);
+        public Task<bool> InvoiceExistsByTransaction(string transactionId);
         public Task<bool> Save();
     }
 }
