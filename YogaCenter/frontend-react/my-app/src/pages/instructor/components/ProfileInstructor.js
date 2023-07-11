@@ -184,7 +184,7 @@ export default function ProfileTeacher() {
     if (avatar) {
       const formData = new FormData();
       formData.append("file", avatar);
-      formData.append("fileName", `${userId}.jpg`);
+      formData.append("fileName", `${oldTeacher.id}.jpg`);
       formData.append("filePath", pathUser);
 
       try {
@@ -231,7 +231,7 @@ export default function ProfileTeacher() {
               component="img"
               alt="green iguana"
               height="65%"
-              image={urlImage}
+              image={"/assets/images/userImage/" + oldTeacher.id + ".jpg"}
               onError={(e) => {
                 e.target.onError = null;
                 e.target.src = "/assets/images/userImage/avatarDefault.jpg";
