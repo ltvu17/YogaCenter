@@ -23,6 +23,7 @@ export default function ProfileCustomer() {
   const [profileTitle, setProfileTitle] = useState("Profile");
   const [cookies] = useCookies();
   const userId = cookies.userId;
+  console.log(userId)
   const [avatar, setAvatar] = useState(null);
   const [urlImage, setUrlImage] = useState(
     `../../assets/images/userImage/${userId}.jpg`
@@ -243,7 +244,7 @@ export default function ProfileCustomer() {
               component="img"
               alt="green iguana"
               height="65%"
-              image={urlImage}
+              image={"/assets/images/userImage/" + userId + ".jpg"}
               sx={{ marginBottom: "20px" }}
             />
             <CardActions className="changeProfile">
