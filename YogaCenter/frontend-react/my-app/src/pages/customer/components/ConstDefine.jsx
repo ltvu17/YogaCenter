@@ -25,8 +25,9 @@ export const txnRef = Math.floor(Math.random() * 100000);
 export const secretKey = 'WLZGWGGXPTZFHBGNRKRFFPJMQXEMJDXC'
 export const version = '2.1.0'
 
-export  function HmacSHA256Hash(input,key){
-    var out = CryptoJS.HmacSHA256(input,key)
+export  function HmacSHA256Hash(){
+    
+    var out = CryptoJS.HmacSHA256(txnRef,secretKey).toString();
     return out;
 }
 
