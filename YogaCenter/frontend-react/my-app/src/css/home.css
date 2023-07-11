@@ -257,4 +257,7 @@
   height: 150px;
   max-width: none;
 }
-
+.blog-home{
+  width: 100%;
+    background-color: #ece8e9;
+}

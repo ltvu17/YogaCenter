@@ -1,30 +1,33 @@
-import { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 
-export default function Thanks() {
-  const [showPopup, setShowPopup] = useState(false);
+import '../css/thank.css'
+import { Grid, Typography } from '@mui/material';
+export default function Thanks(){
+  const navigate = useNavigate();
 
   useEffect(() => {
-    if (showPopup) {
-      const timer = setTimeout(() => {
-        setShowPopup(false);
-      }, 5000);
+    const timeout = setTimeout(() => {
+      navigate('/');
+    }, 6000);
 
-      return () => {
-        clearTimeout(timer);
-      };
-    }
-  }, [showPopup]);
-
+    return () => {
+      clearTimeout(timeout);
+    };
+  }, [navigate]);
 
   return (
-    <div className='thanks-main'>
-      {showPopup && (
-        <div className="popup-overlay">
-            <div className="popup">
-                <p>Thank you for choosing and trusting us. Wish you have a nice experience</p>
-            </div>
-        </div>
-      )}
-    </div>
+    <Grid container md={12} className='thanks-main'>
+
+      <Grid item md={6} className='thanks-title' sx={{marginTop: '5%',
+                                                      padding: '3%'}}>
+        <Typography variant='h1'>Thank you for choosing and trusting us</Typography>
+        <Typography variant='subtitle1'>Wish you have a nice experience</Typography>
+      </Grid>
+      <Grid item md={6} className='item-thanks'>
+        <img src='assets/images/item-thanks.png' />
+      </Grid>
+    </Grid>
   );
-}
+};
+
