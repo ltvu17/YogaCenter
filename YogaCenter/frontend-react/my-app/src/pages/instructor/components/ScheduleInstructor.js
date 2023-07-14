@@ -5,7 +5,7 @@ import KeyboardDoubleArrowRightIcon from "@mui/icons-material/KeyboardDoubleArro
 import KeyboardDoubleArrowLeftIcon from "@mui/icons-material/KeyboardDoubleArrowLeft";
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 import { URL_API } from "../../../api/ConstDefine";
-
+import Button from '@mui/material/Button';
 import axios from "axios";
 import CheckAttendent from "./CheckAttendent";
 function ScheduleInstructor() {
@@ -192,7 +192,7 @@ function ScheduleInstructor() {
               <tbody>
                 {time.map((timeSlot) => (
                   <tr key={timeSlot}>
-                    <td style={{ backgroundColor: "#d3dfef" }}>
+                    <td style={{ backgroundColor: '#afb99e73'  }}>
                       <h1
                         style={{
                           marginBottom: "10px",
@@ -252,22 +252,37 @@ function ScheduleInstructor() {
                           <td key={`${day}-${timeSlot}`}>
                             <div className="lessonDay">
                               <div className="lesson-details">
-                                <p style={{ color: "##47004e" }}>
-                                  name course: {lessonMatch.class.course.courseDescription}
+                                <p style={{ padding: '10px',
+                                        backgroundColor: '#d1b0b0',
+                                        fontSize: '1rem',
+                                        fontWeight: '600',
+                                        color: '#9b7575fa',
+                                        borderTopRightRadius: '15px',
+                                        borderTopLeftRadius: '15px'}}>
+                                  {lessonMatch.class.course.courseDescription}
                                 </p>
-                                <p style={{ color: "##47004e" }}>
-                                  Name class: {lessonMatch.class.className}
+                                <p style={{ color: 'rgb(171 77 77)', 
+                                      fontWeight: '600',
+                                      fontSize: '25px',
+                                      letterSpacing: '3px',
+                                      padding: '5px' }}>
+                                 {lessonMatch.class.className}
                                 </p>
-                                <p style={{ color: "##47004e" }}>
-                                  Room: {lessonMatch.room.roomDetail}
+                                <p style={{ padding: '5px',
+                                      color: '#621212',
+                                      fontWeight: '600'}}>
+
+                                  Room  {lessonMatch.room.roomDetail}
                                 </p>
-                                <button
+                                <Button variant="text"
                                   onClick={() =>
                                     handlerClickAttendent(lessonMatch)
                                   }
+                                  sx={{color: '#679501',
+                                        fontWeight: '600'}}
                                 >
                                   Attendent
-                                </button>
+                                </Button>
                               </div>
                             </div>
                           </td>

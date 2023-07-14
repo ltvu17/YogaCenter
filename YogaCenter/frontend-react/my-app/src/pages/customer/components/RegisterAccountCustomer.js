@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Button from "@mui/material/Button";
 import Grid from "@mui/material/Unstable_Grid2";
-import { Input, TextField } from "@mui/material";
+import { Input, TextField,MenuItem } from "@mui/material";
 import { styled } from "@mui/system";
 import { useCookies } from "react-cookie";
 import axios from "axios";
@@ -11,13 +11,7 @@ import {
   staffNotification,
 } from "../../../service/IdPublic/IdPublic";
 import uuidv4 from "../../../service/IdPublic/IdPublic";
-import { Link } from "react-router-dom";
-import Box from "@mui/material/Box";
-import Card from "@mui/material/Card";
-import CardActions from "@mui/material/CardActions";
-import CardContent from "@mui/material/CardContent";
-import CardMedia from "@mui/material/CardMedia";
-import { TramOutlined } from "@mui/icons-material";
+
 
 const ariaLabel = { "aria-label": "description" };
 
@@ -143,7 +137,7 @@ export default function RegisterAccountCustomer() {
           <li>
             <TextField
               className="customer-input"
-              placeholder="Họ và tên"
+              placeholder="Full name"
               inputProps={ariaLabel}
               required
               type="text"
@@ -155,7 +149,7 @@ export default function RegisterAccountCustomer() {
           <li>
             <TextField
               className="customer-input"
-              placeholder="Số điện thoại"
+              placeholder="Phone"
               inputProps={ariaLabel}
               required
               type="number"
@@ -164,16 +158,19 @@ export default function RegisterAccountCustomer() {
             />
           </li>
           <li>
-            <TextField
-              className="customer-input"
-              placeholder="Gender"
-              inputProps={ariaLabel}
-              required
-              type="Gender"
-              value={customerGender}
-              onChange={handleGenderChange}
-            />
-          </li>
+    <TextField
+      className="customer-input"
+      label="Gender"
+      select
+      required
+      value={customerGender}
+      onChange={handleGenderChange}
+    >
+      <MenuItem value="male">Male</MenuItem>
+      <MenuItem value="female">Female</MenuItem>
+      <MenuItem value="other">Other</MenuItem>
+    </TextField>
+  </li>
           <li>
             <TextField
               className="customer-input"

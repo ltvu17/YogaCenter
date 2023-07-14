@@ -120,6 +120,7 @@ export default async function Bloges(){
               url
             }
             category
+            
           }
         }
       }
