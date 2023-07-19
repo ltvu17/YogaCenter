@@ -1,4 +1,4 @@
-.course-manage{
+.add-class-container{
     padding-left: 15%;
     padding-top: 30px;
     padding-bottom: 30px;
@@ -6,7 +6,3 @@
     background: white;
     min-height: 100vh;
 }
-.course-manage .icon-delete .MuiSvgIcon-root {
-  
-    color: red;
-  }

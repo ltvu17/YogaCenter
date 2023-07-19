@@ -159,7 +159,7 @@ export default function UpdateClass({ id }) {
             ))}
           </select></td>
           {/* {message?(<p style={{color: 'red', backgroundColor:'white'}}>{message}</p>):''} */}
-
+              <td>
           <Button
             variant="contained"
             onClick={submitAdd}
@@ -167,11 +167,12 @@ export default function UpdateClass({ id }) {
               padding: 1,
               margin: 1,
               color: "white",
-              backgroundColor: "#010f51b8",
+              backgroundColor: "#1263fd",
             }}
           >
             Save
             </Button>
+            </td>
               </tr>
             </tbody>
        

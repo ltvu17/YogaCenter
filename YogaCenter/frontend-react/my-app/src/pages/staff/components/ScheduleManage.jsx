@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import '../css/StaffSchedule.css'
 import { useEffect } from 'react';
 import WestIcon from '@mui/icons-material/West';
-import { IconButton } from '@mui/material';
+import { IconButton, Typography } from '@mui/material';
 import EastIcon from '@mui/icons-material/East';
 import axios from 'axios';
 import { Link, useLocation } from 'react-router-dom';
@@ -245,7 +245,10 @@ export default function ScheduleManage() {
         <Grid item md={2} className='note-schedule' >
             <div className='note-staff'>
                 <h1>Note</h1>
-       
+                  <Typography variant='h5' sx={{margin:'8% 0'}}><RadioButtonCheckedIcon fontSize='small' color='primary' />Slot 1</Typography>
+                  <Typography variant='h5' sx={{margin:'8% 0'}}><RadioButtonCheckedIcon fontSize='small' color='success' />Slot 1</Typography>
+                  <Typography variant='h5' sx={{margin:'8% 0'}}><RadioButtonCheckedIcon fontSize='small' color='secondary' />Slot 1</Typography>
+                  <Typography variant='h5' sx={{margin:'8% 0'}}><RadioButtonCheckedIcon fontSize='small' color='error' />Slot 1</Typography>
             </div>
         </Grid>
       </Grid>

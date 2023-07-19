@@ -32,12 +32,12 @@ export default function NotificationSent({status}) {
         return value;
     }
     const DeleteButton = styled(Button)`
-       background-color: #a70707;
-     font-family: arial;
-     color: white;
-     border-radius: 35px;
-     height: 50px;
-     font-weight: 500;
+    background-color: #dd0202;
+    font-family: arial;
+    color: white;
+    border-radius: 8px;
+    height: 50px;
+    font-weight: 600;
      margin :2px;
   
      &:hover {

@@ -143,7 +143,7 @@ const LineChart = () => {
         <div style={{ position: "absolute", top: 0, height: "100%", width: "100%" }}>
         <ResponsiveLine
         data={DataLineChart}
-        margin={{ top: 50, right: 110, bottom: 50, left: 60 }}
+        margin={{ top: 50, right: 110, bottom: 50, left: 90 }}
         xScale={{ type: 'point' }}
         yScale={{
             type: 'linear',
@@ -169,7 +169,7 @@ const LineChart = () => {
             tickPadding: 5,
             tickRotation: 0,
             legend: 'Million Dong',
-            legendOffset: -40,
+            legendOffset: -60,
             legendPosition: 'middle'
         }}
         enableGridX={false}
