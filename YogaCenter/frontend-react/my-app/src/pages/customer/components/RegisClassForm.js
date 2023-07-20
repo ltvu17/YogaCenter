@@ -31,7 +31,6 @@ export default function RegisClasForm({courseId}) {
     coursePay : '',
   }); 
   const [payment,setPayment] = useState(2);
-  var refff = Math.floor(Math.random() * 100000);
   let getInvoiceAPI = URL_API+`Course/${courseId}`
   let getUserAPI = URL_API+`Customer/${user.userId}`
   //---------------------------------------API------------------------------------------

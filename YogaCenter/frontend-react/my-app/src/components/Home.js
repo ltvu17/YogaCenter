@@ -276,9 +276,9 @@ font-size: 16px;
         </Grid> 
         <Grid container item md={12}>
               {listTecher.map((teacher, index) => (
-                <Grid item md={3} key={index}>
-                  <Box  className="myCoach-detail">
-                  <img src="/assets/images/coach.png" />
+              <Grid item md={3} key={index}>
+                <div className="myCoach-detail" key={index}>
+                  <img src={`/assets/images/userImage/${teacher.id}.jpg`} />
                   <h2 className="myCoach-name">{teacher.teacherName}</h2> 
                   </Box>
                 </Grid>
