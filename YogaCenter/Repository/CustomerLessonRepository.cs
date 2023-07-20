@@ -46,6 +46,7 @@ namespace YogaCenter.Repository
                 .Include(p => p.Lesson).ThenInclude(p => p.Room)
                 .Include(p => p.Lesson).ThenInclude(p => p.Shift)
                 .Include(p => p.Lesson).ThenInclude(p => p.Class).ThenInclude(p=>p.Course)
+                .Include(p => p.Lesson).ThenInclude(p => p.Class).ThenInclude(p => p.Teacher)
                 .ToListAsync();
         }
 

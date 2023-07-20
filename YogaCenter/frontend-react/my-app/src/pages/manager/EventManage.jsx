@@ -1,6 +1,6 @@
 import React from 'react'
 import Button from '@mui/material/Button';
-import AccessibilityNewIcon from '@mui/icons-material/AccessibilityNew';
+
 import UpgradeRoundedIcon from '@mui/icons-material/UpgradeRounded';
 import DeleteForeverOutlinedIcon from '@mui/icons-material/DeleteForeverOutlined';
 import AddCircleOutlineRoundedIcon from '@mui/icons-material/AddCircleOutlineRounded';
@@ -116,29 +116,30 @@ export default function EventManage() {
   }).then(r=> console.log(r)).catch(err => console.log(err));
   }
   const CustomButton = styled(Button)`
-         background-color: #010f51b8;
+        background-color: #1263fd;
       font-family: arial;
       color: white;
-      border-radius: 35px;
+      border-radius: 8px;
       height: 50px;
-      font-weight: 500;
+      font-weight: 600;
 
    
       &:hover {
-        background-color: #27212552;
+        background-color: #0c46b5;
       }
     `;
     const DeleteButton = styled(Button)`
-       background-color: #a70707;
-     font-family: arial;
-     color: white;
-     border-radius: 35px;
-     height: 50px;
-     font-weight: 500;
+     background-color: #dd0202;
+    font-family: arial;
+    color: white;
+    border-radius: 8px;
+    height: 50px;
+    font-weight: 600;
+     margin :2px;
 
   
      &:hover {
-        background-color: #ff353587;
+      background-color:  #f10303;
      }
    `;
 
@@ -155,9 +156,9 @@ export default function EventManage() {
                 <th>Index</th>
                 <th>Event Name</th>
                 <th>Detail</th>
-                <th>eventStartDate</th>
-                <th>eventEndDate</th>
-                <th>eventDiscount</th>
+                <th>Start Date</th>
+                <th>End Date</th>
+                <th>Discount</th>
                 <th>Action</th>
                 </tr>
             </thead>
@@ -172,34 +173,34 @@ export default function EventManage() {
                           <td>{item.eventDiscount}%</td>              
                           <td style={{textAlign: 'center'}}>
                             <div> 
-                                <CustomButton variant='text' size='small' color='success' startIcon={<UpgradeRoundedIcon/>}  onClick={() => getvalueUpdate(item.id)} 
-                                sx={{padding :1,margin:1, color: 'white', backgroundColor:'rgb(127, 69, 101)'}}>Update Event</CustomButton>
-                                <DeleteButton variant='text' size='small' color='success' startIcon={<DeleteForeverOutlinedIcon/>} onClick={()=> deleteClass(item.id)}
-                                sx={{padding :1,margin:1, color: 'white', backgroundColor:'rgb(127, 69, 101)'}}>Delete Event</DeleteButton>
+                                <CustomButton variant='text'  startIcon={<UpgradeRoundedIcon/>}  onClick={() => getvalueUpdate(item.id)} 
+                                sx={{margin: 1,color: 'white',padding:'6px 23px'}}>Update Event</CustomButton>
+                                <DeleteButton variant='text'  startIcon={<DeleteForeverOutlinedIcon/>} onClick={()=> deleteClass(item.id)}
+                                sx={{margin: 1,color: 'white',padding:'6px 23px'}}>Delete Event</DeleteButton>
                             </div>
                           </td>        
                       </tr>
                     ))):''}
                     {Array.from(Array(count)).map(((index,c) => (
                         
-                        <tr key ={c}> 
-                        <td><IconButton onClick={MinusHandler}><DeleteForeverIcon/></IconButton></td>
-                        <td><TextField variant='outlined' size='small' name='eventName' label='Event Name' required onChange={ChangeHandler}
-                    sx={{color : 'rgb(127, 69, 101)',backgroundColor:'#F9A7B0',borderRadius:'5px'}}></TextField></td>
-                        <td><TextField variant='outlined' size='small' name='eventDetail' label='Event Detail' multiline required onChange={ChangeHandler}
-                    sx={{color : 'rgb(127, 69, 101)',backgroundColor:'#F9A7B0',borderRadius:'5px'}}></TextField></td>
-                        <td><input type='date' name='eventStartDate' defaultValue={filterDay(inputField.eventStartDate)} required onChange={ChangeHandler}/></td>
-                        <td><input type='date' name='eventEndDate' defaultValue={filterDay(inputField.eventEndDate)} min={filterDay(inputField.eventStartDate)}  required onChange={ChangeHandler}/></td>
-                        <td><TextField variant='outlined' type='number' InputProps={{ inputProps: { min: 0 } }} size='small' name='eventDiscount' label='Event Discount' required onChange={ChangeHandler}
-                    sx={{color : 'rgb(127, 69, 101)',backgroundColor:'#F9A7B0',borderRadius:'5px'}}></TextField></td>
-                        <td colSpan={2}><Button variant='text' color='success' type='submit' onClick={submitAdd}
-                        sx={{padding :1,margin:1, color: 'white', backgroundColor:'rgb(127, 69, 101)'}}>Add</Button></td> 
+                        <tr className='staff-add-newClass' key ={c}> 
+                        <td><IconButton  className='icon-delete'  onClick={MinusHandler}><DeleteForeverIcon/></IconButton></td>
+                        <td><TextField  className='text-addClass' variant='outlined' name='eventName' placeholder='Event Name' required onChange={ChangeHandler}
+                      sx={{ width:'11em', backgroundColor: 'white', borderRadius: '5px' }}></TextField></td>
+                        <td><TextField  className='text-addClass' variant='outlined' name='eventDetail' placeholder='Event Detail' multiline required onChange={ChangeHandler}
+                      sx={{ width:'11em', backgroundColor: 'white', borderRadius: '5px' }}></TextField></td>
+                        <td><input  style={{height:'2.5em'}}  type='date' name='eventStartDate' defaultValue={filterDay(inputField.eventStartDate)} required onChange={ChangeHandler}/></td>
+                        <td><input  style={{height:'2.5em'}}  type='date' name='eventEndDate' defaultValue={filterDay(inputField.eventEndDate)} min={filterDay(inputField.eventStartDate)}  required onChange={ChangeHandler}/></td>
+                        <td><TextField  className='text-addClass' variant='outlined' type='number' InputProps={{ inputProps: { min: 0 } }} name='eventDiscount' placeholder='Event Discount' required onChange={ChangeHandler}
+                      sx={{ width:'11em', backgroundColor: 'white', borderRadius: '5px' }}></TextField></td>
+                        <td colSpan={2}><Button variant='text' type='submit' onClick={submitAdd}
+                          sx={{ color: 'white', backgroundColor: '#1263fd' }}>Add</Button></td> 
                         </tr>
                         )))}
                     <tr>
-                        <td colSpan={10}><CustomButton variant='text' color='success' onClick={AddHandler}
+                        <td colSpan={10}><CustomButton variant='text' onClick={AddHandler}
                         startIcon={<AddCircleOutlineRoundedIcon sx={{ fontSize: 30 }}>add_circle</AddCircleOutlineRoundedIcon>}
-                        sx={{padding :1,margin:1, color: 'white', backgroundColor:'rgb(127, 69, 101)'}}>Add New Event</CustomButton></td>
+                        sx={{color: 'white',margin: 1,padding:'6px 23px'}}>Add New Event</CustomButton></td>
                     </tr>
             </tbody>
         </table>
@@ -217,7 +218,7 @@ export default function EventManage() {
         <div>
             {idUpdate!== '' ? (  
             <div>
-            <h1 id="update">Update <IconButton color='error' onClick={offUpdateHandler}
+            <h1 style={{width:'100%',textAlign:'center',marginTop:'25px'}} id="update">Update <IconButton color='error' onClick={offUpdateHandler}
             ><DeleteForeverIcon/></IconButton></h1>
               <UpdateEvent id={idUpdate}/>
             </div>

@@ -3,18 +3,18 @@
     padding-top: 30px;
     padding-bottom: 30px;
     padding-right: 5%;
-    background: linear-gradient(45deg, #ffffff, #98969680);
+    background: white;
     min-height: 100vh;
 }
 .class-post .button-back.MuiButtonBase-root:hover{
     background-color: #767676;
 }
 .class-post .button-add.MuiButtonBase-root:hover{
-    background-color: rgba(46, 46, 85, 0.558);
+    background-color: #0057fc;
 }
 .class-post .save-add-stu.MuiButtonBase-root:hover{
-    background-color: #010f51;
+    background-color:  #0057fc;
 }
 .class-post .cancel-add-stu.MuiButtonBase-root:hover{
-    background-color: #f10303;
+    background-color:  #f10303;
 }

@@ -1,70 +1,36 @@
  .login{
     width: 100%;
-    height: 100vh;
-    background-position: center;
-    background-repeat: no-repeat;
+    min-height: 100vh;
+    background: #cdcdcd63;
+    padding-top: 105px;
+ }
+.box{
+    padding: 3% 10%;
+}
+.box img{
+    width: 100%;
     background-size: cover;
-    display: flex;
-    align-items: center;
-    justify-content: center;
- }
-  .box{
-    position: relative;
-    width: 400px;
-    height: 500px;
-    margin-top: 80px;
-    
-    text-align: center;
-    background: rgb(205, 154, 197);
-    overflow: hidden;
-
- }
- .box::before {
-    content: '';
-    position: absolute;
-    top: -50%;
-    left: -50%;
-    width: 380px;
-    height: 420px;
-    z-index: 1;
-    transform-origin: bottom right;
-    background: linear-gradient(0deg,transparent,transparent,#e64487,#e64487,#e64487);
-    animation: animate 6s linear infinite;
+    border-radius: 0px 60px 0px 60px;
+    border: 1px solid #cbcb94d1;
+}
   
-  }
-  @keyframes animate {
-    0%
-    {
-        transform: rotate(0deg);
-    }
-    25%{
-        transform: rotate(90deg);
-    }
-    50%{
-        transform: rotate(180deg);
-    }
-    100%
-    {
-        transform: rotate(360deg);
-    }
-    
-  }
  .formLogin{
     width: 98%;
     height: 98%;
     position: relative;
     inset: 4px;
     padding: 20px 20px;
-    background: #e1bed2;
     text-align: center;
     z-index: 2;
- 
+    background-color: white;
+    border-radius: 0px 60px 0px 60px;
+    height: auto;
  }
 
 
 .formLogin h1{
     margin: 40px 0;
-    color: #982f72a1;
+    color: black;
     font-size: 35px;
     font-weight: 500;
     letter-spacing: 1px;
@@ -80,7 +46,9 @@
 .formLogin .login-password{
     padding: 20px 0;
 }
-
+.button-forgot{
+    padding: 20px 0;
+}
 .button-forgot a{
     text-decoration: none;
     color: #0000008e;
@@ -92,9 +60,9 @@
     width: 300px;
     height: 50px;
     margin-top: 20px;
-    background-color: #c9a8c1;
+    background-color: black;
     font-size: 25px;
-    color:  #982f72a1;
+    color:  #d3c809;
     font-weight: 700;
     border-radius: 8px;
 }

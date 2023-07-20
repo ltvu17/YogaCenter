@@ -96,7 +96,7 @@ function ScheduleCustomer() {
 
   let lessonByCusIDAPI =
     URL_API + `CustomerLesson/getCusLessonByCusId/${userData !== '' ? userData.id : ""}`;
- 
+
   //getClassCustomer
   console.log(userData.id);
   useEffect(() => {
@@ -119,7 +119,7 @@ function ScheduleCustomer() {
         console.log(error);
       });
   }, [userData.id]);
- 
+
   // useEffect(() => {
   //   axios
   //     .get(teacherByClassAPI)
@@ -134,17 +134,18 @@ function ScheduleCustomer() {
   // console.log(lessonList[0].lesson.class.id)
   // const classID = lessonList[0].lesson.class.id
   // console.log(classID)
+  console.log(lessonList)
   return (
     <div className="week-schedule-container">
       <div className="schedule-box">
         <h1 style={{ color: "black" }}>
-        <div style={{ fontSize:'20px', backgroundColor: '#bdded999',borderRadius: '25px',padding: '10px',display: 'flex',alignItems: 'center'}}>
-          <KeyboardDoubleArrowLeftIcon onClick={goTobeforeMonth} />
-          <span>{currentMonthName}</span>
-          <span>{currentYear}</span>
-          <KeyboardDoubleArrowRightIcon onClick={goToNextMonth}>
-            Next Month
-          </KeyboardDoubleArrowRightIcon>
+          <div style={{ fontSize: '20px', backgroundColor: '#bdded999', borderRadius: '25px', padding: '10px', display: 'flex', alignItems: 'center' }}>
+            <KeyboardDoubleArrowLeftIcon onClick={goTobeforeMonth} />
+            <span>{currentMonthName}</span>
+            <span>{currentYear}</span>
+            <KeyboardDoubleArrowRightIcon onClick={goToNextMonth}>
+              Next Month
+            </KeyboardDoubleArrowRightIcon>
           </div>
         </h1>
 
@@ -154,7 +155,7 @@ function ScheduleCustomer() {
               <th
                 style={{
                   backgroundColor: 'rgb(0 0 0 / 49%)',
-                 padding:'10px',
+                  padding: '10px',
                   width: "125px",
                 }}
               >
@@ -166,9 +167,9 @@ function ScheduleCustomer() {
                 const currentDateCopy = new Date(currentDate);
                 currentDateCopy.setDate(
                   currentDateCopy.getDate() -
-                    currentDateCopy.getDay() +
-                    index +
-                    1
+                  currentDateCopy.getDay() +
+                  index +
+                  1
                 );
                 const currentDay = currentDateCopy.getDate();
                 const currentMonthNumber = currentDateCopy.getMonth() + 1;
@@ -193,7 +194,7 @@ function ScheduleCustomer() {
           <tbody>
             {time.map((timeSlot) => (
               <tr key={timeSlot} >
-                <td style={{backgroundColor:'#d3dfef'}}>
+                <td style={{ backgroundColor: '#afb99e73' }}>
                   <h1
                     style={{
                       marginBottom: "10px",
@@ -215,9 +216,9 @@ function ScheduleCustomer() {
                   const currentDateCopy = new Date(currentDate);
                   currentDateCopy.setDate(
                     currentDateCopy.getDate() -
-                      currentDateCopy.getDay() +
-                      index +
-                      1
+                    currentDateCopy.getDay() +
+                    index +
+                    1
                   );
                   const currentDayTable = currentDateCopy.getDate();
                   const currentMonthTable = currentDateCopy.getMonth() + 1;
@@ -241,50 +242,68 @@ function ScheduleCustomer() {
                   });
                   if (lessonMatch !== undefined) {
                     return (
-                      <td key={`${day}-${timeSlot}` }>
+                      <td key={`${day}-${timeSlot}`}>
                         <Grid container className="lessonDay">
-                          <Grid className="lesson-info" item md={10} sx={{padding:'25px'}}>
-                            <p style={{ fontSize:'0.9rem'}}>
+                          <Grid className="lesson-info" item md={12}>
+                            <p style={{ padding: '10px',
+                                        backgroundColor: '#d1b0b0',
+                                        fontSize: '1rem',
+                                        fontWeight: '600',
+                                        color: '#9b7575fa',
+                                        borderTopRightRadius: '15px',
+                                        borderTopLeftRadius: '15px'}}>
 
-                              {
-                                lessonMatch.lesson.class.course
-                                  .courseDescription
-                              }
-                            </p>
-                            <p style={{ color: '#878d00',fontWeight: '600',fontSize: '25px'}}>
-                           {lessonMatch.lesson.class.className}
-                            </p>
-                            {/* <p>
-                              Teacher:
-                            </p> */}
-                            <p style={{ color: "##47004e" }}>
+                            {
+                              lessonMatch.lesson.class.course
+                                .courseDescription
+                            }
+                          </p>
+                          <p style={{ color: 'rgb(171 77 77)', 
+                                      fontWeight: '600',
+                                      fontSize: '25px',
+                                      letterSpacing: '3px',
+                                      padding: '5px' }}>
+                            {lessonMatch.lesson.class.className}
+                          </p>
+                          <p style={{ padding: '5px',
+                                      fontSize: '0.9rem',
+                                      fontWeight: '600',
+                                      color: '#00000085'}}>
+                           {lessonMatch.lesson.class.teacher.teacherName}
+                            </p> 
+                          <p style={{ padding: '5px',
+                                      color: '#621212',
+                                      fontWeight: '600'}}>
 
-                        
-                              Room: {lessonMatch.lesson.room.roomDetail}
-                            </p>
-                            </Grid>
-                            <Grid item md={2} className="lesson-attendence">
+
+                            Room  {lessonMatch.lesson.room.roomDetail}
+                          </p>
+                          <Grid item md={12} className="lesson-attendence">
                             {lessonMatch.attendance === 2 ? (
-                              <p style={{ }}>Not yet</p>
+                              <p >Not yet</p>
+                         
+                              
                             ) : lessonMatch.attendance === 1 ? (
-                              <p style={{ backgroundColor:'#5cb85c', color: "white" }}>Attendence</p>
+                              <p style={{ backgroundColor: '#5cb85c', color: "white" }}>Attendence</p>
                             ) : (
-                              <p style={{ backgroundColor:'#ED2B2A', color: "white" }}>Absent</p>
+                              <p style={{ backgroundColor: '#ED2B2A', color: "white" }}>Absent</p>
                             )}
-                            </Grid>
+                          </Grid>
                         </Grid>
+
+                      </Grid>
                       </td>
-                    );
+            );
                   } else {
                     return <td key={`${day}-${timeSlot}`}></td>;
                   }
                 })}
-              </tr>
+          </tr>
             ))}
-          </tbody>
-        </table>
-      </div>
+        </tbody>
+      </table>
     </div>
+    </div >
   );
 }
 
