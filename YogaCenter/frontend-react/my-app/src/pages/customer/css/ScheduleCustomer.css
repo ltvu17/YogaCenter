@@ -1,5 +1,5 @@
 .week-schedule-container{
-  background-color:#e0bbd64d;
+  background-color:#00000026;
   padding-top: 70px;
   padding-bottom: 70px;
 }
@@ -32,7 +32,7 @@
         background: #aca2a21f;
   }
   .schedule-table-customer thead tr{
-   background-color: #d3dfef;
+   background-color: #afb99e73;
   }
 
   .schedule-box th,
@@ -92,14 +92,10 @@
 .lessonDay {
   height: 100%;
   width: 100%;
-  background-color: #d4dae0;
+  background-color: #98989847;
   border: 1px solid #e0d8e1;
-}
-
-.lesson-info p{
-  color: black;
-  padding-bottom: 5px;
- 
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
 }
 
 .lesson-attendence{
