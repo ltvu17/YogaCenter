@@ -13,9 +13,9 @@ import Button from '@mui/material/Button';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
-
+import Pagination from "@mui/material/Pagination";
 export default function AccountManagement() {
-    const [accounts,setAccounts] = useState();
+    const [accounts,setAccounts] = useState([]);
     const [change,setChange] = useState(false);
     const [search, setSearch] = useState({
         search: '',
@@ -73,32 +73,43 @@ export default function AccountManagement() {
         let changeStatusAPI = URL_API + `User/ChangeStatus/${id}`;
         axios.put(changeStatusAPI).then(r=>setChange(true)).catch(err => console.log(err));
     }
+    const [currentPage, setCurrentPage] = useState(1);
+    const itemsPerPage = 20;
+    const totalItems = accounts.length;
+    const totalPages = Math.ceil(totalItems / itemsPerPage);
+    const startIndex = (currentPage - 1) * itemsPerPage;
+    const endIndex = startIndex + itemsPerPage;
+    const displayedAccount = accounts.slice(startIndex, endIndex);
+    const handlePageChange = (event, page) => {
+      setCurrentPage(page);
+    };
     const CustomButton = styled(Button)`
-         background-color: #010f51b8;
-      font-family: arial;
-      color: white;
-      border-radius: 35px;
-      height: 50px;
-      font-weight: 500;
+    background-color: #1263fd;
+  font-family: arial;
+  color: white;
+  border-radius: 8px;
+  height: 50px;
+  font-weight: 600;
 
-   
-      &:hover {
-        background-color: #27212552;
-      }
-    `;
-    const DeleteButton = styled(Button)`
-       background-color: #a70707;
-     font-family: arial;
-     color: white;
-     border-radius: 35px;
-     height: 50px;
-     font-weight: 500;
 
-  
-     &:hover {
-        background-color: #ff353587;
-     }
-   `;
+  &:hover {
+    background-color: #0c46b5;
+  }
+`;
+const DeleteButton = styled(Button)`
+ background-color: #dd0202;
+font-family: arial;
+color: white;
+border-radius: 8px;
+height: 50px;
+font-weight: 600;
+ margin :2px;
+
+
+ &:hover {
+  background-color:  #f10303;
+ }
+`;
     return (
     <div className='Manage-class'>
         <div className='class-post'>
@@ -135,9 +146,9 @@ export default function AccountManagement() {
                 </tr>
             </thead>
             <tbody>
-            {accounts? accounts.map(((item, index) =>(
+            {displayedAccount? displayedAccount.map(((item, index) =>(
                         <tr key={index}>
-                        <td>{index + 1}</td>
+                        <td>  {startIndex + index + 1}</td>
                         <td>{item.userName}</td>
                         <td><InputLabel htmlFor="outlined-adornment-password"></InputLabel>
                             <OutlinedInput
@@ -157,7 +168,6 @@ export default function AccountManagement() {
                         </IconButton>
                     </InputAdornment>
                     }
-                    label="Password"
                         /></td>
                         <td>{item.status=== 1? 'Active':'Unactive'}</td>
                         <td>{item.role.roleName}</td>
@@ -168,6 +178,17 @@ export default function AccountManagement() {
                     ))):''}
             </tbody>
         </table>
+        <div
+        style={{ display: "flex", justifyContent: "center", marginTop: "1rem" }}
+      >
+        <Pagination
+          count={totalPages}
+          page={currentPage}
+          onChange={handlePageChange}
+          showFirstButton
+          showLastButton
+        />
+      </div>
         </form>
         </div>
     </div>

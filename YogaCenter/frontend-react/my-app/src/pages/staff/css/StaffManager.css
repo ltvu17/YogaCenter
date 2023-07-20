@@ -3,7 +3,7 @@
     padding-top: 30px;
     padding-bottom: 30px;
     padding-right: 5%;
-    background: linear-gradient(45deg, #ffffff, #98969680);
+    background: white;
     min-height: 100vh;
 
 }
@@ -49,10 +49,11 @@
  
 }
 .table-add-class th{
-    padding: 15px;
-    font-size: 15px;
-    font-weight: 800;
-    background-color: #9c9c9ce3;
+  padding: 15px;
+  font-size: 15px;
+  font-weight: 800;
+  background-color: black;
+  color: white;
 }
 .table-add-class td{
     font-family: sans-serif;
@@ -63,13 +64,13 @@
 
     border-collapse: collapse;
     text-align: center;
-    border: 1px solid #8c877c;
+    border: 1px solid #0000000f;
   }
   .table-add-class tr:nth-child(odd){
-    background-color: #d7d7d7;
+    background-color: #ffffffff;
   }
   .table-add-class tr:nth-child(even){
-    background-color: #d7d7d778;
+    background-color: #ffffffe6;
   }
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {

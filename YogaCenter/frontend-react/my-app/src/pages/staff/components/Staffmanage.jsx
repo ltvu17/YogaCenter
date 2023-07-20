@@ -230,25 +230,25 @@ export default function Staffmanage() {
 
 
     const CustomButton = styled(Button)`
-         background-color: #010f51b8;
+      background-color: #1263fd;
       font-family: arial;
       color: white;
-      border-radius: 35px;
+      border-radius: 8px;
       height: 50px;
-      font-weight: 500;
+      font-weight: 600;
 
    
       &:hover {
-        background-color: #27212552;
+        background-color: #0c46b5;
       }
     `;
     const DeleteButton = styled(Button)`
-       background-color: #a70707;
-     font-family: arial;
-     color: white;
-     border-radius: 35px;
-     height: 50px;
-     font-weight: 500;
+    background-color: #dd0202;
+    font-family: arial;
+    color: white;
+    border-radius: 8px;
+    height: 50px;
+    font-weight: 600;
 
   
      &:hover {
@@ -350,9 +350,9 @@ export default function Staffmanage() {
                                 <tr className='staff-add-newClass' key={c}>
                                     <td><IconButton className='icon-delete' onClick={MinusHandler}><DeleteForeverIcon /></IconButton></td>
                                     <td><TextField  className='text-addClass' placeholder='Class Name' variant='outlined'  name='className'  required onChange={ChangeHandler}
-                                        sx={{ width:'8em', backgroundColor: 'white', borderRadius: '5px' }}></TextField></td>
+                                        sx={{ width:'9em', backgroundColor: 'white', borderRadius: '5px' }}></TextField></td>
                                     <td><input style={{height:'2.5em'}} type='date' name='classStartDate' defaultValue={date} required onChange={ChangeHandler} /></td>
-                                    <td><input style={{height:'2.5em'}}  height="2.5em" type='date' name='classEndDate' defaultValue={date} min={inputField.classStartDate} required onChange={ChangeHandler} /></td>
+                                    <td><input style={{height:'2.5em'}}  type='date' name='classEndDate' defaultValue={date} min={inputField.classStartDate} required onChange={ChangeHandler} /></td>
                                     <td><select style={{height:'2.5em'}}  defaultValue="0" name='teacherId' required onChange={ChangeHandler}>
                                         <option value="0" disabled hidden>Choose Teacher</option>
                                         <option value='-1'>None</option>
@@ -374,7 +374,7 @@ export default function Staffmanage() {
 
                                     </td>
                                     <td colSpan={2}><Button variant="contained"  type='submit' onClick={submitAdd}
-                                        sx={{ color: 'white', backgroundColor: '#010f51b8' }}>Add</Button></td>
+                                        sx={{ color: 'white', backgroundColor: '#1263fd' }}>Add</Button></td>
                                 </tr>
                             )))}
                            

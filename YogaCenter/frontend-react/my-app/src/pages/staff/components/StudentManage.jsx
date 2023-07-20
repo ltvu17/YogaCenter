@@ -125,12 +125,14 @@ export default function StudentManage() {
     
     <div className='class-post'>
     <Button className='button-back' variant='contained'  startIcon={<ArrowBackIcon fontSize='large'/>} onClick={back}
-        sx={{padding :1,margin:1, color: 'white', fontSize:'18px',fontWeight:'600', backgroundColor:'rgb(38 38 38 / 85%)'}}>Back to class list</Button>
+        sx={{float:'right',padding :1,margin:1, color: 'white', fontSize:'18px',fontWeight:'600', backgroundColor:'black'}}>Back to class list</Button>
+        <div>
         <h1>Class Name: {name}</h1>
         {studentPosts.length < 20? (
         <div><Button className='button-add'variant='contained' startIcon={<PersonAddIcon fontSize='large'/>} onClick={addMode}
-        sx={{padding :1,margin:1, color: 'white', backgroundColor:'#010f51b8'}}>Add Student</Button></div>
+        sx={{padding :1,margin:1, color: 'white', backgroundColor:'#1263fd'}}>Add Student</Button></div>
         ):''}
+        </div>
         
         <table className='table-add-class'>
             <thead>
@@ -170,9 +172,9 @@ export default function StudentManage() {
         </table>
         {add === true ? (
             <div style={{textAlign:'center'}}><Button className='cancel-add-stu' variant='contained' startIcon={<CheckCircleOutlineIcon/>} onClick={addModeOff}
-            sx={{padding :1,margin:1, color: 'white', backgroundColor:'#a70707'}}>Cancel</Button>
+            sx={{padding :1,margin:1, color: 'white', backgroundColor:'#dd0202;'}}>Cancel</Button>
             <Button className='save-add-stu' variant='contained' startIcon={<CheckCircleOutlineIcon/>} onClick={addStudenClass}
-            sx={{padding :1,margin:1, color: 'white', backgroundColor:'#010f51b8'}}>Save</Button></div>
+            sx={{padding :1,margin:1, color: 'white', backgroundColor:' #1263fd;'}}>Save</Button></div>
         ):''}
         <div id="delete"> 
                     <Dialog

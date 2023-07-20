@@ -30,8 +30,18 @@
 }
 .postContent-main h2{
   padding: 1% 0;
+  
 }
 .postContent-main li{
   padding-left: 2%;
   list-style-type: none;
+  margin: 1%;
+}
+.postContent-main p{
+  line-height: 1.334;
+  letter-spacing: 0em;
+  color: #000000c4;
+  margin: 1%;
+  font-size: 19px;
+  font-family: sans-serif;
 }
