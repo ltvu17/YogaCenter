@@ -3,7 +3,7 @@ import { URL_API } from '../staff/components/ConstDefine';
 import axios from 'axios';
 import TextField from "@mui/material/TextField";
 import Button from '@mui/material/Button';
-
+import { Grid } from '@mui/material';
 export default function UpdateEvent({id}) {
 
     const [inputField,setInputFields] = useState({
@@ -50,19 +50,41 @@ export default function UpdateEvent({id}) {
     
 
     return (
-    <div>
-        <form>
-                        <TextField variant='outlined' size='small' name='eventName' value={inputField.eventName} label='Event Name' required onChange={ChangeHandler}
-                    sx={{color : 'rgb(127, 69, 101)',backgroundColor:'#F9A7B0',borderRadius:'5px'}}></TextField>
-                        <TextField variant='outlined' size='small' name='eventDetail' value={inputField.eventDetail} label='Event Detail' multiline required onChange={ChangeHandler}
-                    sx={{color : 'rgb(127, 69, 101)',backgroundColor:'#F9A7B0',borderRadius:'5px'}}></TextField>
-                        <input type='date' name='eventStartDate' defaultValue={filterDay(inputField.eventStartDate)} required onChange={ChangeHandler}/>
-                        <input type='date' name='eventEndDate' defaultValue={filterDay(inputField.eventEndDate)} min={filterDay(inputField.eventStartDate)}  required onChange={ChangeHandler}/>
-                        <TextField variant='outlined' type='number' InputProps={{ inputProps: { min: 0 } }} value={inputField.eventDiscount} size='small' name='eventDiscount' label='Event Discount' required onChange={ChangeHandler}
-                    sx={{color : 'rgb(127, 69, 101)',backgroundColor:'#F9A7B0',borderRadius:'5px'}}></TextField>
-                        <Button variant='text' color='success' type='submit' onClick={submitAdd}
-                        sx={{padding :1,margin:1, color: 'white', backgroundColor:'rgb(127, 69, 101)'}}>Save</Button>
+    <Grid container item md={12}>
+        <form style={{width:'100%'}}>
+            <table  className="table-add-class" style={{ marginTop: "0" }}>
+                <thead>
+                    <tr>
+                        <th>Event Name</th>
+                        <th>Detail</th>
+                        <th>Start Date</th>
+                        <th>End Date</th>
+                        <th>Discount</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr className='staff-add-newClass'>
+                        <td> <TextField variant='outlined' name='eventName' value={inputField.eventName} required onChange={ChangeHandler}
+                 sx={{ backgroundColor: "white", borderRadius: "5px" }}></TextField></td>
+                        <td><TextField variant='outlined' name='eventDetail' value={inputField.eventDetail} multiline required onChange={ChangeHandler}
+                 sx={{ backgroundColor: "white", borderRadius: "5px" }}></TextField></td>
+                        <td>   <input type='date' name='eventStartDate' defaultValue={filterDay(inputField.eventStartDate)} required onChange={ChangeHandler}/></td>
+                        <td>  <input type='date' name='eventEndDate' defaultValue={filterDay(inputField.eventEndDate)} min={filterDay(inputField.eventStartDate)}  required onChange={ChangeHandler}/></td>
+                        <td>   <TextField variant='outlined' type='number' InputProps={{ inputProps: { min: 0 } }} value={inputField.eventDiscount} name='eventDiscount' label='Event Discount' required onChange={ChangeHandler}
+                 sx={{ backgroundColor: "white", borderRadius: "5px" }}></TextField></td>
+                        <td>  <Button variant='contained'  type='submit' onClick={submitAdd}
+                        sx={{padding: 1,margin: 1, color: "white", backgroundColor: "#1263fd" }}>Save</Button></td>
+                    </tr>
+                </tbody>
+            </table>
+                       
+                        
+                     
+                      
+                     
+                      
         </form>
-    </div>
+    </Grid>
     )
 }

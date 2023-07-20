@@ -4,6 +4,7 @@ import { styled } from "@mui/material/styles";
 import Grid from "@mui/material/Grid";
 import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
+import InputAdornment from "@mui/material/InputAdornment";
 import KeyboardDoubleArrowRightIcon from "@mui/icons-material/KeyboardDoubleArrowRight";
 import Button from "@mui/material/Button";
 import CardActions from "@mui/material/CardActions";
@@ -22,6 +23,7 @@ export default function ProfileCustomer() {
   const [profileTitle, setProfileTitle] = useState("Profile");
   const [cookies] = useCookies();
   const userId = cookies.userId;
+  console.log(userId)
   const [avatar, setAvatar] = useState(null);
   const [urlImage, setUrlImage] = useState(
     `../../assets/images/userImage/${userId}.jpg`
@@ -60,8 +62,8 @@ export default function ProfileCustomer() {
         console.log(error);
       });
   }, [userId]);
-  console.log(oldPassword);
-  console.log(formData.newPassword);
+  // console.log(oldPassword);
+  // console.log(formData.newPassword);
   // console.log(newCustomer);
   // console.log(oldCustomer);
 
@@ -137,25 +139,28 @@ export default function ProfileCustomer() {
   };
   const handleEditProfile = () => {
     // setUpdateAvatar(false);
-    setProfileTitle("Profile");
-    if (newCustomer.customerPhone.length === 9) {
-      axios
-        .put(profileCustomerAPI, {
-          customerName: newCustomer.customerName,
-          customerPhone: newCustomer.customerPhone,
-          customerAddress: newCustomer.customerAddress,
-          customerGender: newCustomer.customerGender,
-        })
-        .then(navigate(0))
-        .catch((error) => {
-          console.log(error);
-        });
-    } else {
-      setValidPhoneNumber(false);
+
+    if (newCustomer.customerPhone.length !== 9) {
+      setMessage("Length of phone worng!");
       return;
     }
-
-    setMessage("");
+    if (newCustomer.customerPhone.length === 9) {
+      if (newCustomer.customerPhone.indexOf(0) === 0) {
+        setMessage("Format of phone wrong!");
+        return;
+      }
+    }
+    axios
+      .put(profileCustomerAPI, {
+        customerName: newCustomer.customerName,
+        customerPhone: newCustomer.customerPhone,
+        customerAddress: newCustomer.customerAddress,
+        customerGender: newCustomer.customerGender,
+      })
+      .then(navigate(0))
+      .catch((error) => {
+        console.log(error);
+      });
   };
 
   const handlePasswordChange = () => {
@@ -212,8 +217,6 @@ export default function ProfileCustomer() {
   };
   // console.log(formData);
 
-
-
   return (
     <div className="profile">
       <div className="profile-content">
@@ -241,7 +244,7 @@ export default function ProfileCustomer() {
               component="img"
               alt="green iguana"
               height="65%"
-              image={urlImage}
+              image={"/assets/images/userImage/" + userId + ".jpg"}
               sx={{ marginBottom: "20px" }}
             />
             <CardActions className="changeProfile">
@@ -275,7 +278,7 @@ export default function ProfileCustomer() {
                 <div className="form-row">
                   <label htmlFor="currentPassword">Current password</label>
                   <TextField
-                   className="inputPassword-profile"
+                    className="inputPassword-profile"
                     id="currentPassword"
                     name="currentPassword"
                     type="password"
@@ -287,7 +290,7 @@ export default function ProfileCustomer() {
                 <div className="form-row">
                   <label htmlFor="newPassword">New password</label>
                   <TextField
-                   className="inputPassword-profile"
+                    className="inputPassword-profile"
                     id="newPassword"
                     name="newPassword"
                     type="password"
@@ -307,7 +310,7 @@ export default function ProfileCustomer() {
                     onChange={handleChangeOfPassword}
                   />
                 </div>
-               
+
                 <CardActions
                   sx={{
                     paddingTop: "22px",
@@ -353,6 +356,11 @@ export default function ProfileCustomer() {
                       variant="standard"
                       fullWidth
                       name="customerPhone"
+                      InputProps={{
+                        startAdornment: (
+                          <InputAdornment position="start">+84</InputAdornment>
+                        ),
+                      }}
                       defaultValue={oldCustomer.customerPhone}
                       onChange={handleChange}
                     />
@@ -376,6 +384,7 @@ export default function ProfileCustomer() {
                       defaultValue={oldCustomer.customerAddress}
                       onChange={handleChange}
                     />
+                    <p>{message}</p>
                     <CardActions sx={{ paddingTop: "22px" }}>
                       <Button
                         className="button-save"
@@ -427,11 +436,6 @@ export default function ProfileCustomer() {
                       Phone:
                       <br />
                       <p>0{oldCustomer.customerPhone}</p>
-                      <p>
-                        {!validPhoneNumber
-                          ? "Số điện thoại sai format. Vui lòng nhập lại!"
-                          : ""}
-                      </p>
                     </Grid>
                     <Grid md={12} sx={{ padding: "0px 10px 32px" }}>
                       Gender:

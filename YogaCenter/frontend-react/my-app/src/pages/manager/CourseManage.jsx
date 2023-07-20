@@ -112,31 +112,31 @@ export default function CourseManage() {
     }
     ///
     const CustomButton = styled(Button)`
-         background-color: #010f51b8;
-      font-family: arial;
-      color: white;
-      border-radius: 35px;
-      height: 50px;
-      font-weight: 500;
+    background-color: #1263fd;
+    font-family: arial;
+    color: white;
+    border-radius: 8px;
+    height: 50px;
+    font-weight: 600;
 
-   
-      &:hover {
-        background-color: #27212552;
-      }
-    `;
-    const DeleteButton = styled(Button)`
-       background-color: #a70707;
-     font-family: arial;
-     color: white;
-     border-radius: 35px;
-     height: 50px;
-     font-weight: 500;
+ 
+    &:hover {
+      background-color: #0c46b5;
+    }
+  `;
+  const DeleteButton = styled(Button)`
+  background-color: #dd0202;
+  font-family: arial;
+  color: white;
+  border-radius: 8px;
+  height: 50px;
+  font-weight: 600;
 
-  
-     &:hover {
-        background-color: #ff353587;
-     }
-   `;
+
+   &:hover {
+      background-color:  #f10303;
+   }
+ `;
      const [currentPage, setCurrentPage] = useState(1);
      const itemsPerPage = 5;
       const totalItems = postCourse.length;
@@ -206,7 +206,7 @@ export default function CourseManage() {
                     sx={{backgroundColor: 'white', borderRadius: '5px'}}></TextField></td>
                         <td><input type='date' name='courseCreateDate' defaultValue={date} required onChange={ChangeHandler}/></td>
                         <td colSpan={2}><Button variant='contained' type='submit' onClick={submitAdd}
-                        sx={{padding :1,margin:1,  color: 'white', backgroundColor: '#010f51b8' }}>Add</Button></td> 
+                       sx={{ color: 'white', backgroundColor: '#1263fd' }}>Add</Button></td> 
                         </tr>
                         )))}
                     <tr>

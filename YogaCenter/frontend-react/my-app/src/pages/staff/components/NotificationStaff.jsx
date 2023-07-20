@@ -152,14 +152,14 @@ export default function NotificationStaff() {
             <List component="nav">
                 <ListItemButton selected={selectedItem === 'inbox'} onClick={() => handleMenuItemClick('inbox')}>
                     <ListItemIcon>
-                    <InboxIcon />
+                    <InboxIcon  sx={{color:'black'}} />
                     </ListItemIcon>
                     <ListItemText primary="Inbox" />
                 </ListItemButton>
 
                 <ListItemButton selected={selectedItem === 'sent'} onClick={() => handleMenuItemClick('sent')}>
                     <ListItemIcon>
-                    <SendIcon />
+                    <SendIcon sx={{color:'black'}} />
                     </ListItemIcon>
                     <ListItemText primary="Sent" />
                 </ListItemButton>

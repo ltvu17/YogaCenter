@@ -11,6 +11,7 @@ namespace YogaCenter.IRepository
         public Task<ICollection<Lesson>> GetLessonByClassId(Guid classId);
         public Task<ICollection<Customer>> GetCustomerByClass(Guid classId);
         public Task<Lesson> GetLessonByRoomId(Guid roomId);
+        public Task<ICollection<Lesson>> GetLessonByTeahcherId(Guid userId);
         public Task<bool> CreateLesson(Lesson lesson);
         public Task<bool> CreateCustomerLesson(ICollection<CustomerLesson> customerLesson);
         public Task<bool> UpdateLesson(Lesson lessonUpdate);

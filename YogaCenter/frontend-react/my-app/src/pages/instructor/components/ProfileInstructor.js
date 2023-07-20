@@ -9,20 +9,29 @@ import Button from "@mui/material/Button";
 import CardActions from "@mui/material/CardActions";
 import EditIcon from "@mui/icons-material/Edit";
 import UpgradeIcon from "@mui/icons-material/Upgrade";
+import InputAdornment from "@mui/material/InputAdornment";
 import axios from "axios";
 import CardMedia from "@mui/material/CardMedia";
-import "../css/profileInstructor.css"
+import "../css/profileInstructor.css";
 import { URL_API } from "../../../api/ConstDefine";
 import { useNavigate } from "react-router-dom";
-export default function ProfileTeacher(){
+import { pathUser } from "../../../service/pathImage/pathToSaveFile";
+import { colors } from "@mui/material";
+export default function ProfileTeacher() {
   const [editing, setEditing] = useState(false);
   const [changePassword, setChangePassword] = useState(false);
   const [profileTitle, setProfileTitle] = useState("Profile");
   const [cookies] = useCookies();
   const userId = cookies.userId;
-  const [oldTeacher, setoldTeacher] = useState({});
-  const [newTeacher, setNewTeacher] = useState({});
-  const [validPhoneNumber, setValidPhoneNumber] = useState(true);
+  const [oldTeacher, setoldTeacher] = useState("");
+  const [newTeacher, setNewTeacher] = useState("");
+  const [message, setMessage] = useState("");
+  const [oldPassword, setOldPassword] = useState();
+  const [updateAvatart, setUpdateAvatar] = useState(false);
+  const [avatar, setAvatar] = useState(null);
+  const [urlImage, setUrlImage] = useState(
+    `../../assets/images/userImage/${userId}.jpg`
+  );
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
     currentPassword: "",
@@ -30,6 +39,7 @@ export default function ProfileTeacher(){
     confirmNewPassword: "",
   });
   let profileTeacherAPI = URL_API + `Teacher/${userId}`;
+  let checkCurrentPasswordAPI = URL_API + `User/${userId}`;
 
   useEffect(() => {
     axios
@@ -37,6 +47,17 @@ export default function ProfileTeacher(){
       .then((res) => {
         setoldTeacher(res.data);
         setNewTeacher(res.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, [userId]);
+
+  useEffect(() => {
+    axios
+      .get(checkCurrentPasswordAPI)
+      .then((res) => {
+        setOldPassword(res.data);
       })
       .catch((error) => {
         console.log(error);
@@ -74,27 +95,35 @@ export default function ProfileTeacher(){
       setChangePassword(false);
       setProfileTitle("Profile");
     }
+    if (value === "avatar") {
+      setUpdateAvatar(false);
+      setProfileTitle("Profile");
+    }
+    setMessage("");
   };
 
   const handleEditProfile = () => {
-    setEditing(false);
-    setProfileTitle("Profile");
-    if (newTeacher.teacherPhone.length === 9) {
-      axios
-        .put(profileTeacherAPI, {
-          teacherName: newTeacher.teacherName,
-            teacherPhone: newTeacher.teacherPhone,
-          teacherAddress: newTeacher.teacherAddress,
-          teacherGender: newTeacher.teacherGender,
-        })
-        .then(navigate(0))
-        .catch((error) => {
-          console.log(error);
-        });
-    } else {
-      setValidPhoneNumber(false);
+    if (newTeacher.teacherPhone.toString().length !== 9) {
+      setMessage("Length of phone worng!");
       return;
     }
+    if (newTeacher.teacherPhone.toString().length === 9) {
+      if (newTeacher.teacherPhone.toString().indexOf(0) === 0) {
+        setMessage("Format of phone wrong!");
+        return;
+      }
+    }
+    axios
+      .put(profileTeacherAPI, {
+        teacherName: newTeacher.teacherName,
+        teacherPhone: newTeacher.teacherPhone,
+        teacherAddress: newTeacher.teacherAddress,
+        teacherGender: newTeacher.teacherGender,
+      })
+      .then(alert("Update successfylly"), navigate(0))
+      .catch((error) => {
+        console.log(error);
+      });
   };
 
   const handlePasswordChange = () => {
@@ -105,35 +134,29 @@ export default function ProfileTeacher(){
 
   const handlerUpdatePassword = (e) => {
     e.preventDefault();
-    setEditing(false);
-    setChangePassword(false);
-    setProfileTitle("Profile");
-    // if (formData.newPassword !== formData.confirmNewPassword) {
-    //   console.log("Mật khẩu mới không khớp!");
-    //   return;
-    // }
-
-    // axios
-    // .post(CHECK_CURRENT_PASSWORD_API, {
-    //   userId: userId,
-    //   currentPassword: currentPassword,
-    // })
-    // .then((res) => {
-    //   axios
-    //     .put(profileTeacherAPI, {
-    //       newPassword: newPassword,
-    //     })
-    //     .then((res) => {
-    //       console.log("Mật khẩu đã được cập nhật thành công!");
-    //     })
-    //     .catch((error) => {
-    //       console.log("Có lỗi xảy ra khi cập nhật mật khẩu:", error);
-    //     });
-    // })
-    // .catch((error) => {
-    //   console.log("Mật khẩu hiện tại không chính xác:", error);
-    // });
-
+    if (formData.newPassword !== formData.confirmNewPassword) {
+      setMessage("new password and confirm password are not the same");
+      return;
+    }
+    if (formData.currentPassword !== oldPassword.userPasswork) {
+      setMessage("Current Password Wrong");
+      return;
+    }
+    axios
+      .put(checkCurrentPasswordAPI, {
+        userName: oldPassword.userName,
+        userPasswork: formData.newPassword,
+        status: 1,
+      })
+      .then((res) => {
+        alert("Update Password success");
+        navigate(0);
+      })
+      .catch((error) => {
+        setMessage(
+          "Something wrong. You can send a message to the center for support"
+        );
+      });
   };
   const handleChangeOfPassword = (e) => {
     setFormData({
@@ -141,9 +164,48 @@ export default function ProfileTeacher(){
       [e.target.name]: e.target.value,
     });
   };
-  console.log(formData);
+  //--------------------------------Avatar-------------------------
+  const handlerAvatar = (e) => {
+    setUpdateAvatar(true);
+    setEditing(false);
+    setChangePassword(false);
+    setProfileTitle("Update Avatar");
 
+    setMessage("");
+    console.log(e.target.value);
+  };
+  const handleChangeAvatar = (e) => {
+    // console.log(e.target.files[0].name);
+    setAvatar(e.target.files[0]);
+  };
+  const handleSubmitAvatar = async (event) => {
+    setUpdateAvatar(false);
+    setProfileTitle("Profile");
+    if (avatar) {
+      const formData = new FormData();
+      formData.append("file", avatar);
+      formData.append("fileName", `${oldTeacher.id}.jpg`);
+      formData.append("filePath", pathUser);
 
+      try {
+        const response = await axios.post(
+          "https://localhost:7096/api/File/UploadFile",
+          formData
+        );
+
+        if (response.status === 200) {
+          setUrlImage(`${pathUser}${userId}.jpg`);
+          alert("Upload image success");
+          navigate(0);
+        } else {
+          console.error("Failed to upload file.");
+        }
+      } catch (error) {
+        console.error("An error occurred:", error);
+        console.log("sai ròi");
+      }
+    }
+  };
 
   return (
     <div className="profile">
@@ -169,11 +231,18 @@ export default function ProfileTeacher(){
               component="img"
               alt="green iguana"
               height="65%"
-              image="../../assets/images/class1.jpg"
+              image={"/assets/images/userImage/" + oldTeacher.id + ".jpg"}
+              onError={(e) => {
+                e.target.onError = null;
+                e.target.src = "/assets/images/userImage/avatarDefault.jpg";
+              }}
               sx={{ marginBottom: "20px" }}
             />
             <CardActions className="changeProfile">
-              <Button sx={{ border: "1px dashed #532e4d", padding: "20px" }}>
+              <Button
+                sx={{ border: "1px dashed #532e4d", padding: "20px" }}
+                onClick={handlerAvatar}
+              >
                 <UpgradeIcon />
                 Avatar
               </Button>
@@ -212,7 +281,7 @@ export default function ProfileTeacher(){
                 <div className="form-row">
                   <label htmlFor="newPassword">New password</label>
                   <TextField
-                                      className="instructor-input-password"
+                    className="instructor-input-password"
                     id="newPassword"
                     name="newPassword"
                     type="password"
@@ -225,14 +294,15 @@ export default function ProfileTeacher(){
                     Confirm new password
                   </label>
                   <TextField
-                                      className="instructor-input-password"
-                    id="confirmNewpassword"
-                    name="confirmNewpassword"
+                    className="instructor-input-password"
+                    id="confirmNewPassword"
+                    name="confirmNewPassword"
                     type="password"
                     value={formData.confirmNewPassword}
                     onChange={handleChangeOfPassword}
                   />
                 </div>
+                <p style={{ color: "red" }}>{message}</p>
                 <CardActions
                   sx={{
                     paddingTop: "22px",
@@ -278,6 +348,11 @@ export default function ProfileTeacher(){
                       variant="standard"
                       fullWidth
                       name="teacherPhone"
+                      InputProps={{
+                        startAdornment: (
+                          <InputAdornment position="start">+84</InputAdornment>
+                        ),
+                      }}
                       defaultValue={oldTeacher.teacherPhone}
                       onChange={handleChange}
                     />
@@ -301,6 +376,7 @@ export default function ProfileTeacher(){
                       defaultValue={oldTeacher.teacherAddress}
                       onChange={handleChange}
                     />
+                    <p>{message}</p>
                     <CardActions sx={{ paddingTop: "22px" }}>
                       <Button
                         className="button-save"
@@ -318,6 +394,29 @@ export default function ProfileTeacher(){
                       </Button>
                     </CardActions>
                   </div>
+                ) : updateAvatart ? (
+                  <div className="profileCustomer-save">
+                    <div>
+                      <input type="file" onChange={handleChangeAvatar} />
+                    </div>
+
+                    <CardActions sx={{ paddingTop: "22px" }}>
+                      <Button
+                        className="button-save"
+                        onClick={handleSubmitAvatar}
+                        variant="contained"
+                      >
+                        Save
+                      </Button>
+                      <Button
+                        className="button-cancel"
+                        onClick={() => handlerCancel("avatar")}
+                        variant="contained"
+                      >
+                        Cancel
+                      </Button>
+                    </CardActions>
+                  </div>
                 ) : (
                   <Grid container className="profileInstructor-edit">
                     <Grid md={12} sx={{ padding: "0px 10px 32px" }}>
@@ -329,11 +428,6 @@ export default function ProfileTeacher(){
                       Phone:
                       <br />
                       <p>0{oldTeacher.teacherPhone}</p>
-                      <p>
-                        {!validPhoneNumber
-                          ? "Số điện thoại sai format. Vui lòng nhập lại!"
-                          : ""}
-                      </p>
                     </Grid>
                     <Grid md={12} sx={{ padding: "0px 10px 32px" }}>
                       Gender:

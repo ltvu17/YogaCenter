@@ -20,7 +20,8 @@ import DialogTitle from '@mui/material/DialogTitle';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { shift } from './ConstDefine';
 import RadioButtonCheckedIcon from '@mui/icons-material/RadioButtonChecked';
-
+import styled from '@emotion/styled';
+import '../css/AddClassSchedule.css'
 export default function AddClassSchedule() {
     ///Declare
     const location = useLocation('state');
@@ -116,13 +117,39 @@ export default function AddClassSchedule() {
         let value = split[1];
         return value;
       }
+      const CustomButton = styled(Button)`
+      background-color: #1263fd;
+    font-family: arial;
+    color: white;
+    border-radius: 8px;
+    height: 50px;
+    font-weight: 600;
+    width: 8rem;
+  
+    &:hover {
+      background-color: #0c46b5;
+    }
+  `;
+  const DeleteButton = styled(Button)`
+   background-color: #dd0202;
+  font-family: arial;
+  color: white;
+  border-radius: 8px;
+  height: 50px;
+  font-weight: 600;
+  
+   width: 8rem;
+
+   &:hover {
+    background-color:  #f10303;
+   }
+ `;
     return (
-    <div style={{marginLeft:'10%',marginRight:'5%', marginBottom:'10%'}}>
-        <div style={{height:'50px'}}>
-        </div>
+    <div className='add-class-container'>
+     
         <div className='class-post'>
         <Button className='button-back' variant='contained'  startIcon={<ArrowBackIcon fontSize='large'/>} onClick={back}
-        sx={{padding :1,margin:1, color: 'white', fontSize:'18px',fontWeight:'600', backgroundColor:'rgb(38 38 38 / 85%)'}}>Back to class list</Button>
+        sx={{floar:'right',padding :1,margin:1, color: 'white', fontSize:'18px',fontWeight:'600', backgroundColor:'black'}}>Back to class list</Button>
             <table className='table-add-class'>
                 <thead>
                     <tr>
@@ -163,8 +190,8 @@ export default function AddClassSchedule() {
             }
             {filterTime(item.shift.timeStart)}-{filterTime(item.shift.timeEnd)}
             </td>
-                            <td><Button variant='text' size='small' color='success' startIcon={<DeleteForeverOutlinedIcon/>} onClick={()=>deleteClass(item.id)}
-                                sx={{padding :1,margin:1, color: 'white', backgroundColor:'rgb(127, 69, 101)'}}>Delete</Button></td>
+                            <td><DeleteButton variant='text'  startIcon={<DeleteForeverOutlinedIcon/>} onClick={()=>deleteClass(item.id)}
+                                 sx={{cursor:'pointer',margin:1}}>Delete</DeleteButton></td>
                         </tr>
                     )):''
                     }
@@ -190,14 +217,14 @@ export default function AddClassSchedule() {
                                 <option key={index} value={item.id} >{filterTime(item.timeStart)}-{filterTime(item.timeEnd)}</option>                      
                         )))}
                         </select></td>     
-                        <td><Button className='button-add'variant='contained' startIcon={<Check fontSize='large'/>} onClick={submitAdd}
-        sx={{padding :1,margin:1, color: 'white', backgroundColor:'#010f51b8'}}>Add</Button></td>
+                        <td><CustomButton className='button-add'variant='contained' startIcon={<Check fontSize='large'/>} onClick={submitAdd}
+                            sx={{margin:1}}>Add</CustomButton></td>
                             
                         </tr>
                         )))}
                     <tr>
-                        <td colSpan={7}><Button className='button-add'variant='contained' startIcon={<AddCircleOutlineRoundedIcon fontSize='large'/>} onClick={AddHandler}
-        sx={{padding :1,margin:1, color: 'white', backgroundColor:'#010f51b8'}}>Add Class</Button></td>
+                        <td colSpan={7}><CustomButton className='button-add'variant='contained' startIcon={<AddCircleOutlineRoundedIcon fontSize='large'/>} onClick={AddHandler}
+                               sx={{margin:1,width:'12rem'}}>Add Class</CustomButton></td>
                     </tr>
                 </tbody>
             </table>

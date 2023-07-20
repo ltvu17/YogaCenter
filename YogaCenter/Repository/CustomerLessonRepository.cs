@@ -46,6 +46,7 @@ namespace YogaCenter.Repository
                 .Include(p => p.Lesson).ThenInclude(p => p.Room)
                 .Include(p => p.Lesson).ThenInclude(p => p.Shift)
                 .Include(p => p.Lesson).ThenInclude(p => p.Class).ThenInclude(p=>p.Course)
+                .Include(p => p.Lesson).ThenInclude(p => p.Class).ThenInclude(p => p.Teacher)
                 .ToListAsync();
         }
 
@@ -63,6 +64,12 @@ namespace YogaCenter.Repository
         {
             var save = await _context.SaveChangesAsync();
             return save > 0 ? true : false;
+        }
+
+        public async Task<bool> UpdateCustomerLesson(CustomerLesson customerLesson)
+        {
+            _context.Update(customerLesson);
+            return await Save();
         }
     }
 }

@@ -87,7 +87,7 @@ export default function UpdateCourse({id}) {
     <Grid container item md={12}>
 
     
-      <form>
+      <form style={{width:'100%'}}>
       <table className='table-add-class' style={{marginTop:'0'}}>
             <thead>
               <tr>
@@ -126,8 +126,13 @@ export default function UpdateCourse({id}) {
                           ))):''}
                           </select>
                           </td>
-                    <Button variant='text' color='success' type='submit' onClick={submitAdd}
-                        sx={{padding :1,margin:1, color: 'white', backgroundColor:'#010f51b8'}}>Save</Button>
+                    <td><Button variant='text'  type='submit' onClick={submitAdd}
+                       sx={{
+              padding: 1,
+              margin: 1,
+              color: "white",
+              backgroundColor: "#1263fd",
+            }}>Save</Button></td>
             </tr>
             </tbody>
       </table>
