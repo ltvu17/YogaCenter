@@ -19,7 +19,7 @@ function ClassCustomer() {
 
   const isSingleItem = courses.length === 1;
   const gridColumnCount = isSingleItem ? 1 : 2;
-  const [myClass, setMyClass] = useState("");
+  const [myClass, setMyClass] = useState([]);
   // console.log(myClass[0].class.id)
   useEffect(() => {
     axios
@@ -39,10 +39,11 @@ function ClassCustomer() {
         console.log("oke");
       })
       .catch((error) => {
-        console.log("sai roi");
+        console.log("Error");
         console.log(error);
       });
   }, [customerId]);
+  console.log(myClass)
   return (
     <div className="classCustomer">
       <div className="classCustomer-content">
@@ -114,7 +115,7 @@ function ClassCustomer() {
                           ).toLocaleDateString()}
                         </Typography>
                         <Typography variant="subtitle1">
-                          Start Date:{" "}
+                          End Date:{" "}
                           {new Date(
                             classs.class.classEndDate
                           ).toLocaleDateString()}
@@ -126,6 +127,7 @@ function ClassCustomer() {
                           {classs.class.teacher !== null
                             ? classs.class.teacher.teacherName
                             : ""}
+                            {classs.class.length}
                         </Typography>
                       </CardContent>
                     </Card>

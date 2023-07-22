@@ -35,7 +35,7 @@ const PieChart = () => {
     
     return(
         <div style={{ height: "100%", width: "100%" }}>
-        <h2>Rate of courses</h2>
+        <h2 style={{ textAlign: 'center', padding: '8px',color:'white'}}>Rate of courses</h2>
         <ResponsivePie
         data={course}
         margin={{ top: 40, right: 80, bottom: 80, left: 80 }}
@@ -44,7 +44,7 @@ const PieChart = () => {
         padAngle={3}
         cornerRadius={3}
         activeOuterRadiusOffset={8}
-        colors={{ scheme: 'dark2' }}
+        colors={{ scheme: 'set3' }}
         borderWidth={2}
         borderColor={{
             from: 'color',
@@ -56,7 +56,7 @@ const PieChart = () => {
             ]
         }}
         arcLinkLabelsTextOffset={4}
-        arcLinkLabelsTextColor="#333333"
+        arcLinkLabelsTextColor="#ffffff"
         arcLinkLabelsOffset={-3}
         arcLinkLabelsDiagonalLength={10}
         arcLinkLabelsStraightLength={6}

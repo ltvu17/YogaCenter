@@ -151,7 +151,7 @@ function ScheduleCustomer() {
 
         <table className="schedule-table-customer">
           <thead>
-            <tr>
+            <tr style={{    background: '#165195'}}>
               <th
                 style={{
                   backgroundColor: 'rgb(0 0 0 / 49%)',
@@ -194,7 +194,7 @@ function ScheduleCustomer() {
           <tbody>
             {time.map((timeSlot) => (
               <tr key={timeSlot} >
-                <td style={{ backgroundColor: '#afb99e73' }}>
+                <td>
                   <h1
                     style={{
                       marginBottom: "10px",
@@ -242,43 +242,43 @@ function ScheduleCustomer() {
                   });
                   if (lessonMatch !== undefined) {
                     return (
-                      <td key={`${day}-${timeSlot}`}>
-                        <Grid container className="lessonDay">
-                          <Grid className="lesson-info" item md={12}>
-                            <p style={{ padding: '10px',
-                                        backgroundColor: '#d1b0b0',
-                                        fontSize: '1rem',
-                                        fontWeight: '600',
-                                        color: '#9b7575fa',
-                                        borderTopRightRadius: '15px',
-                                        borderTopLeftRadius: '15px'}}>
+                      <td key={`${day}-${timeSlot}`} >
+                        <Grid container className="lessonDay" >
+                          <Grid container className="lesson-info" item md={12} sx={{background:'#c5c57d',borderRadius:'10px'}}>
+                            <Grid item md={2} className="lesson-left">
+                              <p >
 
-                            {
-                              lessonMatch.lesson.class.course
-                                .courseDescription
-                            }
-                          </p>
-                          <p style={{ color: 'rgb(171 77 77)', 
-                                      fontWeight: '600',
-                                      fontSize: '25px',
-                                      letterSpacing: '3px',
-                                      padding: '5px' }}>
+                                {
+                                  lessonMatch.lesson.class.course
+                                    .courseDescription
+                                }
+                                </p>
+                            </Grid>
+                            <Grid item md={10} className="lesson-right">
+                              
+                          <p className="lesson-right-nameClass" >
                             {lessonMatch.lesson.class.className}
                           </p>
-                          <p style={{ padding: '5px',
-                                      fontSize: '0.9rem',
-                                      fontWeight: '600',
-                                      color: '#00000085'}}>
+                          <p >
                            {lessonMatch.lesson.class.teacher.teacherName}
                             </p> 
-                          <p style={{ padding: '5px',
-                                      color: '#621212',
-                                      fontWeight: '600'}}>
+                          <p >
 
 
-                            Room  {lessonMatch.lesson.room.roomDetail}
+                           {lessonMatch.lesson.room.roomDetail}
                           </p>
-                          <Grid item md={12} className="lesson-attendence">
+                          {lessonMatch.attendance === 2 ? (
+                              <p style={{color:'black'}} >Not yet</p>
+                         
+                              
+                            ) : lessonMatch.attendance === 1 ? (
+                              <p style={{ backgroundColor: '#5cb85c', color: "white" }}>Attendence</p>
+                            ) : (
+                              <p style={{ backgroundColor: '#ED2B2A', color: "white" }}>Absent</p>
+                            )}
+                              </Grid>
+                           
+                          {/* <Grid item md={12} className="lesson-attendence">
                             {lessonMatch.attendance === 2 ? (
                               <p >Not yet</p>
                          
@@ -288,7 +288,9 @@ function ScheduleCustomer() {
                             ) : (
                               <p style={{ backgroundColor: '#ED2B2A', color: "white" }}>Absent</p>
                             )}
-                          </Grid>
+                         
+                          </Grid> */}
+                        
                         </Grid>
 
                       </Grid>

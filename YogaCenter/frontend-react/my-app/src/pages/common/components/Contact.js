@@ -132,8 +132,9 @@ export default function Contact() {
           alignItems="center"
           sx={{
             height: "100%",
-            backgroundColor: "#e0d7df",
+            backgroundColor: "#f8f8f8",
             borderRadius: "35px",
+            boxShadow: '0px 0px 15px -4px #989e56'
           }}
         >
           <Grid
@@ -279,7 +280,7 @@ export default function Contact() {
                   sx={{
                     width: "100%",
                     height: "4em",
-                    backgroundColor: "#d49aa5",
+                    backgroundColor: "black",
                     marginTop: "1.5em",
                   }}
                   variant="contained"

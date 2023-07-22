@@ -13,10 +13,13 @@ import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
+import AddIcon from '@mui/icons-material/Add';
 import "../css/registerClass.css";
+import '../css/customerCare.css';
 import { URL_API } from "../api/ConstDefine";
 import RegisterAccountCustomer from "../pages/customer/components/RegisterAccountCustomer";
 import RegisClasForm from "../pages/customer/components/RegisClassForm";
+import CustomerCarePopup from "./CustomerCarePopup";
 const ariaLabel = { "aria-label": "description" };
 export default function RegisterClass() {
   const [Class, setClass] = useState([]);
@@ -32,22 +35,39 @@ export default function RegisterClass() {
   `;
 
   let CourseAPI = URL_API + `Course`;
-
+  const [showPopup, setShowPopup] = useState(false);
   function handlerRegisterClassFormSublmit(courseId) {
     if (userId === undefined) {
-      const element = document.getElementById("registerAccount");
-      if (element) {
-        element.scrollIntoView({ behavior: "smooth" });
-      }
+      // const element = document.getElementById("registerAccount");
+      // if (element) {
+      //   element.scrollIntoView({ behavior: "smooth" });
+      // }
+      setShowPopup(true);
     } else {
-      const element = document.getElementById("registerClass");
-      if (element) {
-        element.scrollIntoView({ behavior: "smooth" });
-      }
+      setShowPopup(true);
+      // const element = document.getElementById("registerClass");
+      // if (element) {
+      //   element.scrollIntoView({ behavior: "smooth" });
+      // }
       setCoursesId(courseId);
-      setFormRegisterClass(true);
+      // setFormRegisterClass(true);
     }
   };
+  const handlePopupClose = () => {
+
+    setShowPopup(false);
+  };
+  useEffect(() => {
+    if (showPopup) {
+      document.body.classList.add('no-scroll');
+    } else {
+      document.body.classList.remove('no-scroll');
+    }
+  
+    return () => {
+      document.body.classList.remove('no-scroll');
+    };
+  }, [showPopup]);
   useEffect(() => {
     axios
       .get(CourseAPI)
@@ -60,50 +80,22 @@ export default function RegisterClass() {
   }, []);
   return (
     <div className="register-class">
-      <Grid
-        container
-        className="customer-care"
-        pt="66px"
-        style={{ backgroundImage: "url('/assets/images/customer-care.png')" }}
-      >
-        <Grid item md={8}>
-          <div className="customer-care-content">
-            <h1 style={{ color: "#d2608d", marginBottom: "0" }}>YOGA FPTU</h1>
-            <h1>
-              Embrace Health and Happiness.
-              <br />
-              Experience it now!
-            </h1>
-            <p>
-              Take the time to nurture yourself and explore the hidden potential
-              within you through yoga. Let us accompany you on this journey and
-              provide you with memorable experiences and great benefits for your
-              physical and mental well-being.
-            </p>
-          </div>
-        </Grid>
-        {userId === undefined ? (
-          <Grid item md={4} id="registerAccount">
-            <RegisterAccountCustomer />
-          </Grid>
-        ) : (
-          <Grid item md={4} id="registerClass">
-            <RegisClasForm courseId={courseId}/>
-          </Grid>
-        )}
-          
-      </Grid>
+    
       <div className="classList">
         <div className="classList-title">
           <p>Confidence and Serenity with Yoga</p>
           <h1>Explore Our Yoga Class Offerings</h1>
         </div>
+  
+          
+    
         <Grid container ml={10} mr={10} mt={10} className="classList-detail">
           {courses
             ? courses.map((coursesDetail) => (
                 <Grid
                   key={coursesDetail.id}
                   item
+                  containter
                   md={4}
                   pb="50px"
                   style={{ display: "flex", justifyContent: "center" }}
@@ -121,8 +113,9 @@ export default function RegisterClass() {
                         height: "100%",
                         border: "1px solid #b09999",
                         borderRadius: "20px",
-                        boxShadow: "1px 1px 11px -1px #7f5188d6",
-                        backgroundColor: "#f9effa",
+                        boxShadow: "1px 1px 11px -1px #black",
+                        backgroundColor: "white",
+                        position:'relative'
                       }}
                     >
                       <CardMedia
@@ -133,34 +126,36 @@ export default function RegisterClass() {
                       />
                       <CardContent>
                         <Typography
-                          sx={{ fontSize: 14 }}
-                          color="text.secondary"
-                          gutterBottom
+                          sx={{ fontSize: '2rem',color:'black',fontWeight: '700' }}
                         >
                           {coursesDetail.courseDescription}
                         </Typography>
-                        <Typography gutterBottom variant="h5" component="div">
-                          {coursesDetail.courseLength}
-                        </Typography>
-                        <Typography variant="body2" color="text.secondary">
+                        <Typography sx={{color: '#0000006b'}} variant="body2" >
                           {coursesDetail.courseDetail}
                         </Typography>
+                        <Grid container sx={{justifyContent:'space-between',marginTop: '15%',padding:'0 10%'}}>
+                        
+                      <Typography variant="h5" sx={{ fontWeight: '700',fontSize: '1.6rem'}}>
+                          <span style={{color:'red',marginRight:'10%'}}>$</span>{coursesDetail.coursePrice}
+                        </Typography>
+                        <Typography variant="h5" sx={{    fontSize: '1.4rem', color: '#00000082'   }}>
+                          <span>Slot: </span>{coursesDetail.courseLength}
+                        </Typography>
+                        </Grid>
                       </CardContent>
                       <CardActions
                         className="buttonCard"
-                        style={{ justifyContent: "flex-end" }}
+                        
                       >
-                        <Typography gutterBottom variant="h5" component="div">
-                          {coursesDetail.coursePrice}
-                        </Typography>
+                       
                         <Button
-                          variant="contained"
-                          size="small"
+                          variant="outlined"
+                      
                           onClick={() =>
                             handlerRegisterClassFormSublmit(coursesDetail.id)
                           }
                         >
-                          Register
+                         <AddIcon></AddIcon>
                         </Button>
                       </CardActions>
                     </Card>
@@ -168,6 +163,7 @@ export default function RegisterClass() {
                 </Grid>
               ))
             : ""}
+            {showPopup && <CustomerCarePopup onClose={handlePopupClose} courseId={courseId}  />}
         </Grid>
       </div>
     </div>

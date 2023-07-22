@@ -1,11 +1,12 @@
 .profile{
   
-    background-color: #d2c7c9;
+    background-color: white;
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 80px;
-    margin-top: 70px;
+    padding: 170px;
+    min-height: 100vh;
+    
 }
  .profile-content {
     background-color: #cab2b65c;

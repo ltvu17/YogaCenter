@@ -15,7 +15,7 @@ import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { useCookies } from "react-cookie";
 import axios from "axios";
-const settings = ["Profile", "Account", "Dashboard", "Logout"];
+const settings = ["Profile", "Logout"];
 
 function NavUsers() {
   const [anchorElUser, setAnchorElUser] = React.useState(null);
@@ -39,11 +39,7 @@ function NavUsers() {
   const isCustomer = false;
 
   return (
-    <nav className="navUsers">
-      <Link to="/" className="logoUsers">
-        <h1>Yoga FPTU Center</h1>
-        <p>EVERY DAY</p>
-      </Link>
+    <nav className="Navigation">
       <ul className="nav">
         <li>
           <Link to="/class-instructor">My Class</Link>
@@ -51,6 +47,11 @@ function NavUsers() {
         <li>
           <Link to="/schedule-instructor">Schedule</Link>
         </li>
+        <li>
+        <Link to="/" className="logo">
+        <h1>Yoga FPTU Center</h1>
+        <p>EVERY DAY</p>
+      </Link></li>
         <li>
           <Link to={isCustomer ? "/home-customer" : "/home-instructor"}>
             My Account
