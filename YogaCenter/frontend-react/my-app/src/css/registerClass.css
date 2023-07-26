@@ -1,20 +1,21 @@
-.register-class{
+.register-class {
     padding-top: 105px;
     min-height: 100vh;
     width: 100%;
     background-color: white;
 }
 
-.classList{
+.classList {
     width: 100%;
 
- 
+
 }
-.classList-title{ 
+
+.classList-title {
     text-align: center;
 }
 
-.classList-title p{
+.classList-title p {
     letter-spacing: 2px;
     padding-top: 10px;
     color: #000000b0;
@@ -22,32 +23,137 @@
     font-family: sans-serif;
     font-weight: 600;
 }
-.classList-title h1{
-    color: #d3c809;
+
+.classList-title h1 {
+    color: #000000;
     font-size: 2.5rem;
     letter-spacing: 1px;
     padding-bottom: 10px;
     font-family: sans-serif;
 }
-.classList-detail{
+
+.classList-detail {
     margin-left: 20px;
     margin-right: 20px;
 }
-.buttonCard{
+
+.buttonCard {
     position: absolute;
-    top: 50%;
+   bottom: 1%;
     right: 2%;
 }
-.buttonCard Button{
-    border: 1px solid rgb(208 197 197 / 50%);
-    box-shadow: 0px 0px 12px -3px black;
-    border-radius: 50%;
+
+.buttonCard Button {
+    padding: 7px 23px;
+ 
     color: #ffffff;
-    background: #d3c809;
+    border: 20px;
+    border-radius: 7px;
+    border: 1px solid #d7cdcd;
+    background: #383838;
     font-weight: 700;
-    width: 50px;
-    height: 50px;
-  }
-  .buttonCard Button:hover{
-    background-color: #d3c809;
-  }
+    font-size: 1rem;
+}
+
+.buttonCard Button:hover {
+    background-color: #171715;
+}
+
+.classList-detail .class-content {
+
+    border-radius: 20px;
+    box-shadow: none;
+
+    position: relative;
+
+    width: 300px;
+    height: 360px;
+    display: flex;
+    ;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.class-content .class-img {
+    height: 200px;
+    position: relative;
+    border-radius: 8%;
+  
+}
+.class-content .class-img::before{
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    width: 20px;
+    height: 20px;
+    background-color: transparent;
+    border-radius: 50%;
+    box-shadow: -10px 10px 0 white;
+}
+.class-content .class-img::after{
+    content: '';
+    position: absolute;
+    bottom: 50px;
+    left: 0;
+    width: 20px;
+    height: 20px;
+    background-color: transparent;
+    border-radius: 50%;
+    box-shadow: -10px 10px 0 white;
+}
+.class-content .class-description {
+    height: 150px;
+    border-radius: 8%;
+    border-top-left-radius: 0;
+    position: relative;
+    background-color: #CDBE78;
+}
+
+.class-description .class-price {
+    position: absolute;
+    width: 50%;
+    top: -60px;
+    left: 0;
+    height: 60px;
+    background: #CDBE78;
+    font-weight: 700px;
+    font-size: 1.6rem;
+    border-top: 10px solid white;
+    border-right: 10px solid white;
+    border-top-right-radius: 25px;
+}
+
+.class-description .class-price::before {
+    content: '';
+    position: absolute;
+    width: 25px;
+    height: 25px;
+    background-color: transparent;
+    border-radius: 50%;
+    box-shadow: -10px -10px 0 white;
+}
+
+.class-description .class-price::after {
+    content: '';
+    position: absolute;
+    width: 25px;
+    bottom: 0;
+    right: -25px;
+    height: 25px;
+    background-color: transparent;
+    border-radius: 50%;
+    box-shadow: -10px 10px 0 #CDBE78;
+}
+.class-price h5{
+    width: 100%;
+    position: relative;
+    padding: 0px 28px;
+    background: white;
+    margin: 10px 10px;
+    border-radius: 10px;
+    font-size: 1.6rem;
+    display: flex;
+    letter-spacing: 1px;
+    justify-content: space-between;
+}

@@ -354,7 +354,7 @@ font-size: 16px;
             <Grid container item md={12}>
             {bloges.slice(0,4).map(blog => (
                     <Grid key={blog.node.slug} item md={3} sx={{ padding: '20px' }}>
-                    <Card className="card-blog">
+                    <Card className="card-blog" >
                             <Link to={`/blog-detail/${blog.node.slug}`}>
                               <div className="image-container">
                                   <CardMedia
@@ -381,6 +381,11 @@ font-size: 16px;
                             <Link to={`/blog-detail/${blog.node.slug}`}>
                             <Typography variant="h5" 
                                 sx={{
+                                  display: '-webkit-box',
+                                    WebkitLineClamp: 3,
+                                    WebkitBoxOrient: 'vertical',
+                                    overflow: 'hidden',
+                                    textOverflow: 'ellipsis',
                                     color: '#3f3a3a',
                                     fontWeight: '500',
                                     fontSize:'22px',

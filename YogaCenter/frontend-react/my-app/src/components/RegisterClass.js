@@ -107,24 +107,17 @@ export default function RegisterClass() {
                       alignItems: "center",
                     }}
                   >
-                    <Card
-                      sx={{
-                        maxWidth: 300,
-                        height: "100%",
-                        border: "1px solid #b09999",
-                        borderRadius: "20px",
-                        boxShadow: "1px 1px 11px -1px #black",
-                        backgroundColor: "white",
-                        position:'relative'
-                      }}
-                    >
-                      <CardMedia
+                    <Card className="class-content" >
+                      <CardMedia    
+                       className="class-img"
                         component="img"
-                        height="200"
+                   
                         alt="image"
                         image={`/assets/images/courseImage/${coursesDetail.id}.jpg`}
+                       
                       />
-                      <CardContent>
+                      <CardContent 
+                       className="class-description"  >
                         <Typography
                           sx={{ fontSize: '2rem',color:'black',fontWeight: '700' }}
                         >
@@ -133,14 +126,16 @@ export default function RegisterClass() {
                         <Typography sx={{color: '#0000006b'}} variant="body2" >
                           {coursesDetail.courseDetail}
                         </Typography>
-                        <Grid container sx={{justifyContent:'space-between',marginTop: '15%',padding:'0 10%'}}>
-                        
-                      <Typography variant="h5" sx={{ fontWeight: '700',fontSize: '1.6rem'}}>
-                          <span style={{color:'red',marginRight:'10%'}}>$</span>{coursesDetail.coursePrice}
-                        </Typography>
-                        <Typography variant="h5" sx={{    fontSize: '1.4rem', color: '#00000082'   }}>
+                        <Typography variant="h6" sx={{    fontSize: '1.4rem', color: '#00000082'   }}>
                           <span>Slot: </span>{coursesDetail.courseLength}
                         </Typography>
+                        <Grid container className="class-price" >
+                        
+                      <Typography variant="h5"> 
+
+                          <span style={{color:'red',marginRight:'10%'}}>$</span>{coursesDetail.coursePrice}
+                        </Typography>
+                      
                         </Grid>
                       </CardContent>
                       <CardActions
@@ -155,7 +150,7 @@ export default function RegisterClass() {
                             handlerRegisterClassFormSublmit(coursesDetail.id)
                           }
                         >
-                         <AddIcon></AddIcon>
+                       Booking
                         </Button>
                       </CardActions>
                     </Card>
