@@ -25,7 +25,7 @@ export default function ProfileCustomer() {
   const [profileTitle, setProfileTitle] = useState("Profile");
   const [cookies] = useCookies();
   const userId = cookies.userId;
-  console.log(userId)
+  console.log(userId);
   const [avatar, setAvatar] = useState(null);
   const [urlImage, setUrlImage] = useState(
     `../../assets/images/userImage/${userId}.jpg`
@@ -159,7 +159,7 @@ export default function ProfileCustomer() {
         customerAddress: newCustomer.customerAddress,
         customerGender: newCustomer.customerGender,
       })
-      .then(navigate(0))
+      .then(alert("Edit profile success"), navigate(0))
       .catch((error) => {
         console.log(error);
       });
@@ -191,10 +191,11 @@ export default function ProfileCustomer() {
         status: 1,
       })
       .then((res) => {
-        setMessage("Update password success");
+        alert("Change Password Success")
         setEditing(false);
         setChangePassword(false);
         setProfileTitle("Profile");
+        navigate(0);
       })
       .catch((error) => {
         setMessage(
