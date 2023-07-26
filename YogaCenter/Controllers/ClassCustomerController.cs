@@ -14,14 +14,20 @@ namespace YogaCenter.Controllers
         private readonly IClassCustomerRepository _classCustomerRepository;
         private readonly IMapper _mapper;
         private readonly ICustomerRepository _customerRepository;
+        private readonly ICustomerLessonRepository _customerLessonRepository;
+        private readonly ILessonRepository _lessonRepository;
         private readonly IClassRepository _classRepository;
 
         public ClassCustomerController(IClassCustomerRepository classCustomerRepository, IMapper mapper,
-            IClassRepository classRepository, ICustomerRepository customerRepository)
+            IClassRepository classRepository, ICustomerRepository customerRepository,
+            ICustomerLessonRepository customerLessonRepository,
+            ILessonRepository lessonRepository)
         {
             _classCustomerRepository = classCustomerRepository;
             _mapper = mapper;
             _customerRepository = customerRepository;
+            _customerLessonRepository = customerLessonRepository;
+            _lessonRepository = lessonRepository;
             _classRepository = classRepository;
         }
         [HttpGet("{classId}")]
@@ -73,7 +79,16 @@ namespace YogaCenter.Controllers
             if (await _classCustomerRepository.GetClassAndCustomerById(classId: classId, customerId: customerId) != null)
                 return BadRequest("Customer already Exist");
             if (!ModelState.IsValid) { return BadRequest(ModelState); }
-           
+
+            var lessonsOfClass = await _lessonRepository.GetLessonByClassId(classId);
+            foreach (var lesson in lessonsOfClass)
+            {
+                await _customerLessonRepository.CreateCustomerLesson(new CustomerLesson
+                {
+                    Customer = await _customerRepository.GetCustomerById(customerId),
+                    Lesson = lesson,
+                });
+            }
             var classs = await _classRepository.GetClassByIdDelete(classId);
             var customer = await _customerRepository.GetCustomerById(customerId);
             var classCustomer = new ClassCustomer()
@@ -100,7 +115,13 @@ namespace YogaCenter.Controllers
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
-            }           
+            }
+            var lessonsOfClass = await _lessonRepository.GetLessonByClassId(classId);
+            foreach(var lesson in lessonsOfClass)
+            {
+                var lessCus = await _customerLessonRepository.GetCustomerAndLessonById(customerId, lesson.Id);
+                await _customerLessonRepository.DeleteCustomerLesson(lessCus);
+            }
             if (await _classCustomerRepository.DeleteClass(classCustomer))
             {
                 return Ok("Deleted");
