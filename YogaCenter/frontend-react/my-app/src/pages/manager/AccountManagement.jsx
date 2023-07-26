@@ -43,32 +43,63 @@ export default function AccountManagement() {
             }
         })
     };
+    const [searchResult, setSearchResult] = useState([]); 
     const searchSubmit = () => {
-        var temp = [];
-        if (search.search !== '' && search.searchBy === 'BYNAME') {
-            accounts.forEach(account => {
-                if (account.userName.toUpperCase().includes(search.search)) {
-                    temp.push(account)
-                }
-                setAccounts(temp);
-            });
-        }
+      var temp = [];
+      if (search.search !== '' && search.searchBy === 'BYNAME') {
+        accounts.forEach(account => {
+          if (account.userName.toUpperCase().includes(search.search)) {
+            temp.push(account);
+          }
+        });
+      
+        setSearchResult(temp);
+      }
+  
+      if (search.search !== '' && search.searchBy === 'BYROLE') {
+        accounts.forEach(account => {
+          if (account.role !== null) {
+            if (account.role.roleName.toUpperCase().includes(search.search)) {
+              temp.push(account);
+            }
+          }
+        });
+    
+        setSearchResult(temp);
+      }
+  
+      if (search.search === '') {
+      
+        setSearchResult([]);
+      }
+    };
+  
+    // const searchSubmit = () => {
+    //     var temp = [];
+    //     if (search.search !== '' && search.searchBy === 'BYNAME') {
+    //         accounts.forEach(account => {
+    //             if (account.userName.toUpperCase().includes(search.search)) {
+    //                 temp.push(account)
+    //             }
+    //             setAccounts(temp);
+    //         });
+    //     }
 
-        if (search.search !== '' && search.searchBy === 'BYROLE') {
-            accounts.forEach(account => {
-                if (account.role !== null) {
-                    if (account.role.roleName.toUpperCase().includes(search.search)) {
-                        temp.push(account)
-                    }
-                    setAccounts(temp);
-                }               
-            });
-        }
-        if (search.search == '') {
-            setChange(true);
-        };
-    }
-    ////Submitdata
+    //     if (search.search !== '' && search.searchBy === 'BYROLE') {
+    //         accounts.forEach(account => {
+    //             if (account.role !== null) {
+    //                 if (account.role.roleName.toUpperCase().includes(search.search)) {
+    //                     temp.push(account)
+    //                 }
+    //                 setAccounts(temp);
+    //             }               
+    //         });
+    //     }
+    //     if (search.search == '') {
+    //         setChange(true);
+    //     };
+    // }
+    // ////Submitdata
     function ChangeStatus(id){
         let changeStatusAPI = URL_API + `User/ChangeStatus/${id}`;
         axios.put(changeStatusAPI).then(r=>setChange(true)).catch(err => console.log(err));
@@ -146,28 +177,17 @@ font-weight: 600;
                 </tr>
             </thead>
             <tbody>
-            {displayedAccount? displayedAccount.map(((item, index) =>(
+            {/* {searchResult ? searchResult.map(((item, index) => (
                         <tr key={index}>
                         <td>  {startIndex + index + 1}</td>
                         <td>{item.userName}</td>
                         <td><InputLabel htmlFor="outlined-adornment-password"></InputLabel>
                             <OutlinedInput
                             id="outlined-adornment-password"
-                            type={showPassword ? 'text' : 'password'}
+                            type="text"
                             defaultValue={item.userPasswork}
                             readOnly
-                            endAdornment={
-                            <InputAdornment position="end">
-                            <IconButton
-                                aria-label="toggle password visibility"
-                                onClick={handleClickShowPassword}
-                                onMouseDown={handleMouseDownPassword}
-                                edge="end"
-                            >
-                            {showPassword ? <VisibilityOff /> : <Visibility />}
-                        </IconButton>
-                    </InputAdornment>
-                    }
+                      
                         /></td>
                         <td>{item.status=== 1? 'Active':'Unactive'}</td>
                         <td>{item.role.roleName}</td>
@@ -175,7 +195,81 @@ font-weight: 600;
                         <td>{item.status=== 0? <CustomButton onClick={()=>ChangeStatus(item.id)}>Active</CustomButton>:<DeleteButton onClick={()=>ChangeStatus(item.id)} >Unactive</DeleteButton>}</td>
                         ):<td></td>}
                         </tr>
-                    ))):''}
+                    ))): displayedAccount.map(((item, index) => (  
+                        <tr key={index}>
+                        <td>  {startIndex + index + 1}</td>
+                        <td>{item.userName}</td>
+                        <td><InputLabel htmlFor="outlined-adornment-password"></InputLabel>
+                            <OutlinedInput
+                            id="outlined-adornment-password"
+                            type="text"
+                            defaultValue={item.userPasswork}
+                            readOnly
+                      
+                        /></td>
+                        <td>{item.status=== 1? 'Active':'Unactive'}</td>
+                        <td>{item.role.roleName}</td>
+                        {item.role.roleName !== 'Admin'?(
+                        <td>{item.status=== 0? <CustomButton onClick={()=>ChangeStatus(item.id)}>Active</CustomButton>:<DeleteButton onClick={()=>ChangeStatus(item.id)} >Unactive</DeleteButton>}</td>
+                        ):<td></td>}
+                        </tr> )))} */}
+                        {searchResult.length > 0
+              ? searchResult.map((item, index) => (
+                  <tr key={index}>
+                    <td> {index + 1}</td>
+                    <td>{item.userName}</td>
+                    <td>
+                      <InputLabel htmlFor="outlined-adornment-password"></InputLabel>
+                      <OutlinedInput
+                        id="outlined-adornment-password"
+                        type="text"
+                        defaultValue={item.userPasswork}
+                        readOnly
+                      />
+                    </td>
+                    <td>{item.status === 1 ? 'Active' : 'Unactive'}</td>
+                    <td>{item.role.roleName}</td>
+                    {item.role.roleName !== 'Admin' ? (
+                      <td>
+                        {item.status === 0 ? (
+                          <CustomButton onClick={() => ChangeStatus(item.id)}>Active</CustomButton>
+                        ) : (
+                          <DeleteButton onClick={() => ChangeStatus(item.id)}>Unactive</DeleteButton>
+                        )}
+                      </td>
+                    ) : (
+                      <td></td>
+                    )}
+                  </tr>
+                ))
+              : displayedAccount.map((item, index) => (
+                  <tr key={index}>
+                    <td> {startIndex + index + 1}</td>
+                    <td>{item.userName}</td>
+                    <td>
+                      <InputLabel htmlFor="outlined-adornment-password"></InputLabel>
+                      <OutlinedInput
+                        id="outlined-adornment-password"
+                        type="text"
+                        defaultValue={item.userPasswork}
+                        readOnly
+                      />
+                    </td>
+                    <td>{item.status === 1 ? 'Active' : 'Unactive'}</td>
+                    <td>{item.role.roleName}</td>
+                    {item.role.roleName !== 'Admin' ? (
+                      <td>
+                        {item.status === 0 ? (
+                          <CustomButton onClick={() => ChangeStatus(item.id)}>Active</CustomButton>
+                        ) : (
+                          <DeleteButton onClick={() => ChangeStatus(item.id)}>Unactive</DeleteButton>
+                        )}
+                      </td>
+                    ) : (
+                      <td></td>
+                    )}
+                  </tr>
+                ))}
             </tbody>
         </table>
         <div

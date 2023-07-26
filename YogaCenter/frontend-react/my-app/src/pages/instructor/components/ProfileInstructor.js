@@ -17,6 +17,7 @@ import { URL_API } from "../../../api/ConstDefine";
 import { useNavigate } from "react-router-dom";
 import { pathUser } from "../../../service/pathImage/pathToSaveFile";
 import { colors } from "@mui/material";
+import {MenuItem} from "@mui/material";
 export default function ProfileTeacher() {
   const [editing, setEditing] = useState(false);
   const [changePassword, setChangePassword] = useState(false);
@@ -208,15 +209,348 @@ export default function ProfileTeacher() {
   };
 
   return (
-    <div className="profile">
-      <div className="profile-content">
-        <div className="profile-title">
-          <Typography variant="h2" component="h2">
-            <KeyboardDoubleArrowRightIcon />
-            {profileTitle}
-          </Typography>
-        </div>
-        <Grid container>
+    <Grid container className="profileCustomer">
+      <Grid container className="profileCustomer-content">
+        <Grid item md={4} className="profileCustomer-left">
+          <div style={{padding:'6%',height:'70%'}}>
+            <Grid className="profileCustomer-left-content" sx={{    padding: '4%',border: '1px solid #d8d0d059',
+                                                                height: '100%',
+                                                                boxShadow: '0px 0px 11px 0px #e7e2e2',
+                                                                borderRadius: '35px',
+                                                                display: 'flex',
+                                                                flexDirection: 'column',
+                                                                alignItems: 'center'}}>
+
+            <CardMedia
+              component="img"
+              height="65%"
+              image="/assets/images/coach.png"
+                          // image={"/assets/images/userImage/" + oldTeacher.id + ".jpg"}
+                          onError={(e) => {
+                            e.target.onError = null;
+                            e.target.src = "/assets/images/userImage/avatarDefault.jpg";
+                          }}
+              sx={{height:'200px',width:'200px', marginBottom: "20px",borderRadius:'50%',background:'white' }}
+             />
+              <Typography variant="h3">{oldTeacher.teacherName}</Typography>
+              <CardActions className="changeProfile">
+              <Button
+                sx={{color: '#d3c809',
+                  fontSize: '1rem',
+                  fontWeight: '700',
+                  letterSpacing: '2px'}}
+                onClick={handlerAvatar}
+              >
+                <UpgradeIcon />
+                Avatar
+              </Button>
+           
+            </CardActions>
+            </Grid>
+          </div>
+        </Grid>
+        <Grid item md={8} className="profileCustomer-right">
+          <div style={{paddingTop:'3%',height:'83%'}}>
+          <Grid container className="profileCustomer-right-content">
+            <Grid container className="profileCustomer-right-detail">
+            <Grid item md={12} className="profile-title">
+                <Typography variant="h2" >
+                  <KeyboardDoubleArrowRightIcon />
+                  {profileTitle}
+                </Typography>
+                <font>
+                  <div>{message}</div>
+                </font>
+            </Grid> 
+            <Grid item md={12}>
+            {changePassword ? (
+              <Grid container className="profileCustomer-save">
+              <Grid md={12} sx={{ display:'flex',alignItems:'center',justifyContent:'space-between', padding: "0px 10px 32px" }}>
+                  <label htmlFor="currentPassword">Current password</label>
+                  <TextField
+                     sx={{width:'75%'}}
+                    id="currentPassword"
+                    name="currentPassword"
+                    type="password"
+                    variant="outlined"
+                    value={formData.currentPassword}
+                    onChange={handleChangeOfPassword}
+                  />
+                </Grid>
+                <Grid md={12} sx={{  display:'flex',alignItems:'center',justifyContent:'space-between', padding: "0px 10px 32px" }}>
+                  <label htmlFor="newPassword">New password</label>
+                  <TextField
+                           sx={{width:'75%'}}
+                    id="newPassword"
+                    name="newPassword"
+                    type="password"
+                    value={formData.newPassword}
+                    onChange={handleChangeOfPassword}
+                  />
+                </Grid>
+                <Grid md={12} sx={{ display:'flex',alignItems:'center',justifyContent:'space-between',  padding: "0px 10px 32px" }}>
+                  <label htmlFor="confirmNewpassword">
+                    Confirm new password
+                  </label>
+                  <TextField
+                    sx={{width:'75%'}}
+                    id="confirmNewPassword"
+                    name="confirmNewPassword"
+                    type="password"
+                    value={formData.confirmNewPassword}
+                    onChange={handleChangeOfPassword}
+                  />
+                </Grid>
+                <p style={{ color: "red" }}>{message}</p>
+                <Grid className="profileCustomer-right-cardaction"  item md={12} sx={{ borderTop:'1px solid #6e6e6038;'}}>
+                <CardActions sx={{justifyContent:'center',marginTop:'1%'}}>
+         
+                  <Button
+                    className="button-save"
+                    variant="contained"
+                    onClick={handlerUpdatePassword}
+                    sx={{ border: "1px solid white", padding: "10px",color: 'white',
+                    width:'100px',
+    fontWeight: '800',
+    borderRadius: '12px',
+    backgroundColor: '#c8c800' }}
+                  >
+                    Save
+                  </Button>
+                  <Button
+                    className="button-cancel"
+                    variant="contained"
+                    onClick={() => handlerCancel("password")}
+                    sx={{ border: "1px solid white", padding: "10px",color: 'white',
+                    width:'100px',
+    fontWeight: '800',
+    borderRadius: '12px',
+    backgroundColor: '#c8c800' }}
+                  >
+                    Cancel
+                  </Button>
+                </CardActions>
+                </Grid>
+               
+              </Grid>
+            ) : (
+              <>
+                {editing ? (
+                  <div className="profileCustomer-save">
+                  <Grid md={12} sx={{ padding: "0px 10px 32px" }}>
+                  <TextField
+                
+                 
+                      label="User Name"
+                      variant="outlined"
+                      fullWidth
+                      name="teacherName"
+                      defaultValue={oldTeacher.teacherName}
+                      onChange={handleChange}
+                    />
+                  </Grid>
+                  
+                       <Grid md={12} sx={{ padding: "0px 10px 32px" }}>
+                       <TextField
+                      type="number"
+                
+                 
+                      label="Phone"
+                      variant="outlined"
+                      fullWidth
+                      name="teacherPhone"
+                      InputProps={{
+                        startAdornment: (
+                          <InputAdornment position="start">+84</InputAdornment>
+                        ),
+                      }}
+                      defaultValue={oldTeacher.teacherPhone}
+                      onChange={handleChange}
+                    />
+                       </Grid>
+                  
+                       <Grid md={12} sx={{ padding: "0px 10px 32px" }}>
+                       <TextField
+                
+                    id="teacherGender"
+                      label="Gender"
+                      select
+                      fullWidth
+                      variant="outlined"
+                      name="teacherGender"
+                      defaultValue={oldTeacher.teacherGender}
+                      onChange={handleChange}
+                     
+                    >
+                     <MenuItem value="Male">Male</MenuItem>
+                                              <MenuItem value="Female">Female</MenuItem>
+                                              <MenuItem value="Other">Other</MenuItem>
+                    </TextField>
+                       </Grid>
+                   
+                       <Grid md={12} sx={{ padding: "0px 10px 32px" }}>
+                        <TextField
+                  
+                   
+                        label="Address"
+                        variant="outlined"
+                        fullWidth
+                        name="teacherAddress"
+                        defaultValue={oldTeacher.teacherAddress}
+                        onChange={handleChange}
+                      />
+                       </Grid>
+                 
+                    <p>{message}</p>
+                    <Grid className="profileCustomer-right-cardaction"  item md={12} sx={{ borderTop:'1px solid #6e6e6038;'}}>
+                    <CardActions sx={{justifyContent:'center',marginTop:'1%'}}>
+                      <Button
+                        className="button-save"
+                        onClick={handleEditProfile}
+                  
+                        sx={{ border: "1px solid white", padding: "10px",color: 'white',
+                    width:'100px',
+    fontWeight: '800',
+    borderRadius: '12px',
+    backgroundColor: '#c8c800' }}
+                      >
+                        Save
+                      </Button>
+                      <Button
+                        className="button-cancel"
+                        onClick={() => handlerCancel("edit")}
+                    
+                        sx={{ border: "1px solid white", padding: "10px",color: 'white',
+    fontWeight: '800',       width:'100px',
+    borderRadius: '12px',
+    backgroundColor: '#c8c800' }}
+                      >
+                        Cancel
+                      </Button>
+                    </CardActions>
+                    </Grid>
+                  </div>
+                ) : updateAvatart ? (
+                  <div className="profileCustomer-save">
+                    <div>
+                      <input type="file" onChange={handleChangeAvatar} />
+                    </div>
+
+                    <CardActions sx={{ paddingTop: "22px" }}>
+                      <Button
+                        className="button-save"
+                        onClick={handleSubmitAvatar}
+                        variant="contained"
+                      >
+                        Save
+                      </Button>
+                      <Button
+                        className="button-cancel"
+                        onClick={() => handlerCancel("avatar")}
+                        variant="contained"
+                      >
+                        Cancel
+                      </Button>
+                    </CardActions>
+                  </div>
+                ) : (
+                  <Grid container className="profileCustomer-edit">
+                    <Grid md={12} sx={{ padding: "0px 10px 32px" }}>
+                    <TextField 
+                       id="outlined-read-only-input"
+                        label="User Name"
+                      sx={{width:'80%'}}
+                      value={oldTeacher.teacherName}
+                      InputProps={{
+                          readOnly: true,
+                        }}
+                        variant="outlined"
+                        InputLabelProps={{
+                          shrink: true,
+                        }}
+                    />
+                    </Grid>
+                    <Grid md={12} sx={{ padding: "0px 10px 32px" }}>
+                    <TextField
+                        id="outlined-read-only-input"
+                        label="Phone"
+                        sx={{width:'80%'}}
+                        value={`0${oldTeacher.teacherPhone}`}
+                        InputProps={{
+                          readOnly: true,
+                        }}
+                        variant="outlined"
+                        InputLabelProps={{
+                          shrink: true,
+                        }}
+                      />
+                  
+                    </Grid>
+                    <Grid md={12} sx={{ padding: "0px 10px 32px" }}>
+                    <TextField
+                        id="outlined-read-only-input"
+                        label="Gender"
+                        sx={{width:'80%'}}
+                        value={oldTeacher.teacherGender}
+                        InputProps={{
+                          readOnly: true,
+                        }}
+                        variant="outlined"
+                        InputLabelProps={{
+                          shrink: true,
+                        }}
+                      />
+                    
+                    </Grid>
+                    <Grid md={12} sx={{ padding: "0px 10px 32px" }}>
+                    <TextField
+                        id="outlined-read-only-input"
+                        label="Address"
+                        sx={{width:'80%'}}
+                        value={oldTeacher.teacherAddress}
+                        InputProps={{
+                          readOnly: true,
+                        }}
+                        variant="outlined"
+                        InputLabelProps={{
+                          shrink: true,
+                        }}
+                      />
+              
+                    </Grid>
+                    <Grid className="profileCustomer-right-cardaction" md={12} sx={{ borderTop:'1px solid #6e6e6038;'}}>
+                    <CardActions sx={{justifyContent:'center',marginTop:'1%'}}>
+                      <Button
+                         sx={{ border: "1px solid white", padding: "10px",color: 'white',
+    fontWeight: '800',
+    borderRadius: '12px',
+    backgroundColor: '#c8c800' }}
+                        onClick={handleEdit}
+                      >
+                        <EditIcon sx={{ paddingRight: "5px" }} />
+                        Edit Profile
+                      </Button>
+                      <Button
+         sx={{ border: "1px solid white", padding: "10px",color: 'white',
+    fontWeight: '800',
+    borderRadius: '12px',
+    backgroundColor: '#c8c800'}}
+                onClick={handlePasswordChange}
+              >
+                Change Password
+              </Button>
+                    </CardActions>
+                    </Grid>
+                  </Grid>
+                )}
+              </>
+            )}
+            </Grid>
+            </Grid>
+          </Grid>
+          </div>
+        </Grid>
+        {/* <Grid container>
           <Grid
             xs={6}
             md={5}
@@ -266,10 +600,10 @@ export default function ProfileTeacher() {
           >
             {changePassword ? (
               <div className="profileInstructor-save">
-                <div className="form-row">
+                <div >
                   <label htmlFor="currentPassword">Current password</label>
                   <TextField
-                    className="instructor-input-password"
+                    
                     id="currentPassword"
                     name="currentPassword"
                     type="password"
@@ -278,10 +612,10 @@ export default function ProfileTeacher() {
                     onChange={handleChangeOfPassword}
                   />
                 </div>
-                <div className="form-row">
+                <div >
                   <label htmlFor="newPassword">New password</label>
                   <TextField
-                    className="instructor-input-password"
+                    
                     id="newPassword"
                     name="newPassword"
                     type="password"
@@ -289,12 +623,12 @@ export default function ProfileTeacher() {
                     onChange={handleChangeOfPassword}
                   />
                 </div>
-                <div className="form-row">
+                <div >
                   <label htmlFor="confirmNewpassword">
                     Confirm new password
                   </label>
                   <TextField
-                    className="instructor-input-password"
+                    
                     id="confirmNewPassword"
                     name="confirmNewPassword"
                     type="password"
@@ -331,10 +665,10 @@ export default function ProfileTeacher() {
                 {editing ? (
                   <div className="profileInstructor-save">
                     <TextField
-                      className="input-profile"
-                      sx={{ padding: "0px 10px 32px" }}
+                
+                 
                       label="User Name"
-                      variant="standard"
+                      variant="outlined"
                       fullWidth
                       name="teacherName"
                       defaultValue={oldTeacher.teacherName}
@@ -342,10 +676,10 @@ export default function ProfileTeacher() {
                     />
                     <TextField
                       type="number"
-                      className="input-profile"
-                      sx={{ padding: "0px 10px 32px" }}
+                
+                 
                       label="Phone"
-                      variant="standard"
+                      variant="outlined"
                       fullWidth
                       name="teacherPhone"
                       InputProps={{
@@ -357,20 +691,20 @@ export default function ProfileTeacher() {
                       onChange={handleChange}
                     />
                     <TextField
-                      className="input-profile"
-                      sx={{ padding: "0px 10px 32px" }}
+                
+                 
                       label="Gender"
-                      variant="standard"
+                      variant="outlined"
                       fullWidth
                       name="teacherGender"
                       defaultValue={oldTeacher.teacherGender}
                       onChange={handleChange}
                     />
                     <TextField
-                      className="input-profile"
-                      sx={{ padding: "0px 10px 32px" }}
+                
+                 
                       label="Address"
-                      variant="standard"
+                      variant="outlined"
                       fullWidth
                       name="teacherAddress"
                       defaultValue={oldTeacher.teacherAddress}
@@ -456,8 +790,8 @@ export default function ProfileTeacher() {
               </>
             )}
           </Grid>
-        </Grid>
-      </div>
-    </div>
+        </Grid> */}
+      </Grid>
+    </Grid>
   );
 }
