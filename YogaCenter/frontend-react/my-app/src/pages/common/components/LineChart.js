@@ -5,7 +5,7 @@ import { useEffect } from 'react';
 import axios from 'axios';
 import { URL_API } from "../../staff/components/ConstDefine";
 import { useState } from 'react';
-
+import { useTheme } from "@mui/material";
 const LineChart = () => {
     const [invoice,setInvoice] = useState([]);
     const invoiceAPI = URL_API +`Invoice`;
@@ -137,13 +137,42 @@ const LineChart = () => {
       ]
     },
     ] 
+    const theme = useTheme()
     return(
         <div style={{  position:"relative", height: "100%", width: "100%" }}>
-        <h2 style={{ textAlign: 'center', padding: '8px'}}>Monthly revenue</h2>
+        <h2 style={{ textAlign: 'center', padding: '8px',color:'white'}}>Monthly revenue</h2>
         <div style={{ position: "absolute", top: 0, height: "100%", width: "100%" }}>
         <ResponsiveLine
         data={DataLineChart}
         margin={{ top: 50, right: 110, bottom: 50, left: 90 }}
+        theme={{
+                legends:{
+                  text:{
+                
+                  fill:"white"
+                 }
+                  },
+                
+                axis:{
+                  legend:{
+                    text: {
+                      fill: "white",
+                    }
+                  },  
+                  ticks: {
+                    line: {
+                      stroke: "white",
+                      strokeWidth: 1
+                    },
+                    text: {
+                       fontSize: 11,
+                       fill: "white",
+                       outlineWidth: 0,
+                       outlineColor: "transparent"
+                    }
+                  }
+                }
+              }}
         xScale={{ type: 'point' }}
         yScale={{
             type: 'linear',
@@ -175,11 +204,11 @@ const LineChart = () => {
         enableGridX={false}
         enableGridY={false}
         pointSize={2}
-        colors="#2D4356"
+        colors="#9ba9e5"
         pointColor={{ theme: 'background' }}
         pointBorderWidth={2}
         pointBorderColor={{ from: 'serieColor' }}
-        enablePointLabel={true}
+      
         pointLabelYOffset={-12}
         areaOpacity={0.65}
         useMesh={true}

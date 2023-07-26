@@ -1,5 +1,6 @@
 import { ResponsiveBar } from '@nivo/bar';
 import { useState } from 'react';
+import { useTheme } from '@mui/material';
 import { URL_API } from '../../staff/components/ConstDefine';
 // import { dataBarChart } from '../../../data/ListOfDashboard';
 import { useEffect } from 'react';
@@ -61,24 +62,55 @@ const BarChart = () =>{
       }
     
   ];
-
+  const theme = useTheme()
     return (
         <div style={{  position:"relative", height: "100%", width: "100%" }}>
-          <h2 style={{ textAlign: 'center', padding: '8px'}}>Quarterly revenue</h2>
+          <h2 style={{ textAlign: 'center', padding: '8px',color:'white'}}>Quarterly revenue</h2>
           <div style={{ position: "absolute", top: 0, height: "100%", width: "100%" }}>
             <ResponsiveBar
              
               data={dataBarChart}
+              theme={{
+                legends:{
+                  text:{
+                
+                  fill:"white"
+                 }
+                  },
+                
+                axis:{
+                  legend:{
+                    text: {
+                      fill: "white",
+                    }
+                  },  
+                  ticks: {
+                    line: {
+                      stroke: "white",
+                      strokeWidth: 1
+                    },
+                    text: {
+                       fontSize: 11,
+                       fill: "white",
+                       outlineWidth: 0,
+                       outlineColor: "transparent"
+                    }
+                  }
+                }
+              }}
+              
+           
               keys={["revenue"]}
               indexBy="quarterly"
               margin={{ top: 60, right: 130, bottom: 50, left: 80 }}
               padding={0.5}
               valueScale={{ type: "linear" }}
               indexScale={{ type: "band", round: true }}
-              colors="#526D82"
+              colors="#9ba9e5"
               borderWidth={1}
            
               borderColor="#526d8299"
+  
               axisBottom={{
                 tickSize: 5,
                 tickPadding: 5,
@@ -95,19 +127,15 @@ const BarChart = () =>{
                 legend: "Revenue (Hundred million dong)",
                 legendPosition: "middle",
                 legendOffset: -60,
-                
+              
               }}
+              enableGridY={false}
               labelSkipWidth={12}
               labelSkipHeight={12}
-              labelTextColor={{
-                  from: 'color',
-                  modifiers: [
-                      [
-                          'brighter',
-                          '2.4'
-                      ]
-                  ]
-              }}
+             
+              labelTextColor="white"
+            
+
               legends={[
                 {
                   dataFrom: "keys",
@@ -122,6 +150,7 @@ const BarChart = () =>{
                   itemDirection: "left-to-right",
                   itemOpacity: 0.85,
                   symbolSize: 20,
+                 
                   effects: [
                     {
                       on: "hover",
@@ -130,6 +159,9 @@ const BarChart = () =>{
                       },
                     },
                   ],
+                 text:{
+                  fill:"white"
+                 }
                 
                 },
               ]}

@@ -127,9 +127,9 @@ export default function ForgotPassword() {
         <form onSubmit={handleSubmitChangePassword}>
           <label>New password</label>
           <TextField  className="input-forgotPassword" type="password" onChange={newPasswordChange}></TextField>
+          <br />
           <label>Confirm password</label>
           <TextField  className="input-forgotPassword" type="password" onChange={confirmPasswordChange}></TextField>
-          <br />
           <Button sx={{height:'47px',borderRadius: '16px',marginBottom:'7%'}}  type="submit">Change Password</Button>
         </form>
       ) : (

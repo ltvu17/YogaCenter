@@ -112,7 +112,7 @@ export default function CourseManage() {
     }
     ///
     const CustomButton = styled(Button)`
-    background-color: #1263fd;
+    background-color:#0643b9;
     font-family: arial;
     color: white;
     border-radius: 8px;
@@ -159,7 +159,7 @@ export default function CourseManage() {
                 <th>Lecture Number</th>
                 <th>Length</th>
                 <th>Price</th>
-                <th>Pre_Requisite</th>
+                <th>Prerequisite</th>
                 <th>Detail</th>
                 <th>Create Date</th>
                 <th>Event</th>
@@ -202,15 +202,15 @@ export default function CourseManage() {
                     sx={{backgroundColor: 'white', borderRadius: '5px'}}></TextField></td>
                         <td><TextField  className='text-addClass' variant='outlined'  name='pre_Requisite' placeholder='pre_Requisite' required onChange={ChangeHandler}
                     sx={{backgroundColor: 'white', borderRadius: '5px'}}></TextField></td>
-                        <td><TextField variant='outlined'  name='courseDetail' placeholder='Detail' multiline required onChange={ChangeHandler}
+                        <td style={{width:"20%"}}><TextField variant='outlined'  name='courseDetail' placeholder='Detail' multiline required onChange={ChangeHandler}
                     sx={{backgroundColor: 'white', borderRadius: '5px'}}></TextField></td>
                         <td><input type='date' name='courseCreateDate' defaultValue={date} required onChange={ChangeHandler}/></td>
                         <td colSpan={2}><Button variant='contained' type='submit' onClick={submitAdd}
-                       sx={{ color: 'white', backgroundColor: '#1263fd' }}>Add</Button></td> 
+                       sx={{ color: 'white', backgroundColor: '#0643b9' }}>Add</Button></td> 
                         </tr>
                         )))}
                     <tr>
-                        <td colSpan={10}><CustomButton variant='text' color='success' onClick={AddHandler}
+                        <td colSpan={10}><CustomButton variant='contained' onClick={AddHandler}
                         startIcon={<AddCircleOutlineRoundedIcon sx={{ fontSize: 30 }}>add_circle</AddCircleOutlineRoundedIcon>}
                         sx={{padding :1,margin:1, color: 'white'}}>Add New Course</CustomButton></td>
                     </tr>

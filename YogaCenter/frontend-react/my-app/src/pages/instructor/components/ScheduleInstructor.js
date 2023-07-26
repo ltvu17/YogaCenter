@@ -8,6 +8,7 @@ import { URL_API } from "../../../api/ConstDefine";
 import Button from '@mui/material/Button';
 import axios from "axios";
 import CheckAttendent from "./CheckAttendent";
+import { Grid } from "@mui/material";
 function ScheduleInstructor() {
   //-----------------------------const-----------------------------
   const [userId, setUserId] = useCookies("userId");
@@ -120,7 +121,7 @@ function ScheduleInstructor() {
     "December",
   ];
   const currentMonthName = monthName[currentMonth - 1];
-  const time = ["06:00", "07:00", "15:00 ", "18:00 "];
+  const time = ["06:00", "07:00", "17:00 ", "18:00 "];
   const days = ["MON", "TUE", "WED", "THU", "FRI", "SAT", "SUN"];
   return (
     <div>
@@ -149,7 +150,7 @@ function ScheduleInstructor() {
 
             <table className="schedule-table-customer">
               <thead>
-                <tr>
+               <tr style={{    background: '#165195'}}>
                   <th
                     style={{
                       backgroundColor: "rgb(0 0 0 / 49%)",
@@ -192,14 +193,14 @@ function ScheduleInstructor() {
               <tbody>
                 {time.map((timeSlot) => (
                   <tr key={timeSlot}>
-                    <td style={{ backgroundColor: '#afb99e73'  }}>
+                    <td>
                       <h1
                         style={{
                           marginBottom: "10px",
                           display: "flex",
                           justifyContent: "center",
                           alignItems: "center",
-                          color: "white",
+                          color: "black",
                           fontSize: "25px",
                           fontWeight: "700",
                           fontFamily: "sans-serif",
@@ -250,27 +251,18 @@ function ScheduleInstructor() {
                       if (lessonMatch !== undefined) {
                         return (
                           <td key={`${day}-${timeSlot}`}>
-                            <div className="lessonDay">
-                              <div className="lesson-details">
-                                <p style={{ padding: '10px',
-                                        backgroundColor: '#d1b0b0',
-                                        fontSize: '1rem',
-                                        fontWeight: '600',
-                                        color: '#9b7575fa',
-                                        borderTopRightRadius: '15px',
-                                        borderTopLeftRadius: '15px'}}>
+                            <Grid container className="lessonDay">
+                              <Grid container item md={12} className="lesson-info" sx={{background:'#c5c57d',borderRadius:'10px'}}>
+                                <Grid item md={2} className="lesson-left">
+                                <p >
                                   {lessonMatch.class.course.courseDescription}
                                 </p>
-                                <p style={{ color: 'rgb(171 77 77)', 
-                                      fontWeight: '600',
-                                      fontSize: '25px',
-                                      letterSpacing: '3px',
-                                      padding: '5px' }}>
+                                </Grid>
+                                <Grid item md={10} className="lesson-right">
+                                <p className="lesson-right-nameClass" >
                                  {lessonMatch.class.className}
                                 </p>
-                                <p style={{ padding: '5px',
-                                      color: '#621212',
-                                      fontWeight: '600'}}>
+                                <p>
 
                                   Room  {lessonMatch.room.roomDetail}
                                 </p>
@@ -278,13 +270,14 @@ function ScheduleInstructor() {
                                   onClick={() =>
                                     handlerClickAttendent(lessonMatch)
                                   }
-                                  sx={{color: '#679501',
+                                  sx={{color: 'black',
                                         fontWeight: '600'}}
                                 >
                                   Attendent
                                 </Button>
-                              </div>
-                            </div>
+                                </Grid>
+                              </Grid>
+                            </Grid>
                           </td>
                         );
                       } else {

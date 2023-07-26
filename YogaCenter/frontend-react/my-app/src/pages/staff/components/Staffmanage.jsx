@@ -230,7 +230,7 @@ export default function Staffmanage() {
 
 
     const CustomButton = styled(Button)`
-      background-color: #1263fd;
+      background-color: #0643b9;
       font-family: arial;
       color: white;
       border-radius: 8px;
@@ -374,7 +374,7 @@ export default function Staffmanage() {
 
                                     </td>
                                     <td colSpan={2}><Button variant="contained"  type='submit' onClick={submitAdd}
-                                        sx={{ color: 'white', backgroundColor: '#1263fd' }}>Add</Button></td>
+                                        sx={{ color: 'white', backgroundColor: '#0643b9' }}>Add</Button></td>
                                 </tr>
                             )))}
                            
