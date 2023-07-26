@@ -93,7 +93,14 @@ export default function Dashboard(){
             newteacherOfMonth+=1;
         }
     })
-    var increasePercentOfTeacher= (newteacherOfMonth/(totalTeacher-newteacherOfMonth))*100;
+    console.log(totalTeacher);
+    console.log(newteacherOfMonth);
+    var increasePercentOfTeacher = 0;
+    if(totalTeacher === newteacherOfMonth){
+    increasePercentOfTeacher = 100;
+    }else{
+    increasePercentOfTeacher= (newteacherOfMonth/(totalTeacher-newteacherOfMonth))*100;
+    }
     var getDecimalValOfTeacher = increasePercentOfTeacher.toString().indexOf(".");
     if(getDecimalValOfTeacher !== -1){
     var increaseTeacher = increasePercentOfTeacher.toString().substring(0,getDecimalVal+2);
@@ -188,7 +195,7 @@ export default function Dashboard(){
                     <StatBox
                         title={totalTeacher}
                         subtitle="Total Instuctor"
-                        progress={newteacherOfMonth/(totalTeacher-newteacherOfMonth)}
+                        progress={increasePercentOfTeacher/100}
                         increase={"+"+increasePercentOfTeacher+"%"}
                         icon={
                         <PersonSearchIcon
