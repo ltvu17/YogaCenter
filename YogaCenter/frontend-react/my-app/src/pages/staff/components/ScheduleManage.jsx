@@ -5,7 +5,7 @@ import WestIcon from '@mui/icons-material/West';
 import { IconButton, Typography } from '@mui/material';
 import EastIcon from '@mui/icons-material/East';
 import axios from 'axios';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { URL_API } from './ConstDefine';
 import RadioButtonCheckedIcon from '@mui/icons-material/RadioButtonChecked';
 import { shift } from './ConstDefine';
@@ -14,7 +14,12 @@ import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import Grid from '@mui/material/Grid';
-
+import AddCircleOutlineRoundedIcon from '@mui/icons-material/AddCircleOutlineRounded';
+import styled from '@emotion/styled';
+import Button from '@mui/material/Button';
+import TextField from '@mui/material/TextField';
+import Box from '@mui/material/Box';
+import CheckIcon from '@mui/icons-material/Check';
 
 export default function ScheduleManage() {
   ////initiate data
@@ -24,6 +29,18 @@ export default function ScheduleManage() {
     const month = ["","January","February","March","April","May","June","July","August","September","October","November","December"];   
     const [currentMonth,setCurrenMonth] = useState(location.state !== null? parseInt(location.state.month): (new Date).getMonth()+1);
     const [currentYear,setCurrentYear]= useState(location.state !== null? parseInt(location.state.year):(new Date).getFullYear());
+    const [addSchedule,SetAddschedule] = useState(false);
+    const [classes,getClass] = useState();
+    const [rooms,getRoom] = useState();
+    const [shifts,getShift] = useState();
+    const [classInfor,setClassInfor] = useState();
+    const navigate = useNavigate();
+    const [inputField,setInputFields] = useState({
+      roomId : '',
+      shifftId : '',
+      classId : '',
+      lessonDate: '',
+    }); 
     var displaydata=[];
     const GenarateData=(month,year)=>{
       var currentDateOfWeek = (new Date(`0${month} 1 ${year}`)).getDay();
@@ -54,6 +71,13 @@ export default function ScheduleManage() {
       }
     }
   }
+  ///API
+  const getallClass = URL_API+`Class`;
+  const getallrooms = URL_API+`Room`;
+  const getallshifts = URL_API+`Shift`;
+  const getClassInfor = URL_API+`Class/${inputField.classId ===''?0:inputField.classId}`;
+  const postLesson = URL_API+`Lesson`;
+  ////
   const preMonth = () => {
     if (currentMonth === 1) {
       setCurrenMonth(12);
@@ -91,13 +115,37 @@ export default function ScheduleManage() {
   useEffect(() => {
     axios.get(getalllessonAPI).then(r => setLesson(r.data)).catch(err => console.log(err));
   }, []);
+  useEffect(()=>{
+    axios.get(getallClass).then(r=>getClass(r.data)).catch(err=>console.log(err));
+  },[]);
+  useEffect(()=>{
+    axios.get(getallrooms).then(r=>getRoom(r.data)).catch(err=>console.log(err));
+  },[]);
+  useEffect(()=>{
+    axios.get(getallshifts).then(r=>getShift(r.data)).catch(err=>console.log(err));
+  },[]);
+  useEffect(()=>{
+    axios.get(getClassInfor).then(r=>setClassInfor(r.data)).catch(err=>console.log(err));
+  },[inputField.classId]);
+  const CustomButton = styled(Button)`
+  background-color: #1263fd;
+font-family: arial;
+color: white;
+border-radius: 8px;
+height: 50px;
+font-weight: 600;
+width: 8rem;
 
+&:hover {
+  background-color: #0c46b5;
+}
+`;
   function GetClassOfDate(day) {
     var classes = [];
     var convert = (new Date(currentYear, currentMonth - 1, day)).toString();
     var position1 = 0, position2 = 0, position3 = 0, position4 = 0;
+    if(day !== '')
     return (
-
       <React.Fragment>
         {lessons.map(item => (
           <React.Fragment key={item.id} >
@@ -152,8 +200,20 @@ export default function ScheduleManage() {
       </React.Fragment>
     )
   }
+  const AddSchedule = ()=>{
+    if(addSchedule == false){
+    SetAddschedule(true);
+    }else{
+      SetAddschedule(false);
+    }
 
-  
+  }
+  ///Handle
+  const ChangeHandler = (e) =>{
+    setInputFields(p => {
+      return {...inputField, [e.target.name] : e.target.value }
+    })    
+  };
   
   ////Filter
   function filterDay(day) {
@@ -166,9 +226,112 @@ export default function ScheduleManage() {
     let value = split[1];
     return value;
   }
+  Date.prototype.addDays = function(days) {
+    var date = new Date(this.valueOf());
+    date.setDate(date.getDate() + days);
+    return date;
+  } 
+  const submitSchedule = (e)=>{
+    e.preventDefault();
+    if(inputField.classId === '' || inputField.roomId === '' || inputField.shifftId === ''){
+      alert("You must fill all the field");
+      return
+    }
+    if(classInfor !== undefined){
+    let flag = false;
+    let curentDate = (new Date(filterDay(classInfor.classStartDate)))
+    let getDateOfWeek = curentDate.getDay();
+    let getDateOfMonth = curentDate.getDate();
+
+    if(inputField.lessonDate === "246"){
+      if(!"246".includes((getDateOfWeek+1).toString()))
+      alert("The start date do not match");
+      return;
+    }
+    if(inputField.lessonDate === "357"){
+      if(!"357".includes((getDateOfWeek+1).toString()))
+      alert("The start date do not match");
+      return;
+    }
+    if(getDateOfWeek == 0){
+      alert("The start date do not match");
+      return;
+    }
+    let addDate = [];
+    if(getDateOfWeek == 1 || getDateOfWeek == 2){
+      let i = 0
+      addDate.push(filterDay(curentDate.toISOString()));
+      for( i = 1; i< classInfor.course.courseLectureNumber; i++){
+          if(i % 3 == 0){
+            addDate.push(filterDay(curentDate.addDays(3).toISOString()));
+            curentDate = curentDate.addDays(3)
+          }
+          else{
+            addDate.push(filterDay(curentDate.addDays(2).toISOString()));
+            curentDate = curentDate.addDays(2)
+          }
+      }
+    }
+    if(getDateOfWeek == 3 || getDateOfWeek == 4){
+      let i = 0
+      addDate.push(filterDay(curentDate.toISOString()));
+      for( i = 2; i< classInfor.course.courseLectureNumber + 1; i++){
+          if(i % 3 == 0){
+            addDate.push(filterDay(curentDate.addDays(3).toISOString()));
+            curentDate = curentDate.addDays(3)
+          }
+          else{
+            addDate.push(filterDay(curentDate.addDays(2).toISOString()));
+            curentDate = curentDate.addDays(2)
+          }
+      }
+    }
+    if(getDateOfWeek == 5 || getDateOfWeek == 6){
+      let i = 0
+      addDate.push(filterDay(curentDate.toISOString()));
+      for( i = 3; i< classInfor.course.courseLectureNumber + 2; i++){
+          if(i % 3 == 0){
+            addDate.push(filterDay(curentDate.addDays(3).toISOString()));
+            curentDate = curentDate.addDays(3)
+          }
+          else{
+            addDate.push(filterDay(curentDate.addDays(2).toISOString()));
+            curentDate = curentDate.addDays(2)
+          }
+      }
+    }
+    lessons.forEach(lesson =>{
+      if(addDate.includes(filterDay(lesson.lessonDate))) {
+        if(inputField.roomId === lesson.room.id && inputField.shifftId === lesson.shift.id){
+          flag = true;
+        }
+      }
+    })
+    if(flag) {
+      alert("Dupplicate lesson");
+      return;
+    }
+    addDate.forEach(date =>{
+      axios.post(postLesson,{
+        lessonDate : date
+    },{
+        headers:{
+            roomId : inputField.roomId,
+            shifftId: inputField.shifftId,
+            classId: inputField.classId
+        }
+    }).then(r=> console.log(r)).catch(err=>console.log(err));
+    navigate(0);
+    })
+
+    }
+  }
+  console.log(displaydata);
   return (
     <div className='Manage-schedule'>
       <h1 className='staff-title'>Schedule Management </h1>
+      <CustomButton className='button-add'variant='contained' startIcon={<AddCircleOutlineRoundedIcon fontSize='large'/>} onClick={AddSchedule}
+                            sx={{margin:1}}>Add</CustomButton>
       {GenarateData(currentMonth, currentYear)}
       <Grid container spacing={2} sx={{marginTop:'3%', height:'100%',backgroundColor:'white',marginLeft:'0'}}>
         <Grid item md={10} className='box-schedule'>
@@ -252,7 +415,46 @@ export default function ScheduleManage() {
             </div>
         </Grid>
       </Grid>
-
+    {addSchedule == true?(
+      <div>
+                        <Box
+      component="form"
+      sx={{
+        '& .MuiTextField-root': { m: 1, width: '25ch' },
+      }}
+      noValidate
+      autoComplete="off"
+    >
+      <p>Class name</p>
+      <TextField defaultValue='' select label ="Choose Class" required name='classId' onChange={ChangeHandler}>      
+                        {/* <MenuItem value="0" disabled hidden>Choose Class</MenuItem>                     */}
+                        {classes.map(((item,index) =>(                                                     
+                                <MenuItem key={index} value={item.id} >{item.className}</MenuItem>                      
+                        )))}
+                        </TextField>
+      <p>Room name</p>
+      <TextField defaultValue='' select label ="Choose Room" required name='roomId' onChange={ChangeHandler}>                       
+                        {rooms.map(((item,index) =>(                                                     
+                                <MenuItem key={index} value={item.id} >{item.roomDetail}</MenuItem>                      
+                        )))}
+                        </TextField>
+                        <p>Shift name</p>
+      <TextField defaultValue='' select label ="Choose Shift" required name='shifftId' onChange={ChangeHandler}>                       
+                        {shifts.map(((item,index) =>(                                                     
+                                <MenuItem key={index} value={item.id} >{filterTime(item.timeStart)}-{filterTime(item.timeEnd)}</MenuItem>                      
+                        )))}
+                        </TextField>
+                        <p>Chedule</p>
+      <TextField defaultValue='' select label ="Choose Schedule" required name='lessonDate' onChange={ChangeHandler}>                       
+                        <MenuItem value="246">Mon/Wed/Fri</MenuItem>
+                        <MenuItem value="357">Tue/Thu/Sat</MenuItem>
+                        </TextField> 
+                        <br/>
+      <CustomButton  className='button-add'variant='contained' startIcon={<CheckIcon fontSize='large'/>} onClick={submitSchedule}
+                            sx={{margin:1}}>Add</CustomButton>
+    </Box>
+      </div>
+    ):''}
     </div>
   )
 }

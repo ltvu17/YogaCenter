@@ -94,8 +94,8 @@ namespace YogaCenter.Controllers
             }
             return NotFound();
         }
-        [HttpDelete("{lessonId}/{customerId}")]
-        public async Task<IActionResult> DeleteCustomerLesson(Guid lessonId, Guid customerId)
+        [HttpDelete("{lessonId}")]
+        public async Task<IActionResult> DeleteCustomerLesson(Guid lessonId,[FromHeader] Guid customerId)
         {
             if (lessonId.Equals(Guid.Empty) || customerId.Equals(Guid.Empty)) { return NotFound(); }
             var customerLesson = await _customerLessonRepository.GetCustomerAndLessonById(cusid: customerId, lesId: lessonId);

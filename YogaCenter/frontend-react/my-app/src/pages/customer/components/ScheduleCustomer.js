@@ -260,7 +260,7 @@ function ScheduleCustomer() {
                             {lessonMatch.lesson.class.className}
                           </p>
                           <p >
-                           {lessonMatch.lesson.class.teacher.teacherName}
+                           {lessonMatch.lesson.class.teacher ?lessonMatch.lesson.class.teacher.teacherName:''}
                             </p> 
                           <p >
 
