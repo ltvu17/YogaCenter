@@ -15,13 +15,17 @@ namespace YogaCenter.Controllers
         private readonly IMapper _mapper;
         private readonly ITeacherRepository _teacherRepository;
         private readonly ICourseRepository _courseRepository;
+        private readonly ILessonRepository _lessonRepository;
 
-        public ClassController(IClassRepository classRepository, IMapper mapper, ITeacherRepository teacherRepository, ICourseRepository courseRepository)
+        public ClassController(IClassRepository classRepository, IMapper mapper, 
+            ITeacherRepository teacherRepository, ICourseRepository courseRepository,
+            ILessonRepository lessonRepository)
         {
             _classesRepository = classRepository;
             _mapper = mapper;
             _teacherRepository = teacherRepository;
             _courseRepository = courseRepository;
+            _lessonRepository = lessonRepository;
         }
         [HttpGet]
         public async Task<IActionResult> GetAllClasses()
@@ -135,6 +139,11 @@ namespace YogaCenter.Controllers
                 return BadRequest(ModelState);
             }
             var classs = await _classesRepository.GetClassByIdDelete(classId);
+            var lessons = await _lessonRepository.GetLessonByClassId(classId);
+            if(lessons.Count > 0) { foreach(var lesson in lessons)
+                {
+                    await _lessonRepository.DeleteLesson(lesson);
+                } }
             if (classs == null) { return BadRequest(); }
             if (await _classesRepository.DeleteClass(classs))
             {
