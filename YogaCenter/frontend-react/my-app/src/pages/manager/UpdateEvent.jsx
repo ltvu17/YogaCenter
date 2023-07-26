@@ -74,7 +74,7 @@ export default function UpdateEvent({id}) {
                         <td>   <TextField variant='outlined' type='number' InputProps={{ inputProps: { min: 0 } }} value={inputField.eventDiscount} name='eventDiscount' label='Event Discount' required onChange={ChangeHandler}
                  sx={{ backgroundColor: "white", borderRadius: "5px" }}></TextField></td>
                         <td>  <Button variant='contained'  type='submit' onClick={submitAdd}
-                        sx={{padding: 1,margin: 1, color: "white", backgroundColor: "#1263fd" }}>Save</Button></td>
+                        sx={{padding: 1,margin: 1, color: "white", backgroundColor: "#0643b9" }}>Save</Button></td>
                     </tr>
                 </tbody>
             </table>

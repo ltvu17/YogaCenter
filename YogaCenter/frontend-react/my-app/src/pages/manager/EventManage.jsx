@@ -116,7 +116,7 @@ export default function EventManage() {
   }).then(r=> console.log(r)).catch(err => console.log(err));
   }
   const CustomButton = styled(Button)`
-        background-color: #1263fd;
+        background-color: #0643b9;
       font-family: arial;
       color: white;
       border-radius: 8px;
@@ -194,7 +194,7 @@ export default function EventManage() {
                         <td><TextField  className='text-addClass' variant='outlined' type='number' InputProps={{ inputProps: { min: 0 } }} name='eventDiscount' placeholder='Event Discount' required onChange={ChangeHandler}
                       sx={{ width:'11em', backgroundColor: 'white', borderRadius: '5px' }}></TextField></td>
                         <td colSpan={2}><Button variant='text' type='submit' onClick={submitAdd}
-                          sx={{ color: 'white', backgroundColor: '#1263fd' }}>Add</Button></td> 
+                          sx={{ color: 'white', backgroundColor: '#0643b9' }}>Add</Button></td> 
                         </tr>
                         )))}
                     <tr>

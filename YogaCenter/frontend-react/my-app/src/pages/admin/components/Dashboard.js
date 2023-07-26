@@ -122,12 +122,12 @@ export default function Dashboard(){
         {/* <BarChart/> */}
 
             <div className="box-dashboard">
-                <h1 style={{color:'black',marginBottom:'15px'}}>Dashboard</h1>
-                <Box display="grid" gridTemplateColumns="repeat(12,1fr)" gridAutoRows="140px" gap="20px">
+                <h1 style={{color:'white',marginBottom:'15px',letterSpacing:'1px',fontSize:'3rem'}}>Dashboard</h1>
+                <Box display="grid" gridTemplateColumns="repeat(12,1fr)" gridAutoRows="140px" gap="30px">
 
                     <Box
                     gridColumn="span 3"
-                    backgroundColor="#cecece6e"
+                    backgroundColor="#3534346e"
                     display="flex"
                     alignItems="center"
                     justifyContent="center"
@@ -142,14 +142,14 @@ export default function Dashboard(){
 
                         icon={
                         <AttachMoneyIcon
-                            sx={{ fontSize: "26px",color:"black" }}
+                            sx={{ fontSize: "26px",color:"#9ba9e5" }}
                         />
                         }
                     />
                     </Box>
                     <Box
                     gridColumn="span 3"
-                    backgroundColor="#cecece6e"
+                    backgroundColor="#3534346e"
                     display="flex"
                     alignItems="center"
                     justifyContent="center"
@@ -161,14 +161,14 @@ export default function Dashboard(){
                         increase="+21%"
                         icon={
                         <PointOfSaleIcon
-                        sx={{ fontSize: "26px",color:"black" }}
+                        sx={{ fontSize: "26px",color:"#9ba9e5" }}
                         />
                         }
                     />
                     </Box>
                     <Box
                     gridColumn="span 3"
-                    backgroundColor="#cecece6e"
+                    backgroundColor="#3534346e"
                     display="flex"
                     alignItems="center"
                     justifyContent="center"
@@ -180,14 +180,14 @@ export default function Dashboard(){
                         increase={"+"+increaseClass+"%"}
                         icon={
                         <SchoolIcon
-                        sx={{ fontSize: "26px",color:"black" }}
+                        sx={{ fontSize: "26px",color:"#9ba9e5" }}
                         />
                         }
                     />
                     </Box>
                     <Box
                         gridColumn="span 3"
-                        backgroundColor="#cecece6e"
+                        backgroundColor="#3534346e"
                         display="flex"
                         alignItems="center"
                         justifyContent="center"
@@ -199,22 +199,22 @@ export default function Dashboard(){
                         increase={"+"+increasePercentOfTeacher+"%"}
                         icon={
                         <PersonSearchIcon
-                        sx={{ fontSize: "26px",color:"black" }}
+                        sx={{ fontSize: "26px",color:"#9ba9e5" }}
                         />
                         }
                     />
                     </Box>
 
-                    <Box gridColumn="span 8" gridRow="span 2" backgroundColor="#cecece6e">
+                    <Box gridColumn="span 8" gridRow="span 2" backgroundColor="#3534346e">
                         <BarChart/>
                     </Box>
-                    <Box gridColumn="span 4" gridRow="span 2" backgroundColor="#cecece6e" >
+                    <Box gridColumn="span 4" gridRow="span 2" backgroundColor="#3534346e" >
                         <PieChart/>
                     </Box>
-                    <Box gridColumn="span 8"  gridRow="span 2"  backgroundColor="#cecece6e" >
+                    <Box gridColumn="span 8"  gridRow="span 2"  backgroundColor="#3534346e" >
                         <LineChart/>
                     </Box>
-                    <Box gridColumn="span 4"  gridRow="span 2"  backgroundColor="#cecece6e" >
+                    <Box gridColumn="span 4"  gridRow="span 2"  backgroundColor="#3534346e" >
                        <GenderChart/>
                     </Box>
                 </Box>

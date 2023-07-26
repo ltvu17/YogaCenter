@@ -4,12 +4,14 @@ import { useState } from "react";
 import { URL_API } from "../../staff/components/ConstDefine";
 import { useEffect } from "react";
 import axios from "axios";
+import { useTheme } from "@mui/material";
 
 // import {gender} from '../../../data/DataGender'
 const GenderChart = () => {
     const genderColors = {
-        Male: "#FF0000",
-        Female: "#0000FF",
+        Male: "#a5f7ffc7",
+        Female: "#c9be63",
+        Sum:"rgb(155, 169, 229)"
     };
     const [customers, setCustomers] = useState([]);
     let customerAPI = URL_API + `Customer`;
@@ -42,10 +44,10 @@ const GenderChart = () => {
         }
     ];
 
-
+const theme=useTheme()
     return(
         <div style={{  position:"relative", height: "100%", width: "100%" }}>
-        <h2 style={{ textAlign: 'center', padding: '8px'}}>
+        <h2 style={{ textAlign: 'center', padding: '8px',color:'white'}}>
             Gender ratio</h2>
         <div className="gender-chart" style={{ position: "absolute", top: 0, height: "100%", width: "100%" }}>
 
@@ -59,7 +61,28 @@ const GenderChart = () => {
         indexScale={{ type: 'band', round: true }}
         valueFormat=" <-0,~"
         colors={({ id, data }) => genderColors[data.gender]}
-      
+        theme={{
+
+                  axis:{
+                  legend:{
+                    text: {
+                      fill: "white",
+                    }
+                  },  
+                  ticks: {
+                    line: {
+                      stroke: "white",
+                      strokeWidth: 1
+                    },
+                    text: {
+                       fontSize: 11,
+                       fill: "white",
+                       outlineWidth: 0,
+                       outlineColor: "transparent"
+                    }
+                  }
+                }
+        }}
         defs={[
             {
                 id: 'dots',
@@ -80,20 +103,7 @@ const GenderChart = () => {
                 spacing: 10
             }
         ]}
-        fill={[
-            {
-                match: {
-                    id: 'fries'
-                },
-                id: 'dots'
-            },
-            {
-                match: {
-                    id: 'sandwich'
-                },
-                id: 'lines'
-            }
-        ]}
+  
         borderColor={{
             from: 'color',
             modifiers: [
@@ -105,14 +115,7 @@ const GenderChart = () => {
         }}
         axisTop={null}
         axisRight={null}
-        axisBottom={{
-            tickSize: 5,
-            tickPadding: 5,
-            tickRotation: 0,
-            legend: 'country',
-            legendPosition: 'middle',
-            legendOffset: 32
-        }}
+   
         axisLeft={{
             tickSize: 5,
             tickPadding: 5,

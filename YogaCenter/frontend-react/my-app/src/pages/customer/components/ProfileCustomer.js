@@ -16,6 +16,8 @@ import "../css/profileCustomer.css";
 import { URL_API } from "../../../api/ConstDefine";
 import { useNavigate } from "react-router-dom";
 import { pathUser } from "../../../service/pathImage/pathToSaveFile";
+import { Select, MenuItem } from "@mui/material";
+import InputLabel from '@mui/material/InputLabel';
 export default function ProfileCustomer() {
   const [editing, setEditing] = useState(false);
   const [changePassword, setChangePassword] = useState(false);
@@ -85,10 +87,10 @@ export default function ProfileCustomer() {
       [e.target.name]:
         e.target.name === "customerName"
           ? e.target.value
-              .trim()
-              .replace(/\s+/g, " ")
-              .toLowerCase()
-              .replace(/\b\w/g, (match) => match.toUpperCase())
+          .trim()
+            .replace(/\s+/g, " ")
+            .toLowerCase()
+            .replace(/(^|\s)\w/g, (match) => match.toUpperCase())
           : e.target.value,
     });
   };
@@ -219,61 +221,54 @@ export default function ProfileCustomer() {
   // console.log(formData);
 
   return (
-    <div className="profile">
-      <div className="profile-content">
-        <div className="profile-title">
-          <Typography variant="h2" component="h2">
-            <KeyboardDoubleArrowRightIcon />
-            {profileTitle}
-          </Typography>
-          <font>
-            <div>{message}</div>
-          </font>
-        </div>
-        <Grid container>
-          <Grid
-            xs={6}
-            md={5}
-            sx={{
-              paddingTop: "50px",
-              paddingBottom: "50px",
-              paddingRight: "20px",
-              paddingLeft: "40px",
-            }}
-          >
+    <Grid container className="profileCustomer">
+    <Grid container className="profileCustomer-content">
+      <Grid item md={4} className="profileCustomer-left">
+        <div style={{padding:'6%',height:'70%'}}>
+        <Grid className="profileCustomer-left-content" sx={{    padding: '4%',border: '1px solid #d8d0d059',
+                                                                height: '100%',
+                                                                boxShadow: '0px 0px 11px 0px #e7e2e2',
+                                                                borderRadius: '35px',
+                                                                display: 'flex',
+                                                                flexDirection: 'column',
+                                                                alignItems: 'center'}}>
             <CardMedia
               component="img"
-              alt="green iguana"
               height="65%"
-              image={"/assets/images/userImage/" + userId + ".jpg"}
-              sx={{ marginBottom: "20px" }}
+              image="/assets/images/coach.png"
+              // image={"/assets/images/userImage/" + userId + ".jpg"}
+              sx={{height:'200px',width:'200px', marginBottom: "20px",borderRadius:'50%',background:'white' }}
             />
+            <Typography variant="h3">{oldCustomer.customerName}</Typography>
             <CardActions className="changeProfile">
               <Button
-                sx={{ border: "1px dashed #532e4d", padding: "20px" }}
-                onClick={handlerAvatar}
-              >
+                sx={{color: '#d3c809',
+                  fontSize: '1rem',
+                  fontWeight: '700',
+                  letterSpacing: '2px'}}
+                onClick={handlerAvatar} >
                 <UpgradeIcon />
                 Avatar
               </Button>
-              <Button
-                sx={{ border: "1px dashed #532e4d", padding: "20px" }}
-                onClick={handlePasswordChange}
-              >
-                Change Password
-              </Button>
             </CardActions>
           </Grid>
-          <Grid
-            xs={6}
-            md={7}
-            sx={{
-              paddingTop: "50px",
-              paddingBottom: "50px",
-              paddingLeft: "20px",
-              paddingRight: "40px",
-            }}
-          >
+        </div>
+      </Grid>
+      <Grid item md={8} className="profileCustomer-right">
+        <div style={{paddingTop:'3%'}}>
+        <Grid container className="profileCustomer-right-content">
+            <Grid container className="profileCustomer-right-detail">
+            <Grid item md={12} className="profile-title">
+                <Typography variant="h2" >
+                  <KeyboardDoubleArrowRightIcon />
+                  {profileTitle}
+                </Typography>
+                <font>
+                  <div>{message}</div>
+                </font>
+            </Grid> 
+            <Grid item md={12}>
+                
             {changePassword ? (
               <div className="profileCustomer-save">
                 <div className="form-row">
@@ -339,22 +334,23 @@ export default function ProfileCustomer() {
               <>
                 {editing ? (
                   <div className="profileCustomer-save">
+                  <Grid md={12} sx={{ padding: "0px 10px 32px" }}>
                     <TextField
-                      className="input-profile"
-                      sx={{ padding: "0px 10px 32px" }}
                       label="User Name"
-                      variant="standard"
+                      variant="outlined"
                       fullWidth
                       name="customerName"
                       defaultValue={oldCustomer.customerName}
                       onChange={handleChange}
                     />
+                    </Grid>
+                    <Grid md={12} sx={{ padding: "0px 10px 32px" }}>
                     <TextField
                       type="number"
-                      className="input-profile"
-                      sx={{ padding: "0px 10px 32px" }}
+                    
+                    
                       label="Phone"
-                      variant="standard"
+                      variant="outlined"
                       fullWidth
                       name="customerPhone"
                       InputProps={{
@@ -365,43 +361,67 @@ export default function ProfileCustomer() {
                       defaultValue={oldCustomer.customerPhone}
                       onChange={handleChange}
                     />
+                    </Grid>
+                      <Grid md={12} sx={{ padding: "0px 10px 32px" }}>
+                              <TextField
+                                    id="customerGender"
+                                            
+                                            
+                                              name="customerGender"
+                                              defalueValue={oldCustomer.customerGender}
+                                              onChange={handleChange}
+                                              label="Gender"
+                                              select
+                                            
+                                              fullWidth
+                                              variant="outlined"
+                                >
+                                              <MenuItem value="Male">Male</MenuItem>
+                                              <MenuItem value="Female">Female</MenuItem>
+                                              <MenuItem value="Other">Other</MenuItem>
+                            
+                                </TextField>
+                      </Grid>
+                      <Grid md={12} sx={{ padding: "0px 10px 32px" }}>
                     <TextField
-                      className="input-profile"
-                      sx={{ padding: "0px 10px 32px" }}
-                      label="Gender"
-                      variant="standard"
-                      fullWidth
-                      name="customerGender"
-                      defaultValue={oldCustomer.customerGender}
-                      onChange={handleChange}
-                    />
-                    <TextField
-                      className="input-profile"
-                      sx={{ padding: "0px 10px 32px" }}
+                    
+                     
                       label="Address"
-                      variant="standard"
+                      variant="outlined"
                       fullWidth
                       name="customerAddress"
                       defaultValue={oldCustomer.customerAddress}
                       onChange={handleChange}
                     />
+                    </Grid>
                     <p>{message}</p>
-                    <CardActions sx={{ paddingTop: "22px" }}>
+                    <Grid className="profileCustomer-right-cardaction"  item md={12} sx={{ borderTop:'1px solid #6e6e6038;'}}>
+                    <CardActions sx={{justifyContent:'center',marginTop:'1%'}}>
                       <Button
                         className="button-save"
                         onClick={handleEditProfile}
-                        variant="contained"
+                     
+                        sx={{ border: "1px solid white", padding: "10px",color: 'white',
+                    width:'100px',
+    fontWeight: '800',
+    borderRadius: '12px',
+    backgroundColor: '#c8c800' }}
                       >
                         Save
                       </Button>
                       <Button
                         className="button-cancel"
                         onClick={() => handlerCancel("edit")}
-                        variant="contained"
+                     
+                        sx={{ border: "1px solid white", padding: "10px",color: 'white',
+    fontWeight: '800',       width:'100px',
+    borderRadius: '12px',
+    backgroundColor: '#c8c800' }}
                       >
                         Cancel
                       </Button>
                     </CardActions>
+                    </Grid>
                   </div>
                 ) : updateAvatart ? (
                   <div className="profileCustomer-save">
@@ -414,6 +434,7 @@ export default function ProfileCustomer() {
                         className="button-save"
                         onClick={handleSubmitAvatar}
                         variant="contained"
+                        
                       >
                         Save
                       </Button>
@@ -429,44 +450,353 @@ export default function ProfileCustomer() {
                 ) : (
                   <Grid container className="profileCustomer-edit">
                     <Grid md={12} sx={{ padding: "0px 10px 32px" }}>
-                      User Name:
-                      <br />
-                      <p>{oldCustomer.customerName}</p>
-                    </Grid>
-                    <Grid md={12} sx={{ padding: "0px 10px 32px" }}>
-                      Phone:
-                      <br />
-                      <p>0{oldCustomer.customerPhone}</p>
-                    </Grid>
-                    <Grid md={12} sx={{ padding: "0px 10px 32px" }}>
-                      Gender:
-                      <br />
-                      <p>{oldCustomer.customerGender}</p>
-                    </Grid>
-                    <Grid md={12} sx={{ padding: "0px 10px 32px" }}>
-                      Address:
-                      <br />
-                      <p>{oldCustomer.customerAddress}</p>
-                    </Grid>
-                    <CardActions>
-                      <Button
-                        sx={{
-                          border: "1px solid #532e4d",
-                          backgroundColor: "#cab2b65c",
+                      <TextField
+                        id="outlined-read-only-input"
+                        label="User Name"
+                      sx={{width:'80%'}}
+                        value={oldCustomer.customerName}
+                        InputProps={{
+                          readOnly: true,
                         }}
+                        variant="outlined"
+                        InputLabelProps={{
+                          shrink: true,
+                        }}
+                      />
+                    </Grid>
+                    <Grid md={12} sx={{ padding: "0px 10px 32px" }}>
+                    <TextField
+                        id="outlined-read-only-input"
+                        label="Phone"
+                        sx={{width:'80%'}}
+                        value={`0${oldCustomer.customerPhone}`}
+                        InputProps={{
+                          readOnly: true,
+                        }}
+                        variant="outlined"
+                        InputLabelProps={{
+                          shrink: true,
+                        }}
+                      />
+                    
+                    </Grid>
+                    <Grid md={12} sx={{ padding: "0px 10px 32px" }}>
+                    <TextField
+                        id="outlined-read-only-input"
+                        label="Gender"
+                        sx={{width:'80%'}}
+                        value={oldCustomer.customerGender}
+                        InputProps={{
+                          readOnly: true,
+                        }}
+                        variant="outlined"
+                        InputLabelProps={{
+                          shrink: true,
+                        }}
+                      />
+                  
+                    </Grid>
+                    <Grid md={12} sx={{ padding: "0px 10px 32px" }}>
+                    <TextField
+                        id="outlined-read-only-input"
+                        label="Address"
+                        sx={{width:'80%'}}
+                        value={oldCustomer.customerAddress}
+                        InputProps={{
+                          readOnly: true,
+                        }}
+                        variant="outlined"
+                        InputLabelProps={{
+                          shrink: true,
+                        }}
+                      />
+                    
+                    </Grid>
+                    <Grid className="profileCustomer-right-cardaction" md={12} sx={{ borderTop:'1px solid #6e6e6038;'}}>
+                    <CardActions sx={{justifyContent:'center',marginTop:'1%'}}>
+                      <Button
+                       sx={{ border: "1px solid white", padding: "10px",color: 'white',
+    fontWeight: '800',
+    borderRadius: '12px',
+    backgroundColor: '#c8c800' }}
                         onClick={handleEdit}
                       >
                         <EditIcon sx={{ paddingRight: "5px" }} />
                         Edit Profile
                       </Button>
+                      <Button
+                sx={{ border: "1px solid white", padding: "10px",color: 'white',
+    fontWeight: '800',
+    borderRadius: '12px',
+    backgroundColor: '#c8c800'}}
+                onClick={handlePasswordChange}
+              >
+                Change Password
+              </Button>
                     </CardActions>
+                    </Grid>
                   </Grid>
                 )}
               </>
             )}
+            </Grid>
+            </Grid>
           </Grid>
-        </Grid>
-      </div>
-    </div>
+        </div>
+      </Grid>
+</Grid>
+    </Grid>
+
+ 
+    //  <Grid className="profileCustomer">
+    //   <div className="profile-content">
+    //  <div className="profile-title">
+    //       <Typography variant="h2" component="h2">
+    //         <KeyboardDoubleArrowRightIcon />
+    //         {profileTitle}
+    //       </Typography>
+    //       <font>
+    //         <div>{message}</div>
+    //       </font>
+    //     </div> 
+    //     <Grid container>
+    //       <Grid
+    //         xs={6}
+    //         md={5}
+    //         sx={{
+    //           paddingTop: "50px",
+    //           paddingBottom: "50px",
+    //           paddingRight: "20px",
+    //           paddingLeft: "40px",
+    //         }}
+    //       >
+    //         <CardMedia
+    //           component="img"
+    //           alt="green iguana"
+    //           height="65%"
+    //           image={"/assets/images/userImage/" + userId + ".jpg"}
+    //           sx={{ marginBottom: "20px" }}
+    //         />
+    //         <CardActions className="changeProfile">
+    //           <Button
+    //             sx={{ border: "1px dashed #532e4d", padding: "20px" }}
+    //             onClick={handlerAvatar}
+    //           >
+    //             <UpgradeIcon />
+    //             Avatar
+    //           </Button>
+    //           <Button
+    //             sx={{ border: "1px dashed #532e4d", padding: "20px" }}
+    //             onClick={handlePasswordChange}
+    //           >
+    //             Change Password
+    //           </Button>
+    //         </CardActions>
+    //       </Grid>
+    //       <Grid
+    //         xs={6}
+    //         md={7}
+    //         sx={{
+    //           paddingTop: "50px",
+    //           paddingBottom: "50px",
+    //           paddingLeft: "20px",
+    //           paddingRight: "40px",
+    //         }}
+    //       >
+    //         {changePassword ? (
+    //           <div className="profileCustomer-save">
+    //             <div className="form-row">
+    //               <label htmlFor="currentPassword">Current password</label>
+    //               <TextField
+    //                 className="inputPassword-profile"
+    //                 id="currentPassword"
+    //                 name="currentPassword"
+    //                 type="password"
+    //                 variant="outlined"
+    //                 value={formData.currentPassword}
+    //                 onChange={handleChangeOfPassword}
+    //               />
+    //             </div>
+    //             <div className="form-row">
+    //               <label htmlFor="newPassword">New password</label>
+    //               <TextField
+    //                 className="inputPassword-profile"
+    //                 id="newPassword"
+    //                 name="newPassword"
+    //                 type="password"
+    //                 value={formData.newPassword}
+    //                 onChange={handleChangeOfPassword}
+    //               />
+    //             </div>
+    //             <div className="form-row">
+    //               <label htmlFor="confirmNewpassword">
+    //                 Confirm new password
+    //               </label>
+    //               <TextField
+    //                 id="confirmNewpassword"
+    //                 name="confirmNewPassword"
+    //                 type="password"
+    //                 value={formData.confirmNewPassword}
+    //                 onChange={handleChangeOfPassword}
+    //               />
+    //             </div>
+
+    //             <CardActions
+    //               sx={{
+    //                 paddingTop: "22px",
+    //                 position: "relative",
+    //                 top: "5.6em",
+    //               }}
+    //             >
+    //               <Button
+    //                 className="button-save"
+    //                 variant="contained"
+    //                 onClick={handlerSubmitChangePassword}
+    //               >
+    //                 Save
+    //               </Button>
+    //               <Button
+    //                 className="button-cancel"
+    //                 variant="contained"
+    //                 onClick={() => handlerCancel("password")}
+    //               >
+    //                 Cancel
+    //               </Button>
+    //             </CardActions>
+    //           </div>
+    //         ) : (
+    //           <>
+    //             {editing ? (
+    //               <div className="profileCustomer-save">
+    //                 <TextField
+    //                 
+    //                   sx={{ padding: "0px 10px 32px" }}
+    //                   label="User Name"
+    //                   variant="outlined"
+    //                   fullWidth
+    //                   name="customerName"
+    //                   defaultValue={oldCustomer.customerName}
+    //                   onChange={handleChange}
+    //                 />
+    //                 <TextField
+    //                   type="number"
+    //                 
+    //                   sx={{ padding: "0px 10px 32px" }}
+    //                   label="Phone"
+    //                   variant="outlined"
+    //                   fullWidth
+    //                   name="customerPhone"
+    //                   InputProps={{
+    //                     startAdornment: (
+    //                       <InputAdornment position="start">+84</InputAdornment>
+    //                     ),
+    //                   }}
+    //                   defaultValue={oldCustomer.customerPhone}
+    //                   onChange={handleChange}
+    //                 />
+    //                 <TextField
+    //                 
+    //                   sx={{ padding: "0px 10px 32px" }}
+    //                   label="Gender"
+    //                   variant="outlined"
+    //                   fullWidth
+    //                   name="customerGender"
+    //                   defaultValue={oldCustomer.customerGender}
+    //                   onChange={handleChange}
+    //                 />
+    //                 <TextField
+    //                 
+    //                   sx={{ padding: "0px 10px 32px" }}
+    //                   label="Address"
+    //                   variant="outlined"
+    //                   fullWidth
+    //                   name="customerAddress"
+    //                   defaultValue={oldCustomer.customerAddress}
+    //                   onChange={handleChange}
+    //                 />
+    //                 <p>{message}</p>
+    //                 <CardActions sx={{ paddingTop: "22px" }}>
+    //                   <Button
+    //                     className="button-save"
+    //                     onClick={handleEditProfile}
+    //                     variant="contained"
+    //                   >
+    //                     Save
+    //                   </Button>
+    //                   <Button
+    //                     className="button-cancel"
+    //                     onClick={() => handlerCancel("edit")}
+    //                     variant="contained"
+    //                   >
+    //                     Cancel
+    //                   </Button>
+    //                 </CardActions>
+    //               </div>
+    //             ) : updateAvatart ? (
+    //               <div className="profileCustomer-save">
+    //                 <div>
+    //                   <input type="file" onChange={handleChangeAvatar} />
+    //                 </div>
+
+    //                 <CardActions sx={{ paddingTop: "22px" }}>
+    //                   <Button
+    //                     className="button-save"
+    //                     onClick={handleSubmitAvatar}
+    //                     variant="contained"
+    //                   >
+    //                     Save
+    //                   </Button>
+    //                   <Button
+    //                     className="button-cancel"
+    //                     onClick={() => handlerCancel("avatar")}
+    //                     variant="contained"
+    //                   >
+    //                     Cancel
+    //                   </Button>
+    //                 </CardActions>
+    //               </div>
+    //             ) : (
+    //               <Grid container className="profileCustomer-edit">
+    //                 <Grid md={12} sx={{ padding: "0px 10px 32px" }}>
+    //                   User Name:
+    //                   <br />
+    //                   <p>{oldCustomer.customerName}</p>
+    //                 </Grid>
+    //                 <Grid md={12} sx={{ padding: "0px 10px 32px" }}>
+    //                   Phone:
+    //                   <br />
+    //                   <p>0{oldCustomer.customerPhone}</p>
+    //                 </Grid>
+    //                 <Grid md={12} sx={{ padding: "0px 10px 32px" }}>
+    //                   Gender:
+    //                   <br />
+    //                   <p>{oldCustomer.customerGender}</p>
+    //                 </Grid>
+    //                 <Grid md={12} sx={{ padding: "0px 10px 32px" }}>
+    //                   Address:
+    //                   <br />
+    //                   <p>{oldCustomer.customerAddress}</p>
+    //                 </Grid>
+    //                 <CardActions>
+    //                   <Button
+    //                     sx={{
+    //                       border: "1px solid #532e4d",
+    //                       backgroundColor: "#cab2b65c",
+    //                     }}
+    //                     onClick={handleEdit}
+    //                   >
+    //                     <EditIcon sx={{ paddingRight: "5px" }} />
+    //                     Edit Profile
+    //                   </Button>
+    //                 </CardActions>
+    //               </Grid>
+    //             )}
+    //           </>
+    //         )}
+    //       </Grid>
+    //     </Grid>
+    //   </div>
+    //                   </Grid> 
+                
   );
 }

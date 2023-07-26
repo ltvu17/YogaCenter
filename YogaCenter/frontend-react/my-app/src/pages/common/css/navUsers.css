@@ -1,51 +1,48 @@
-.navUsers{
+.Navigation{
   position: fixed;
-  top: 0;
-    left: 0;
-    right: 0;
   z-index: 3;
    width: 100%;
-   height: 70px;
-   display: grid;
-   grid-template-columns: 3fr 4fr;
-   background-color: #272323;
+  background-color: #000000db;
    align-items: center;
+   height: 105px;
  }
- .logoUsers{
-   margin: 0px 80px;
+ .logo{
+   margin: 0px 100px;
    text-decoration: none;
+   text-align: center;
  }
  
- .logoUsers h1{
-   color: #d2608d;
-   font-size: 25px;
+ .logo h1{
+   color: #d3c809;
+   font-size: 1.9rem;
    letter-spacing: 4px;
-   font-weight: 500;
+   font-weight: 700;
  }
- .logoUsers p{
-   color: #F9B5D0;
-   font-size: 15px;
+ .logo p{
+   color: #d4ce0db5;
+   font-size: 1.2rem;
    font-weight: 300;
-   margin: 0 70px;
    letter-spacing: 5px;
  }
- .navUsers ul{
+ .Navigation ul{
    display: flex;
+   align-items: center;
+   margin: 0 20%;
  }
- .navUsers li{
+ .Navigation li{
    list-style-type: none;
    margin: 0 auto;
-   line-height: 2.2;
+  
    
  }
 
  .nav li a {
-   font-size: 20px;
+   font-size: 1.5rem;
    text-decoration: none;
    color: white;
    font-weight: 900;
    position: relative;
-   font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+   font-family: sans-serif;
  }
  
  .nav li a::after {
@@ -62,17 +59,124 @@
  
  .nav li a:hover::after {
    width: 100%;
-
+ 
  }
+ .nav li:hover .subnav{
+   display: block;
+ }
+ .nav .subnav{
+   display: none;
+   list-style-type: none;
+   min-width: 160px;
+   
+   position: absolute; 
+   background-color:  #EEEEEE;
+ }
+ 
+ .subnav a{
+   color:  rgb(0, 0, 0);
+   padding: 0 24px;
+   line-height: 50px;
+   font-size: 16px;
+ }
+ .subnav li:hover,
+ .subnav > li:hover > a{
+   
+   width: 100%;
+   color: rgb(0, 0, 0);
+ }
+
+ /* Nav of staffff */
+ .drop-menu li{
+   display: none;
+   overflow: hidden;
+   list-style: none;
+   font-size: 20px;
+ }
+ .menu:hover .drop-menu{
+   list-style-type: none;
+ 
+   display: list-item;
+  
+   margin-left: 10px;
+   border-radius: 5px;
+ }
+ .menu:hover .drop-menu li{
+  display: block;
+ }
+ /* Navigation of customer */
+ 
+.navUsers{
+
+ width: 100%;
+ height: 70px;
+ display: grid;
+ grid-template-columns: 3fr 4fr;
+ background-color: #272323;
+ align-items: center;
+}
+.logoUsers{
+ margin: 0px 100px;
+ text-decoration: none;
+}
+
+.logoUsers h1{
+ color: #d2608d;
+ font-size: 25px;
+ letter-spacing: 4px;
+ font-weight: 500;
+}
+.logoUsers p{
+ color: #F9B5D0;
+ font-size: 15px;
+ font-weight: 300;
+ margin: 0 70px;
+ letter-spacing: 5px;
+}
+.navUsers ul{
+ display: flex;
+}
+.navUsers li{
+ list-style-type: none;
+ margin: 0 auto;
+ line-height: 2.2;
+ 
+}
+
+.nav li a {
+ font-size: 20px;
+ text-decoration: none;
+ color: white;
+ font-weight: 900;
+ position: relative;
+ font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+
+.nav li a::after {
+ content: "";
+ position: absolute;
+ left: 0;
+ bottom: -2px;
+ width: 0;
+ height: 2px;
+
+ background-color: white;
+ transition: width 0.3s ease;
+}
+
+.nav li a:hover::after {
+ width: 100%;
+
+}
 #menu-appbar ul{
-  background-color: #272323;
+background-color: #272323;
 
-  padding: 0;
+padding: 0;
+color: white;
+}
+#menu-appbar a{
+text-decoration: none;
   color: white;
- }
- #menu-appbar a{
-  text-decoration: none;
-    color: white;
-    font-weight: 900;
-    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
- }
+  font-weight: 900;
+  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}

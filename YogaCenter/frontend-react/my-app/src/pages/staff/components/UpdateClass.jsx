@@ -167,7 +167,7 @@ export default function UpdateClass({ id }) {
               padding: 1,
               margin: 1,
               color: "white",
-              backgroundColor: "#1263fd",
+              backgroundColor: "#0643b9",
             }}
           >
             Save

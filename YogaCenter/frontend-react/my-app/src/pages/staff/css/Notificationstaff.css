@@ -72,6 +72,8 @@
   width: 100%;
   border-collapse: collapse;
   background-color: #f4f4f459;
+  border-radius: 8px;
+  overflow: hidden;
 }
 
 .table-staff-noti th,

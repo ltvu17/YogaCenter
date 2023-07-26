@@ -21,7 +21,7 @@ import TextAnimation from "../../../animations/TextAnimation";
 
 const Item = styled(Paper)`
  
-    background-color: #ddddddb8;
+    background-color: #d3c809;
   height:5em;
   width: 5em;
   padding: 0;
@@ -37,25 +37,25 @@ const Item = styled(Paper)`
 const Course = styled(SelfImprovementIcon)`
    
     font-size: 50px;
-        color: #0d07099c;
+        color:white
 
 `;
 const Notifi = styled(NotificationsIcon)`
 
 font-size: 50px;
-    color: #0d07099c;
+    color:white
 
 `;
 const Schedule = styled(CalendarMonthIcon)`
 
 font-size: 50px;
-    color: #0d07099c;
+    color:white
 
 `;
 const Support = styled(PermContactCalendarIcon)`
 
     font-size: 50px;
-    color: #0d07099c;
+    color:white
 `;
 const Bedicon = styled(BedtimeIcon)`
     font-size: 50px;
@@ -101,8 +101,9 @@ export default function HomeCustomer() {
 
    return (
     <div className="HomeCustomer">
-      <div className="introduction-customer">
-        <img src="/assets/images/backGroundCustomer.png" />
+    
+      
+       
         <div className="content-customer">
           <Box sx={{ width: "100%" }}>
             <Typography variant="h2" component="h2">
@@ -152,7 +153,7 @@ export default function HomeCustomer() {
             </Grid>
           </Box>
         </div>
-      </div>
+    
     </div>
   );
 }

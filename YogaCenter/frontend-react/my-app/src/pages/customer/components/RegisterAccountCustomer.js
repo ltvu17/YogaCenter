@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import Button from "@mui/material/Button";
 import Grid from "@mui/material/Unstable_Grid2";
 import { Input, TextField,MenuItem } from "@mui/material";
@@ -15,7 +16,8 @@ import uuidv4 from "../../../service/IdPublic/IdPublic";
 
 const ariaLabel = { "aria-label": "description" };
 
-export default function RegisterAccountCustomer() {
+export default function RegisterAccountCustomer( {onRegistrationSuccess}) {
+  const navigate = useNavigate();
   //---------------------------------------API------------------------------------------
   let notificationAPI = URL_API + `Notification`;
   let userNotificationAPI = URL_API + `UserNotification`;
@@ -106,13 +108,14 @@ export default function RegisterAccountCustomer() {
           console.log(noteId);
           console.log(error);
         });
+        onRegistrationSuccess();
     } else {
       setPhoneEvent(true);
     }
   };
 
   return (
-    <div>
+    <div >
       <form onSubmit={handlerRegisterSubmit}>
         <ul className="customer-formRegister">
           {registerEven ? (
@@ -126,6 +129,7 @@ export default function RegisterAccountCustomer() {
           <li>
             <TextField
               className="customer-input"
+          
               placeholder="Email"
               inputProps={ariaLabel}
               required
@@ -137,6 +141,7 @@ export default function RegisterAccountCustomer() {
           <li>
             <TextField
               className="customer-input"
+          
               placeholder="Full name"
               inputProps={ariaLabel}
               required
@@ -149,6 +154,7 @@ export default function RegisterAccountCustomer() {
           <li>
             <TextField
               className="customer-input"
+          
               placeholder="Phone"
               inputProps={ariaLabel}
               required
@@ -160,6 +166,7 @@ export default function RegisterAccountCustomer() {
           <li>
     <TextField
       className="customer-input"
+  
       label="Gender"
       select
       required
@@ -175,6 +182,7 @@ export default function RegisterAccountCustomer() {
             <TextField
               className="customer-input"
               placeholder="street, city, district, province"
+          
               inputProps={ariaLabel}
               required
               type="Address"

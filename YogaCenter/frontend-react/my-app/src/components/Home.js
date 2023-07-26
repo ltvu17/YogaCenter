@@ -426,6 +426,7 @@ export default function Home() {
           </Typography>
         </Grid>
         <Grid container item md={12}>
+
           {listTecher.map((teacher, index) => (
             <Grid item md={3} key={index}>
               <div className="myCoach-detail" key={index}>
@@ -495,68 +496,67 @@ export default function Home() {
           </div>
         </div>
       </div>
-      <Grid container className="blog-home">
-        <Grid item md={12} className="blog-home-title">
-          <Typography variant="h1">Yoga Soul News</Typography>
-          <Typography variant="subtitle1">
-            Our most important goal should always be to provide most meaningful
-            lessons to our students, as they are capable of doing
-          </Typography>
-          <Link to="/blog">
-            <Typography className="subtitle1">
-              All<ArrowRightAltIcon></ArrowRightAltIcon>
-            </Typography>
-          </Link>
-        </Grid>
-        <Grid container item md={12}>
-          {bloges.slice(0, 4).map((blog) => (
-            <Grid key={blog.node.slug} item md={3} sx={{ padding: "20px" }}>
-              <Card className="card-blog">
-                <Link to={`/blog-detail/${blog.node.slug}`}>
-                  <div className="image-container">
-                    <CardMedia
-                      component="img"
-                      sx={{
-                        height: "250px",
-                        transition: "transform 0.3s",
-                      }}
-                      image={blog.node.image.url}
-                      className="zoom-image"
-                    />
-                    <Typography
-                      variant="subtiltle1s"
-                      sx={{
-                        position: "absolute",
-                        zIndex: "1",
-                        color: "white",
-                        bottom: "0",
-                        left: "10%",
-                        borderRadius: "10px 10px 0px 0px",
-                        padding: "6px",
-                        backgroundColor: "#babc00",
-                      }}
-                    >
-                      {filterDay(blog.node.createdAt)}
-                    </Typography>
-                  </div>
-                </Link>
-                <CardContent>
-                  <Link to={`/blog-detail/${blog.node.slug}`}>
-                    <Typography
-                      variant="h5"
-                      sx={{
-                        color: "#3f3a3a",
-                        fontWeight: "500",
-                        fontSize: "22px",
-                        margin: "0",
-                        fontFamily: "sans-serif",
-                      }}
-                    >
-                      {blog.node.title}
-                    </Typography>
-                  </Link>
-                </CardContent>
-              </Card>
+
+      <Grid container className='blog-home'>
+            <Grid item md={12} className="blog-home-title">
+                <Typography variant="h1">Yoga Soul News</Typography>
+                <Typography variant="subtitle1">Our most important goal should always be to provide most meaningful lessons to our students, as they are capable of doing</Typography>
+                <Link to='/blog'><Typography className="subtitle1">All<ArrowRightAltIcon></ArrowRightAltIcon></Typography></Link>
+            </Grid>
+            <Grid container item md={12}>
+            {bloges.slice(0,4).map(blog => (
+                    <Grid key={blog.node.slug} item md={3} sx={{ padding: '20px' }}>
+                    <Card className="card-blog" >
+                            <Link to={`/blog-detail/${blog.node.slug}`}>
+                              <div className="image-container">
+                                  <CardMedia
+                                  component="img"
+                                  sx={{
+                                      height:'250px',
+                                      transition: 'transform 0.3s',
+                                  }}
+                                  image={blog.node.image.url}
+                                  className="zoom-image"
+                                  />
+                                  <Typography variant="subtiltle1s" sx={{position:'absolute',
+                                                                        zIndex:'1',
+                                                                        color:'white',
+                                                                        bottom:'0',
+                                                                        left:'10%',
+                                                                        borderRadius: '10px 10px 0px 0px',
+                                                                        padding:'6px',
+                                                                        backgroundColor:'#babc00'}}>{filterDay(blog.node.createdAt)}</Typography>
+                              </div>
+                            </Link>
+                            <CardContent>
+                         
+                            <Link to={`/blog-detail/${blog.node.slug}`}>
+                            <Typography variant="h5" 
+                                sx={{
+                                  display: '-webkit-box',
+                                    WebkitLineClamp: 3,
+                                    WebkitBoxOrient: 'vertical',
+                                    overflow: 'hidden',
+                                    textOverflow: 'ellipsis',
+                                    color: '#3f3a3a',
+                                    fontWeight: '500',
+                                    fontSize:'22px',
+                                    margin: '0',
+                                    fontFamily:'sans-serif'
+
+                                }}>
+                                {blog.node.title}
+                                
+                            </Typography>
+                            </Link>
+                           
+                        
+                            </CardContent>
+                    
+                        </Card>
+                    </Grid>
+                ))}
+
             </Grid>
           ))}
         </Grid>
