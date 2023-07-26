@@ -280,7 +280,7 @@ font-size: 16px;
                 <div className="myCoach-detail" key={index}>
                   <img src={`/assets/images/userImage/${teacher.id}.jpg`} />
                   <h2 className="myCoach-name">{teacher.teacherName}</h2> 
-                  </Box>
+                  </div>
                 </Grid>
               ))}
           </Grid>
