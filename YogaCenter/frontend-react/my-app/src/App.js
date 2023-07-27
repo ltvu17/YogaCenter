@@ -59,7 +59,7 @@ function App() {
     const [roleCookie, setCookie] = useCookies([""]);
     var roleApp = JSON.stringify(roleCookie.Role);
     var status = JSON.stringify(roleCookie.timeout)
-    console.log(status);
+
   } catch (err) {}
  
   return (

@@ -54,6 +54,10 @@ export default function UpdateClass({ id }) {
   function submitAdd(e) {
     e.preventDefault();
     setOpen(false);
+    if(inputField.className === ''){
+      alert("You need to fill class name")
+      return;
+    }
     axios.put(getclass,{
       className : inputField.className,
       classStartDate : inputField.classStartDate,
