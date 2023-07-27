@@ -40,6 +40,11 @@ namespace YogaCenter.Repository
             return await _context.Invoice.Where(p => p.Course.Id == courseId).Include(p => p.Customer).Select(p=> p.Customer).Distinct().ToListAsync();
         }
 
+        public async Task<ICollection<Invoice>> GetInvoiceByCusIdAndClassId(Guid customerId, string classId)
+        {
+            return await _context.Invoice.Where(p => p.Customer.Id == customerId && p.Note.Equals(classId)).ToListAsync();
+        }
+
         public async Task<ICollection<Invoice>> GetInvoiceByCustomerId(Guid customerId)
         {
             return await _context.Invoice.Where(p => p.Customer.Id == customerId).Include(p => p.Course).ToListAsync();
