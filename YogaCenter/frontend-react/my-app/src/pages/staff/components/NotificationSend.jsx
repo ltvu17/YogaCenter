@@ -54,6 +54,7 @@ function NotificationSend() {
             <th>Title</th>
             <th>Desctiption</th>
             <th>Date</th>
+            <th>Action</th>
           </tr>
         </thead>
         <tbody>

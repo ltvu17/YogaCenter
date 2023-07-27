@@ -21,34 +21,39 @@ export default function CreateInvoice() {
         const [status,setStatus] = useState(false);
         const [idUser, setId] = useState(uuidv4());
         const [customers,setCustomer]= useState();
-        const [courses, setCourses] = useState();
+        const [courses, setCourses] = useState([]);
         const [course,setCourse] = useState();
-        var price =0;
+        var displayCourse =[];
         const [inputField,setInputFields] = useState({
             customerId : '',
+            classId : '',
             courseId : '',
             note:'',
             dateRequest : date,
             datePay : date,
             totalPay: 0,
-            discount:0
+            discount:''
         });
       ////URL_API
         let getAllCustomer = URL_API + `Customer`
-        let getAllCourse = URL_API+`Course`;
-        let getCourse = URL_API+`Course/${inputField.courseId===''? "1": inputField.courseId}`
+        let getAllCourse = URL_API+`Class`;
+        let getCourse = URL_API+`Class/${inputField.classId===''? "1": inputField.classId}`
+        let addClassAPI = URL_API+`ClassCustomer/${inputField.classId===''? "1": inputField.classId}`
         let postInvoice = URL_API+`Invoice`
     /// Getdata
         useEffect(()=>{
             axios.get(getAllCustomer).then(r=>setCustomer(r.data)).catch(err => console.log(err));
         },[]);
         useEffect(()=>{
-            axios.get(getAllCourse).then(r=>setCourses(r.data)).catch(err => console.log(err));
+            axios.get(getAllCourse).then(r=>
+            setCourses(r.data)
+        ).catch(err => console.log(err));
         },[]);
         useEffect(()=>{
             axios.get(getCourse).then(r=>{setCourse(r.data)
-            inputField.totalPay = r.data.coursePrice
-            inputField.discount = r.data.event?r.data.event.eventDiscount:0
+            inputField.courseId = r.data.course.id
+            inputField.totalPay = r.data.course.coursePrice
+            inputField.discount = r.data.course.event?r.data.course.event.eventDiscount:0
             inputField.totalPay=inputField.totalPay - inputField.totalPay*(inputField.discount/100)
         }).catch(err => console.log(err));
         },[inputField]);
@@ -58,9 +63,11 @@ export default function CreateInvoice() {
             return {...inputField, [e.target.name] : e.target.value }
         })    
         };
-        console.log(inputField);
-     
-
+        courses.forEach(c =>{
+            if(((new Date(c.classStartDate)).getTime()) > ((new Date(date)).getTime())){
+                displayCourse.push(c);
+            }
+        })
         const navigate = useNavigate();
         ////Submit
         async  function  SubmitHandle(){
@@ -72,9 +79,13 @@ export default function CreateInvoice() {
                 setMessage("Course ID is empty!");
                 return;
             }
+            if(course.capacity >= 20){
+                alert("This Class is full!");
+                return;
+            }
             setMessage('');
             axios.post(postInvoice,{
-                note : inputField.note,
+                note : `Paid_${inputField.classId}`,
                 dateRequest : inputField.dateRequest,
                 datePay : inputField.datePay,
                 totalPay : inputField.totalPay
@@ -84,15 +95,26 @@ export default function CreateInvoice() {
                     courseId : inputField.courseId
                 }
             })
+            axios.post(addClassAPI,{},{
+                headers:{
+                    customerId:inputField.customerId
+                }
+            })
             alert("Submit success");
             navigate(0);
         
         }
+        ///Filter
+        function filterDay(day){
+            const split = day.split("T");
+            let value = split[0];
+            return value;
+        }
+            
     return (
         <div className='create-invoice'>
              <h1 className='staff-title'>Create Invoice</h1>
         <form onSubmit={(e)=>SubmitHandle(e)}>
-        
             <Box
             sx={{
             '& > :not(style)': { m: 1, width: '35%' },
@@ -112,9 +134,11 @@ export default function CreateInvoice() {
             >       
             
             {customers? customers.map((item) =>(
+                
                 <MenuItem value={item.id} key={item.id}>                  
                         <p>{item.customerName}||0{item.customerPhone}</p>      
                     </MenuItem>
+                    
             )
             ):(<MenuItem/>)}
         
@@ -122,7 +146,7 @@ export default function CreateInvoice() {
             <br/>
             <TextField
                         onChange={ChangeHandler}
-                        name='courseId'
+                        name='classId'
                         id="outlined-select-currency"
                         select
                         label="Select Course"
@@ -130,17 +154,15 @@ export default function CreateInvoice() {
                        
                         required
             >       
-            {courses? courses.map((item) =>(
-                <MenuItem value={item.id} key={item.id}>                  
-                        <p>{item.courseDescription}||Event:{item.event?item.event.eventName:''}</p>      
-                    </MenuItem>
+            {displayCourse? displayCourse.map((item) =>(
+                (<MenuItem value={item.id} key={item.id}>                  
+                        <p>{item.className}||Course: {item.course.courseDescription}||Event:{item.course.event?item.course.event.eventName:''}</p>      
+                    </MenuItem>)
             )
             ):(<MenuItem/>)}
             </TextField>
             <br/>
             <TextField name='totalPay' type='number' required label="Total Pay" value={inputField.totalPay} onChange={ChangeHandler} variant="outlined" />
-            <br/>
-            <TextField name='note' type='text' required label="note" onChange={ChangeHandler} variant="outlined" />
             <br/>
             {message? <p style={{marginLeft:'33%', color:'red', textAlign:'left'}}>{message}</p>            
                 :''}

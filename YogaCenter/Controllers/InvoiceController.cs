@@ -15,13 +15,16 @@ namespace YogaCenter.Controllers
         private readonly IMapper _mapper;
         private readonly ICustomerRepository _customerRepository;
         private readonly ICourseRepository _courseRepository;
+        private readonly IClassCustomerRepository _classCustomer;
 
-        public InvoiceController(IInvoiceRepository invoiceRepository, IMapper mapper, ICustomerRepository customerRepository, ICourseRepository courseRepository)
+        public InvoiceController(IInvoiceRepository invoiceRepository, IMapper mapper, ICustomerRepository customerRepository,
+            ICourseRepository courseRepository, IClassCustomerRepository classCustomer)
         {
             _invoiceRepository = invoiceRepository;
             _mapper = mapper;
             _customerRepository = customerRepository;
             _courseRepository = courseRepository;
+            _classCustomer = classCustomer;
         }
         [HttpGet]
         public async Task<IActionResult> GetAllInvoice()
@@ -144,6 +147,46 @@ namespace YogaCenter.Controllers
                 return Ok("Deleted");
             }
             return NotFound();
+        }
+        [HttpPost("CancelProcedure/{classId}")]
+        public async Task<IActionResult> CancelClass(Guid classId, [FromHeader] Guid customerId)
+        {
+            if(classId.Equals(null)) { return BadRequest(); };
+            var note = "Paid_" + classId;
+            var invoices = await _invoiceRepository.GetInvoiceByClassIdAndCusId(customerId,note);
+            if (invoices == null) { return NotFound(); }
+            if(!ModelState.IsValid) { return BadRequest(ModelState); }
+            foreach(var invoice in invoices)
+            {
+                invoice.Note = "Cancel_" + classId;
+                if(await _invoiceRepository.UpdateInvoice(invoice))
+                {
+                   
+                }
+            }
+
+            return Ok();
+
+        }
+        [HttpPost("CancelCustomerProcedure/{classId}")]
+        public async Task<IActionResult> CancelCustomer(Guid classId, [FromHeader] Guid customerId)
+        {
+            if (classId.Equals(null)) { return BadRequest(); };
+            var note = "Paid_" + classId;
+            var invoices = await _invoiceRepository.GetInvoiceByClassIdAndCusIdToCancel(customerId, note);
+            if (invoices == null) { return NotFound(); }
+            if (!ModelState.IsValid) { return BadRequest(ModelState); }
+            foreach (var invoice in invoices)
+            {
+                invoice.Note = "Cancel_" + classId;
+                if (await _invoiceRepository.UpdateInvoice(invoice))
+                {
+                    return Ok();
+                }
+            }
+            return BadRequest();
+            
+
         }
     }
 }
