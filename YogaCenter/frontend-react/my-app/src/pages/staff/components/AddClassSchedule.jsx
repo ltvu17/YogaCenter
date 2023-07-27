@@ -92,7 +92,7 @@ export default function AddClassSchedule() {
         }).then(r=> console.log(r)).catch(err=>console.log(err));
         navigate(0);
     }
-    console.log(day)
+    console.log(inputField.lessonDate);
     ///Handler
     const AddHandler = ()=>{
         if(count < 1)
