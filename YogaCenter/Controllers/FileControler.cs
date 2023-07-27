@@ -16,7 +16,10 @@ namespace YogaCenter.Controllers
             {
                 if (fileDto.File != null && fileDto.File.Length > 0)
                 {
-                    string fullPath = Path.Combine(_uploadDirectory, fileDto.FilePath, fileDto.FileName);
+                    string endPath = fileDto.FilePath;
+                    string rootDirectory = Path.Combine(AppContext.BaseDirectory, "wwwroot");
+                    string fullPathCheck = Path.Combine(rootDirectory, endPath);
+                    string fullPath = Path.Combine(_uploadDirectory, fullPathCheck, fileDto.FileName);
 
                     // Tạo thư mục nếu nó không tồn tại
                     Directory.CreateDirectory(Path.GetDirectoryName(fullPath));

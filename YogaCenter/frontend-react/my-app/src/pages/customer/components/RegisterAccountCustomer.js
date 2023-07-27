@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Button from "@mui/material/Button";
 import Grid from "@mui/material/Unstable_Grid2";
-import { Input, TextField,MenuItem } from "@mui/material";
+import { Input, TextField, MenuItem } from "@mui/material";
 import { styled } from "@mui/system";
 import { useCookies } from "react-cookie";
 import axios from "axios";
@@ -13,10 +13,9 @@ import {
 } from "../../../service/IdPublic/IdPublic";
 import uuidv4 from "../../../service/IdPublic/IdPublic";
 
-
 const ariaLabel = { "aria-label": "description" };
 
-export default function RegisterAccountCustomer( {onRegistrationSuccess}) {
+export default function RegisterAccountCustomer({ onRegistrationSuccess }) {
   const navigate = useNavigate();
   //---------------------------------------API------------------------------------------
   let notificationAPI = URL_API + `Notification`;
@@ -96,7 +95,6 @@ export default function RegisterAccountCustomer( {onRegistrationSuccess}) {
         )
         .then((res) => {
           console.log(noteId);
-          console.log("succes create userNotification");
           setCustomerEmail("");
           setCustomerName("");
           setCustomerPhone("");
@@ -108,14 +106,14 @@ export default function RegisterAccountCustomer( {onRegistrationSuccess}) {
           console.log(noteId);
           console.log(error);
         });
-        onRegistrationSuccess();
+      onRegistrationSuccess();
     } else {
       setPhoneEvent(true);
     }
   };
 
   return (
-    <div >
+    <div>
       <form onSubmit={handlerRegisterSubmit}>
         <ul className="customer-formRegister">
           {registerEven ? (
@@ -129,7 +127,6 @@ export default function RegisterAccountCustomer( {onRegistrationSuccess}) {
           <li>
             <TextField
               className="customer-input"
-          
               placeholder="Email"
               inputProps={ariaLabel}
               required
@@ -141,7 +138,6 @@ export default function RegisterAccountCustomer( {onRegistrationSuccess}) {
           <li>
             <TextField
               className="customer-input"
-          
               placeholder="Full name"
               inputProps={ariaLabel}
               required
@@ -154,7 +150,6 @@ export default function RegisterAccountCustomer( {onRegistrationSuccess}) {
           <li>
             <TextField
               className="customer-input"
-          
               placeholder="Phone"
               inputProps={ariaLabel}
               required
@@ -164,25 +159,23 @@ export default function RegisterAccountCustomer( {onRegistrationSuccess}) {
             />
           </li>
           <li>
-    <TextField
-      className="customer-input"
-  
-      label="Gender"
-      select
-      required
-      value={customerGender}
-      onChange={handleGenderChange}
-    >
-      <MenuItem value="male">Male</MenuItem>
-      <MenuItem value="female">Female</MenuItem>
-      <MenuItem value="other">Other</MenuItem>
-    </TextField>
-  </li>
+            <TextField
+              className="customer-input"
+              label="Gender"
+              select
+              required
+              value={customerGender}
+              onChange={handleGenderChange}
+            >
+              <MenuItem value="male">Male</MenuItem>
+              <MenuItem value="female">Female</MenuItem>
+              <MenuItem value="other">Other</MenuItem>
+            </TextField>
+          </li>
           <li>
             <TextField
               className="customer-input"
               placeholder="street, city, district, province"
-          
               inputProps={ariaLabel}
               required
               type="Address"
