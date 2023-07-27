@@ -52,12 +52,14 @@ namespace YogaCenter.Controllers
         [HttpGet("{classId}")]
         public async Task<IActionResult> GetClassesById(Guid classId)
         {
-            var classs = await _classesRepository.GetClassById(classId);
+            var classs =  _mapper.Map<ClassCapacityDto>( await _classesRepository.GetClassById(classId));
+
             if(classs ==null) return BadRequest(ModelState);
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
+            classs.capacity = await _classesRepository.GetClassCapacity(classs.Id);
             return Ok(classs);
         }
         [HttpPost]
@@ -143,12 +145,15 @@ namespace YogaCenter.Controllers
             if(lessons.Count > 0) { foreach(var lesson in lessons)
                 {
                     await _lessonRepository.DeleteLesson(lesson);
-                } }
-            if (classs == null) { return BadRequest(); }
-            if (await _classesRepository.DeleteClass(classs))
-            {
+                    
+                }
                 return Ok("Deleted");
             }
+            if (classs == null) { return BadRequest(); }
+            /*if (await _classesRepository.DeleteClass(classs))
+            {
+                return Ok("Deleted");
+            }*/
             return NotFound();
         }
     }
