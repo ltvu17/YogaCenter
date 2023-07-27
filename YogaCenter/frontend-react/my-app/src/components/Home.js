@@ -556,9 +556,11 @@ export default function Home() {
                         </Card>
                     </Grid>
                 ))}
-  
+
+            </Grid>
+          
         </Grid>
-      </Grid>
+  
       <Grid
         container
         className="customer-care"
