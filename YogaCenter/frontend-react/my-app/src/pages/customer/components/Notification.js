@@ -58,10 +58,16 @@ export default function Notification() {
         setCurrentPage(page);
       };
   return (
-    <div>
-    <div style={{height :'100px'}}></div>
+    <div className='noti-container'
+        style={{  width: '100%',
+    minHeight: '100vh',
+  
+    paddingTop: '105px'}}>
     <div className='staff-inbox'  style={{position :'unset', textAlign:'center'}}>
-    <Typography variant='h3'>Notification</Typography>
+    <Typography variant='h3' sx={{   marginTop: '20px',
+    fontFamily: 'sans-serif',
+    fontWeight: '600',
+    fontSize: '3.5em'}}>Notification</Typography>
     <table  className='table-staff-noti' style={{width:'80%', marginLeft:'10%'}}>
         <thead>
             <tr >

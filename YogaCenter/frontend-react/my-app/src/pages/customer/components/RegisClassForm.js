@@ -111,7 +111,7 @@ export default function RegisClasForm({courseId}) {
     <div>
       <div style={{height:"100px"}}></div>
      <div className='invoice'>
-             <h1 className='staff-title'>Shopping Cart</h1>
+             <h1 className='staff-title'>By Course</h1>
             <Box
             sx={{
             '& > :not(style)': { m: 1, width: '70%' },

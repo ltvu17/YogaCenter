@@ -17,7 +17,7 @@ export default function HomeInstructor() {
   }, []);
   return (
     <div className="HomeInstructor">
-      <Grid container sx={{ height: "100vh", marginTop: "70px" }}>
+      <Grid container sx={{ height: "100vh"}}>
         <Grid item md={7}>
           <div className="ins-home-title">
             <h2>Welcome</h2>

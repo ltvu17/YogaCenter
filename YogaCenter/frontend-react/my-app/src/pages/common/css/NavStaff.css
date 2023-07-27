@@ -28,6 +28,7 @@
 }
 .NavStaff:hover a{
   display: flex;
+  align-items: center;
 }
 
 .NavStaff .nav-sub-staff {

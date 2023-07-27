@@ -126,12 +126,12 @@ export default function UpdateCourse({id}) {
                           ))):''}
                           </select>
                           </td>
-                    <td><Button variant='text'  type='submit' onClick={submitAdd}
+                    <td><Button variant='contained'  type='submit' onClick={submitAdd}
                        sx={{
               padding: 1,
               margin: 1,
               color: "white",
-              backgroundColor: "#1263fd",
+              backgroundColor: "#0643b9",
             }}>Save</Button></td>
             </tr>
             </tbody>
