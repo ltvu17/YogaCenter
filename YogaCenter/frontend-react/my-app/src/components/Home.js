@@ -558,9 +558,9 @@ export default function Home() {
                 ))}
 
             </Grid>
-          ))}
+          
         </Grid>
-      </Grid>
+  
       <Grid
         container
         className="customer-care"

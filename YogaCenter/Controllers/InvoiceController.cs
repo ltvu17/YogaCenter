@@ -63,6 +63,15 @@ namespace YogaCenter.Controllers
             var invoice = await _invoiceRepository.GetInvoiceByCustomerId(customerId);
             return Ok(invoice);
         }
+        [HttpGet("{customerId}/{classId}")]
+        public async Task<IActionResult> GetInvoiceByCusIdAndClassId(Guid customerId, string classId)
+        {
+            if (customerId.Equals(null)|| classId.Equals(null)) return BadRequest();
+            if (!ModelState.IsValid) { return BadRequest(ModelState); }
+            var classid = "Paid-" + classId;
+            var invoice = await _invoiceRepository.GetInvoiceByCusIdAndClassId(customerId, classid);
+            return Ok(invoice);
+        }
 
         [HttpPost]
         public async Task<IActionResult> CreateInvoice([FromHeader] Guid customerId, [FromHeader] Guid courseId, [FromBody] InvoiceDto invoiceDto)
@@ -102,7 +111,7 @@ namespace YogaCenter.Controllers
             if (customerId.Equals(Guid.Empty) || courseId.Equals(Guid.Empty)) { return BadRequest("Miss Something"); }
             if (!await _customerRepository.CustomerExists(customerId)) return BadRequest("Customer is not exists");
             if (!await _courseRepository.CourseExists(courseId)) return BadRequest("Course is not exists");
-            if (await _invoiceRepository.InvoiceExistsByTransaction(invoiceDto.Note)) return BadRequest("Bad Transaction");
+            //if (await _invoiceRepository.InvoiceExistsByTransaction(invoiceDto.Note)) return BadRequest("Bad Transaction");
             if (!ModelState.IsValid) { return BadRequest(ModelState); }
             var invoice = _mapper.Map<Invoice>(invoiceDto);
      

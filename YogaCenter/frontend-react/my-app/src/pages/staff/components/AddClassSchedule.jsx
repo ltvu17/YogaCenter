@@ -30,9 +30,21 @@ export default function AddClassSchedule() {
     const navigate = useNavigate();
     var day ;
     if(parseInt(location.state.month)<10){
-        day = `${location.state.year}-0${location.state.month}-${location.state.date}`;
+        // day = ${location.state.year}-0${location.state.month}-${location.state.date};
+        if(parseInt(location.state.date)<10){
+            day = `${location.state.year}-0${location.state.month}-0${location.state.date}`;
+        }
+        else{
+            day = `${location.state.year}-0${location.state.month}-${location.state.date}`;
+        }
     }else{
-        day = `${location.state.year}-${location.state.month}-${location.state.date}`;
+        // day = ${location.state.year}-${location.state.month}-${location.state.date};
+        if(parseInt(location.state.date)<10){
+            day = `${location.state.year}-${location.state.month}-0${location.state.date}`;
+        }
+        else{
+            day = `${location.state.year}-${location.state.month}-${location.state.date}`;
+        }
     }
     
     const [classes,getClass] = useState();
