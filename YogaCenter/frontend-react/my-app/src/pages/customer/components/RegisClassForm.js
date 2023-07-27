@@ -81,7 +81,7 @@ export default function RegisClasForm({courseId}) {
   }
   }
 
-  let amount = 'vnp_Amount='+inputField.totalPaid*100;
+  let amount = 'vnp_Amount='+inputField.totalPaid*22000*100;
   let command = '&vnp_Command='+commandPay;
   let createDate = '&vnp_CreateDate='+parseDate();
   let curCode = '&vnp_CurrCode='+currCode;
