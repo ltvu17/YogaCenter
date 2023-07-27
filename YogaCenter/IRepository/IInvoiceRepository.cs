@@ -10,6 +10,8 @@ namespace YogaCenter.IRepository
         public Task<ICollection<Invoice>> GetInvoiceByCusIdAndClassId(Guid customerId, string classId);
         public Task<ICollection<Customer>> GetInvoiceByCourseId(Guid courseId);
         public Task<ICollection<Customer>> GetAllStudents();
+        public Task<ICollection<Invoice>> GetInvoiceByClassIdAndCusId(Guid cusId, string classId);
+        public Task<ICollection<Invoice>> GetInvoiceByClassIdAndCusIdToCancel(Guid cusId, string classId);
         public Task<bool> CreateInvoice(Invoice invoice);
         public Task<bool> UpdateInvoice(Invoice invoice);
         public Task<bool> DeleteInvoice(Invoice invoiceDelete);

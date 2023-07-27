@@ -16,7 +16,9 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
-
+var curr = new Date();
+curr.setDate(curr.getDate() + 1);
+var date = curr.toISOString().substring(0, 10);
 
 export default function StudentManage() {
     ///Declare
@@ -41,6 +43,8 @@ export default function StudentManage() {
     let getStudentAlreadyHaveClassAPI = URL_API+`ClassCustomer/course/${location.state.courseId}`
     let deleteStudentClass = URL_API+`ClassCustomer/${id}`
     ///Get DATA
+    console.log(location.state)
+    
     useEffect(()=>{
         if(id !== ''){
             axios.get(studentClassAPI).then(r=> {setStudentPosts(r.data)}).catch(err => console.log(err));
@@ -56,6 +60,7 @@ export default function StudentManage() {
             axios.get(getAllStudentRegisAPI).then(r => {setStudents(r.data)}).catch(err => console.log(err));
         }
     },[id]);
+
     console.log(location);
     ////Fuctions
 
@@ -72,11 +77,17 @@ export default function StudentManage() {
         )
         navigate(0);
     }
+    let cancelCustomerAPI = URL_API+`Invoice/CancelCustomerProcedure/${id}`;
     const deleteSubmit = () =>{
        axios.delete(deleteStudentClass,{
         headers:{
         customerId : idDelete,
        }}).then(r => console.log(r)).catch(err => console.log(err))
+       axios.post(cancelCustomerAPI,{},{
+            headers:{
+                customerId: idDelete,
+            }
+       })
        navigate(0);
     }
     
@@ -115,7 +126,6 @@ export default function StudentManage() {
             setAddMode(p => false);
         }
     }
-    console.log(currentList);
     const back = () =>{
         navigate('/staffmanage');
     }
@@ -128,10 +138,17 @@ export default function StudentManage() {
         sx={{float:'right',padding :1,margin:1, color: 'white', fontSize:'18px',fontWeight:'600', backgroundColor:'black'}}>Back to class list</Button>
         <div>
         <h1>Class Name: {name}</h1>
-        {studentPosts.length < 20? (
+        {/* {(((new Date(location.state.classStartDate)).getTime()) > ((new Date(date)).getTime())) 
+                                    ? studentPosts.length < 20? (
+                                        <div><Button className='button-add'variant='contained' startIcon={<PersonAddIcon fontSize='large'/>} onClick={addMode}
+                                        sx={{padding :1,margin:1, color: 'white', backgroundColor:'#1263fd'}}>Add Student</Button></div>
+                                        ):''
+                                    :(((new Date(location.state.classEndDate)).getTime()) > ((new Date(date)).getTime()))?<p style={{color:"red"}}></p>:<p></p>        
+                                    } */}
+        {/* {studentPosts.length < 20? (
         <div><Button className='button-add'variant='contained' startIcon={<PersonAddIcon fontSize='large'/>} onClick={addMode}
         sx={{padding :1,margin:1, color: 'white', backgroundColor:'#1263fd'}}>Add Student</Button></div>
-        ):''}
+        ):''} */}
         </div>
         
         <table className='table-add-class'>
@@ -151,8 +168,13 @@ export default function StudentManage() {
             <td>{item.customerId}</td>
             <td>{item.customer.customerName}</td>
             <td>N/a</td>
-            <td><Button variant='text' size='small' startIcon={<DeleteForeverOutlinedIcon/>} onClick={()=>deleteStudent(item.customerId)}
-                sx={{padding :1,margin:1, color: 'white', backgroundColor:'#a70707'}}>Delete Student</Button></td>
+            <td>
+            {(((new Date(location.state.classStartDate)).getTime()) > ((new Date(date)).getTime())) 
+                                    ? <Button variant='text' size='small' startIcon={<DeleteForeverOutlinedIcon/>} onClick={()=>deleteStudent(item.customerId)}
+                                    sx={{padding :1,margin:1, color: 'white', backgroundColor:'#a70707'}}>Delete Student</Button>
+                                    :(((new Date(location.state.classEndDate)).getTime()) > ((new Date(date)).getTime()))?<p style={{color:"red"}}></p>:<p></p>        
+                                    }
+                </td>
         </tr>
      ))): <tr></tr>}
     {add === true ? students.map(((item,index)=>
