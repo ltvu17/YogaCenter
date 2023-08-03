@@ -21,6 +21,9 @@ import TextField from '@mui/material/TextField';
 import Box from '@mui/material/Box';
 import CheckIcon from '@mui/icons-material/Check';
 
+var curr = new Date();
+curr.setDate(curr.getDate() + 1);
+var date = curr.toISOString().substring(0, 10);
 export default function ScheduleManage() {
   ////initiate data
 
@@ -30,7 +33,7 @@ export default function ScheduleManage() {
     const [currentMonth,setCurrenMonth] = useState(location.state !== null? parseInt(location.state.month): (new Date).getMonth()+1);
     const [currentYear,setCurrentYear]= useState(location.state !== null? parseInt(location.state.year):(new Date).getFullYear());
     const [addSchedule,SetAddschedule] = useState(false);
-    const [classes,getClass] = useState();
+    const [classes,getClass] = useState([]);
     const [rooms,getRoom] = useState();
     const [shifts,getShift] = useState();
     const [classInfor,setClassInfor] = useState();
@@ -237,22 +240,26 @@ width: 8rem;
       alert("You must fill all the field");
       return
     }
+
     if(classInfor !== undefined){
     let flag = false;
     let curentDate = (new Date(filterDay(classInfor.classStartDate)))
     let getDateOfWeek = curentDate.getDay();
     let getDateOfMonth = curentDate.getDate();
-
+    
     if(inputField.lessonDate === "246"){
-      if(!"246".includes((getDateOfWeek+1).toString()))
+      if(!"246".includes((getDateOfWeek+1).toString())){
       alert("The start date do not match");
       return;
+      }
     }
     if(inputField.lessonDate === "357"){
-      if(!"357".includes((getDateOfWeek+1).toString()))
+      if(!"357".includes((getDateOfWeek+1).toString())){
       alert("The start date do not match");
       return;
+      }
     }
+
     if(getDateOfWeek == 0){
       alert("The start date do not match");
       return;
@@ -307,6 +314,7 @@ width: 8rem;
         }
       }
     })
+
     if(flag) {
       alert("Dupplicate lesson");
       return;
@@ -326,7 +334,13 @@ width: 8rem;
 
     }
   }
-  console.log(displaydata);
+  var classDisplay =[]
+  classes.forEach(c =>{
+    if(((new Date(filterDay(c.classStartDate))).getTime()) > ((new Date(date)).getTime())){
+      classDisplay.push(c);
+    }
+  })
+ 
   return (
     <div className='Manage-schedule'>
       <h1 className='staff-title'>Schedule Management </h1>
@@ -428,7 +442,8 @@ width: 8rem;
       <p>Class name</p>
       <TextField defaultValue='' select label ="Choose Class" required name='classId' onChange={ChangeHandler}>      
                         {/* <MenuItem value="0" disabled hidden>Choose Class</MenuItem>                     */}
-                        {classes.map(((item,index) =>(                                                     
+                        {classDisplay.map(((item,index) =>( 
+                                                                              
                                 <MenuItem key={index} value={item.id} >{item.className}</MenuItem>                      
                         )))}
                         </TextField>

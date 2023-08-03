@@ -43,6 +43,7 @@ export default function Staffmanage() {
     });
     const [idUpdate, setUpdate] = useState('');
     const [idDelete, setIdDelete] = useState('');
+    const [classCancelInfor,setClassCancel] = useState([]);
     const [idStudentManage, setIdStudentManage] = useState({
         id: '',
         name: ''
@@ -64,7 +65,9 @@ export default function Staffmanage() {
     let getallcourse = URL_API + 'Course';
     let getallteaccher = URL_API + 'Teacher';
     let postNewClass = URL_API + 'Class';
-    let deleteClassURL = URL_API + `Class/${idDelete}`
+    let deleteClassAPI = URL_API+`Class/${idDelete}`
+    let cancelClassURL = URL_API + `Invoice/CancelProcedure/${idDelete}`
+    let cancelUpdateClass = URL_API + `Class/${idDelete}`;
 
     ///////GET API
     //GetAllclass
@@ -88,10 +91,21 @@ export default function Staffmanage() {
     ///DeleteClass
     const deleteSubmit = () => {
         setOpen(false);
-        navigate(0);
-        axios.delete(deleteClassURL).then(r => {
-            console(r)
+        axios.delete(deleteClassAPI).then(r=>console.log(r)).catch(err=>console.log(err));
+        axios.post(cancelClassURL).then(r => {
+            console.log(r)
         }).catch(er => console.log(er))
+        axios.put(cancelUpdateClass,{
+            className : classCancelInfor.className,
+            classStartDate : date,
+            classEndDate : date,
+        },{
+            headers:{
+                teacherId : null,
+                courseId : classCancelInfor.course.id
+            }
+        }).then(r=>console.log(r)).catch(err=>console.log(err));
+        navigate(0);
     }
 
 
@@ -200,10 +214,10 @@ export default function Staffmanage() {
     }
 
     
-    function deleteClass(value){
+    function deleteClass(value,item){
         setOpen(true);     
+        setClassCancel(item);
         setIdDelete(value);  
-
 
     }
 
@@ -217,7 +231,7 @@ export default function Staffmanage() {
 
           }    
     } 
-    function getValueStudentManage(Name,Id,courseId){
+    function getValueStudentManage(Name,Id,courseId,item){
         if(idStudentManage.id === '')
         setIdStudentManage(p => {
             return{
@@ -225,7 +239,8 @@ export default function Staffmanage() {
                 name:Name
             }
         });
-        navigate('/studentmanage',{state: { id : Id,name : Name,courseId : courseId}}); 
+        navigate('/studentmanage',{state: { id : Id,name : Name,courseId : courseId, classStartDate: filterDay(item.classStartDate),
+        classEndDate: filterDay(item.classEndDate)}}); 
     } 
 
 
@@ -304,6 +319,7 @@ export default function Staffmanage() {
                                 <th>Teacher</th>
                                 <th>Course</th>
                                 <th>Capacity</th>
+                                <th>Status</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
@@ -317,31 +333,72 @@ export default function Staffmanage() {
                                     <td>{item.teacher ? item.teacher.teacherName : null}</td>
                                     <td>{item.course.courseDescription}</td>
                                     <td>{item.capacity}/20</td>
-                                    <td style={{ textAlign: 'center',width:'30%',padding:'10px' }}>
-                              
-                                    <Box sx={{ width: 1 }}>
+                                    <td>{(((new Date(filterDay(item.classStartDate))).getTime()) > ((new Date(date)).getTime())) 
+                                    ? (<p style={{color:"blue"}}>Incoming</p>)
+                                    :(((new Date(filterDay(item.classEndDate))).getTime()) > ((new Date(date)).getTime()))?<p style={{color:"red"}}>Running</p>:<p>Expired</p>        
+                                    }</td>
+                                    <td style={{ textAlign: 'center',width:'20%',padding:'10px' }}>
+                                    {(((new Date(filterDay(item.classStartDate))).getTime()) > ((new Date(date)).getTime())) 
+                                    ? ( <Box sx={{ width: 1 }}>
                                         <Box display="grid" gridTemplateColumns="repeat(12, 1fr)" gap={2}>
                                             <Box gridColumn="span 6">
-                                                <CustomButton variant="contained" startIcon={<UpgradeRoundedIcon />} onClick={() => getvalueUpdate(item.id)}
-                                                    sx={{color: 'white',padding:'6px 23px'}}>
+                                                <CustomButton size='small' variant="contained" startIcon={<UpgradeRoundedIcon />} onClick={() => getvalueUpdate(item.id)}
+                                                    sx={{color: 'white',padding:'5px 10px'}}>
                                                     Update Class
                                                 </CustomButton>
                                             </Box>
                                             <Box gridColumn="span 6">
-                                                <DeleteButton variant="contained" startIcon={<DeleteForeverOutlinedIcon />} onClick={() => deleteClass(item.id)}
-                                                    sx={{color: 'white',padding:'6px 23px'}}>
-                                                    Delete Class
+                                                <DeleteButton size='small' variant="contained" startIcon={<DeleteForeverOutlinedIcon />} onClick={() => deleteClass(item.id,item)}
+                                                    sx={{color: 'white',padding:'5px 10px'}}>
+                                                    Cancel Class
                                                 </DeleteButton>
                                             </Box>
                                             <Box gridColumn="span 12">
-                                                <CustomButton variant="contained" startIcon={<AccessibilityNewIcon />} onClick={() => getValueStudentManage(item.className, item.id,item.course.id)}
+                                                <CustomButton size='small' variant="contained" startIcon={<AccessibilityNewIcon />} onClick={() => getValueStudentManage(item.className, item.id,item.course.id, item)}
                                                     sx={{color: 'white',width: '100%'}}>
                                                     Student Manage
                                                 </CustomButton>
                                             </Box>
 
                                         </Box>
-                                    </Box>
+                                    </Box>)
+                                    :(((new Date(filterDay(item.classEndDate))).getTime()) > ((new Date(date)).getTime()))?
+                                    <p style={{color:"red"}}>Running</p>:
+                                    <Box sx={{ width: 1 }}>
+                                        <Box display="grid" gridTemplateColumns="repeat(12, 1fr)" gap={2}> 
+                                            <Box gridColumn="span 12">
+                                                <CustomButton size='small' variant="contained" startIcon={<AccessibilityNewIcon />} onClick={() => getValueStudentManage(item.className, item.id,item.course.id,item)}
+                                                    sx={{color: 'white',width: '100%'}}>
+                                                    Student Manage
+                                                </CustomButton>
+                                            </Box>
+
+                                        </Box>
+                                    </Box>       
+                                    }
+                                    {/* <Box sx={{ width: 1 }}>
+                                        <Box display="grid" gridTemplateColumns="repeat(12, 1fr)" gap={2}>
+                                            <Box gridColumn="span 6">
+                                                <CustomButton size='small' variant="contained" startIcon={<UpgradeRoundedIcon />} onClick={() => getvalueUpdate(item.id)}
+                                                    sx={{color: 'white',padding:'5px 10px'}}>
+                                                    Update Class
+                                                </CustomButton>
+                                            </Box>
+                                            <Box gridColumn="span 6">
+                                                <DeleteButton size='small' variant="contained" startIcon={<DeleteForeverOutlinedIcon />} onClick={() => deleteClass(item.id,item)}
+                                                    sx={{color: 'white',padding:'5px 10px'}}>
+                                                    Cancel Class
+                                                </DeleteButton>
+                                            </Box>
+                                            <Box gridColumn="span 12">
+                                                <CustomButton size='small' variant="contained" startIcon={<AccessibilityNewIcon />} onClick={() => getValueStudentManage(item.className, item.id,item.course.id)}
+                                                    sx={{color: 'white',width: '100%'}}>
+                                                    Student Manage
+                                                </CustomButton>
+                                            </Box>
+
+                                        </Box>
+                                    </Box> */}
                                     </td>
                                 </tr>
                             )))}
@@ -379,7 +436,7 @@ export default function Staffmanage() {
                             )))}
                            
                             <tr>
-                                <td colSpan={8}><CustomButton variant="contained" onClick={AddHandler}
+                                <td colSpan={9}><CustomButton variant="contained" onClick={AddHandler}
                                     startIcon={<AddCircleOutlineRoundedIcon sx={{ fontSize: 30 }}>add_circle</AddCircleOutlineRoundedIcon>}
                                     sx={{ margin:'15px'}}>Add New Class</CustomButton></td>
                             </tr>
@@ -421,7 +478,8 @@ export default function Staffmanage() {
                     </DialogTitle>
                     <DialogContent>
                         <DialogContentText id="alert-dialog-description" >
-                            <p style={{ color: 'red' }}>Do you want to delete this class ?</p>
+                            <p style={{ color: 'red' }}>Do you want to Cancel this class ?</p>
+                            <p style={{ color: 'black' }}>This class will be close permanently!</p>
                         </DialogContentText>
                     </DialogContent>
                     <DialogActions>
