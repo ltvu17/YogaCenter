@@ -425,13 +425,13 @@ export default function Home() {
             to certification
           </Typography>
         </Grid>
-        <Grid container item md={12}>
+        <Grid container item md={12} spacing={4} sx={{    padding: '0 10%',marginTop:'20px'}}>
 
           {listTecher.map((teacher, index) => (
             <Grid item md={3} key={index}>
               <div className="myCoach-detail" key={index}>
                 <img src={`/assets/images/userImage/${teacher.id}.jpg`} />
-                <h2 className="myCoach-name">{teacher.teacherName}</h2>
+                <div className="myCoach-detail-inf"><h2 className="myCoach-name">{teacher.teacherName}</h2></div>
               </div>
             </Grid>
           ))}
